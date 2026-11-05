@@ -34,6 +34,7 @@ Node 24 (`.nvmrc`). Aja ensin `nvm use`.
 - Uudella artikkelilla pitää olla hakusana, alle 155 merkin metakuvaus, kehotus palveluun, ensisijaiset lähteet ja päivityspäivä. Linkitä se palvelusivulta ja palvelusivulle.
 - Palvelusivu ja artikkeli eivät kilpaile samasta hausta: palvelusivu vastaa ostoaikeeseen, artikkeli tiedonhakuun.
 - Sakot ja tietomurrot kerrotaan faktoina, ei pelotteluna. Älä keksi tapauksia, lukuja, pätevyyksiä tai referenssejä. Tuntematon tieto on Täydennä-merkintä.
+- Ohjelmistoartikkelien toimittajatiedot tarkistetaan toimittajan omasta dokumentaatiosta, ja niihin merkitään tarkistushetki. Ehdot muuttuvat, joten tarkista ne neljännesvuosittain.
 - Lakiviittaukset tarkistetaan ensisijaisesta lähteestä, ja keskeneräiset lakihankkeet kerrotaan päivämäärän kanssa.
 - Uudet riippuvuudet tarkalla versiolla (`.npmrc`), vähintään 14 päivää vanha versio, `npm audit` muutoksen jälkeen.
 - Älä julkaise (`firebase deploy`, `git push`) ilman erillistä pyyntöä. `julkaistu: true` vain, kun `npm run tarkista:julkaisu` menee läpi.

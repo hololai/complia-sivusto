@@ -1,14 +1,19 @@
 ---
-h1: "Copilot ja ChatGPT työpaikalla – tietosuojan tarkistuslista"
-otsikko: "Copilot ja ChatGPT työpaikalla: GDPR-tarkistuslista | Complia"
-kuvaus: "Ennen kuin otatte Copilotin tai ChatGPT:n käyttöön, käykää läpi nämä kahdeksan kohtaa. Tarkistuslista yrityksille ja kunnille."
+h1: "Copilot, Gemini, Claude ja ChatGPT työpaikalla – tietosuojan tarkistuslista"
+otsikko: "Copilot, Gemini ja ChatGPT työpaikalla: GDPR-lista | Complia"
+kuvaus: "Ennen kuin otatte Copilotin, Geminin, Clauden tai ChatGPT:n käyttöön, käykää läpi nämä kahdeksan kohtaa. Tarkistuslista yrityksille ja kunnille."
 tiivistelma: "Kahdeksan asiaa, jotka kannattaa tarkistaa ennen kuin tekoälytyökalu otetaan käyttöön."
 hakusana: copilot
 kohde: molemmat
+ryhma: ohjelmistot
 jarjestys: 6
 julkaistu: 2026-11-05
 paivitetty: 2026-11-05
 palvelu: ennakkoarvio
+liittyvat:
+  - microsoft-365-copilot-tietosuoja
+  - google-gemini-tietosuoja
+  - claude-team-tietosuoja
 kehotus:
   otsikko: "Haluatko arvion valmiina?"
   teksti: "Teemme ennakkoarvion kahdessa arkipäivässä, alkaen {{ennakkoarvio.pieni}}, ja tarvittaessa vaikutustenarvioinnin. Esimerkki: 25 hengen yritys, Copilotin käyttöönotto, enintään {{esim.copilot}} (alv 0 %)."
@@ -36,12 +41,33 @@ Tekoälyavustajat säästävät aikaa, mutta niihin kirjoitetaan helposti asiakk
 
 1. **Käytättekö yritysversiota?** Ilmaisissa kuluttajaversioissa syötettyjä tietoja voidaan käyttää palvelun kehittämiseen. Yritysversioiden sopimuksissa tämä on yleensä rajattu – tarkistakaa omanne.
 2. **Onko toimittajan kanssa käsittelysopimus?** Kun toimittaja käsittelee henkilötietoja puolestanne, kirjallinen käsittelysopimus on pakollinen.
-3. **Missä tiedot sijaitsevat?** Selvittäkää, siirtyvätkö tiedot EU:n ja ETA:n ulkopuolelle ja millä siirtoperusteella.
+3. **Missä tiedot sijaitsevat?** Selvittäkää, siirtyvätkö tiedot EU:n ja ETA:n ulkopuolelle ja millä siirtoperusteella. Jos peruste on vakiosopimuslausekkeet, tarvitaan myös [siirtovaikutusten arviointi](/siirtovaikutusten-arviointi).
 4. **Ovatko käyttöoikeudet kunnossa?** Microsoft 365 Copilot näkee kaiken, mihin käyttäjällä on oikeus. Jos kansiot on jaettu liian laajasti, Copilot voi tuoda esiin palkkatietoja tai henkilöstöasioita väärälle ihmiselle. Korjatkaa jaot ennen käyttöönottoa.
 5. **Tarvitaanko vaikutustenarviointi?** Uusi teknologia ja työntekijöiden tiedot täyttävät usein kaksi kriteeriä, jolloin arviointi on yleensä tarpeen. Tehkää vähintään [ennakkoarvio](/tarvitaanko-vaikutustenarviointi).
 6. **Onko henkilöstöllä ohje?** Kertokaa selvästi, mitä työkaluun saa kirjoittaa ja mitä ei. Esimerkiksi henkilötunnukset, terveystiedot ja asiakkaiden yksilöivät tiedot kielletään.
-7. **Pitääkö tietosuojaselostetta päivittää?** Jos tekoälyä käytetään uuteen tarkoitukseen, kuten asiakasviestien analysointiin, se kerrotaan [selosteessa](/tietosuojaseloste).
+7. **Pitääkö tietosuojaselostetta päivittää?** Jos tekoälyä käytetään uuteen tarkoitukseen, kuten asiakasviestien analysointiin, se kerrotaan [selosteessa](/tietosuojaseloste). Jos peruste on oikeutettu etu, tehkää [oikeutetun edun arviointi](/oikeutetun-edun-arviointi).
 8. **Koskeeko käyttöönotto työntekijöiden seurantaa?** Jos työkalu kerää tietoa työntekijöiden työskentelystä, tarkistakaa työelämän tietosuojalain ja yhteistoimintavelvoitteiden vaatimukset.
+
+## Ohjelmistokohtaiset ohjeet
+
+Tarkistuslista on sama, mutta sopimukset, säilytysajat ja asetukset vaihtelevat:
+
+- [Microsoft 365 Copilot](/artikkelit/microsoft-365-copilot-tietosuoja)
+- [Google Gemini](/artikkelit/google-gemini-tietosuoja)
+- [Claude Team](/artikkelit/claude-team-tietosuoja)
+- [Microsoft 365](/artikkelit/microsoft-365-tietosuoja) ja [Google Workspace](/artikkelit/google-workspace-tietosuoja) ilman tekoälyä
+
+## Mitä vaikutustenarviointi maksaa?
+
+Hinta riippuu organisaation koosta ja ohjelmistosta. Esimerkiksi keskikokoiselle organisaatiolle arviointi maksaa:
+
+| Ohjelmisto | Hinta, alv 0 % |
+|---|---|
+| Claude Team | {{claude.keski}} |
+| Microsoft 365 ja Copilot | {{copilot.keski}} |
+| Google Workspace ja Gemini | {{gemini.keski}} |
+
+Katso [kaikki koot ja ohjelmistot](/hinnasto#ohjelmistot).
 
 ## Mitä henkilöstön ohjeeseen kirjoitetaan?
 
@@ -59,4 +85,4 @@ Väärään työkaluun syötetyt henkilötiedot voivat olla [tietosuojaloukkaus]
 
 ## Kunnissa erityisesti
 
-Kunnan asiakirjat ovat usein salassa pidettäviä, ja kuntalaisten tiedot koskevat myös lapsia ja muita haavoittuvassa asemassa olevia. Siksi kunnissa vaikutustenarviointi kannattaa tehdä lähes aina ennen tekoälyavustajan laajaa käyttöönottoa. Lue lisää [tietosuojapalveluista kunnille](/kunnat).
+Kunnan asiakirjat ovat usein salassa pidettäviä, ja kuntalaisten tiedot koskevat myös lapsia ja muita haavoittuvassa asemassa olevia. Siksi kunnissa vaikutustenarviointi kannattaa tehdä lähes aina ennen tekoälyavustajan laajaa käyttöönottoa. Jos tekoälyä käytetään esimerkiksi rekrytointiin tai etuuksien arviointiin, järjestelmä voi olla suuririskinen, jolloin tarvitaan myös [perusoikeusvaikutusten arviointi](/perusoikeusvaikutusten-arviointi). Lue lisää [tietosuojapalveluista kunnille](/kunnat).

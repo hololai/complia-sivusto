@@ -5,7 +5,7 @@ import PalveluKortti from '../components/PalveluKortti.astro';
 import Kysymykset from '../components/Kysymykset.astro';
 import Loppukehotus from '../components/Loppukehotus.astro';
 import { SIVUSTO } from '../../site.config.mjs';
-import { HINNAT, PAKETTI, JATKUVAT, ESIMERKIT, PALVELUJEN_JARJESTYS, eur, pakettiErikseen } from '../data/hinnat';
+import { ARVIOINNIT, HINNAT, PAKETTI, JATKUVAT, ESIMERKIT, PALVELUJEN_JARJESTYS, eur, pakettiErikseen } from '../data/hinnat';
 import { organisaatio, verkkosivusto, usein } from '../data/schema';
 
 const KYSYMYKSET = [
@@ -118,6 +118,11 @@ const artikkelit = (await getCollection('artikkelit')).sort((a, b) => a.data.jar
       <div class="ruudukko">
         {PALVELUJEN_JARJESTYS.map((a) => <PalveluKortti avain={a} />)}
       </div>
+      <p class="pieni">
+        Tarpeen mukaan myös <a href={ARVIOINNIT.lia.polku}>oikeutetun edun arviointi (LIA)</a>,
+        <a href={ARVIOINNIT.tia.polku}>siirtovaikutusten arviointi (TIA)</a> ja
+        <a href={ARVIOINNIT.fria.polku}>perusoikeusvaikutusten arviointi (FRIA)</a>.
+      </p>
       <div class="painikkeet">
         <a class="painike painike--toinen" href="/hinnasto">Katso koko hinnasto</a>
       </div>

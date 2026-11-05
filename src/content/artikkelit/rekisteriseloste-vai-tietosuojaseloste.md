@@ -5,10 +5,15 @@ kuvaus: "Rekisteriseloste on vanhan lain termi. Lue, mitkä kaksi asiakirjaa kor
 tiivistelma: "Rekisteriseloste jakautui kahdeksi asiakirjaksi. Tarvitseeko yrityksesi molemmat?"
 hakusana: rekisteriseloste
 kohde: yritykset
+ryhma: perusasiat
 jarjestys: 2
 julkaistu: 2026-11-05
 paivitetty: 2026-11-05
 palvelu: tietosuojaseloste
+liittyvat:
+  - mita-tietosuojaselosteessa-pitaa-olla
+  - mika-on-seloste-kasittelytoimista
+  - tarvitseeko-yritys-tietosuojavastaavan
 kehotus:
   otsikko: "Päivitetäänkö vanha rekisteriseloste kerralla kuntoon?"
   teksti: "Tietosuoja kuntoon -paketti sisältää tietosuojaselosteet, selosteen käsittelytoimista ja tarkastuksen, pienelle yritykselle {{paketti.pieni}} (alv 0 %)."

@@ -5,10 +5,15 @@ kuvaus: "Vaikutustenarviointi (DPIA) on pakollinen, kun käsittely aiheuttaa tod
 tiivistelma: "Yhdeksän kriteeriä, esimerkit ja se, mitä tehdä, jos et ole varma."
 hakusana: vaikutustenarviointi pakollinen
 kohde: molemmat
+ryhma: arvioinnit
 jarjestys: 5
 julkaistu: 2026-11-05
 paivitetty: 2026-11-05
 palvelu: ennakkoarvio
+liittyvat:
+  - microsoft-365-copilot-tietosuoja
+  - mika-on-fria-tekoalyasetus
+  - mika-on-lia-tasapainotesti
 kehotus:
   otsikko: "Ei varmuutta?"
   teksti: "Ennakkoarvio kertoo kahdessa arkipäivässä, tarvitaanko vaikutustenarviointi, alkaen {{ennakkoarvio.pieni}}. Jos tarvitaan, teemme sen 5–10 arkipäivässä, alkaen {{vaikutustenarviointi.pieni}} (alv 0 %)."
@@ -80,4 +85,4 @@ Jos riski jää toimista huolimatta korkeaksi, tietosuojavaltuutettua on kuultav
 - **Arvioidaan yrityksen riskejä.** Arvioinnin kohde on ihminen, jonka tietoja käsitellään: mitä hänelle voi tapahtua?
 - **Mitään ei kirjata, kun arviointia ei tehdä.** Myös päätös olla tekemättä arviointia kannattaa perustella kirjallisesti.
 
-Tekoälytyökalun käyttöönotossa hyvä lähtökohta on [Copilotin ja ChatGPT:n tarkistuslista](/artikkelit/tekoaly-tyopaikalla-tietosuoja).
+Tekoälytyökalun käyttöönotossa hyvä lähtökohta on [tekoälytyökalujen tarkistuslista](/artikkelit/tekoaly-tyopaikalla-tietosuoja). Arvioinnin hinta riippuu koosta ja ohjelmistosta: katso [esimerkkihinnat ohjelmistoittain](/hinnasto#ohjelmistot). Suuririskisessä tekoälyssä tietyt käyttöönottajat tarvitsevat lisäksi [perusoikeusvaikutusten arvioinnin](/perusoikeusvaikutusten-arviointi).

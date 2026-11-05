@@ -71,6 +71,7 @@ body {
   font-size: 1.0625rem;
   line-height: 1.65;
   font-feature-settings: 'cv11', 'ss03';
+  overflow-wrap: break-word;
 }
 img,
 svg {
@@ -87,6 +88,8 @@ h3 {
   letter-spacing: -0.012em;
   margin: 0 0 0.6em;
   text-wrap: balance;
+  hyphens: auto;
+  overflow-wrap: break-word;
 }
 h1 {
   font-size: clamp(2.15rem, 1.5rem + 3vw, 3.5rem);
@@ -862,6 +865,10 @@ a:hover {
   }
   .taulukko tbody th {
     min-width: 0;
+  }
+  /* Sitovat välit pitävät summan koossa, joten muu teksti saa rivittyä. */
+  .taulukko td.h {
+    white-space: normal;
   }
 }
 .paketti {

@@ -33,6 +33,17 @@ Suunnitelma lupaa hostingin EU:ssa, mutta Firebase Hosting jakaa sisällön maai
 | Usein kysytyt | FAQ-rakenne rikkaita tuloksia varten | sisältö ja merkintä säilyvät | Google lopetti FAQ-rikastulokset toukokuussa 2026, joten etua ei saa enää hakutuloksen ulkoasuun. Merkintä on yhä sallittu. |
 | Kuntasivun PDF ja käsittelysopimus | ladattavissa | Täydennä-merkintä | Vaativat yrityksen tiedot ja oikeudellisen pohjan. |
 
+## Hinnat ohjelmistoittain ja lisäarvioinnit
+
+Lisätty käyttäjän pyynnöstä 5.11.2026: vaikutustenarvioinnin hintaan vaikuttaa ohjelmiston laajuus, ja FRIA, TIA ja LIA vaikuttavat pakettien kokonaishintaan.
+
+Hinnat ehdotti Claude, ja käyttäjä hyväksyi ne 5.11.2026. Kaikki hinnat ovat tiedostossa `src/data/hinnat.ts`.
+
+- Ohjelmistorivit sovitettiin niin, että ylin rivi (Microsoft 365 ja Copilot) vastaa vanhaa perushintaa keskikokoisessa ja laajassa koossa. Siksi aiempi esimerkki "enintään 2 280 €" pätee edelleen.
+- Lisäarvioinneille ei ole pakettialennusta: ne lisätään pakettiin omalla hinnallaan.
+- FRIA ei koske tavallista Copilotin, Geminin tai Clauden käyttöä, vaan tiettyjä suuririskisen tekoälyn käyttöönottajia. Tätä ei saa markkinoida kaikille pakollisena.
+- TIA riippuu toimittajan siirtoperusteesta, joten sitä ei liitetä automaattisesti Microsoft 365:een tai Google Workspaceen.
+
 ## Sivukartta ja hakusanat
 
 | Sivu | Osoite | Pääsana | Hakuaie |
@@ -46,7 +57,10 @@ Suunnitelma lupaa hostingin EU:ssa, mutta Firebase Hosting jakaa sisällön maai
 | Tietosuojatarkastus | `/tietosuojatarkastus` | tietosuojatarkastus, tietosuoja-auditointi | osto |
 | Tietotilinpäätös | `/tietotilinpaatos` | tietotilinpäätös kunnalle | osto |
 | Tietosuojavastaava | `/tietosuojavastaava` | tietosuojavastaava palveluna | osto |
-| Hinnasto | `/hinnasto` | tietosuojaseloste hinta | osto |
+| Oikeutetun edun arviointi | `/oikeutetun-edun-arviointi` | oikeutetun edun arviointi, LIA, tasapainotesti | osto |
+| Siirtovaikutusten arviointi | `/siirtovaikutusten-arviointi` | siirtovaikutusten arviointi, TIA | osto |
+| Perusoikeusvaikutusten arviointi | `/perusoikeusvaikutusten-arviointi` | perusoikeusvaikutusten arviointi, FRIA | osto |
+| Hinnasto | `/hinnasto` | tietosuojaseloste hinta, Copilot vaikutustenarviointi hinta | osto |
 | Kunnille | `/kunnat` | tietosuojapalvelut kunnille | vertailu |
 | Pohja | `/tietosuojaselostepohja` | tietosuojaseloste pohja, malli | tieto |
 | Pikatesti | `/pikatesti` | onko GDPR kunnossa | tieto |
@@ -58,6 +72,14 @@ Suunnitelma lupaa hostingin EU:ssa, mutta Firebase Hosting jakaa sisällön maai
 | Artikkeli | `/artikkelit/tekoaly-tyopaikalla-tietosuoja` | copilot gdpr, tekoäly tietosuoja | tieto |
 | Artikkeli | `/artikkelit/tietomurto-mita-tehda` | tietomurto mitä tehdä, tietosuojaloukkaus | tieto |
 | Artikkeli | `/artikkelit/tietotilinpaatos-sisalto-ja-aikataulu` | tietotilinpäätöksen sisältö | tieto |
+| Artikkeli | `/artikkelit/microsoft-365-tietosuoja` | microsoft 365 tietosuoja, o365 gdpr | tieto |
+| Artikkeli | `/artikkelit/microsoft-365-copilot-tietosuoja` | copilot tietosuoja, copilot vaikutustenarviointi | tieto |
+| Artikkeli | `/artikkelit/google-workspace-tietosuoja` | google workspace tietosuoja | tieto |
+| Artikkeli | `/artikkelit/google-gemini-tietosuoja` | gemini tietosuoja | tieto |
+| Artikkeli | `/artikkelit/claude-team-tietosuoja` | claude team tietosuoja | tieto |
+| Artikkeli | `/artikkelit/mika-on-lia-tasapainotesti` | mikä on LIA, tasapainotesti | tieto |
+| Artikkeli | `/artikkelit/mika-on-tia-tiedonsiirto` | mikä on TIA, tietojen siirto EU:n ulkopuolelle | tieto |
+| Artikkeli | `/artikkelit/mika-on-fria-tekoalyasetus` | mikä on FRIA, tekoälyasetus | tieto |
 
 Hakumääriä ei ole vielä tarkistettu. Ne saa Google Ads -tilin Keyword Plannerista, ja hakusanat kannattaa tarkistaa sen perusteella ennen mainonnan aloittamista.
 
@@ -91,5 +113,10 @@ Komento ei mene läpi, ennen kuin kaikki keltaiset Täydennä-kohdat on hoidettu
    - PeVL 40/2026:n sisältö: lausuntoa ei saatu luettua alkuperäisenä
    - Digital Omnibus (ilmoitusaika 96 tuntia), ei voimassa 5.11.2026
    - Omnibus IV (selostevelvollisuus alle 750 hengelle), hyväksymisestä ei löytynyt vahvistusta
+   - FRIA:n soveltamispäivä 2.12.2027: asetus (EU) 2026/1744, päivä on epävirallisista lähteistä, ei virallisesta tekstistä
+   - SURF:n Copilot-arvio: artikkelissa on syyskuun 2025 päivitys, toukokuun 2026 päivitystä ei ole luettu alkuperäisenä
+   - Ohjelmistoartikkelien toimittajatiedot: Microsoft, Google ja Anthropic muuttavat ehtojaan, joten tarkista ne ennen julkaisua ja sen jälkeen neljännesvuosittain
+   - EDPB:n oikeutetun edun ohje 1/2024: lopullista versiota ei varmistettu
+   - Data Privacy Framework: valitus C-703/25 P ja toimittajien sertifioinnit, erityisesti Anthropic, josta lähteet olivat ristiriitaisia
    - Tietosuoja kuntoon -nimi: `tietosuojakuntoon.fi` on Opsec Oy:n rekisteröimä
 7. Julkaisupäivänä: Google Search Console ja Bing Webmaster Tools, sivukartan lähetys, `www`-osoitteen uudelleenohjaus.

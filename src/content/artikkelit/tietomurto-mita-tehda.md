@@ -5,10 +5,15 @@ kuvaus: "Tietomurrosta ja muusta tietosuojaloukkauksesta on ilmoitettava tietosu
 tiivistelma: "Vaihe vaiheelta: pysäytä vahinko, selvitä, ilmoita ja kirjaa."
 hakusana: tietomurto
 kohde: molemmat
+ryhma: perusasiat
 jarjestys: 7
 julkaistu: 2026-11-05
 paivitetty: 2026-11-05
 palvelu: tarkastus
+liittyvat:
+  - tekoaly-tyopaikalla-tietosuoja
+  - tarvitseeko-yritys-tietosuojavastaavan
+  - mita-tietosuojaselosteessa-pitaa-olla
 kehotus:
   otsikko: "Onko teillä ohje valmiina?"
   teksti: "Tietosuojatarkastuksessa tarkistamme tietomurto-ohjeen ja teemme puuttuvan, alkaen {{tarkastus.pieni}} (alv 0 %)."

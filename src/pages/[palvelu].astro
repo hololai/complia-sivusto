@@ -4,7 +4,7 @@ import Perus from '../layouts/Perus.astro';
 import Kysymykset from '../components/Kysymykset.astro';
 import Loppukehotus from '../components/Loppukehotus.astro';
 import { SIVUSTO } from '../../site.config.mjs';
-import { HINNAT, JATKUVAT, KOOT, eur, sijoitaHinnat } from '../data/hinnat';
+import { ARVIOINNIT, HINNAT, JATKUVAT, KOOT, eur, sijoitaHinnat } from '../data/hinnat';
 import { palvelu as palveluSchema, usein } from '../data/schema';
 
 export async function getStaticPaths() {
@@ -18,8 +18,11 @@ const sisalto = sijoitaHinnat(p.rendered?.html ?? '');
 const d = p.data;
 
 const onJatkuva = d.avain === 'vastaava';
-const hintatieto = onJatkuva ? JATKUVAT.vastaava : HINNAT[d.avain as keyof typeof HINNAT];
+const KAIKKI_HINNAT = { ...HINNAT, ...ARVIOINNIT, vastaava: JATKUVAT.vastaava };
+const hintatieto = KAIKKI_HINNAT[d.avain as keyof typeof KAIKKI_HINNAT];
+if (!hintatieto) throw new Error(`Palvelun ${p.id} hintatunnusta ei löydy: ${d.avain}`);
 const toimitus = 'toimitus' in hintatieto ? hintatieto.toimitus : 'aloitus sovitaan kartoituksessa';
+const yksikko = 'yksikko' in hintatieto ? hintatieto.yksikko : null;
 const paate = onJatkuva ? '/kk' : '';
 
 const koot = KOOT.map((k) => ({
@@ -89,8 +92,18 @@ if (d.artikkeli && !artikkeli) throw new Error(`Palvelun ${p.id} artikkelia ei l
             ))
           }
         </ul>
-        <p class="hintakortti__toimitus"><strong>Toimitus:</strong> {toimitus}</p>
+        <p class="hintakortti__toimitus">
+          <strong>Toimitus:</strong> {toimitus}
+          {yksikko && <><br />Hinta {yksikko}.</>}
+        </p>
         <a class="painike" href={`/ajanvaraus?palvelu=${p.id}`}>{onJatkuva ? 'Varaa kartoitus' : 'Tilaa tai varaa kartoitus'}</a>
+        {
+          d.avain === 'vaikutustenarviointi' && (
+            <p class="pieni">
+              Hinta riippuu myös ohjelmistosta: katso <a href="/hinnasto#ohjelmistot">esimerkkihinnat</a>.
+            </p>
+          )
+        }
         <p class="pieni">Hinnat alv 0 % (alv 25,5 % lisätään). Katso koot <a href="/hinnasto">hinnastosta</a>.</p>
       </aside>
     </div>

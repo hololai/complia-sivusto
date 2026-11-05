@@ -20,10 +20,12 @@ const kysymykset = d.usein.map((q) => ({ k: q.k, v: sijoitaHinnat(q.v) }));
 const muotoile = (p: Date) => `${p.getUTCDate()}.${p.getUTCMonth() + 1}.${p.getUTCFullYear()}`;
 const iso = (p: Date) => p.toISOString().slice(0, 10);
 
-const muut = (await getCollection('artikkelit'))
-  .filter((m) => m.id !== a.id && (m.data.kohde === d.kohde || m.data.kohde === 'molemmat' || d.kohde === 'molemmat'))
-  .sort((x, y) => x.data.jarjestys - y.data.jarjestys)
-  .slice(0, 3);
+const kaikki = await getCollection('artikkelit');
+const muut = d.liittyvat.map((id) => {
+  const loydetty = kaikki.find((m) => m.id === id);
+  if (!loydetty) throw new Error(`Artikkelin ${a.id} liittyvää artikkelia ei löydy: ${id}`);
+  return loydetty;
+});
 ---
 
 <Perus

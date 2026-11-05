@@ -5,10 +5,15 @@ kuvaus: "Seloste käsittelytoimista on tietosuojan perusasiakirja, jonka valvoja
 tiivistelma: "Mitä selosteeseen kirjataan, kuka sen tarvitsee ja esimerkki valmiista rivistä."
 hakusana: seloste käsittelytoimista
 kohde: molemmat
+ryhma: perusasiat
 jarjestys: 4
 julkaistu: 2026-11-05
 paivitetty: 2026-11-05
 palvelu: seloste
+liittyvat:
+  - mita-tietosuojaselosteessa-pitaa-olla
+  - milloin-vaikutustenarviointi-on-pakollinen
+  - mika-on-tia-tiedonsiirto
 kehotus:
   otsikko: "Tarvitsetko selosteen valmiina?"
   teksti: "Haastattelemme teitä tunnin ja toimitamme selosteen viidessä arkipäivässä, alkaen {{seloste.pieni}} (alv 0 %)."

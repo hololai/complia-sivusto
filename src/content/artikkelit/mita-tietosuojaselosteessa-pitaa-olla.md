@@ -5,10 +5,15 @@ kuvaus: "Mitä tietosuojaselosteessa pitää lukea? Käy läpi pakolliset kohdat
 tiivistelma: "Pakolliset kohdat, yleisimmät virheet ja se, milloin pohja riittää."
 hakusana: tietosuojaseloste
 kohde: yritykset
+ryhma: perusasiat
 jarjestys: 1
 julkaistu: 2026-11-05
 paivitetty: 2026-11-05
 palvelu: tietosuojaseloste
+liittyvat:
+  - rekisteriseloste-vai-tietosuojaseloste
+  - mika-on-seloste-kasittelytoimista
+  - mika-on-lia-tasapainotesti
 kehotus:
   otsikko: "Tarvitsetko valmiin selosteen?"
   teksti: "Teemme tietosuojaselosteet asiakkaille, työntekijöille, työnhakijoille ja verkkosivuille kolmessa arkipäivässä, alkaen {{tietosuojaseloste.pieni}} (alv 0 %)."

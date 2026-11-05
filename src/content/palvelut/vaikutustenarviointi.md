@@ -37,6 +37,31 @@ Se on pakollinen ainakin, kun arvioidaan tai profiloidaan ihmisiä järjestelmä
 
 Kirjoitamme arvioinnin niin, että johto ja toimittaja ymmärtävät siitä, mitä pitää tehdä. Toimenpidesuunnitelma on tärkein osa: se muuttaa paperin korjauksiksi.
 
+## Hinta ohjelmiston mukaan
+
+Hinta riippuu organisaation koon lisäksi siitä, mitä arvioidaan. Erillinen tekoälytyökalu on suppeampi kuin koko toimisto-ohjelmisto, ja tekoäly, joka pääsee käyttäjän sähköposteihin ja tiedostoihin, laajentaa arviota eniten.
+
+| Ohjelmisto | Pieni | Keskikokoinen | Laaja |
+|---|---|---|---|
+| [Claude Team](/artikkelit/claude-team-tietosuoja) | {{claude.pieni}} | {{claude.keski}} | {{claude.laaja}} |
+| [Microsoft 365 (O365)](/artikkelit/microsoft-365-tietosuoja) | {{m365.pieni}} | {{m365.keski}} | {{m365.laaja}} |
+| [Google Workspace](/artikkelit/google-workspace-tietosuoja) | {{workspace.pieni}} | {{workspace.keski}} | {{workspace.laaja}} |
+| [Microsoft 365 ja Copilot](/artikkelit/microsoft-365-copilot-tietosuoja) | {{copilot.pieni}} | {{copilot.keski}} | {{copilot.laaja}} |
+| [Google Workspace ja Gemini](/artikkelit/google-gemini-tietosuoja) | {{gemini.pieni}} | {{gemini.keski}} | {{gemini.laaja}} |
+| Muu yksittäinen järjestelmä | {{vaikutustenarviointi.pieni}} | {{vaikutustenarviointi.keski}} | {{vaikutustenarviointi.laaja}} |
+
+Hinnat alv 0 %. Jos liitätte Clauden sähköpostiin tai tiedostoihin, arvio laajenee, ja useampi ohjelmisto samassa arvioinnissa hinnoitellaan kiinteällä tarjouksella.
+
+Tekoälyn vaikutus näkyy myös julkisissa arvioinneissa. Alankomaiden SLM ja SURF löysivät Microsoft 365 Copilotista joulukuussa 2024 neljä korkeaa riskiä. [Koulutusalan lisenssejä koskevassa päivityksessä](https://www.privacycompany.eu/blog/update-dpia-on-microsoft-365-copilot-for-education) syyskuussa 2025 korkeita riskejä ei enää ollut, mutta kaksi jäi keskitasolle. Arviointi kannattaa siksi tehdä omien asetusten ja käyttöoikeuksien mukaan.
+
+## Mitä muuta voidaan tarvita?
+
+- [Oikeutetun edun arviointi (LIA)](/oikeutetun-edun-arviointi), jos käsittely perustuu oikeutettuun etuun.
+- [Siirtovaikutusten arviointi (TIA)](/siirtovaikutusten-arviointi), jos tiedot siirtyvät EU:n ulkopuolelle esimerkiksi vakiosopimuslausekkeilla.
+- [Perusoikeusvaikutusten arviointi (FRIA)](/perusoikeusvaikutusten-arviointi), jos kyse on tietyn käyttöönottajan suuririskisestä tekoälystä.
+
+Katso, miten nämä vaikuttavat kokonaishintaan: [esimerkkikokonaisuudet erikokoisille](/hinnasto#kokonaisuudet).
+
 ## Näin työ etenee
 
 1. **Aloitus.** Pyydämme järjestelmän toimittajalta tietoturvakuvauksen ja haastattelemme vastuuhenkilöitä 1–2 kertaa.

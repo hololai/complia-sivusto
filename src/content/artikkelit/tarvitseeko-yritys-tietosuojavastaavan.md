@@ -5,10 +5,15 @@ kuvaus: "Useimmat pienyritykset eivät tarvitse tietosuojavastaavaa. Katso kolme
 tiivistelma: "Useimmat eivät tarvitse. Kolme tilannetta, joissa tietosuojavastaava on pakollinen."
 hakusana: tietosuojavastaava
 kohde: yritykset
+ryhma: perusasiat
 jarjestys: 3
 julkaistu: 2026-11-05
 paivitetty: 2026-11-05
 palvelu: vastaava
+liittyvat:
+  - mita-tietosuojaselosteessa-pitaa-olla
+  - mika-on-seloste-kasittelytoimista
+  - tietomurto-mita-tehda
 kehotus:
   otsikko: "Haluatko, että joku muu pitää huolen tästä?"
   teksti: "Tietosuoja kunnossa -jatkopalvelu päivittää asiakirjat ja vastaa kysymyksiin, alkaen {{kunnossa.pieni}}/kk. Jos tietosuojavastaava on pakollinen, hoidamme senkin, alkaen {{vastaava.pieni}}/kk (alv 0 %)."

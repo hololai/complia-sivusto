@@ -5,7 +5,7 @@ import Kysymykset from '../components/Kysymykset.astro';
 import Loppukehotus from '../components/Loppukehotus.astro';
 import Tayta from '../components/Tayta.astro';
 import { SIVUSTO } from '../../site.config.mjs';
-import { HINNAT, JATKUVAT, eur } from '../data/hinnat';
+import { ARVIOINNIT, HINNAT, JATKUVAT, eur } from '../data/hinnat';
 import { usein } from '../data/schema';
 
 const KYSYMYKSET = [
@@ -94,6 +94,11 @@ const artikkeliTtp = await getEntry('artikkelit', 'tietotilinpaatos-sisalto-ja-a
               <td><a href={HINNAT.vaikutustenarviointi.polku}>Vaikutustenarviointi</a></td>
             </tr>
             <tr>
+              <td>Hankinnan valmistelussa</td>
+              <td>Suuririskisen tekoälyn perusoikeusvaikutukset, alkaen {eur(ARVIOINNIT.fria.keski)}</td>
+              <td><a href={ARVIOINNIT.fria.polku}>{ARVIOINNIT.fria.nimi}</a></td>
+            </tr>
+            <tr>
               <td>Elo–lokakuu</td>
               <td>Jatkuvien palvelujen budjetointi ennen talousarvion lukitsemista</td>
               <td><a href={JATKUVAT.vastaava.polku}>Tietosuojavastaava palveluna</a></td>
@@ -125,6 +130,8 @@ const artikkeliTtp = await getEntry('artikkelit', 'tietotilinpaatos-sisalto-ja-a
             <ul>
               <li><a href={`/artikkelit/${artikkeliTtp.id}`}>{artikkeliTtp.data.h1}</a></li>
               <li><a href={`/artikkelit/${artikkeliTekoaly.id}`}>{artikkeliTekoaly.data.h1}</a></li>
+              <li><a href="/artikkelit/mika-on-fria-tekoalyasetus">Mikä on FRIA? Tekoälyasetuksen perusoikeusvaikutusten arviointi</a></li>
+              <li><a href="/artikkelit/microsoft-365-copilot-tietosuoja">Microsoft 365 Copilot ja tietosuoja</a></li>
             </ul>
           </>
         )

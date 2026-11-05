@@ -6,11 +6,17 @@ import { SIVUSTO } from '../../../site.config.mjs';
 
 const artikkelit = (await getCollection('artikkelit')).sort((a, b) => a.data.jarjestys - b.data.jarjestys);
 const KOHDE = { yritykset: 'Yrityksille', kunnat: 'Kunnille', molemmat: 'Yrityksille ja kunnille' };
+const RYHMAT = [
+  { id: 'ohjelmistot', nimi: 'Tekoäly ja ohjelmistot', kuvaus: 'Microsoft 365, Copilot, Google Workspace, Gemini, Claude Team ja muut työkalut.' },
+  { id: 'arvioinnit', nimi: 'Arvioinnit: DPIA, LIA, TIA ja FRIA', kuvaus: 'Milloin arviointi tarvitaan ja miten se tehdään.' },
+  { id: 'perusasiat', nimi: 'Tietosuojan perusasiat', kuvaus: 'Selosteet, tietosuojavastaava ja toiminta tietomurron sattuessa.' },
+  { id: 'kunnat', nimi: 'Kunnat', kuvaus: 'Kuntien tietosuojatyö ja sen aikataulut.' },
+] as const;
 ---
 
 <Perus
   otsikko={`Tietosuojaohjeet yrityksille ja kunnille | ${SIVUSTO.nimi}`}
-  kuvaus="Selkeät ohjeet tietosuojaselosteesta, selosteesta käsittelytoimista, vaikutustenarvioinnista, tietomurrosta ja tekoälystä. Yrityksille ja kunnille."
+  kuvaus="Selkeät ohjeet tietosuojaselosteesta, vaikutustenarvioinnista, LIA:sta, TIA:sta, FRIA:sta, Copilotista, Geministä ja Claude Teamista."
   murut={[{ nimi: 'Artikkelit', polku: '/artikkelit' }]}
 >
   <section class="osio">
@@ -22,34 +28,34 @@ const KOHDE = { yritykset: 'Yrityksille', kunnat: 'Kunnille', molemmat: 'Yrityks
           merkitty jokaiseen ohjeeseen.
         </p>
       </div>
-      <div class="ruudukko ruudukko--2">
-        {
-          artikkelit.map((a) => (
-            <article class="kortti">
-              <p class="nostin">{KOHDE[a.data.kohde]}</p>
-              <h2 class="kortti__h">
-                <a href={`/artikkelit/${a.id}`}>{a.data.h1}</a>
-              </h2>
-              <p>{a.data.tiivistelma}</p>
-            </article>
-          ))
-        }
-      </div>
+      {
+        RYHMAT.map((r) => (
+          <section class="artikkeliryhma" id={r.id}>
+            <h2>{r.nimi}</h2>
+            <p class="pieni">{r.kuvaus}</p>
+            <div class="ruudukko ruudukko--2">
+              {artikkelit
+                .filter((a) => a.data.ryhma === r.id)
+                .map((a) => (
+                  <article class="kortti">
+                    <p class="nostin">{KOHDE[a.data.kohde]}</p>
+                    <h3>
+                      <a href={`/artikkelit/${a.id}`}>{a.data.h1}</a>
+                    </h3>
+                    <p>{a.data.tiivistelma}</p>
+                  </article>
+                ))}
+            </div>
+          </section>
+        ))
+      }
     </div>
   </section>
   <Loppukehotus />
 </Perus>
 
 <style>
-  .kortti__h {
-    font-size: 1.3rem;
-    margin-bottom: 0.45rem;
-  }
-  .kortti__h a {
-    color: inherit;
-    text-decoration: none;
-  }
-  .kortti__h a:hover {
-    text-decoration: underline;
+  .artikkeliryhma + .artikkeliryhma {
+    margin-top: clamp(2.5rem, 5vw, 4rem);
   }
 </style>

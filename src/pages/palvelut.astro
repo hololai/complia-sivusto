@@ -4,7 +4,7 @@ import PalveluKortti from '../components/PalveluKortti.astro';
 import Kysymykset from '../components/Kysymykset.astro';
 import Loppukehotus from '../components/Loppukehotus.astro';
 import { SIVUSTO } from '../../site.config.mjs';
-import { HINNAT, PAKETTI, JATKUVAT, PALVELUJEN_JARJESTYS, eur } from '../data/hinnat';
+import { ARVIOINNIT, ARVIOINTIEN_JARJESTYS, HINNAT, PAKETTI, JATKUVAT, PALVELUJEN_JARJESTYS, eur } from '../data/hinnat';
 import { usein } from '../data/schema';
 
 const TILANTEET = [
@@ -27,6 +27,21 @@ const TILANTEET = [
     tilanne: 'Käsittelemme terveystietoja tai lasten tietoja laajasti',
     ratkaisu: 'Vaikutustenarviointi',
     polku: HINNAT.vaikutustenarviointi.polku,
+  },
+  {
+    tilanne: 'Käsittely perustuu oikeutettuun etuun, mutta perustelua ei ole kirjattu',
+    ratkaisu: ARVIOINNIT.lia.nimi,
+    polku: ARVIOINNIT.lia.polku,
+  },
+  {
+    tilanne: 'Tiedot siirtyvät EU:n ulkopuolelle vakiosopimuslausekkeilla',
+    ratkaisu: ARVIOINNIT.tia.nimi,
+    polku: ARVIOINNIT.tia.polku,
+  },
+  {
+    tilanne: 'Otamme julkisena toimijana käyttöön suuririskisen tekoälyjärjestelmän',
+    ratkaisu: ARVIOINNIT.fria.nimi,
+    polku: ARVIOINNIT.fria.polku,
   },
   {
     tilanne: 'Emme tiedä, mitä tietosuojasta puuttuu',
@@ -83,6 +98,29 @@ const KYSYMYKSET = [
   <section class="osio osio--valkoinen">
     <div class="kehys">
       <div class="osio__otsikko">
+        <h2>Lisäarvioinnit tarpeen mukaan</h2>
+        <p class="johdatus">Nämä tarvitaan vain tietyissä tilanteissa, ja ne vaikuttavat kokonaishintaan. Katso <a href="/hinnasto#kokonaisuudet">esimerkkikokonaisuudet</a>.</p>
+      </div>
+      <div class="ruudukko">
+        {
+          ARVIOINTIEN_JARJESTYS.map((a) => (
+            <article class="kortti">
+              <h3><a href={ARVIOINNIT[a].polku}>{ARVIOINNIT[a].nimi}</a></h3>
+              <p>{ARVIOINNIT[a].lyhyt}</p>
+              <div class="kortti__ala">
+                <span class="kortti__hinta">alkaen {eur(ARVIOINNIT[a].pieni)}</span>
+                <span class="pieni">{ARVIOINNIT[a].toimitus}</span>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="osio">
+    <div class="kehys">
+      <div class="osio__otsikko">
         <h2>Mitä tarvitsen?</h2>
         <p class="johdatus">Etsi tilanteesi. Jos et löydä sitä, <a href="/pikatesti">pikatesti</a> kertoo kahdessa minuutissa, mistä kannattaa aloittaa.</p>
       </div>
@@ -107,7 +145,7 @@ const KYSYMYKSET = [
     </div>
   </section>
 
-  <section class="osio">
+  <section class="osio osio--valkoinen">
     <div class="kehys ruudukko ruudukko--2">
       <div class="kortti polku">
         <h2>{PAKETTI.nimi} -paketti</h2>
@@ -128,7 +166,7 @@ const KYSYMYKSET = [
     </div>
   </section>
 
-  <section class="osio osio--valkoinen">
+  <section class="osio">
     <div class="kehys"><Kysymykset kysymykset={KYSYMYKSET} /></div>
   </section>
 

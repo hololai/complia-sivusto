@@ -2,12 +2,13 @@
 import Perus from '../layouts/Perus.astro';
 import Tayta from '../components/Tayta.astro';
 import { SIVUSTO } from '../../site.config.mjs';
-import { HINNAT, PAKETTI, JATKUVAT, PALVELUJEN_JARJESTYS } from '../data/hinnat';
+import { ARVIOINNIT, ARVIOINTIEN_JARJESTYS, HINNAT, PAKETTI, JATKUVAT, PALVELUJEN_JARJESTYS } from '../data/hinnat';
 
 const AIHEET = [
   { arvo: 'kartoitus', nimi: 'Maksuton kartoitus' },
   { arvo: 'paketti', nimi: `${PAKETTI.nimi} -paketti` },
   ...PALVELUJEN_JARJESTYS.map((a) => ({ arvo: HINNAT[a].polku.slice(1), nimi: HINNAT[a].nimi })),
+  ...ARVIOINTIEN_JARJESTYS.map((a) => ({ arvo: ARVIOINNIT[a].polku.slice(1), nimi: ARVIOINNIT[a].nimi })),
   { arvo: 'tietosuojavastaava', nimi: JATKUVAT.vastaava.nimi },
   { arvo: 'kunnossa', nimi: JATKUVAT.kunnossa.nimi },
 ];

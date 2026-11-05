@@ -13,6 +13,7 @@ const artikkelit = defineCollection({
     tiivistelma: z.string(),
     hakusana: z.string(),
     kohde: z.enum(['yritykset', 'kunnat', 'molemmat']),
+    ryhma: z.enum(['perusasiat', 'arvioinnit', 'ohjelmistot', 'kunnat']),
     jarjestys: z.number(),
     julkaistu: z.coerce.date(),
     paivitetty: z.coerce.date(),
@@ -24,6 +25,8 @@ const artikkelit = defineCollection({
       linkki: z.string(),
     }),
     usein: z.array(kysymys).default([]),
+    // Tärkeimmät sisäiset linkit valitaan käsin. Muuten sama pari artikkelia saisi kaikki linkit.
+    liittyvat: z.array(z.string()).default([]),
     lahteet: z.array(z.object({ nimi: z.string(), url: z.string().url() })).default([]),
   }),
 });

@@ -3,7 +3,21 @@ import Perus from '../layouts/Perus.astro';
 import Kysymykset from '../components/Kysymykset.astro';
 import Loppukehotus from '../components/Loppukehotus.astro';
 import { SIVUSTO } from '../../site.config.mjs';
-import { HINNAT, PAKETTI, JATKUVAT, KOOT, PALVELUJEN_JARJESTYS, ESIMERKIT, eur, pakettiErikseen } from '../data/hinnat';
+import {
+  ARVIOINNIT,
+  ARVIOINTIEN_JARJESTYS,
+  ESIMERKIT,
+  HINNAT,
+  JATKUVAT,
+  KOKONAISUUDET,
+  KOOT,
+  OHJELMISTOJEN_JARJESTYS,
+  OHJELMISTOT,
+  PAKETTI,
+  PALVELUJEN_JARJESTYS,
+  eur,
+  pakettiErikseen,
+} from '../data/hinnat';
 import { usein } from '../data/schema';
 
 const KYSYMYKSET = [
@@ -14,6 +28,18 @@ const KYSYMYKSET = [
   {
     k: 'Sisältyykö hintoihin arvonlisävero?',
     v: 'Ei. Hinnat ovat alv 0 %, ja niihin lisätään arvonlisävero 25,5 %.',
+  },
+  {
+    k: 'Miksi ohjelmisto vaikuttaa vaikutustenarvioinnin hintaan?',
+    v: 'Koska arvioitavaa on eri määrä. Erillinen tekoälytyökalu on suppeampi kuin koko toimisto-ohjelmisto, ja tekoäly, joka pääsee käyttäjän sähköposteihin ja tiedostoihin, laajentaa arviota eniten.',
+  },
+  {
+    k: 'Kuuluvatko LIA, TIA ja FRIA Tietosuoja kuntoon -pakettiin?',
+    v: 'Eivät. Niitä tarvitaan vain tietyissä tilanteissa, joten ne lisätään pakettiin tarpeen mukaan omalla hinnallaan. Kokonaishinta riippuu siitä, mitä teidän tilanteessanne tarvitaan.',
+  },
+  {
+    k: 'Tarvitsenko kaikki kolme lisäarviointia?',
+    v: 'Harvoin. LIA tarvitaan, kun käsittely perustuu oikeutettuun etuun. TIA tarvitaan, kun tiedot siirtyvät EU:n ulkopuolelle esimerkiksi vakiosopimuslausekkeilla. FRIA koskee vain tiettyjä suuririskisen tekoälyn käyttöönottajia.',
   },
   {
     k: 'Entä jos tarvitsemme laajemman kokonaisuuden?',
@@ -116,6 +142,10 @@ const ESIMERKKIHINNAT = [
         </table>
       </div>
 
+      <p class="pieni">
+        Vaikutustenarvioinnin hinta riippuu myös ohjelmistosta: katso <a href="#ohjelmistot">esimerkkihinnat ohjelmistoittain</a>.
+      </p>
+
       <h2>Mitä koot tarkoittavat?</h2>
       <dl class="tiedot">
         {
@@ -130,7 +160,7 @@ const ESIMERKKIHINNAT = [
     </div>
   </section>
 
-  <section class="osio osio--valkoinen" id="paketti">
+  <section class="osio osio--valkoinen hinnasto" id="paketti">
     <div class="kehys">
       <div class="paketti">
         <span class="merkinta">Säästät noin 20 %</span>
@@ -142,17 +172,17 @@ const ESIMERKKIHINNAT = [
             <thead>
               <tr>
                 <th scope="col"><span class="pieni">Hinta</span></th>
-                {KOOT.map((k) => <th scope="col" class="h">{k.nimi}</th>)}
+                {KOOT.map((k) => <th scope="col" class={`h k-${k.id}`}>{k.nimi}</th>)}
               </tr>
             </thead>
             <tbody>
               <tr>
                 <th scope="row">Erikseen</th>
-                {KOOT.map((k) => <td class="h">{eur(pakettiErikseen(k.id))}</td>)}
+                {KOOT.map((k) => <td class={`h k-${k.id}`}>{eur(pakettiErikseen(k.id))}</td>)}
               </tr>
               <tr>
                 <th scope="row">Pakettina</th>
-                {KOOT.map((k) => <td class="h"><strong>{eur(PAKETTI[k.id])}</strong></td>)}
+                {KOOT.map((k) => <td class={`h k-${k.id}`}><strong>{eur(PAKETTI[k.id])}</strong></td>)}
               </tr>
             </tbody>
           </table>
@@ -165,7 +195,135 @@ const ESIMERKKIHINNAT = [
     </div>
   </section>
 
-  <section class="osio" id="jatkuvat">
+  <section class="osio hinnasto" id="ohjelmistot">
+    <div class="kehys">
+      <div class="osio__otsikko">
+        <h2>Vaikutustenarvioinnin hinta ohjelmiston mukaan</h2>
+        <p class="johdatus">
+          Hinta riippuu organisaation koon lisäksi siitä, mitä arvioidaan. Yksi ohjelmisto yhteen arviointiin, toimitus 5–10 arkipäivässä.
+        </p>
+      </div>
+      <div class="taulu" role="region" aria-label="Vaikutustenarvioinnin hinnat ohjelmistoittain" tabindex="0">
+        <table class="taulukko">
+          <caption>Esimerkkihinnat ohjelmistoittain, alv 0 %</caption>
+          <thead>
+            <tr>
+              <th scope="col">Ohjelmisto</th>
+              {KOOT.map((k) => <th scope="col" class={`h k-${k.id}`}>{k.nimi}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {
+              OHJELMISTOJEN_JARJESTYS.map((a) => {
+                const o = OHJELMISTOT[a];
+                return (
+                  <tr>
+                    <th scope="row">
+                      <a href={o.artikkeli}>{o.nimi}</a>
+                      <span>{o.lyhyt}</span>
+                    </th>
+                    {KOOT.map((k) => (
+                      <td class={`h k-${k.id}`}>{eur(o[k.id])}</td>
+                    ))}
+                  </tr>
+                );
+              })
+            }
+            <tr>
+              <th scope="row">
+                Muu yksittäinen järjestelmä
+                <span>Esimerkiksi asiakas- tai henkilöstöjärjestelmä.</span>
+              </th>
+              {KOOT.map((k) => <td class={`h k-${k.id}`}>{eur(HINNAT.vaikutustenarviointi[k.id])}</td>)}
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="pieni">
+        Useampi ohjelmisto samassa arvioinnissa hinnoitellaan kiinteällä tarjouksella. Lue lisää <a href={HINNAT.vaikutustenarviointi.polku}>vaikutustenarvioinnista</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="osio osio--valkoinen hinnasto" id="lisaarvioinnit">
+    <div class="kehys">
+      <div class="osio__otsikko">
+        <h2>LIA, TIA ja FRIA</h2>
+        <p class="johdatus">Lisäarvioinnit tarvitaan vain tietyissä tilanteissa, joten ne lisätään pakettiin tarpeen mukaan omalla hinnallaan.</p>
+      </div>
+      <div class="taulu" role="region" aria-label="Lisäarviointien hinnat" tabindex="0">
+        <table class="taulukko">
+          <caption>Lisäarvioinnit, hinnat alv 0 %</caption>
+          <thead>
+            <tr>
+              <th scope="col">Arviointi</th>
+              {KOOT.map((k) => <th scope="col" class={`h k-${k.id}`}>{k.nimi}</th>)}
+              <th scope="col" class="sarake-toimitus">Toimitus</th>
+              <th scope="col" class="sarake-toimitus"><span class="pieni">Toiminto</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              ARVIOINTIEN_JARJESTYS.map((a) => {
+                const p = ARVIOINNIT[a];
+                return (
+                  <tr>
+                    <th scope="row">
+                      <a href={p.polku}>{p.nimi}</a>
+                      <span>{p.lyhyt} Hinta {p.yksikko}.</span>
+                      <span class="vain-kapea">Toimitus {p.toimitus} · <a href={`/ajanvaraus?palvelu=${p.polku.slice(1)}`}>Tilaa</a></span>
+                    </th>
+                    {KOOT.map((k) => (
+                      <td class={`h k-${k.id}`}>{eur(p[k.id])}</td>
+                    ))}
+                    <td class="sarake-toimitus">{p.toimitus}</td>
+                    <td class="sarake-toimitus">
+                      <a class="painike painike--pieni painike--toinen" href={`/ajanvaraus?palvelu=${p.polku.slice(1)}`}>
+                        Tilaa
+                      </a>
+                    </td>
+                  </tr>
+                );
+              })
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="osio" id="kokonaisuudet">
+    <div class="kehys">
+      <div class="osio__otsikko">
+        <h2>Esimerkkikokonaisuudet erikokoisille</h2>
+        <p class="johdatus">Näin ohjelmisto ja lisäarvioinnit vaikuttavat kokonaishintaan. Lopullinen sisältö riippuu käsittelyistänne ja toimittajien siirtoperusteista.</p>
+      </div>
+      <div class="ruudukko">
+        {
+          KOKONAISUUDET.map((k) => (
+            <article class="kortti">
+              <h3>{k.otsikko}</h3>
+              <p class="pieni">{k.kuvaus}</p>
+              <ul class="rivit">
+                {k.rivit.map((r) => (
+                  <li>
+                    <span>{r.nimi}</span>
+                    <span>{eur(r.hinta)}</span>
+                  </li>
+                ))}
+              </ul>
+              <p class="asiakirja__summa">
+                <span>Yhteensä, alv 0 %</span>
+                <strong>{eur(k.yhteensa)}</strong>
+              </p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="osio osio--valkoinen hinnasto" id="jatkuvat">
     <div class="kehys">
       <div class="osio__otsikko">
         <h2>Jatkuvat palvelut</h2>
@@ -177,17 +335,17 @@ const ESIMERKKIHINNAT = [
           <thead>
             <tr>
               <th scope="col">Palvelu</th>
-              {KOOT.map((k) => <th scope="col" class="h">{k.nimi}</th>)}
+              {KOOT.map((k) => <th scope="col" class={`h k-${k.id}`}>{k.nimi}</th>)}
             </tr>
           </thead>
           <tbody>
             <tr>
               <th scope="row">{JATKUVAT.kunnossa.nimi}<span>{JATKUVAT.kunnossa.lyhyt}</span></th>
-              {KOOT.map((k) => <td class="h">{eur(JATKUVAT.kunnossa[k.id])}/kk</td>)}
+              {KOOT.map((k) => <td class={`h k-${k.id}`}>{eur(JATKUVAT.kunnossa[k.id])}/kk</td>)}
             </tr>
             <tr>
               <th scope="row"><a href={JATKUVAT.vastaava.polku}>{JATKUVAT.vastaava.nimi}</a><span>{JATKUVAT.vastaava.lyhyt}</span></th>
-              {KOOT.map((k) => <td class="h">{eur(JATKUVAT.vastaava[k.id])}/kk</td>)}
+              {KOOT.map((k) => <td class={`h k-${k.id}`}>{eur(JATKUVAT.vastaava[k.id])}/kk</td>)}
             </tr>
           </tbody>
         </table>
@@ -196,10 +354,10 @@ const ESIMERKKIHINNAT = [
     </div>
   </section>
 
-  <section class="osio osio--valkoinen">
+  <section class="osio">
     <div class="kehys">
       <h2>Esimerkkihinnat</h2>
-      <div class="taulu">
+      <div class="taulu" role="region" aria-label="Esimerkkihinnat" tabindex="0">
         <table class="taulukko">
           <caption>Esimerkkejä organisaation koon mukaan, alv 0 %</caption>
           <thead>
@@ -221,7 +379,7 @@ const ESIMERKKIHINNAT = [
     </div>
   </section>
 
-  <section class="osio">
+  <section class="osio osio--valkoinen">
     <div class="kehys"><Kysymykset kysymykset={KYSYMYKSET} /></div>
   </section>
 

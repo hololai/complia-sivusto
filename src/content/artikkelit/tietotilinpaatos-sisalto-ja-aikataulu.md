@@ -5,10 +5,15 @@ kuvaus: "Tietotilinpäätös kokoaa kunnan tietosuojan ja tietoturvan tilan kerr
 tiivistelma: "Suositeltu sisältö, kuukausiaikataulu ja yleisimmät sudenkuopat."
 hakusana: tietotilinpäätös
 kohde: kunnat
+ryhma: kunnat
 jarjestys: 8
 julkaistu: 2026-11-05
 paivitetty: 2026-11-05
 palvelu: tietotilinpaatos
+liittyvat:
+  - mika-on-fria-tekoalyasetus
+  - milloin-vaikutustenarviointi-on-pakollinen
+  - tekoaly-tyopaikalla-tietosuoja
 kehotus:
   otsikko: "Apua kokoamiseen"
   teksti: "Kokoamme tietotilinpäätöksen valmiiksi kymmenessä arkipäivässä: julkisen tiivistelmän, johdon tiivistelmän ja aineiston tarkastuslautakunnalle. Keskikokoinen kunta {{tietotilinpaatos.keski}}, iso kunta {{tietotilinpaatos.laaja}} (alv 0 %)."
