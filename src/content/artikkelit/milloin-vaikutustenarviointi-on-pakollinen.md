@@ -27,6 +27,8 @@ usein:
   - k: "Pitääkö arviointi päivittää?"
     v: "Kyllä, jos käsittelyn riski muuttuu, esimerkiksi kun järjestelmään lisätään uusi käyttötarkoitus tai uusia tietoja."
 lahteet:
+  - nimi: "Miinin, Kähkönen ja Laivamaa: Tekoälypalvelun vaikutustenarviointi (aoe.fi, 2025)"
+    url: "https://aoe.fi/materiaali/4848"
   - nimi: "Tietosuoja-asetus (EU) 2016/679, 35 ja 36 artikla"
     url: "https://eur-lex.europa.eu/legal-content/FI/TXT/?uri=CELEX:32016R0679"
   - nimi: "Tietosuojavaltuutetun toimisto: vaikutustenarviointi"

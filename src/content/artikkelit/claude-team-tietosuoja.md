@@ -27,6 +27,8 @@ usein:
   - k: "Tarvitaanko siirtovaikutusten arviointi?"
     v: "Yleensä se on syytä tehdä, koska Anthropicin mukaan tiedot tallennetaan Yhdysvalloissa ja sen käsittelysopimukseen kuuluvat vakiosopimuslausekkeet. Tarkistakaa myös Data Privacy Framework -listan tilanne."
 lahteet:
+  - nimi: "Miinin, Kähkönen ja Laivamaa: Tekoälypalvelun vaikutustenarviointi (aoe.fi, 2025)"
+    url: "https://aoe.fi/materiaali/4848"
   - nimi: "Anthropic: käsittelysopimus (DPA)"
     url: "https://privacy.claude.com/en/articles/7996862"
   - nimi: "Anthropic: tietojen käyttö mallien koulutukseen"
@@ -57,7 +59,7 @@ Claude Team on Anthropicin tekoälytyökalu organisaatioille. Toisin kuin Copilo
 2. **Mitä työkaluun saa kirjoittaa?** Kertokaa henkilöstön ohjeessa selvästi, mitä ei saa kirjoittaa: esimerkiksi henkilötunnuksia, terveystietoja ja asiakkaiden yksilöiviä tietoja, ellei käyttöä ole erikseen arvioitu.
 3. **Mihin Claude on liitetty?** Jos sen liittää sähköpostiin, tiedostoihin tai muihin järjestelmiin, käsittely laajenee. Arvioikaa jokainen liitäntä ja rajatkaa käyttöoikeudet.
 4. **Mikä on siirtoperuste?** Koska tiedot tallennetaan Yhdysvalloissa, [siirtovaikutusten arviointi](/artikkelit/mika-on-tia-tiedonsiirto) on syytä tehdä, ellei siirto perustu riittävyyspäätökseen. Tarkistakaa [Data Privacy Framework -lista](https://www.dataprivacyframework.gov/list) ja sopijaosapuoli.
-5. **Mikä on käsittelyperuste?** Jos peruste on oikeutettu etu, tehkää [oikeutetun edun arviointi](/artikkelit/mika-on-lia-tasapainotesti).
+5. **Mikä on käsittelyperuste?** Jos peruste on oikeutettu etu, tehkää [tasapainotesti eli oikeutetun edun arviointi](/artikkelit/mika-on-lia-tasapainotesti).
 6. **Koskeeko käyttö työntekijöitä?** Jos työkalun käytöstä kerätään tietoa työskentelystä, tarkistakaa työelämän tietosuojalain ja yhteistoimintavelvoitteiden vaatimukset.
 7. **Onko käsittely kuvattu?** Claude kuuluu [selosteeseen käsittelytoimista](/seloste-kasittelytoimista) ja tarvittaessa [tietosuojaselosteeseen](/tietosuojaseloste).
 

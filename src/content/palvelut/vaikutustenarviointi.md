@@ -54,9 +54,13 @@ Hinnat alv 0 %. Jos liitätte Clauden sähköpostiin tai tiedostoihin, arvio laa
 
 Tekoälyn vaikutus näkyy myös julkisissa arvioinneissa. Alankomaiden SLM ja SURF löysivät Microsoft 365 Copilotista joulukuussa 2024 neljä korkeaa riskiä. [Koulutusalan lisenssejä koskevassa päivityksessä](https://www.privacycompany.eu/blog/update-dpia-on-microsoft-365-copilot-for-education) syyskuussa 2025 korkeita riskejä ei enää ollut, mutta kaksi jäi keskitasolle. Arviointi kannattaa siksi tehdä omien asetusten ja käyttöoikeuksien mukaan.
 
+## Tekoälypalvelun vaikutustenarviointi
+
+Asiantuntijamme ovat kirjoittaneet yhdessä Matti Kähkösen kanssa avoimen oppaan [tekoälypalvelun vaikutustenarvioinnista](https://aoe.fi/materiaali/4848). Opas on kaikkien käytettävissä. Jos haluat arvioinnin valmiina, teemme sen samalla menetelmällä teidän palvelunne ja asetustenne mukaan.
+
 ## Mitä muuta voidaan tarvita?
 
-- [Oikeutetun edun arviointi (LIA)](/oikeutetun-edun-arviointi), jos käsittely perustuu oikeutettuun etuun.
+- [Tasapainotesti eli oikeutetun edun arviointi (LIA)](/oikeutetun-edun-arviointi), jos käsittely perustuu oikeutettuun etuun.
 - [Siirtovaikutusten arviointi (TIA)](/siirtovaikutusten-arviointi), jos tiedot siirtyvät EU:n ulkopuolelle esimerkiksi vakiosopimuslausekkeilla.
 - [Perusoikeusvaikutusten arviointi (FRIA)](/perusoikeusvaikutusten-arviointi), jos kyse on tietyn käyttöönottajan suuririskisestä tekoälystä.
 

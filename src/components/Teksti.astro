@@ -1,0 +1,11 @@
+---
+import { palat } from '../data/pohja';
+
+// Näyttää pohjan tekstin niin, että täytettävät [kentät] erottuvat.
+interface Props {
+  teksti: string;
+}
+const { teksti } = Astro.props;
+---
+
+{palat(teksti).map((p) => (p.kentta ? <span class="kentta">{p.teksti.replace(/-/g, '\u2011')}</span> : p.teksti))}

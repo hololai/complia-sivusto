@@ -11,6 +11,7 @@ Päivitetty 5.11.2026. Pohjana on [nettisivusuunnitelma](../../02-Nettisivusuunn
 | Vanha iskulause | "Me teemme, sinä hyväksyt." säilyy tekstissä | Kertoo työtavan, mutta ei sisällä hakusanoja. |
 | Toteutus | Astro, staattiset sivut | Selaimeen ei mene kehystä. Sivut toimivat missä tahansa palvelimella, joten hostingin voi vaihtaa myöhemmin. |
 | Hosting | Firebase Hosting, yksityinen GitHub-repo | Otsakkeet, uudelleenohjaukset ja siistit osoitteet toimivat, ja yksityinen repo on ilmainen. GitHub Pages ei salli omia otsakkeita, ja yksityisestä reposta se vaatii maksullisen tilin. Ei vielä julkaistu. |
+| Asiantuntijoiden tausta | Ei työnantajaa eikä aiempia virkoja, vain koulutus, tehtävätaso, julkaisut ja esiintymiset | Käyttäjän päätös 5.11.2026. |
 | Sijainti repossa | `sivusto/` omana kansionaan | Markkinointisuunnitelma ja budjetit pysyvät repon ulkopuolella, vaikka repo joskus muuttuisi julkiseksi. |
 
 ### Ratkaistava ennen julkaisua: "hosting EU:ssa"
@@ -40,6 +41,7 @@ Lisätty käyttäjän pyynnöstä 5.11.2026: vaikutustenarvioinnin hintaan vaiku
 Hinnat ehdotti Claude, ja käyttäjä hyväksyi ne 5.11.2026. Kaikki hinnat ovat tiedostossa `src/data/hinnat.ts`.
 
 - Ohjelmistorivit sovitettiin niin, että ylin rivi (Microsoft 365 ja Copilot) vastaa vanhaa perushintaa keskikokoisessa ja laajassa koossa. Siksi aiempi esimerkki "enintään 2 280 €" pätee edelleen.
+- Tasapainotesti ja oikeutetun edun arviointi ovat sama asia, joten palvelun nimessä ovat molemmat (käyttäjän päätös 5.11.2026). Tasapainotesti on tutumpi termi, oikeutetun edun arviointi suora käännös LIA:sta.
 - Lisäarvioinneille ei ole pakettialennusta: ne lisätään pakettiin omalla hinnallaan.
 - FRIA ei koske tavallista Copilotin, Geminin tai Clauden käyttöä, vaan tiettyjä suuririskisen tekoälyn käyttöönottajia. Tätä ei saa markkinoida kaikille pakollisena.
 - TIA riippuu toimittajan siirtoperusteesta, joten sitä ei liitetä automaattisesti Microsoft 365:een tai Google Workspaceen.
@@ -57,7 +59,7 @@ Hinnat ehdotti Claude, ja käyttäjä hyväksyi ne 5.11.2026. Kaikki hinnat ovat
 | Tietosuojatarkastus | `/tietosuojatarkastus` | tietosuojatarkastus, tietosuoja-auditointi | osto |
 | Tietotilinpäätös | `/tietotilinpaatos` | tietotilinpäätös kunnalle | osto |
 | Tietosuojavastaava | `/tietosuojavastaava` | tietosuojavastaava palveluna | osto |
-| Oikeutetun edun arviointi | `/oikeutetun-edun-arviointi` | oikeutetun edun arviointi, LIA, tasapainotesti | osto |
+| Tasapainotesti eli oikeutetun edun arviointi | `/oikeutetun-edun-arviointi` | oikeutetun edun arviointi, LIA, tasapainotesti | osto |
 | Siirtovaikutusten arviointi | `/siirtovaikutusten-arviointi` | siirtovaikutusten arviointi, TIA | osto |
 | Perusoikeusvaikutusten arviointi | `/perusoikeusvaikutusten-arviointi` | perusoikeusvaikutusten arviointi, FRIA | osto |
 | Hinnasto | `/hinnasto` | tietosuojaseloste hinta, Copilot vaikutustenarviointi hinta | osto |
@@ -104,11 +106,11 @@ npm run tarkista:julkaisu
 Komento ei mene läpi, ennen kuin kaikki keltaiset Täydennä-kohdat on hoidettu ja `julkaistu: true` on asetettu.
 
 1. Rekisteröi `complia.fi` ja tarkista nimi PRH:n kaupparekisteristä ja tavaramerkeistä.
-2. Täytä tiedostoon `site.config.mjs` yrityksen tiedot ja asiantuntija. Nimetty asiantuntija on tärkeä luottamustekijä, koska aihe on oikeudellinen.
+2. Täytä tiedostoon `site.config.mjs` yrityksen tiedot. Asiantuntijat ja julkaisut on lisätty 5.11.2026, kuvat puuttuvat. Molemmille on merkitty FM-tutkinto: varmista, että se pitää paikkansa.
 3. Päätä lomakkeen vastaanottaja ja EU:ssa toimiva ajanvarauskalenteri. Lomake avaa toistaiseksi sähköpostin.
 4. Päätä hosting ja täydennä `/tietosuoja`. Tee saavutettavuusarviointi ja täydennä `/saavutettavuus`.
 5. Tee kuntien palvelukuvaus (PDF) ja käsittelysopimuspohja.
-6. Asiantuntija lukee kaikki tekstit läpi. Tarkista lopuksi nämä, koska ne voivat muuttua:
+6. Heikki ja Miika lukevat kaikki tekstit läpi, koska artikkeleissa on heidän nimensä. Tarkista lopuksi nämä, koska ne voivat muuttua:
    - HE 46/2026 (seuraamusmaksut viranomaisille), oli vireillä 5.11.2026
    - PeVL 40/2026:n sisältö: lausuntoa ei saatu luettua alkuperäisenä
    - Digital Omnibus (ilmoitusaika 96 tuntia), ei voimassa 5.11.2026

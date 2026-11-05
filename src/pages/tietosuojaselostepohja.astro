@@ -2,8 +2,10 @@
 import Perus from '../layouts/Perus.astro';
 import Kysymykset from '../components/Kysymykset.astro';
 import Loppukehotus from '../components/Loppukehotus.astro';
+import Teksti from '../components/Teksti.astro';
 import { SIVUSTO } from '../../site.config.mjs';
 import { HINNAT, eur } from '../data/hinnat';
+import { POHJA, POHJA_OTSIKKO, POHJA_PAIVAYS, kirjain, pohjaTekstina } from '../data/pohja';
 import { usein } from '../data/schema';
 
 const KYSYMYKSET = [
@@ -20,6 +22,13 @@ const KYSYMYKSET = [
     v: 'Tämä korvaa vanhan rekisteriselosteen. Nykyinen tietosuojaseloste sisältää myös kohdat, joita vanhoissa pohjissa ei yleensä ole, kuten oikeusperusteen ja säilytysajan.',
   },
 ];
+
+const VIRHEET = [
+  { otsikko: 'Säilytysaika jää täyttämättä', teksti: '"Toistaiseksi" ei riitä. Määritä aika tai peruste, jolla se lasketaan.' },
+  { otsikko: 'Työntekijät unohtuvat', teksti: 'Tämä pohja koskee asiakkaita. Tee erillinen seloste työntekijöille ja työnhakijoille.' },
+  { otsikko: 'Toimittajat puuttuvat', teksti: 'Käy läpi sähköposti, palkanlaskenta ja verkkosivut. Moni niistä siirtää tietoja EU:n ulkopuolelle.' },
+  { otsikko: 'Seloste jää paikoilleen', teksti: 'Päivitä se aina, kun järjestelmä tai toimittaja vaihtuu.' },
+];
 ---
 
 <Perus
@@ -33,114 +42,125 @@ const KYSYMYKSET = [
       <div class="osio__otsikko">
         <h1>Tietosuojaselosteen pohja: ilmainen malli yritykselle</h1>
         <p class="johdatus">
-          Kopioi malli tai lataa se Word-tiedostona ja täytä hakasulkeissa olevat kohdat omilla tiedoillasi. Sähköpostia ei tarvita.
+          Täytä keltaiset kohdat omilla tiedoillasi, valitse sopivat vaihtoehdot ja poista ohjeet. Sähköpostia ei tarvita.
         </p>
         <div class="painikkeet">
           <a class="painike" href="/lataukset/tietosuojaseloste-pohja.docx" download>Lataa pohja (Word)</a>
+          <button class="painike painike--toinen" type="button" data-kopioi hidden>Kopioi teksti</button>
           <a class="painike painike--toinen" href="/tietosuojaseloste">Teetä valmiina, alkaen {eur(HINNAT.tietosuojaseloste.pieni)}</a>
         </div>
+        <p class="pieni" role="status" data-kopioi-tila></p>
       </div>
+
+      <div class="pohja">
+        <aside class="pohja__opas" aria-labelledby="opas-otsikko">
+          <h2 id="opas-otsikko">Näin täytät pohjan</h2>
+          <ol class="pohja__vaiheet">
+            <li><strong>Listaa järjestelmät</strong> ja niiden toimittajat.</li>
+            <li><strong>Täytä keltaiset kohdat</strong> ja lisää puuttuvat käsittelyt.</li>
+            <li><strong>Valitse vaihtoehdot</strong> ja poista ohjeet.</li>
+            <li><strong>Julkaise seloste</strong> paikkaan, josta sen löytää helposti.</li>
+          </ol>
+          <dl class="pohja__selite">
+            <div><dt><span class="kentta">[keltainen]</span></dt><dd>täytä omilla tiedoilla</dd></div>
+            <div><dt><span class="pohja__selite-ohje">Ohje</span></dt><dd>poista ennen julkaisua</dd></div>
+            <div><dt><span class="pohja__selite-vaihto">A / B</span></dt><dd>valitse yksi</dd></div>
+          </dl>
+        </aside>
+
+        <article class="arkki" id="pohja" aria-labelledby="pohja-otsikko">
+          <header class="arkki__yla">
+            <h2 id="pohja-otsikko"><Teksti teksti={POHJA_OTSIKKO} /></h2>
+            <p class="arkki__paivays"><Teksti teksti={POHJA_PAIVAYS} /></p>
+          </header>
+          {
+            POHJA.map((osio, i) => (
+              <section class="arkki__osio">
+                <span class="arkki__numero" aria-hidden="true">{i + 1}</span>
+                <div>
+                  <h3>
+                    <span class="visually-hidden">{i + 1}. </span>
+                    {osio.otsikko}
+                  </h3>
+                  {osio.osat.map((osa) => {
+                    if (osa.tyyppi === 'kappale') return <p><Teksti teksti={osa.teksti} /></p>;
+                    if (osa.tyyppi === 'rivit')
+                      return (
+                        <p>
+                          {osa.rivit.map((r, j) => (
+                            <>
+                              {j > 0 && <br />}
+                              <Teksti teksti={r} />
+                            </>
+                          ))}
+                        </p>
+                      );
+                    if (osa.tyyppi === 'lista')
+                      return (
+                        <ul>
+                          {osa.kohdat.map((k) => (
+                            <li><Teksti teksti={k} /></li>
+                          ))}
+                        </ul>
+                      );
+                    if (osa.tyyppi === 'taulukko')
+                      return (
+                        <div class="taulu">
+                          <table class="taulukko">
+                            <thead>
+                              <tr>{osa.otsikot.map((o) => <th scope="col">{o}</th>)}</tr>
+                            </thead>
+                            <tbody>
+                              {osa.rivit.map((r) => (
+                                <tr>{r.map((solu) => <td><Teksti teksti={solu} /></td>)}</tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      );
+                    if (osa.tyyppi === 'vaihtoehdot')
+                      return (
+                        <div class="vaihtoehdot">
+                          {osa.vaihtoehdot.map((v, j) => (
+                            <p class="vaihtoehto">
+                              <span class="vaihtoehto__nimi">Vaihtoehto {kirjain(j)}</span>
+                              <Teksti teksti={v} />
+                            </p>
+                          ))}
+                        </div>
+                      );
+                    return (
+                      <p class="arkki__ohje">
+                        <strong>Ohje:</strong> {osa.teksti}
+                      </p>
+                    );
+                  })}
+                </div>
+              </section>
+            ))
+          }
+        </article>
+      </div>
+      <template data-pohja-teksti>{pohjaTekstina()}</template>
     </div>
   </section>
 
   <section class="osio osio--valkoinen">
     <div class="kehys">
-      <h2>Näin täytät pohjan</h2>
-      <ol class="vaiheet">
-        <li>
-          <h3>Listaa järjestelmät</h3>
-          <p>Kirjaa, missä järjestelmissä tietoja on ja kuka toimittaja ne tarjoaa.</p>
-        </li>
-        <li>
-          <h3>Täytä hakasulkeet</h3>
-          <p>Poista kohdat, jotka eivät koske teitä, ja lisää puuttuvat käsittelyt.</p>
-        </li>
-        <li>
-          <h3>Tarkista ja julkaise</h3>
-          <p>Lue seloste asiakkaan silmin. Julkaise se paikkaan, josta sen löytää helposti.</p>
-        </li>
-      </ol>
-    </div>
-  </section>
-
-  <section class="osio">
-    <div class="kehys">
-      <article class="proosa" id="pohja">
-        <h2>Tietosuojaseloste: [Yrityksen nimi], asiakkaat</h2>
-        <p>Päivitetty: [päivämäärä]</p>
-
-        <h3>1. Rekisterinpitäjä</h3>
-        <p>[Yrityksen nimi], Y-tunnus [Y-tunnus]<br />[Osoite]<br />Tietosuoja-asioissa: [sähköposti], [puhelin]</p>
-        <p>[Jos olette nimenneet tietosuojavastaavan, lisää tähän hänen yhteystietonsa.]</p>
-
-        <h3>2. Mihin tietoja käytetään ja millä perusteella</h3>
-        <table>
-          <thead>
-            <tr><th scope="col">Tarkoitus</th><th scope="col">Oikeusperuste</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Tilausten ja palvelujen toimittaminen</td><td>sopimus</td></tr>
-            <tr><td>Laskutus ja kirjanpito</td><td>lakisääteinen velvoite</td></tr>
-            <tr><td>Asiakassuhteen hoito ja asiakaspalvelu</td><td>oikeutettu etu: asiakassuhteen ylläpito</td></tr>
-            <tr><td>[Uutiskirje tai muu markkinointi]</td><td>[suostumus tai oikeutettu etu]</td></tr>
-          </tbody>
-        </table>
-
-        <h3>3. Mitä tietoja käsittelemme</h3>
-        <ul>
-          <li>Yhteystiedot: nimi, sähköposti, puhelin, osoite</li>
-          <li>Tilaus- ja laskutustiedot: [tilaukset, maksutapa, laskut]</li>
-          <li>Yhteydenotot: [viestit, asiakaspalvelupyynnöt]</li>
-          <li>[Muut tiedot, joita käsittelette]</li>
-        </ul>
-        <p>Pakolliset tiedot: tarvitsemme [nimen ja yhteystiedot] sopimuksen toteuttamiseen. Ilman niitä emme voi toimittaa tilausta.</p>
-
-        <h3>4. Mistä saamme tiedot</h3>
-        <p>Saamme tiedot pääosin sinulta itseltäsi. [Jos tietoja saadaan muualta, kerro tässä mistä, esimerkiksi Yritys- ja yhteisötietojärjestelmästä.]</p>
-
-        <h3>5. Kenelle tietoja luovutetaan</h3>
-        <ul>
-          <li>Kirjanpito: [tilitoimiston nimi]</li>
-          <li>Tietojärjestelmät: [asiakasrekisterin toimittaja]</li>
-          <li>Maksut: [maksunvälittäjä]</li>
-          <li>[Muut vastaanottajat]</li>
-        </ul>
-        <p>Palveluntarjoajat käsittelevät tietoja puolestamme käsittelysopimuksen perusteella. Emme myy tietoja.</p>
-
-        <h3>6. Siirrot EU:n ja ETA:n ulkopuolelle</h3>
-        <p>[Vaihtoehto A: Emme siirrä tietoja EU:n tai ETA:n ulkopuolelle.]</p>
-        <p>[Vaihtoehto B: [Palvelu] siirtää tietoja maahan [maa]. Siirto perustuu [komission tietosuojan riittävyyspäätökseen tai vakiosopimuslausekkeisiin]. Lisätietoja saat osoitteesta [sähköposti].]</p>
-
-        <h3>7. Kuinka kauan säilytämme tietoja</h3>
-        <ul>
-          <li>Asiakastiedot: asiakassuhteen ajan ja [X kuukautta] sen päättymisestä</li>
-          <li>Kirjanpitoaineisto: kirjanpitolain mukaisen ajan</li>
-          <li>[Markkinointi: kunnes perut suostumuksen tai kiellät markkinoinnin]</li>
-        </ul>
-
-        <h3>8. Sinun oikeutesi</h3>
-        <p>Sinulla on oikeus saada pääsy tietoihisi, oikaista ja poistaa niitä, rajoittaa ja vastustaa niiden käsittelyä sekä siirtää tiedot järjestelmästä toiseen. Jos käsittely perustuu suostumukseen, voit perua sen milloin tahansa. Lähetä pyyntö osoitteeseen [sähköposti].</p>
-
-        <h3>9. Valitusoikeus</h3>
-        <p>Jos katsot, että käsittelemme tietojasi lainvastaisesti, voit tehdä valituksen tietosuojavaltuutetun toimistolle.</p>
-
-        <h3>10. Automaattinen päätöksenteko</h3>
-        <p>[Vaihtoehto A: Emme tee sinua koskevia päätöksiä pelkästään automaattisesti.]</p>
-        <p>[Vaihtoehto B: Kuvaa käytetty logiikka, päätöksen merkitys ja vaikutukset.]</p>
-      </article>
-    </div>
-  </section>
-
-  <section class="osio osio--valkoinen">
-    <div class="kehys proosa">
-      <h2>Mihin pohjan käyttäjät yleensä kompastuvat</h2>
-      <ul>
-        <li><strong>Säilytysaika jää täyttämättä.</strong> "Toistaiseksi" ei riitä. Määritä aika tai peruste, jolla se lasketaan.</li>
-        <li><strong>Työntekijät unohtuvat.</strong> Tämä pohja koskee asiakkaita. Tee erillinen seloste työntekijöille ja työnhakijoille.</li>
-        <li><strong>Toimittajat puuttuvat.</strong> Käy läpi sähköposti, palkanlaskenta ja verkkosivut. Moni näistä siirtää tietoja EU:n ulkopuolelle.</li>
-        <li><strong>Seloste jää paikoilleen.</strong> Päivitä se aina, kun järjestelmä tai toimittaja vaihtuu.</li>
-      </ul>
-      <p>Lue tarkemmin, <a href="/artikkelit/mita-tietosuojaselosteessa-pitaa-olla">mitä tietosuojaselosteessa pitää olla</a>.</p>
+      <div class="osio__otsikko">
+        <h2>Mihin pohjan käyttäjät yleensä kompastuvat</h2>
+        <p class="johdatus">Lue tarkemmin, <a href="/artikkelit/mita-tietosuojaselosteessa-pitaa-olla">mitä tietosuojaselosteessa pitää olla</a>.</p>
+      </div>
+      <div class="ruudukko">
+        {
+          VIRHEET.map((v) => (
+            <div class="kortti">
+              <h3>{v.otsikko}</h3>
+              <p>{v.teksti}</p>
+            </div>
+          ))
+        }
+      </div>
     </div>
   </section>
 
@@ -155,3 +175,5 @@ const KYSYMYKSET = [
     linkki="/tietosuojaseloste"
   />
 </Perus>
+
+<script src="../scripts/kopioi.ts"></script>

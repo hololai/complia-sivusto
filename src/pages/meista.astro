@@ -3,50 +3,104 @@ import Perus from '../layouts/Perus.astro';
 import Tayta from '../components/Tayta.astro';
 import Loppukehotus from '../components/Loppukehotus.astro';
 import { SIVUSTO } from '../../site.config.mjs';
+import { henkilo } from '../data/schema';
 
-const { asiantuntija } = SIVUSTO;
-const henkilo = asiantuntija.nimi
-  ? {
-      '@context': 'https://schema.org',
-      '@type': 'Person',
-      name: asiantuntija.nimi,
-      ...(asiantuntija.titteli ? { jobTitle: asiantuntija.titteli } : {}),
-      ...(asiantuntija.kuvaus ? { description: asiantuntija.kuvaus } : {}),
-      ...(asiantuntija.linkedin ? { sameAs: [asiantuntija.linkedin] } : {}),
-      worksFor: { '@id': `${SIVUSTO.osoite}/#organisaatio` },
-    }
-  : null;
+const { asiantuntijat, julkaisut, esiintymiset } = SIVUSTO;
+const paivays = (iso: string) => {
+  const [v, k, p] = iso.split('-').map(Number);
+  return `${p}.${k}.${v}`;
+};
 ---
 
 <Perus
-  otsikko={`Meistä: kuka tekee ja miten työskentelemme | ${SIVUSTO.nimi}`}
-  kuvaus="Complia tekee valmiit tietosuoja-asiakirjat kiinteällä hinnalla, ja asiantuntija tarkistaa jokaisen. Lue, kuka tekee ja miten käsittelemme tietojanne."
+  otsikko={`Meistä: tietosuojan ja IT:n asiantuntijat | ${SIVUSTO.nimi}`}
+  kuvaus="Complian asiantuntijat Heikki Laivamaa ja Miika Miinin yhdistävät tietosuojan ja IT:n. Lue tausta, oppaamme tekoälyn tietosuojasta ja työtapamme."
   murut={[{ nimi: 'Meistä', polku: '/meista' }]}
-  schema={henkilo ? [henkilo] : []}
+  schema={asiantuntijat.map((a) => henkilo(a))}
 >
   <section class="osio">
+    <div class="kehys">
+      <div class="osio__otsikko">
+        <h1>Meistä</h1>
+        <p class="johdatus">
+          {SIVUSTO.nimi} on kahden tietosuojan ja IT:n asiantuntijan yritys. Teemme tietosuoja-asiakirjat valmiiksi
+          kiinteällä hinnalla. {SIVUSTO.iskulause}
+        </p>
+      </div>
+
+      <div class="ruudukko ruudukko--2">
+        {
+          asiantuntijat.map((a) => (
+            <article class="kortti asiantuntija">
+              <h2>{a.nimi}</h2>
+              <p class="nostin">{a.titteli}</p>
+              <ul>
+                {a.tausta.map((t) => (
+                  <li>{t.charAt(0).toUpperCase() + t.slice(1)}</li>
+                ))}
+              </ul>
+              {a.linkedin && (
+                <p>
+                  <a href={a.linkedin} rel="noopener me">
+                    LinkedIn
+                  </a>
+                </p>
+              )}
+            </article>
+          ))
+        }
+      </div>
+      <p><Tayta>asiantuntijoiden kuvat</Tayta></p>
+    </div>
+  </section>
+
+  <section class="osio osio--valkoinen">
+    <div class="kehys">
+      <div class="osio__otsikko">
+        <h2>Oppaat ja esiintymiset</h2>
+        <p class="johdatus">
+          Olemme kirjoittaneet yhdessä Matti Kähkösen kanssa kaksi avointa opasta, jotka on julkaistu Avointen
+          oppimateriaalien kirjastossa CC BY-SA 4.0 -lisenssillä. Ne ovat kenen tahansa käytettävissä.
+        </p>
+      </div>
+      <div class="ruudukko ruudukko--2">
+        {
+          julkaisut.map((j) => (
+            <article class="kortti">
+              <h3>
+                <a href={j.url} rel="noopener">
+                  {j.nimi}
+                </a>
+              </h3>
+              <p>{j.kuvaus}</p>
+              <p class="pieni">
+                {j.tekijat}. Julkaistu {paivays(j.julkaistu)}, aoe.fi.
+              </p>
+            </article>
+          ))
+        }
+      </div>
+
+      <h3 class="esiintymiset__otsikko">Esiintymisiä</h3>
+      <ul class="esiintymiset">
+        {
+          esiintymiset.map((e) => (
+            <li>
+              <a href={e.url} rel="noopener">
+                {e.nimi}
+              </a>
+              <span class="pieni">
+                {e.tapahtuma}, {paivays(e.paiva)}. {e.esiintyjat}.
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="osio">
     <div class="kehys proosa">
-      <h1>Meistä</h1>
-      <p class="johdatus">{SIVUSTO.nimi} tekee tietosuoja-asiakirjat valmiiksi kiinteällä hinnalla. {SIVUSTO.iskulause}</p>
-
-      <h2>Kuka tekee</h2>
-      {
-        asiantuntija.nimi ? (
-          <>
-            <p>
-              <strong>{asiantuntija.nimi}</strong>
-              {asiantuntija.titteli && `, ${asiantuntija.titteli}`}
-            </p>
-            {asiantuntija.kuvaus && <p>{asiantuntija.kuvaus}</p>}
-            {asiantuntija.linkedin && <p><a href={asiantuntija.linkedin} rel="noopener me">LinkedIn</a></p>}
-          </>
-        ) : (
-          <p>
-            <Tayta>asiantuntijan nimi, kuva, tausta ja pätevyydet</Tayta>
-          </p>
-        )
-      }
-
       <h2>Miten työskentelemme</h2>
       <p>
         Oma Complia-työkalumme tekee dokumentoinnista nopeaa, ja siksi kiinteä hinta on mahdollinen. Työkalu ei
@@ -56,6 +110,34 @@ const henkilo = asiantuntija.nimi
         Asiakas ei opettele ohjelmistoa eikä täytä lomakkeita. Haastattelemme teitä, teemme asiakirjat ja käymme
         muutokset läpi kanssanne. Saatte valmiit asiakirjat muokattavina tiedostoina, ja ne ovat teidän.
       </p>
+
+      <h2>Tietosuoja ja IT samassa paketissa</h2>
+      <p>
+        Emme ole juristeja vaan tietosuojan ja IT:n asiantuntijoita. Tietosuoja ratkeaa usein järjestelmissä:
+        käyttöoikeuksissa, säilytysajoissa, toimittajien sopimuksissa ja siinä, mihin tekoälytyökalu pääsee käsiksi.
+        Ymmärrämme sekä lain vaatimukset että sen, miten Microsoft 365, Google Workspace ja tekoälypalvelut toimivat
+        käytännössä.
+      </p>
+      <table>
+        <thead>
+          <tr><th scope="col">Teemme</th><th scope="col">Emme tee</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>tietosuojaselosteet, selosteet käsittelytoimista ja ohjeet</td>
+            <td>oikeudellisia lausuntoja riita- tai sopimustilanteisiin</td>
+          </tr>
+          <tr>
+            <td>vaikutustenarvioinnit, tasapainotestit, siirtojen ja tekoälyn arvioinnit</td>
+            <td>edustusta tuomioistuimessa tai seuraamusmaksumenettelyssä</td>
+          </tr>
+          <tr>
+            <td>tietosuojatarkastukset ja tietosuojavastaavan tehtävät</td>
+            <td>sopimusneuvotteluja asiakkaan puolesta</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Jos tilanne vaatii oikeudellista tulkintaa, kerromme sen suoraan ja ohjaamme juristille.</p>
 
       <h2>Miten käsittelemme teidän tietojanne</h2>
       <p>
@@ -72,3 +154,30 @@ const henkilo = asiantuntija.nimi
   </section>
   <Loppukehotus />
 </Perus>
+
+<style>
+  .asiantuntija h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.15rem;
+  }
+  .asiantuntija ul {
+    margin: 0;
+    padding-left: 1.15rem;
+  }
+  .asiantuntija li {
+    margin-bottom: 0.3rem;
+  }
+  .esiintymiset__otsikko {
+    margin-top: 2rem;
+  }
+  .esiintymiset {
+    margin: 0;
+    padding-left: 1.15rem;
+  }
+  .esiintymiset li {
+    margin-bottom: 0.5rem;
+  }
+  .esiintymiset .pieni {
+    display: block;
+  }
+</style>

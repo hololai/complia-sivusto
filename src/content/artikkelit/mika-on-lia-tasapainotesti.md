@@ -16,8 +16,8 @@ liittyvat:
   - tekoaly-tyopaikalla-tietosuoja
 kehotus:
   otsikko: "Haluatko arvioinnin valmiina?"
-  teksti: "Teemme oikeutetun edun arvioinnin kahdessa arkipäivässä, alkaen {{lia.pieni}} käsittelyä kohden (alv 0 %)."
-  nappi: "Katso oikeutetun edun arviointi"
+  teksti: "Teemme tasapainotestin kahdessa arkipäivässä, alkaen {{lia.pieni}} käsittelyä kohden (alv 0 %)."
+  nappi: "Katso tasapainotesti"
   linkki: "/oikeutetun-edun-arviointi"
 usein:
   - k: "Mitä eroa on LIA:lla ja vaikutustenarvioinnilla?"
@@ -35,7 +35,7 @@ lahteet:
     url: "https://www.edpb.europa.eu/system/files/documents/2025-05/edpb_opinion_202428_ai-models_fi.pdf"
 ---
 
-LIA tulee englannin sanoista legitimate interest assessment. Suomeksi siitä puhutaan oikeutetun edun arviointina tai tasapainotestinä. Sillä osoitetaan, että henkilötietojen käsittely voi perustua tietosuoja-asetuksen 6 artiklan 1 kohdan f alakohdan mukaiseen oikeutettuun etuun.
+LIA tulee englannin sanoista legitimate interest assessment. Suomeksi siitä puhutaan tasapainotestinä tai oikeutetun edun arviointina, ja molemmat tarkoittavat samaa. Sillä osoitetaan, että henkilötietojen käsittely voi perustua tietosuoja-asetuksen 6 artiklan 1 kohdan f alakohdan mukaiseen oikeutettuun etuun.
 
 Moni kirjoittaa tietosuojaselosteeseen oikeusperusteeksi "oikeutettu etu", mutta ei ole koskaan tehnyt punnintaa. Silloin perustetta on vaikea osoittaa, jos valvoja tai rekisteröity kysyy sitä.
 

@@ -1050,3 +1050,185 @@ a:hover {
     scroll-behavior: auto !important;
   }
 }
+
+/* Tietosuojaselosteen pohja näytetään asiakirjana, jotta täytettävät kentät,
+   ohjeet ja vaihtoehdot erottuvat toisistaan ja selosteen tekstistä. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.pohja {
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: start;
+}
+@media (min-width: 62rem) {
+  .pohja {
+    grid-template-columns: 16rem minmax(0, 1fr);
+  }
+  .pohja__opas {
+    position: sticky;
+    top: 1.5rem;
+  }
+}
+.pohja__opas h2 {
+  font-size: 1.25rem;
+}
+.pohja__vaiheet {
+  margin: 0 0 1.25rem;
+  padding-left: 1.2rem;
+  font-size: 0.95rem;
+}
+.pohja__vaiheet li {
+  margin-bottom: 0.5rem;
+}
+.pohja__selite {
+  display: grid;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 1rem;
+  background: var(--valkoinen);
+  border: 1px solid var(--viiva);
+  border-radius: var(--pyoristys);
+  font-size: 0.9rem;
+}
+.pohja__selite div {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.pohja__selite dt {
+  flex: none;
+  width: 6.5rem;
+}
+.pohja__selite dd {
+  margin: 0;
+  color: var(--harmaa);
+}
+.pohja__selite-ohje {
+  display: inline-block;
+  padding: 0.05rem 0.5rem;
+  border-left: 3px solid var(--messinki);
+  background: #faf5ea;
+  color: var(--messinki);
+  font-style: italic;
+  font-weight: 600;
+}
+.pohja__selite-vaihto {
+  display: inline-block;
+  padding: 0.05rem 0.5rem;
+  border: 1.5px dashed #bfbaaa;
+  border-radius: 6px;
+  font-weight: 600;
+}
+.arkki {
+  max-width: 50rem;
+  padding: clamp(1.25rem, 4vw, 3.25rem);
+  background: var(--valkoinen);
+  border: 1px solid var(--viiva);
+  border-radius: 4px;
+  box-shadow:
+    0 1px 2px rgb(24 33 30 / 6%),
+    0 28px 56px -32px rgb(24 33 30 / 32%);
+}
+.arkki__yla {
+  border-bottom: 2px solid var(--muste);
+  padding-bottom: 1rem;
+  margin-bottom: 0.5rem;
+}
+.arkki__yla h2 {
+  text-wrap: wrap;
+  hyphens: manual;
+  font-size: clamp(1.45rem, 1.2rem + 1vw, 2rem);
+  margin: 0 0 0.35rem;
+}
+.arkki__paivays {
+  margin: 0;
+  color: var(--harmaa);
+  font-size: 0.95rem;
+}
+.arkki__osio {
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr);
+  gap: 0 1rem;
+  padding: 1.4rem 0 0.6rem;
+  border-bottom: 1px solid var(--viiva);
+}
+.arkki__osio:last-child {
+  border-bottom: 0;
+}
+.arkki__numero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--sammal);
+  color: var(--kuusi);
+  font-family: var(--serif);
+  font-weight: 650;
+}
+.arkki h3 {
+  font-size: 1.15rem;
+  margin: 0.2rem 0 0.65rem;
+}
+.arkki p,
+.arkki ul,
+.arkki .taulu {
+  margin: 0 0 0.8rem;
+}
+.arkki ul {
+  padding-left: 1.15rem;
+}
+.arkki li {
+  margin-bottom: 0.3rem;
+}
+.arkki li::marker {
+  color: var(--kuusi);
+}
+.kentta {
+  hyphens: manual;
+  background: var(--tayta);
+  border-bottom: 1.5px dashed #a8901f;
+  border-radius: 3px;
+  padding: 0 0.1em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.arkki .arkki__ohje {
+  padding: 0.5rem 0.8rem;
+  background: #faf5ea;
+  border-left: 3px solid var(--messinki);
+  border-radius: 0 6px 6px 0;
+  color: var(--messinki);
+  font-size: 0.92rem;
+  font-style: italic;
+}
+.arkki__ohje strong {
+  font-style: normal;
+}
+.vaihtoehdot {
+  display: grid;
+  gap: 0.6rem;
+  margin: 0 0 0.8rem;
+}
+.arkki .vaihtoehto {
+  margin: 0;
+  padding: 0.65rem 0.85rem;
+  border: 1.5px dashed #bfbaaa;
+  border-radius: 8px;
+}
+.vaihtoehto__nimi {
+  display: block;
+  margin-bottom: 0.15rem;
+  color: var(--harmaa);
+  font-size: 0.78rem;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}

@@ -44,8 +44,8 @@ const muut = d.liittyvat.map((id) => {
       <p class="artikkeli__tiedot">
         Päivitetty <time datetime={iso(d.paivitetty)}>{muotoile(d.paivitetty)}</time> ·
         {
-          SIVUSTO.asiantuntija.nimi ? (
-            <a href="/meista">{SIVUSTO.asiantuntija.nimi}</a>
+          SIVUSTO.asiantuntijat.length ? (
+            <a href="/meista">{SIVUSTO.asiantuntijat.map((a) => a.nimi).join(' ja ')}</a>
           ) : (
             <Tayta>kirjoittajan nimi</Tayta>
           )

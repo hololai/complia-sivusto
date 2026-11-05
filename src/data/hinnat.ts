@@ -162,7 +162,7 @@ export const OHJELMISTOJEN_JARJESTYS = Object.keys(OHJELMISTOT) as OhjelmistoAva
 // Lisäarvioinnit tarvitaan vain tietyissä tilanteissa, joten ne eivät kuulu pakettiin vaan lisätään siihen.
 export const ARVIOINNIT = {
   lia: {
-    nimi: 'Oikeutetun edun arviointi (LIA)',
+    nimi: 'Tasapainotesti eli oikeutetun edun arviointi (LIA)',
     polku: '/oikeutetun-edun-arviointi',
     lyhyt: 'Voiko käsittely perustua oikeutettuun etuun?',
     yksikko: 'käsittelyä kohden',
@@ -219,7 +219,7 @@ export const KOKONAISUUDET = [
     rivit: [
       paketti('pieni'),
       { nimi: 'Vaikutustenarviointi: Workspace ja Gemini', hinta: OHJELMISTOT.gemini.pieni },
-      { nimi: 'Oikeutetun edun arviointi (LIA)', hinta: ARVIOINNIT.lia.pieni },
+      { nimi: ARVIOINNIT.lia.nimi, hinta: ARVIOINNIT.lia.pieni },
     ],
   },
   {
@@ -236,7 +236,7 @@ export const KOKONAISUUDET = [
     rivit: [
       paketti('keski'),
       { nimi: 'Vaikutustenarviointi: Microsoft 365 ja Copilot', hinta: OHJELMISTOT.copilot.keski },
-      { nimi: 'Oikeutetun edun arviointi (LIA)', hinta: ARVIOINNIT.lia.keski },
+      { nimi: ARVIOINNIT.lia.nimi, hinta: ARVIOINNIT.lia.keski },
     ],
   },
   {
@@ -246,7 +246,7 @@ export const KOKONAISUUDET = [
       paketti('laaja'),
       { nimi: 'Vaikutustenarviointi: Microsoft 365 ja Copilot', hinta: OHJELMISTOT.copilot.laaja },
       { nimi: 'Siirtovaikutusten arviointi (TIA)', hinta: ARVIOINNIT.tia.laaja },
-      { nimi: 'Oikeutetun edun arviointi (LIA)', hinta: ARVIOINNIT.lia.laaja },
+      { nimi: ARVIOINNIT.lia.nimi, hinta: ARVIOINNIT.lia.laaja },
     ],
   },
   {

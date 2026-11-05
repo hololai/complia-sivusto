@@ -1,18 +1,18 @@
 ---
-nimi: Oikeutetun edun arviointi (LIA)
+nimi: Tasapainotesti eli oikeutetun edun arviointi (LIA)
 avain: lia
 jarjestys: 8
 hakusana: oikeutetun edun arviointi
-otsikko: "Oikeutetun edun arviointi (LIA) kiinteällä hinnalla | Complia"
-h1: "Oikeutetun edun arviointi (LIA) kiinteällä hinnalla"
-kuvaus: "Oikeutetun edun arviointi eli tasapainotesti (LIA) kertoo, voiko käsittely perustua oikeutettuun etuun. Kiinteä hinta alkaen {{lia.pieni}}."
+otsikko: "Tasapainotesti eli oikeutetun edun arviointi (LIA) | Complia"
+h1: "Tasapainotesti eli oikeutetun edun arviointi (LIA) kiinteällä hinnalla"
+kuvaus: "Tasapainotesti eli oikeutetun edun arviointi (LIA) kertoo, voiko käsittely perustua oikeutettuun etuun. Kiinteä hinta alkaen {{lia.pieni}}."
 johdanto: "Oikeutettu etu on käsittelyperuste vain, jos etu on aito, käsittely tarpeellista eivätkä ihmisten oikeudet syrjäytä sitä. Arviointi dokumentoi tämän ja perustelee ratkaisun valvojalle."
 sopii: "käsittelette tietoja oikeutetun edun perusteella esimerkiksi suoramarkkinoinnissa, kameravalvonnassa, tietoturvalokeissa tai tekoälytyökalussa, eikä perustelua ole kirjattu."
 saat: "kirjallisen kolmivaiheisen arvioinnin, johtopäätöksen, tarvittavat suojatoimet ja tekstin tietosuojaselosteeseen."
 tarvitsemme: "kuvauksen käsittelystä ja 30 minuutin haastattelun."
 artikkeli: mika-on-lia-tasapainotesti
 usein:
-  - k: "Mitä oikeutetun edun arviointi maksaa?"
+  - k: "Mitä tasapainotesti maksaa?"
     v: "Koon mukaan {{lia.pieni}}, {{lia.keski}} tai {{lia.laaja}} käsittelyä kohden (alv 0 %). Toimitus kahdessa arkipäivässä."
   - k: "Onko LIA pakollinen?"
     v: "Asetus ei mainitse sitä nimeltä. Rekisterinpitäjän on kuitenkin pystyttävä osoittamaan, että käsittely on lainmukaista, ja ilman kirjallista arviointia se on oikeutetun edun kohdalla vaikeaa."
@@ -20,9 +20,9 @@ usein:
     v: "Ei sellaisenaan. Oikeutettu etu on kuitenkin kerrottava tietosuojaselosteessa, ja arviointi on annettava valvojalle, jos se pyytää sitä."
 ---
 
-## Mikä oikeutetun edun arviointi on?
+## Mikä tasapainotesti eli oikeutetun edun arviointi on?
 
-Tietosuoja-asetuksen 6 artiklan 1 kohdan f alakohta sallii henkilötietojen käsittelyn rekisterinpitäjän tai kolmannen osapuolen oikeutetun edun perusteella. Peruste ei kuitenkaan synny pelkällä ilmoituksella. Etu pitää punnita ihmisten oikeuksia vasten, ja tästä punninnasta käytetään nimiä oikeutetun edun arviointi, tasapainotesti ja englanniksi LIA (legitimate interest assessment).
+Tietosuoja-asetuksen 6 artiklan 1 kohdan f alakohta sallii henkilötietojen käsittelyn rekisterinpitäjän tai kolmannen osapuolen oikeutetun edun perusteella. Peruste ei kuitenkaan synny pelkällä ilmoituksella. Etu pitää punnita ihmisten oikeuksia vasten, Tätä punnintaa kutsutaan tasapainotestiksi tai oikeutetun edun arvioinniksi. Ne ovat sama asia, ja englanniksi siitä käytetään lyhennettä LIA (legitimate interest assessment).
 
 ## Kolme vaihetta
 

@@ -27,6 +27,8 @@ usein:
   - k: "Tarvitseeko Gemini perusoikeusvaikutusten arvioinnin (FRIA)?"
     v: "Tavallisessa toimistotyössä yleensä ei. Tilanne voi muuttua, jos Geminillä esimerkiksi arvioidaan työnhakijoita tai oikeutta palveluun."
 lahteet:
+  - nimi: "Miinin, Kähkönen ja Laivamaa: Tekoälypalvelun vaikutustenarviointi (aoe.fi, 2025)"
+    url: "https://aoe.fi/materiaali/4848"
   - nimi: "Google: Generative AI in Google Workspace Privacy Hub"
     url: "https://support.google.com/a/answer/15706919?hl=en"
   - nimi: "Google: Choose a geographic location for your data"
@@ -73,7 +75,7 @@ Säilytysaika on päätös, joka kuuluu selosteeseen käsittelytoimista. Pelkkä
 
 Usein kyllä. Uusi teknologia ja työntekijöiden tiedot täyttävät jo kaksi Euroopan tietosuojaviranomaisten [yhdeksästä kriteeristä](/artikkelit/milloin-vaikutustenarviointi-on-pakollinen), ja arviointi on silloin yleensä tarpeen. Jos käyttö on rajattua eikä ratkaisu ole selvä, [ennakkoarvio](/tarvitaanko-vaikutustenarviointi) dokumentoi perustelun.
 
-Lisäksi voidaan tarvita [oikeutetun edun arviointi](/artikkelit/mika-on-lia-tasapainotesti), jos käsittely perustuu oikeutettuun etuun, ja [siirtovaikutusten arviointi](/artikkelit/mika-on-tia-tiedonsiirto), jos siirto perustuu vakiosopimuslausekkeisiin. Työkalun perusasiat ovat [Google Workspacen tietosuojaohjeessa](/artikkelit/google-workspace-tietosuoja).
+Lisäksi voidaan tarvita [tasapainotesti eli oikeutetun edun arviointi](/artikkelit/mika-on-lia-tasapainotesti), jos käsittely perustuu oikeutettuun etuun, ja [siirtovaikutusten arviointi](/artikkelit/mika-on-tia-tiedonsiirto), jos siirto perustuu vakiosopimuslausekkeisiin. Työkalun perusasiat ovat [Google Workspacen tietosuojaohjeessa](/artikkelit/google-workspace-tietosuoja).
 
 ## Mitä arviointi maksaa?
 

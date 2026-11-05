@@ -101,7 +101,6 @@ export function artikkeli(a: {
   julkaistu: Date;
   paivitetty: Date;
 }) {
-  const { asiantuntija } = SIVUSTO;
   return {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -113,14 +112,21 @@ export function artikkeli(a: {
     dateModified: a.paivitetty.toISOString().slice(0, 10),
     image: `${SIVUSTO.osoite}/og.png`,
     publisher: { '@id': ORG_ID },
-    author: asiantuntija.nimi
-      ? {
-          '@type': 'Person',
-          name: asiantuntija.nimi,
-          url: `${SIVUSTO.osoite}/meista`,
-          ...(asiantuntija.titteli ? { jobTitle: asiantuntija.titteli } : {}),
-          ...(asiantuntija.linkedin ? { sameAs: [asiantuntija.linkedin] } : {}),
-        }
-      : { '@id': ORG_ID },
+    author: SIVUSTO.asiantuntijat.length ? SIVUSTO.asiantuntijat.map((a) => henkilo(a, false)) : { '@id': ORG_ID },
+  };
+}
+
+type Asiantuntija = (typeof SIVUSTO.asiantuntijat)[number];
+
+export function henkilo(a: Asiantuntija, erillinen = true) {
+  return {
+    ...(erillinen ? { '@context': 'https://schema.org' } : {}),
+    '@type': 'Person',
+    name: a.nimi,
+    jobTitle: a.titteli,
+    url: `${SIVUSTO.osoite}/meista`,
+    worksFor: { '@id': ORG_ID },
+    knowsAbout: ['tietosuoja', 'GDPR', 'tietosuojan vaikutustenarviointi', 'tekoäly ja tietosuoja'],
+    ...(a.linkedin ? { sameAs: [a.linkedin] } : {}),
   };
 }

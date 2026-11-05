@@ -119,7 +119,7 @@ const artikkelit = (await getCollection('artikkelit')).sort((a, b) => a.data.jar
         {PALVELUJEN_JARJESTYS.map((a) => <PalveluKortti avain={a} />)}
       </div>
       <p class="pieni">
-        Tarpeen mukaan myös <a href={ARVIOINNIT.lia.polku}>oikeutetun edun arviointi (LIA)</a>,
+        Tarpeen mukaan myös <a href={ARVIOINNIT.lia.polku}>tasapainotesti eli oikeutetun edun arviointi (LIA)</a>,
         <a href={ARVIOINNIT.tia.polku}>siirtovaikutusten arviointi (TIA)</a> ja
         <a href={ARVIOINNIT.fria.polku}>perusoikeusvaikutusten arviointi (FRIA)</a>.
       </p>
@@ -143,7 +143,10 @@ const artikkelit = (await getCollection('artikkelit')).sort((a, b) => a.data.jar
         </div>
         <div>
           <h3>Asiantuntija vastaa</h3>
-          <p>Jokainen asiakirja tarkistetaan ennen luovutusta.</p>
+          <p>
+            Jokainen asiakirja tarkistetaan ennen luovutusta. Tekijöinä <a href="/meista">Heikki Laivamaa ja Miika
+            Miinin</a>.
+          </p>
         </div>
         <div>
           <h3>Selkeää suomea</h3>
