@@ -1,0 +1,146 @@
+---
+import Perus from '../layouts/Perus.astro';
+import { SIVUSTO } from '../../site.config.mjs';
+import { HINNAT, PAKETTI, JATKUVAT, eur } from '../data/hinnat';
+
+const KYSYMYKSET = [
+  'Onko teillä ajantasainen tietosuojaseloste asiakkaille?',
+  'Onko teillä erillinen seloste työntekijöille ja työnhakijoille?',
+  'Onko teillä seloste käsittelytoimista?',
+  'Tiedättekö, kuinka kauan säilytätte asiakastietoja?',
+  'Onko jokaisen henkilötietoja käsittelevän toimittajan kanssa käsittelysopimus?',
+  'Tiedättekö, siirtyykö tietoja EU:n ulkopuolelle?',
+  'Onko uusille järjestelmille tehty arvio vaikutustenarvioinnin tarpeesta?',
+  'Onko henkilöstöllä ohje tekoälytyökalujen käyttöön?',
+  'Onko teillä ohje tietomurron varalle?',
+  'Onko henkilöstö koulutettu tietosuojaan viimeisen 2 vuoden aikana?',
+];
+
+const TULOKSET = [
+  {
+    id: 'hyva',
+    pisteet: '8–10',
+    otsikko: 'Hyvällä tolalla',
+    teksti: 'Perusasiat ovat kunnossa. Nyt riittää, että ne pysyvät kunnossa, kun järjestelmät ja lait muuttuvat.',
+    suositus: `${JATKUVAT.kunnossa.nimi} -jatkopalvelu, alkaen ${eur(JATKUVAT.kunnossa.pieni)}/kk`,
+    linkki: '/hinnasto#jatkuvat',
+    nappi: 'Katso jatkopalvelu',
+  },
+  {
+    id: 'puutteita',
+    pisteet: '4–7',
+    otsikko: 'Puutteita',
+    teksti: 'Osa perusasiakirjoista puuttuu tai on vanhentunut. Korjaa ensin ne, joita asiakas tai valvoja voi pyytää nähtäväksi.',
+    suositus: `Tietosuojaselosteet alkaen ${eur(HINNAT.tietosuojaseloste.pieni)} ja seloste käsittelytoimista alkaen ${eur(HINNAT.seloste.pieni)}`,
+    linkki: '/tietosuojaseloste',
+    nappi: 'Katso tietosuojaselosteet',
+  },
+  {
+    id: 'korjattavaa',
+    pisteet: '0–3',
+    otsikko: 'Paljon korjattavaa',
+    teksti: 'Tilanne on tavallinen, ja se korjautuu nopeasti, kun kaikki tehdään kerralla.',
+    suositus: `${PAKETTI.nimi} -paketti, alkaen ${eur(PAKETTI.pieni)}`,
+    linkki: '/hinnasto#paketti',
+    nappi: 'Katso paketti',
+  },
+];
+---
+
+<Perus
+  otsikko={`Tietosuojan pikatesti: onko GDPR kunnossa? | ${SIVUSTO.nimi}`}
+  kuvaus="Onko yrityksesi tietosuoja kunnossa? Vastaa kymmeneen kysymykseen, niin saat tuloksen ja suosituksen heti. Vastauksia ei tallenneta."
+  murut={[{ nimi: 'Pikatesti', polku: '/pikatesti' }]}
+>
+  <section class="osio">
+    <div class="kehys">
+      <div class="osio__otsikko">
+        <h1>Tietosuojan pikatesti: onko GDPR kunnossa?</h1>
+        <p class="johdatus">
+          Kymmenen kysymystä ja kaksi minuuttia. Tulos näkyy heti, eikä vastauksia tallenneta mihinkään: ne pysyvät
+          vain omassa selaimessasi.
+        </p>
+      </div>
+
+      <form class="testi" data-pikatesti>
+        {
+          KYSYMYKSET.map((k, i) => (
+            <fieldset class="kysymys">
+              <legend>{k}</legend>
+              <div class="kysymys__valinnat">
+                <label>
+                  <input type="radio" name={`k${i}`} value="1" required />
+                  Kyllä
+                </label>
+                <label>
+                  <input type="radio" name={`k${i}`} value="0" />
+                  Ei tai en tiedä
+                </label>
+              </div>
+            </fieldset>
+          ))
+        }
+        <div class="painikkeet">
+          <button class="painike" type="submit">Näytä tulos</button>
+        </div>
+      </form>
+
+      <noscript>
+        <p class="virheilmo">Testi laskee tuloksen JavaScriptillä. Voit laskea pisteet myös itse: jokainen kyllä on yksi piste.</p>
+      </noscript>
+
+      {
+        TULOKSET.map((t) => (
+          <section class="tulos" data-tulos={t.id} tabindex="-1" hidden aria-labelledby={`tulos-${t.id}`}>
+            <p class="nostin"><span data-pisteet></span>/10 pistettä</p>
+            <h2 id={`tulos-${t.id}`}>{t.otsikko}</h2>
+            <p>{t.teksti}</p>
+            <p><strong>Suositus:</strong> {t.suositus} (alv 0 %).</p>
+            <div class="painikkeet">
+              <a class="painike" href={t.linkki}>{t.nappi}</a>
+              <a class="painike painike--toinen" href="/ajanvaraus">Varaa maksuton kartoitus</a>
+            </div>
+          </section>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="osio osio--valkoinen">
+    <div class="kehys">
+      <h2>Näin tulos lasketaan</h2>
+      <p class="johdatus">Jokaisesta kyllä-vastauksesta saa yhden pisteen.</p>
+      <div class="taulu">
+        <table class="taulukko">
+          <caption>Pisteet ja suositus</caption>
+          <thead>
+            <tr><th scope="col">Pisteet</th><th scope="col">Tulos</th><th scope="col">Suositus</th></tr>
+          </thead>
+          <tbody>
+            {
+              TULOKSET.map((t) => (
+                <tr>
+                  <td>{t.pisteet}</td>
+                  <td>{t.otsikko}</td>
+                  <td><a href={t.linkki}>{t.suositus}</a></td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="osio">
+    <div class="kehys">
+      <div class="kortti polku">
+        <h2>Haluatko tehdä selosteen itse?</h2>
+        <p>Ilmaisella pohjalla pääset alkuun. Pohja ja täyttöohje ovat avoimesti sivulla, ja saat sen myös Word-tiedostona.</p>
+        <div class="kortti__ala"><a class="painike" href="/tietosuojaselostepohja">Katso tietosuojaselosteen pohja</a></div>
+      </div>
+    </div>
+  </section>
+</Perus>
+
+<script src="../scripts/pikatesti.ts"></script>

@@ -1,0 +1,19 @@
+---
+interface Props {
+  kysymykset: { k: string; v: string }[];
+  otsikko?: string;
+}
+const { kysymykset, otsikko = 'Usein kysytyt' } = Astro.props;
+---
+
+<h2>{otsikko}</h2>
+<div class="kysymykset">
+  {
+    kysymykset.map((q) => (
+      <div>
+        <h3>{q.k}</h3>
+        <p>{q.v}</p>
+      </div>
+    ))
+  }
+</div>

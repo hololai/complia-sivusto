@@ -1,0 +1,32 @@
+---
+import Perus from '../layouts/Perus.astro';
+import Tayta from '../components/Tayta.astro';
+import { SIVUSTO } from '../../site.config.mjs';
+---
+
+<Perus
+  otsikko={`Saavutettavuusseloste | ${SIVUSTO.nimi}`}
+  kuvaus="Complian verkkosivuston saavutettavuusseloste: tavoitteena WCAG 2.1 AA, arvioinnin tulos ja näin annat palautetta saavutettavuudesta."
+  murut={[{ nimi: 'Saavutettavuusseloste', polku: '/saavutettavuus' }]}
+>
+  <section class="osio">
+    <div class="kehys proosa">
+      <h1>Saavutettavuusseloste</h1>
+      <p class="johdatus">Tavoitteemme on, että kuka tahansa voi käyttää tätä sivustoa. Sivusto on tehty täyttämään WCAG 2.1 -ohjeiston AA-taso.</p>
+
+      <h2>Vaatimustenmukaisuus</h2>
+      <p><Tayta>arvioinnin tulos, tekijä ja päivämäärä. Tee arviointi valmiille sivustolle ennen tämän selosteen julkaisua.</Tayta></p>
+
+      <h2>Miten sivusto on tehty</h2>
+      <ul>
+        <li>Sivut toimivat näppäimistöllä, ja kohdistus näkyy selvästi.</li>
+        <li>Rakenne perustuu otsikoihin, maamerkkeihin ja selitettyihin taulukoihin.</li>
+        <li>Valikko ja kaikki sisältö toimivat ilman JavaScriptiä; pikatesti tarvitsee sen tuloksen laskemiseen, ja laskentatapa on kerrottu tekstinä.</li>
+        <li>Lomakkeiden kentillä on näkyvät nimet.</li>
+      </ul>
+
+      <h2>Anna palautetta</h2>
+      <p>Jos huomaat sivustolla saavutettavuuspuutteen, kerro siitä osoitteeseen <a href={`mailto:${SIVUSTO.sahkoposti}`}>{SIVUSTO.sahkoposti}</a>.</p>
+    </div>
+  </section>
+</Perus>

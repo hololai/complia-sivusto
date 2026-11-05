@@ -1,0 +1,157 @@
+---
+import Perus from '../layouts/Perus.astro';
+import Kysymykset from '../components/Kysymykset.astro';
+import Loppukehotus from '../components/Loppukehotus.astro';
+import { SIVUSTO } from '../../site.config.mjs';
+import { HINNAT, eur } from '../data/hinnat';
+import { usein } from '../data/schema';
+
+const KYSYMYKSET = [
+  {
+    k: 'Saako pohjaa käyttää vapaasti?',
+    v: 'Saa. Pohjan voi kopioida ja muokata omaan käyttöön ilmaiseksi, eikä lataamiseen tarvita sähköpostia.',
+  },
+  {
+    k: 'Riittääkö täytetty pohja lain vaatimuksiin?',
+    v: 'Se voi riittää, jos kuvaat käsittelyt oikein ja kaikki kohdat on täytetty. Pohja on yleinen malli, eikä se korvaa käsittelyjesi arviointia.',
+  },
+  {
+    k: 'Onko tämä sama kuin rekisteriselosteen pohja?',
+    v: 'Tämä korvaa vanhan rekisteriselosteen. Nykyinen tietosuojaseloste sisältää myös kohdat, joita vanhoissa pohjissa ei yleensä ole, kuten oikeusperusteen ja säilytysajan.',
+  },
+];
+---
+
+<Perus
+  otsikko={`Tietosuojaselosteen pohja: ilmainen malli | ${SIVUSTO.nimi}`}
+  kuvaus="Ilmainen tietosuojaselosteen pohja yritykselle. Malli ja täyttöohje avoimesti sivulla, ja saat sen myös Word-tiedostona ilman sähköpostiosoitetta."
+  murut={[{ nimi: 'Pikatesti', polku: '/pikatesti' }, { nimi: 'Tietosuojaselosteen pohja', polku: '/tietosuojaselostepohja' }]}
+  schema={[usein(KYSYMYKSET)]}
+>
+  <section class="osio">
+    <div class="kehys">
+      <div class="osio__otsikko">
+        <h1>Tietosuojaselosteen pohja: ilmainen malli yritykselle</h1>
+        <p class="johdatus">
+          Kopioi malli tai lataa se Word-tiedostona ja täytä hakasulkeissa olevat kohdat omilla tiedoillasi. Sähköpostia ei tarvita.
+        </p>
+        <div class="painikkeet">
+          <a class="painike" href="/lataukset/tietosuojaseloste-pohja.docx" download>Lataa pohja (Word)</a>
+          <a class="painike painike--toinen" href="/tietosuojaseloste">Teetä valmiina, alkaen {eur(HINNAT.tietosuojaseloste.pieni)}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="osio osio--valkoinen">
+    <div class="kehys">
+      <h2>Näin täytät pohjan</h2>
+      <ol class="vaiheet">
+        <li>
+          <h3>Listaa järjestelmät</h3>
+          <p>Kirjaa, missä järjestelmissä tietoja on ja kuka toimittaja ne tarjoaa.</p>
+        </li>
+        <li>
+          <h3>Täytä hakasulkeet</h3>
+          <p>Poista kohdat, jotka eivät koske teitä, ja lisää puuttuvat käsittelyt.</p>
+        </li>
+        <li>
+          <h3>Tarkista ja julkaise</h3>
+          <p>Lue seloste asiakkaan silmin. Julkaise se paikkaan, josta sen löytää helposti.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="osio">
+    <div class="kehys">
+      <article class="proosa" id="pohja">
+        <h2>Tietosuojaseloste: [Yrityksen nimi], asiakkaat</h2>
+        <p>Päivitetty: [päivämäärä]</p>
+
+        <h3>1. Rekisterinpitäjä</h3>
+        <p>[Yrityksen nimi], Y-tunnus [Y-tunnus]<br />[Osoite]<br />Tietosuoja-asioissa: [sähköposti], [puhelin]</p>
+        <p>[Jos olette nimenneet tietosuojavastaavan, lisää tähän hänen yhteystietonsa.]</p>
+
+        <h3>2. Mihin tietoja käytetään ja millä perusteella</h3>
+        <table>
+          <thead>
+            <tr><th scope="col">Tarkoitus</th><th scope="col">Oikeusperuste</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Tilausten ja palvelujen toimittaminen</td><td>sopimus</td></tr>
+            <tr><td>Laskutus ja kirjanpito</td><td>lakisääteinen velvoite</td></tr>
+            <tr><td>Asiakassuhteen hoito ja asiakaspalvelu</td><td>oikeutettu etu: asiakassuhteen ylläpito</td></tr>
+            <tr><td>[Uutiskirje tai muu markkinointi]</td><td>[suostumus tai oikeutettu etu]</td></tr>
+          </tbody>
+        </table>
+
+        <h3>3. Mitä tietoja käsittelemme</h3>
+        <ul>
+          <li>Yhteystiedot: nimi, sähköposti, puhelin, osoite</li>
+          <li>Tilaus- ja laskutustiedot: [tilaukset, maksutapa, laskut]</li>
+          <li>Yhteydenotot: [viestit, asiakaspalvelupyynnöt]</li>
+          <li>[Muut tiedot, joita käsittelette]</li>
+        </ul>
+        <p>Pakolliset tiedot: tarvitsemme [nimen ja yhteystiedot] sopimuksen toteuttamiseen. Ilman niitä emme voi toimittaa tilausta.</p>
+
+        <h3>4. Mistä saamme tiedot</h3>
+        <p>Saamme tiedot pääosin sinulta itseltäsi. [Jos tietoja saadaan muualta, kerro tässä mistä, esimerkiksi Yritys- ja yhteisötietojärjestelmästä.]</p>
+
+        <h3>5. Kenelle tietoja luovutetaan</h3>
+        <ul>
+          <li>Kirjanpito: [tilitoimiston nimi]</li>
+          <li>Tietojärjestelmät: [asiakasrekisterin toimittaja]</li>
+          <li>Maksut: [maksunvälittäjä]</li>
+          <li>[Muut vastaanottajat]</li>
+        </ul>
+        <p>Palveluntarjoajat käsittelevät tietoja puolestamme käsittelysopimuksen perusteella. Emme myy tietoja.</p>
+
+        <h3>6. Siirrot EU:n ja ETA:n ulkopuolelle</h3>
+        <p>[Vaihtoehto A: Emme siirrä tietoja EU:n tai ETA:n ulkopuolelle.]</p>
+        <p>[Vaihtoehto B: [Palvelu] siirtää tietoja maahan [maa]. Siirto perustuu [komission tietosuojan riittävyyspäätökseen tai vakiosopimuslausekkeisiin]. Lisätietoja saat osoitteesta [sähköposti].]</p>
+
+        <h3>7. Kuinka kauan säilytämme tietoja</h3>
+        <ul>
+          <li>Asiakastiedot: asiakassuhteen ajan ja [X kuukautta] sen päättymisestä</li>
+          <li>Kirjanpitoaineisto: kirjanpitolain mukaisen ajan</li>
+          <li>[Markkinointi: kunnes perut suostumuksen tai kiellät markkinoinnin]</li>
+        </ul>
+
+        <h3>8. Sinun oikeutesi</h3>
+        <p>Sinulla on oikeus saada pääsy tietoihisi, oikaista ja poistaa niitä, rajoittaa ja vastustaa niiden käsittelyä sekä siirtää tiedot järjestelmästä toiseen. Jos käsittely perustuu suostumukseen, voit perua sen milloin tahansa. Lähetä pyyntö osoitteeseen [sähköposti].</p>
+
+        <h3>9. Valitusoikeus</h3>
+        <p>Jos katsot, että käsittelemme tietojasi lainvastaisesti, voit tehdä valituksen tietosuojavaltuutetun toimistolle.</p>
+
+        <h3>10. Automaattinen päätöksenteko</h3>
+        <p>[Vaihtoehto A: Emme tee sinua koskevia päätöksiä pelkästään automaattisesti.]</p>
+        <p>[Vaihtoehto B: Kuvaa käytetty logiikka, päätöksen merkitys ja vaikutukset.]</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="osio osio--valkoinen">
+    <div class="kehys proosa">
+      <h2>Mihin pohjan käyttäjät yleensä kompastuvat</h2>
+      <ul>
+        <li><strong>Säilytysaika jää täyttämättä.</strong> "Toistaiseksi" ei riitä. Määritä aika tai peruste, jolla se lasketaan.</li>
+        <li><strong>Työntekijät unohtuvat.</strong> Tämä pohja koskee asiakkaita. Tee erillinen seloste työntekijöille ja työnhakijoille.</li>
+        <li><strong>Toimittajat puuttuvat.</strong> Käy läpi sähköposti, palkanlaskenta ja verkkosivut. Moni näistä siirtää tietoja EU:n ulkopuolelle.</li>
+        <li><strong>Seloste jää paikoilleen.</strong> Päivitä se aina, kun järjestelmä tai toimittaja vaihtuu.</li>
+      </ul>
+      <p>Lue tarkemmin, <a href="/artikkelit/mita-tietosuojaselosteessa-pitaa-olla">mitä tietosuojaselosteessa pitää olla</a>.</p>
+    </div>
+  </section>
+
+  <section class="osio">
+    <div class="kehys"><Kysymykset kysymykset={KYSYMYKSET} /></div>
+  </section>
+
+  <Loppukehotus
+    otsikko="Haluatko selosteet valmiina?"
+    teksti={`Teemme selosteet asiakkaille, työntekijöille, työnhakijoille ja verkkosivuille kolmessa arkipäivässä, alkaen ${eur(HINNAT.tietosuojaseloste.pieni)} (alv 0 %).`}
+    nappi="Katso tietosuojaselosteet"
+    linkki="/tietosuojaseloste"
+  />
+</Perus>

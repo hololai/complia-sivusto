@@ -1,0 +1,64 @@
+---
+import { SIVUSTO } from '../../site.config.mjs';
+
+// Päävalikko suunnitelman mukaan: seitsemän kohtaa, joista ajanvaraus on painike.
+const KOHDAT = [
+  { nimi: 'Palvelut', polku: '/palvelut' },
+  { nimi: 'Hinnasto', polku: '/hinnasto' },
+  { nimi: 'Kunnille', polku: '/kunnat' },
+  { nimi: 'Artikkelit', polku: '/artikkelit' },
+  { nimi: 'Pikatesti ja pohja', polku: '/pikatesti' },
+  { nimi: 'Meistä', polku: '/meista' },
+];
+const nyt = Astro.url.pathname.replace(/\.html$/, '').replace(/\/(index)?$/, '') || '/';
+const onNyt = (polku: string) => nyt === polku || nyt.startsWith(`${polku}/`);
+---
+
+<header class="yla">
+  <div class="kehys yla__sisus">
+    <a class="merkki" href="/" aria-label={`${SIVUSTO.nimi}, etusivu`}>
+      <svg class="merkki__kuva" viewBox="0 0 32 32" aria-hidden="true">
+        <rect width="32" height="32" rx="7" fill="#17453a"></rect>
+        <path d="M9 16.5l4.6 4.6L23 11.5" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+      <span>
+        <span class="merkki__nimi">{SIVUSTO.nimi}</span>
+        <span class="merkki__slogan">{SIVUSTO.slogan}</span>
+      </span>
+    </a>
+
+    <nav class="valikko" aria-label="Päävalikko">
+      <ul>
+        {
+          KOHDAT.map((k) => (
+            <li>
+              <a href={k.polku} aria-current={onNyt(k.polku) ? 'page' : undefined}>
+                {k.nimi}
+              </a>
+            </li>
+          ))
+        }
+        <li><a class="painike painike--pieni" href="/ajanvaraus">Ajanvaraus</a></li>
+      </ul>
+    </nav>
+
+    <!-- Toimii ilman JavaScriptiä, joten valikko ei tarvitse poikkeusta tiukkaan CSP:hen. -->
+    <details class="mobiili">
+      <summary>Valikko</summary>
+      <nav aria-label="Päävalikko, mobiili">
+        <ul>
+          {
+            KOHDAT.map((k) => (
+              <li>
+                <a href={k.polku} aria-current={onNyt(k.polku) ? 'page' : undefined}>
+                  {k.nimi}
+                </a>
+              </li>
+            ))
+          }
+          <li><a href="/ajanvaraus" aria-current={onNyt('/ajanvaraus') ? 'page' : undefined}>Ajanvaraus</a></li>
+        </ul>
+      </nav>
+    </details>
+  </div>
+</header>

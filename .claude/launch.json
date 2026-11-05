@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "complia-dev",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": ["scripts/palvelin.sh", "dev"],
+      "port": 4321
+    },
+    {
+      "name": "complia-build",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": ["scripts/palvelin.sh", "preview"],
+      "port": 4321
+    }
+  ]
+}

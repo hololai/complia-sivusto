@@ -1,0 +1,89 @@
+---
+import '../styles/global.css';
+import { SIVUSTO } from '../../site.config.mjs';
+import { murupolku } from '../data/schema';
+import Yla from '../components/Yla.astro';
+import Ala from '../components/Ala.astro';
+import interUrl from '../../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
+import serifUrl from '../../node_modules/@fontsource-variable/source-serif-4/files/source-serif-4-latin-wght-normal.woff2?url';
+
+interface Props {
+  otsikko: string;
+  kuvaus: string;
+  murut?: { nimi: string; polku: string }[];
+  schema?: object[];
+  noindex?: boolean;
+  ogTyyppi?: 'website' | 'article';
+}
+
+const { otsikko, kuvaus, murut = [], schema = [], noindex = false, ogTyyppi = 'website' } = Astro.props;
+
+const polku = Astro.url.pathname.replace(/\.html$/, '').replace(/\/(index)?$/, '') || '/';
+const canonical = new URL(polku, SIVUSTO.osoite).href;
+const estaIndeksointi = noindex || !SIVUSTO.julkaistu;
+const kaikkiMurut = murut.length ? [{ nimi: 'Etusivu', polku: '/' }, ...murut] : [];
+const rakenteiset = [...schema, ...(kaikkiMurut.length ? [murupolku(kaikkiMurut)] : [])];
+
+// Metatason CSP toimii kaikilla palvelimilla ja on siksi testattavissa paikallisesti.
+const csp =
+  "default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self'; manifest-src 'self'; form-action 'self' mailto:; base-uri 'none'";
+---
+
+<!doctype html>
+<html lang="fi">
+  <head>
+    <meta charset="utf-8" />
+    {import.meta.env.PROD && <meta http-equiv="Content-Security-Policy" content={csp} />}
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{otsikko}</title>
+    <meta name="description" content={kuvaus} />
+    <link rel="canonical" href={canonical} />
+    {estaIndeksointi && <meta name="robots" content="noindex" />}
+    <meta name="theme-color" content="#17453a" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="preload" href={interUrl} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={serifUrl} as="font" type="font/woff2" crossorigin />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta property="og:type" content={ogTyyppi} />
+    <meta property="og:locale" content="fi_FI" />
+    <meta property="og:site_name" content={SIVUSTO.nimi} />
+    <meta property="og:title" content={otsikko} />
+    <meta property="og:description" content={kuvaus} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={`${SIVUSTO.osoite}/og.png`} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    {
+      rakenteiset.map((s) => (
+        <script type="application/ld+json" is:inline set:html={JSON.stringify(s).replace(/</g, '\\u003c')} />
+      ))
+    }
+  </head>
+  <body>
+    <a class="ohita" href="#sisalto">Siirry sisältöön</a>
+    <Yla />
+    {
+      kaikkiMurut.length > 0 && (
+        <nav class="muru kehys" aria-label="Murupolku">
+          <ol>
+            {kaikkiMurut.map((m, i) => (
+              <li>
+                {i === kaikkiMurut.length - 1 ? (
+                  <span aria-current="page">{m.nimi}</span>
+                ) : (
+                  <a href={m.polku}>{m.nimi}</a>
+                )}
+              </li>
+            ))}
+          </ol>
+        </nav>
+      )
+    }
+    <main id="sisalto">
+      <slot />
+    </main>
+    <Ala />
+  </body>
+</html>

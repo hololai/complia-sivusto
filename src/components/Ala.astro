@@ -1,0 +1,53 @@
+---
+import { SIVUSTO } from '../../site.config.mjs';
+import { HINNAT, PALVELUJEN_JARJESTYS, JATKUVAT } from '../data/hinnat';
+import Tayta from './Tayta.astro';
+
+const { yritys } = SIVUSTO;
+const vuosi = new Date().getFullYear();
+---
+
+<footer class="ala">
+  <div class="kehys">
+    <div class="ala__ruudukko">
+      <div>
+        <p class="ala__nimi">{SIVUSTO.nimi}</p>
+        <p>{SIVUSTO.slogan}. {SIVUSTO.iskulause}</p>
+        <p class="pieni-ala">Tällä sivustolla ei käytetä seurantaevästeitä.</p>
+      </div>
+      <nav aria-label="Palvelut">
+        <h2>Palvelut</h2>
+        <ul>
+          {PALVELUJEN_JARJESTYS.map((a) => <li><a href={HINNAT[a].polku}>{HINNAT[a].nimi}</a></li>)}
+          <li><a href={JATKUVAT.vastaava.polku}>{JATKUVAT.vastaava.nimi}</a></li>
+          <li><a href="/hinnasto">Hinnasto</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Ohjeet">
+        <h2>Ohjeet</h2>
+        <ul>
+          <li><a href="/artikkelit">Tietosuojaohjeet</a></li>
+          <li><a href="/pikatesti">Tietosuojan pikatesti</a></li>
+          <li><a href="/tietosuojaselostepohja">Tietosuojaseloste-pohja</a></li>
+          <li><a href="/kunnat">Tietosuojapalvelut kunnille</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h2>Yhteystiedot</h2>
+        <ul>
+          <li><a href={`mailto:${SIVUSTO.sahkoposti}`}>{SIVUSTO.sahkoposti}</a></li>
+          {yritys.puhelin ? <li>{yritys.puhelin}</li> : <li><Tayta>puhelin</Tayta></li>}
+          {yritys.nimi ? <li>{yritys.nimi}</li> : <li><Tayta>yrityksen nimi</Tayta></li>}
+          {yritys.ytunnus ? <li>Y-tunnus {yritys.ytunnus}</li> : <li><Tayta>Y-tunnus</Tayta></li>}
+          <li><a href="/ajanvaraus">Ajanvaraus</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="ala__loppu">
+      © {vuosi} {SIVUSTO.nimi} ·
+      <a href="/tietosuoja">Tietosuojaseloste</a> ·
+      <a href="/saavutettavuus">Saavutettavuusseloste</a> ·
+      <a href="/meista">Meistä</a>
+    </p>
+  </div>
+</footer>

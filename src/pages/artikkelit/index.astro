@@ -1,0 +1,55 @@
+---
+import { getCollection } from 'astro:content';
+import Perus from '../../layouts/Perus.astro';
+import Loppukehotus from '../../components/Loppukehotus.astro';
+import { SIVUSTO } from '../../../site.config.mjs';
+
+const artikkelit = (await getCollection('artikkelit')).sort((a, b) => a.data.jarjestys - b.data.jarjestys);
+const KOHDE = { yritykset: 'Yrityksille', kunnat: 'Kunnille', molemmat: 'Yrityksille ja kunnille' };
+---
+
+<Perus
+  otsikko={`Tietosuojaohjeet yrityksille ja kunnille | ${SIVUSTO.nimi}`}
+  kuvaus="Selkeät ohjeet tietosuojaselosteesta, selosteesta käsittelytoimista, vaikutustenarvioinnista, tietomurrosta ja tekoälystä. Yrityksille ja kunnille."
+  murut={[{ nimi: 'Artikkelit', polku: '/artikkelit' }]}
+>
+  <section class="osio">
+    <div class="kehys">
+      <div class="osio__otsikko">
+        <h1>Tietosuojaohjeet yrityksille ja kunnille</h1>
+        <p class="johdatus">
+          Mitä laki vaatii, mitä se tarkoittaa käytännössä ja milloin työ kannattaa ostaa valmiina. Lähteet on
+          merkitty jokaiseen ohjeeseen.
+        </p>
+      </div>
+      <div class="ruudukko ruudukko--2">
+        {
+          artikkelit.map((a) => (
+            <article class="kortti">
+              <p class="nostin">{KOHDE[a.data.kohde]}</p>
+              <h2 class="kortti__h">
+                <a href={`/artikkelit/${a.id}`}>{a.data.h1}</a>
+              </h2>
+              <p>{a.data.tiivistelma}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+  <Loppukehotus />
+</Perus>
+
+<style>
+  .kortti__h {
+    font-size: 1.3rem;
+    margin-bottom: 0.45rem;
+  }
+  .kortti__h a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .kortti__h a:hover {
+    text-decoration: underline;
+  }
+</style>

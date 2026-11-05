@@ -1,0 +1,20 @@
+---
+import { HINNAT, eur, type PalveluAvain } from '../data/hinnat';
+
+interface Props {
+  avain: PalveluAvain;
+  otsikkotaso?: 'h2' | 'h3';
+}
+const { avain, otsikkotaso: Otsikko = 'h3' } = Astro.props;
+const p = HINNAT[avain];
+const alin = p.pieni ?? p.keski;
+---
+
+<article class="kortti">
+  <Otsikko><a href={p.polku}>{p.nimi}</a></Otsikko>
+  <p>{p.lyhyt}</p>
+  <div class="kortti__ala">
+    <span class="kortti__hinta">alkaen {eur(alin)}</span>
+    <span class="pieni">{p.toimitus}</span>
+  </div>
+</article>

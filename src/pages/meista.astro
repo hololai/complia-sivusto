@@ -1,0 +1,74 @@
+---
+import Perus from '../layouts/Perus.astro';
+import Tayta from '../components/Tayta.astro';
+import Loppukehotus from '../components/Loppukehotus.astro';
+import { SIVUSTO } from '../../site.config.mjs';
+
+const { asiantuntija } = SIVUSTO;
+const henkilo = asiantuntija.nimi
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      name: asiantuntija.nimi,
+      ...(asiantuntija.titteli ? { jobTitle: asiantuntija.titteli } : {}),
+      ...(asiantuntija.kuvaus ? { description: asiantuntija.kuvaus } : {}),
+      ...(asiantuntija.linkedin ? { sameAs: [asiantuntija.linkedin] } : {}),
+      worksFor: { '@id': `${SIVUSTO.osoite}/#organisaatio` },
+    }
+  : null;
+---
+
+<Perus
+  otsikko={`Meistä: kuka tekee ja miten työskentelemme | ${SIVUSTO.nimi}`}
+  kuvaus="Complia tekee valmiit tietosuoja-asiakirjat kiinteällä hinnalla, ja asiantuntija tarkistaa jokaisen. Lue, kuka tekee ja miten käsittelemme tietojanne."
+  murut={[{ nimi: 'Meistä', polku: '/meista' }]}
+  schema={henkilo ? [henkilo] : []}
+>
+  <section class="osio">
+    <div class="kehys proosa">
+      <h1>Meistä</h1>
+      <p class="johdatus">{SIVUSTO.nimi} tekee tietosuoja-asiakirjat valmiiksi kiinteällä hinnalla. {SIVUSTO.iskulause}</p>
+
+      <h2>Kuka tekee</h2>
+      {
+        asiantuntija.nimi ? (
+          <>
+            <p>
+              <strong>{asiantuntija.nimi}</strong>
+              {asiantuntija.titteli && `, ${asiantuntija.titteli}`}
+            </p>
+            {asiantuntija.kuvaus && <p>{asiantuntija.kuvaus}</p>}
+            {asiantuntija.linkedin && <p><a href={asiantuntija.linkedin} rel="noopener me">LinkedIn</a></p>}
+          </>
+        ) : (
+          <p>
+            <Tayta>asiantuntijan nimi, kuva, tausta ja pätevyydet</Tayta>
+          </p>
+        )
+      }
+
+      <h2>Miten työskentelemme</h2>
+      <p>
+        Oma Complia-työkalumme tekee dokumentoinnista nopeaa, ja siksi kiinteä hinta on mahdollinen. Työkalu ei
+        kuitenkaan päätä mitään: asiantuntija tarkistaa jokaisen asiakirjan ennen luovutusta ja vastaa sen sisällöstä.
+      </p>
+      <p>
+        Asiakas ei opettele ohjelmistoa eikä täytä lomakkeita. Haastattelemme teitä, teemme asiakirjat ja käymme
+        muutokset läpi kanssanne. Saatte valmiit asiakirjat muokattavina tiedostoina, ja ne ovat teidän.
+      </p>
+
+      <h2>Miten käsittelemme teidän tietojanne</h2>
+      <p>
+        <Tayta>missä Complia-työkalun tiedot sijaitsevat, kuka niihin pääsee ja kuinka kauan niitä säilytetään</Tayta>
+      </p>
+      <p>
+        <Tayta>ladattava käsittelysopimus</Tayta>
+      </p>
+      <p>
+        Oma sivustomme on samalla näyte työstämme: ei seurantaevästeitä, ei evästebanneria, ei ulkoisia fontteja eikä
+        seurantapikseleitä. Lue <a href="/tietosuoja">tietosuojaselosteemme</a>.
+      </p>
+    </div>
+  </section>
+  <Loppukehotus />
+</Perus>

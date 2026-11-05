@@ -1,0 +1,140 @@
+---
+import { getEntry } from 'astro:content';
+import Perus from '../layouts/Perus.astro';
+import Kysymykset from '../components/Kysymykset.astro';
+import Loppukehotus from '../components/Loppukehotus.astro';
+import Tayta from '../components/Tayta.astro';
+import { SIVUSTO } from '../../site.config.mjs';
+import { HINNAT, JATKUVAT, eur } from '../data/hinnat';
+import { usein } from '../data/schema';
+
+const KYSYMYKSET = [
+  {
+    k: 'Voiko kunta ostaa palvelut ilman kilpailutusta?',
+    v: 'Kertapalvelut ovat pienhankintojen kokoluokkaa, joten raskasta kilpailutusta ei yleensä tarvita. Noudattakaa kuntanne hankintaohjetta. Jatkuvassa tietosuojavastaavapalvelussa hankinnan arvo lasketaan koko sopimuskaudelta, joten tarkistakaa se erikseen.',
+  },
+  {
+    k: 'Korvaako palvelu kunnan oman tietosuojavastaavan?',
+    v: 'Ei tarvitse korvata. Useimmiten autamme omaa tietosuojavastaavaa silloin, kun aika ei riitä. Tietosuojavastaavan tehtävän voi myös ostaa kokonaan palveluna.',
+  },
+  {
+    k: 'Milloin tietotilinpäätös pitää tilata?',
+    v: 'Jos tietotilinpäätös käsitellään maaliskuussa tilinpäätöksen rinnalla, aineisto kannattaa koota tammikuussa. Toimitusaika on kymmenen arkipäivää siitä, kun aineisto on koossa.',
+  },
+  {
+    k: 'Saako hankintapäätöksen liitteeksi palvelukuvauksen?',
+    v: 'Kyllä. Palvelukuvauksessa on sisältö, hinnat ja toimitusajat valmiina liitettäväksi hankintapäätökseen.',
+  },
+];
+
+const artikkeliTekoaly = await getEntry('artikkelit', 'tekoaly-tyopaikalla-tietosuoja');
+const artikkeliTtp = await getEntry('artikkelit', 'tietotilinpaatos-sisalto-ja-aikataulu');
+---
+
+<Perus
+  otsikko={`Tietosuojapalvelut kunnille pienhankintana | ${SIVUSTO.nimi}`}
+  kuvaus="Hankinnan vaikutustenarviointi, tietotilinpäätös ja tietosuojavastaava ostopalveluna kunnille. Kiinteät hinnat, jotka voi ostaa pienhankintana."
+  murut={[{ nimi: 'Kunnille', polku: '/kunnat' }]}
+  schema={[usein(KYSYMYKSET)]}
+>
+  <section class="osio">
+    <div class="kehys">
+      <div class="osio__otsikko">
+        <h1>Tietosuojapalvelut kunnille – nopeasti ja pienhankintana</h1>
+        <p class="johdatus">
+          Autamme tietosuojavastaavaa silloin, kun aika ei riitä: hankintojen vaikutustenarvioinnit, selosteet
+          toimialoittain ja tietotilinpäätös.
+        </p>
+      </div>
+      <div class="ruudukko">
+        <article class="kortti">
+          <h2><a href={HINNAT.vaikutustenarviointi.polku}>Hankinnan vaikutustenarviointi</a></h2>
+          <p>Järjestelmähankinta ei jää odottamaan arviointia. Toimitus {HINNAT.vaikutustenarviointi.toimitus}.</p>
+          <div class="kortti__ala"><span class="kortti__hinta">{eur(HINNAT.vaikutustenarviointi.keski)}–{eur(HINNAT.vaikutustenarviointi.laaja)}</span></div>
+        </article>
+        <article class="kortti">
+          <h2><a href={HINNAT.tietotilinpaatos.polku}>Tietotilinpäätös</a></h2>
+          <p>Julkaisuvalmis kooste johdolle, kuntalaisille ja tarkastuslautakunnalle. Toimitus {HINNAT.tietotilinpaatos.toimitus}.</p>
+          <div class="kortti__ala"><span class="kortti__hinta">{eur(HINNAT.tietotilinpaatos.keski)}–{eur(HINNAT.tietotilinpaatos.laaja)}</span></div>
+        </article>
+        <article class="kortti">
+          <h2><a href={JATKUVAT.vastaava.polku}>Tietosuojavastaava ostopalveluna</a></h2>
+          <p>Kun omaa tietosuojavastaavaa ei ole tai työ ei mahdu hänen aikaansa.</p>
+          <div class="kortti__ala"><span class="kortti__hinta">alkaen {eur(JATKUVAT.vastaava.keski)}/kk</span></div>
+        </article>
+      </div>
+      <p class="pieni">Hinnat alv 0 %. Kaikki koot ja palvelut näet <a href="/hinnasto">hinnastosta</a>.</p>
+      <p>
+        <Tayta>ladattava palvelukuvaus (PDF): sisältö, hinnat ja toimitusajat hankintapäätöksen liitteeksi. Tehdään, kun yrityksen tiedot ovat selvillä.</Tayta>
+      </p>
+    </div>
+  </section>
+
+  <section class="osio osio--valkoinen">
+    <div class="kehys">
+      <div class="osio__otsikko">
+        <h2>Kunnan tietosuojavuosi</h2>
+        <p class="johdatus">Tietosuojatyö kasautuu kunnissa samoihin ajankohtiin. Sovi apu valmiiksi, ennen kuin aikataulu kiristyy.</p>
+      </div>
+      <div class="taulu">
+        <table class="taulukko">
+          <caption>Tyypilliset tietosuojatyön ajankohdat kunnassa</caption>
+          <thead>
+            <tr><th scope="col">Ajankohta</th><th scope="col">Työ</th><th scope="col">Palvelu</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Tammi–maaliskuu</td>
+              <td>Tietotilinpäätös edelliseltä vuodelta tilinpäätöksen rinnalla</td>
+              <td><a href={HINNAT.tietotilinpaatos.polku}>Tietotilinpäätös</a></td>
+            </tr>
+            <tr>
+              <td>Ympäri vuoden</td>
+              <td>Järjestelmähankintojen vaikutustenarvioinnit ennen käyttöönottoa</td>
+              <td><a href={HINNAT.vaikutustenarviointi.polku}>Vaikutustenarviointi</a></td>
+            </tr>
+            <tr>
+              <td>Elo–lokakuu</td>
+              <td>Jatkuvien palvelujen budjetointi ennen talousarvion lukitsemista</td>
+              <td><a href={JATKUVAT.vastaava.polku}>Tietosuojavastaava palveluna</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="osio">
+    <div class="kehys proosa">
+      <h2>Ajankohtaista: seuraamusmaksu julkiselle sektorille</h2>
+      <p>
+        Hallitus on esittänyt, että tietosuojarikkomuksista voisi määrätä seuraamusmaksun myös viranomaisille
+        (<a href="https://www.edilex.fi/he/20260046">HE 46/2026</a>). Lakien on tarkoitus tulla voimaan vuoden 2027
+        alussa, ja enimmäismäärät olisivat yksityistä sektoria pienempiä. Perustuslakivaliokunta ei pitänyt
+        lausunnossaan (PeVL 40/2026) maksun ulottamista viranomaistoimintaan ongelmattomana.
+      </p>
+      <p>
+        Esitys oli marraskuun 2026 alussa yhä vireillä, joten lopullinen sisältö ei ole selvillä. Päivitämme tämän
+        kohdan, kun lainsäädäntö etenee. Kunnan velvollisuudet noudattaa tietosuoja-asetusta ovat voimassa joka
+        tapauksessa.
+      </p>
+      {
+        artikkeliTtp && artikkeliTekoaly && (
+          <>
+            <h2>Ohjeita kunnille</h2>
+            <ul>
+              <li><a href={`/artikkelit/${artikkeliTtp.id}`}>{artikkeliTtp.data.h1}</a></li>
+              <li><a href={`/artikkelit/${artikkeliTekoaly.id}`}>{artikkeliTekoaly.data.h1}</a></li>
+            </ul>
+          </>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="osio osio--valkoinen">
+    <div class="kehys"><Kysymykset kysymykset={KYSYMYKSET} /></div>
+  </section>
+
+  <Loppukehotus otsikko="Sovitaan, mistä kunnan kannattaa aloittaa" teksti="Maksuton 20 minuutin kartoitus tietosuojavastaavalle tai hallintojohtajalle." />
+</Perus>

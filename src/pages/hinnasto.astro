@@ -1,0 +1,231 @@
+---
+import Perus from '../layouts/Perus.astro';
+import Kysymykset from '../components/Kysymykset.astro';
+import Loppukehotus from '../components/Loppukehotus.astro';
+import { SIVUSTO } from '../../site.config.mjs';
+import { HINNAT, PAKETTI, JATKUVAT, KOOT, PALVELUJEN_JARJESTYS, ESIMERKIT, eur, pakettiErikseen } from '../data/hinnat';
+import { usein } from '../data/schema';
+
+const KYSYMYKSET = [
+  {
+    k: 'Mitä tietosuojaseloste maksaa?',
+    v: `Tietosuojaselosteet maksavat koon mukaan ${eur(HINNAT.tietosuojaseloste.pieni)}, ${eur(HINNAT.tietosuojaseloste.keski)} tai ${eur(HINNAT.tietosuojaseloste.laaja)} (alv 0 %). Hintaan kuuluvat selosteet asiakkaille, työntekijöille, työnhakijoille ja verkkosivuille.`,
+  },
+  {
+    k: 'Sisältyykö hintoihin arvonlisävero?',
+    v: 'Ei. Hinnat ovat alv 0 %, ja niihin lisätään arvonlisävero 25,5 %.',
+  },
+  {
+    k: 'Entä jos tarvitsemme laajemman kokonaisuuden?',
+    v: 'Laajemmat kokonaisuudet hinnoitellaan kiinteällä tarjouksella. Kerro tilanteesi maksuttomassa kartoituksessa.',
+  },
+];
+
+const ESIMERKKIHINNAT = [
+  { kuka: 'Parturi-kampaamo, 4 henkeä, ajanvarausjärjestelmä', mita: `${PAKETTI.nimi}, pieni`, hinta: eur(PAKETTI.pieni) },
+  {
+    kuka: 'IT-yritys, 25 henkeä, ottaa Copilotin käyttöön',
+    mita: `ennakkoarvio ${eur(HINNAT.ennakkoarvio.keski)}, tarvittaessa vaikutustenarviointi ${eur(HINNAT.vaikutustenarviointi.keski)}`,
+    hinta: `enintään ${eur(ESIMERKIT.copilot)}`,
+  },
+  {
+    kuka: 'Rekrytointiyritys, 60 henkeä',
+    mita: `tietosuojatarkastus, laaja; sen jälkeen ${JATKUVAT.kunnossa.nimi} ${eur(JATKUVAT.kunnossa.laaja)}/kk`,
+    hinta: eur(HINNAT.tarkastus.laaja),
+  },
+  {
+    kuka: 'Kunta hankkii varhaiskasvatuksen asiakastietojärjestelmän',
+    mita: 'vaikutustenarviointi, laaja',
+    hinta: eur(HINNAT.vaikutustenarviointi.laaja),
+  },
+  {
+    kuka: 'Kunnan tietotilinpäätös',
+    mita: 'keskikokoinen tai iso kunta',
+    hinta: `${eur(HINNAT.tietotilinpaatos.keski)} tai ${eur(HINNAT.tietotilinpaatos.laaja)}`,
+  },
+];
+---
+
+<Perus
+  otsikko={`Tietosuojapalvelujen hinnasto – kaikki hinnat | ${SIVUSTO.nimi}`}
+  kuvaus="Mitä tietosuojaseloste, seloste käsittelytoimista tai vaikutustenarviointi maksaa? Kaikki hinnat ja toimitusajat näkyvillä. Valitse koko, näet hinnan."
+  murut={[{ nimi: 'Hinnasto', polku: '/hinnasto' }]}
+  schema={[usein(KYSYMYKSET)]}
+>
+  <section class="osio hinnasto" id="hinnasto">
+    <div class="kehys">
+      <div class="osio__otsikko">
+        <h1>Tietosuojapalvelujen hinnasto: kaikki hinnat näkyvillä</h1>
+        <p class="johdatus">Hinta riippuu organisaation koosta ja käsittelyn laajuudesta. Valitse koko, niin näet hinnan heti.</p>
+      </div>
+
+      <!-- Ilman JavaScriptiä valitsin pysyy piilossa ja kaikki kolme hintasaraketta näkyvät. -->
+      <fieldset class="kokovalitsin" data-kokovalitsin hidden>
+        <legend>Organisaation koko</legend>
+        <div class="kokovalitsin__valinnat">
+          {
+            KOOT.map((k, i) => (
+              <div>
+                <input type="radio" name="koko" id={`koko-${k.id}`} value={k.id} checked={i === 0} />
+                <label for={`koko-${k.id}`}>
+                  {k.nimi}
+                  <small>{k.lyhyt}</small>
+                </label>
+              </div>
+            ))
+          }
+        </div>
+      </fieldset>
+
+      <div class="taulu" role="region" aria-label="Hinnasto" tabindex="0">
+        <table class="taulukko">
+          <caption>Kertapalvelut, hinnat alv 0 %</caption>
+          <thead>
+            <tr>
+              <th scope="col">Palvelu</th>
+              {KOOT.map((k) => <th scope="col" class={`h k-${k.id}`}>{k.nimi}</th>)}
+              <th scope="col" class="sarake-toimitus">Toimitus</th>
+              <th scope="col" class="sarake-toimitus"><span class="pieni">Toiminto</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              PALVELUJEN_JARJESTYS.map((a) => {
+                const p = HINNAT[a];
+                return (
+                  <tr>
+                    <th scope="row">
+                      <a href={p.polku}>{p.nimi}</a>
+                      <span>{p.lyhyt}</span>
+                      <span class="vain-kapea">Toimitus {p.toimitus} · <a href={`/ajanvaraus?palvelu=${p.polku.slice(1)}`}>Tilaa</a></span>
+                    </th>
+                    {KOOT.map((k) => (
+                      <td class={`h k-${k.id}`}>{p[k.id] === null ? '–' : eur(p[k.id] as number)}</td>
+                    ))}
+                    <td class="sarake-toimitus">{p.toimitus}</td>
+                    <td class="sarake-toimitus">
+                      <a class="painike painike--pieni painike--toinen" href={`/ajanvaraus?palvelu=${p.polku.slice(1)}`}>
+                        Tilaa
+                      </a>
+                    </td>
+                  </tr>
+                );
+              })
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Mitä koot tarkoittavat?</h2>
+      <dl class="tiedot">
+        {
+          KOOT.map((k) => (
+            <div>
+              <dt>{k.nimi}</dt>
+              <dd>{k.kuvaus}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <section class="osio osio--valkoinen" id="paketti">
+    <div class="kehys">
+      <div class="paketti">
+        <span class="merkinta">Säästät noin 20 %</span>
+        <h2>{PAKETTI.nimi} -paketti</h2>
+        <p>Tietosuojatarkastus, tietosuojaselosteet ja seloste käsittelytoimista yhdessä.</p>
+        <div class="taulu">
+          <table class="taulukko">
+            <caption>Paketin hinta koon mukaan, alv 0 %</caption>
+            <thead>
+              <tr>
+                <th scope="col"><span class="pieni">Hinta</span></th>
+                {KOOT.map((k) => <th scope="col" class="h">{k.nimi}</th>)}
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Erikseen</th>
+                {KOOT.map((k) => <td class="h">{eur(pakettiErikseen(k.id))}</td>)}
+              </tr>
+              <tr>
+                <th scope="row">Pakettina</th>
+                {KOOT.map((k) => <td class="h"><strong>{eur(PAKETTI[k.id])}</strong></td>)}
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="painikkeet">
+          <a class="painike" href="/ajanvaraus?palvelu=paketti">Tilaa paketti</a>
+          <a class="painike painike--toinen" href="/ajanvaraus">Varaa kartoitus</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="osio" id="jatkuvat">
+    <div class="kehys">
+      <div class="osio__otsikko">
+        <h2>Jatkuvat palvelut</h2>
+        <p class="johdatus">Vapaaehtoisia. Kertaostos riittää, jos haluat vain asiakirjat kuntoon.</p>
+      </div>
+      <div class="taulu">
+        <table class="taulukko">
+          <caption>Kuukausihinnat, alv 0 %</caption>
+          <thead>
+            <tr>
+              <th scope="col">Palvelu</th>
+              {KOOT.map((k) => <th scope="col" class="h">{k.nimi}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">{JATKUVAT.kunnossa.nimi}<span>{JATKUVAT.kunnossa.lyhyt}</span></th>
+              {KOOT.map((k) => <td class="h">{eur(JATKUVAT.kunnossa[k.id])}/kk</td>)}
+            </tr>
+            <tr>
+              <th scope="row"><a href={JATKUVAT.vastaava.polku}>{JATKUVAT.vastaava.nimi}</a><span>{JATKUVAT.vastaava.lyhyt}</span></th>
+              {KOOT.map((k) => <td class="h">{eur(JATKUVAT.vastaava[k.id])}/kk</td>)}
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="pieni">Hinnat alv 0 % (alv 25,5 % lisätään). Laajemmat kokonaisuudet hinnoitellaan kiinteällä tarjouksella.</p>
+    </div>
+  </section>
+
+  <section class="osio osio--valkoinen">
+    <div class="kehys">
+      <h2>Esimerkkihinnat</h2>
+      <div class="taulu">
+        <table class="taulukko">
+          <caption>Esimerkkejä organisaation koon mukaan, alv 0 %</caption>
+          <thead>
+            <tr><th scope="col">Asiakas</th><th scope="col">Palvelu</th><th scope="col" class="h">Hinta</th></tr>
+          </thead>
+          <tbody>
+            {
+              ESIMERKKIHINNAT.map((e) => (
+                <tr>
+                  <td>{e.kuka}</td>
+                  <td>{e.mita}</td>
+                  <td class="h">{e.hinta}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="osio">
+    <div class="kehys"><Kysymykset kysymykset={KYSYMYKSET} /></div>
+  </section>
+
+  <Loppukehotus />
+</Perus>
+
+<script src="../scripts/hinnasto.ts"></script>

@@ -1,0 +1,122 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import Perus from '../layouts/Perus.astro';
+import Kysymykset from '../components/Kysymykset.astro';
+import Loppukehotus from '../components/Loppukehotus.astro';
+import { SIVUSTO } from '../../site.config.mjs';
+import { HINNAT, JATKUVAT, KOOT, eur, sijoitaHinnat } from '../data/hinnat';
+import { palvelu as palveluSchema, usein } from '../data/schema';
+
+export async function getStaticPaths() {
+  const palvelut = await getCollection('palvelut');
+  return palvelut.map((p) => ({ params: { palvelu: p.id }, props: { p } }));
+}
+
+const { p } = Astro.props;
+// Hinnat sijoitetaan valmiiseen HTML:ään vasta tässä, jotta välimuistiin ei jää vanhoja hintoja.
+const sisalto = sijoitaHinnat(p.rendered?.html ?? '');
+const d = p.data;
+
+const onJatkuva = d.avain === 'vastaava';
+const hintatieto = onJatkuva ? JATKUVAT.vastaava : HINNAT[d.avain as keyof typeof HINNAT];
+const toimitus = 'toimitus' in hintatieto ? hintatieto.toimitus : 'aloitus sovitaan kartoituksessa';
+const paate = onJatkuva ? '/kk' : '';
+
+const koot = KOOT.map((k) => ({
+  // Tietotilinpäätöksen koko tarkoittaa kuntaa, joten sillä on omat nimensä.
+  nimi: d.avain === 'tietotilinpaatos' ? (k.id === 'keski' ? 'Keskikokoinen kunta' : 'Iso kunta') : k.nimi,
+  lisa: d.avain === 'tietotilinpaatos' ? '' : k.lyhyt,
+  hinta: hintatieto[k.id],
+})).filter((k): k is { nimi: string; lisa: string; hinta: number } => k.hinta !== null);
+
+const usein_ = d.usein.map((q) => ({ k: q.k, v: sijoitaHinnat(q.v) }));
+const kuvaus = sijoitaHinnat(d.kuvaus);
+const polku = `/${p.id}`;
+const artikkeli = d.artikkeli ? await getEntry('artikkelit', d.artikkeli) : undefined;
+if (d.artikkeli && !artikkeli) throw new Error(`Palvelun ${p.id} artikkelia ei löydy: ${d.artikkeli}`);
+---
+
+<Perus
+  otsikko={sijoitaHinnat(d.otsikko)}
+  kuvaus={kuvaus}
+  murut={[{ nimi: 'Palvelut', polku: '/palvelut' }, { nimi: d.nimi, polku }]}
+  schema={[
+    palveluSchema({
+      nimi: d.nimi,
+      kuvaus,
+      polku,
+      hinnat: koot.map((k) => ({ koko: k.nimi, hinta: k.hinta })),
+      kuukausi: onJatkuva,
+    }),
+    usein(usein_),
+  ]}
+>
+  <section class="osio">
+    <div class="kehys palvelu__ruudukko">
+      <div>
+        <h1>{d.h1}</h1>
+        <p class="johdatus">{d.johdanto}</p>
+        <dl class="tiedot">
+          <div>
+            <dt>Sopii, jos</dt>
+            <dd>{d.sopii}</dd>
+          </div>
+          <div>
+            <dt>Saat</dt>
+            <dd>{d.saat}</dd>
+          </div>
+          <div>
+            <dt>Mitä tarvitsemme teiltä</dt>
+            <dd>{d.tarvitsemme}</dd>
+          </div>
+        </dl>
+      </div>
+      <aside class="hintakortti" aria-labelledby="hinta-otsikko">
+        <h2 id="hinta-otsikko">Hinta ja toimitus</h2>
+        <ul class="rivit">
+          {
+            koot.map((k) => (
+              <li>
+                <span>
+                  {k.nimi}
+                  {k.lisa && <span class="pieni">{k.lisa}</span>}
+                </span>
+                <span>
+                  {eur(k.hinta)}
+                  {paate}
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="hintakortti__toimitus"><strong>Toimitus:</strong> {toimitus}</p>
+        <a class="painike" href={`/ajanvaraus?palvelu=${p.id}`}>{onJatkuva ? 'Varaa kartoitus' : 'Tilaa tai varaa kartoitus'}</a>
+        <p class="pieni">Hinnat alv 0 % (alv 25,5 % lisätään). Katso koot <a href="/hinnasto">hinnastosta</a>.</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="osio osio--valkoinen">
+    <div class="kehys">
+      <div class="proosa" set:html={sisalto} />
+    </div>
+  </section>
+
+  <section class="osio">
+    <div class="kehys">
+      <Kysymykset kysymykset={usein_} />
+      {
+        artikkeli && (
+          <p class="lahteet">
+            <strong>Lue lisää:</strong> <a href={`/artikkelit/${artikkeli.id}`}>{artikkeli.data.h1}</a>
+          </p>
+        )
+      }
+    </div>
+  </section>
+
+  <Loppukehotus
+    otsikko={`${d.nimi}: aloitetaan kartoituksella`}
+    teksti="Maksuton 20 minuuttia, ja tiedät, mitä tarvitset ja mitä se maksaa."
+  />
+</Perus>

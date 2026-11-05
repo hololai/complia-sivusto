@@ -1,0 +1,136 @@
+---
+import Perus from '../layouts/Perus.astro';
+import PalveluKortti from '../components/PalveluKortti.astro';
+import Kysymykset from '../components/Kysymykset.astro';
+import Loppukehotus from '../components/Loppukehotus.astro';
+import { SIVUSTO } from '../../site.config.mjs';
+import { HINNAT, PAKETTI, JATKUVAT, PALVELUJEN_JARJESTYS, eur } from '../data/hinnat';
+import { usein } from '../data/schema';
+
+const TILANTEET = [
+  {
+    tilanne: 'Asiakas tai tarjouspyyntö vaatii tietosuojaselosteen',
+    ratkaisu: 'Tietosuojaselosteet',
+    polku: HINNAT.tietosuojaseloste.polku,
+  },
+  {
+    tilanne: 'Meillä on vain vanha rekisteriseloste',
+    ratkaisu: 'Tietosuojaselosteet ja seloste käsittelytoimista',
+    polku: '/artikkelit/rekisteriseloste-vai-tietosuojaseloste',
+  },
+  {
+    tilanne: 'Otamme käyttöön Copilotin, ChatGPT:n tai uuden järjestelmän',
+    ratkaisu: 'Ennakkoarvio',
+    polku: HINNAT.ennakkoarvio.polku,
+  },
+  {
+    tilanne: 'Käsittelemme terveystietoja tai lasten tietoja laajasti',
+    ratkaisu: 'Vaikutustenarviointi',
+    polku: HINNAT.vaikutustenarviointi.polku,
+  },
+  {
+    tilanne: 'Emme tiedä, mitä tietosuojasta puuttuu',
+    ratkaisu: 'Tietosuojatarkastus',
+    polku: HINNAT.tarkastus.polku,
+  },
+  {
+    tilanne: 'Haluamme kaiken kerralla kuntoon',
+    ratkaisu: `${PAKETTI.nimi} -paketti`,
+    polku: '/hinnasto#paketti',
+  },
+];
+
+const KYSYMYKSET = [
+  {
+    k: 'Mitä GDPR vaatii yritykseltä käytännössä?',
+    v: 'Useimmilta yrityksiltä tarvitaan ainakin tietosuojaselosteet, seloste käsittelytoimista, käsittelysopimukset henkilötietoja käsittelevien toimittajien kanssa, määritellyt säilytysajat ja ohje tietoturvaloukkauksen varalle.',
+  },
+  {
+    k: 'Pitääkö palvelut ostaa kerralla?',
+    v: 'Ei. Jokainen palvelu on kertaostos, ja jatkopalvelu on vapaaehtoinen. Paketti on edullisin, jos tarvitset useampaa asiakirjaa.',
+  },
+  {
+    k: 'Miten hinta määräytyy?',
+    v: 'Organisaation koon ja käsittelyn laajuuden mukaan: pieni, keskikokoinen tai laaja. Kaikki hinnat näkyvät hinnastossa.',
+  },
+];
+---
+
+<Perus
+  otsikko={`Tietosuojapalvelut yrityksille – kiinteä hinta | ${SIVUSTO.nimi}`}
+  kuvaus="GDPR-palvelut yritykselle valmiina: tietosuojaseloste, seloste käsittelytoimista, vaikutustenarviointi ja tarkastus. Julkiset hinnat ja toimitusajat."
+  murut={[{ nimi: 'Palvelut', polku: '/palvelut' }]}
+  schema={[usein(KYSYMYKSET)]}
+>
+  <section class="osio">
+    <div class="kehys">
+      <div class="osio__otsikko">
+        <h1>Tietosuojapalvelut yrityksille</h1>
+        <p class="johdatus">
+          Saat GDPR:n vaatimat asiakirjat valmiina etkä työkalua, jolla ne pitäisi tehdä itse. Me teemme työn, sinä
+          hyväksyt lopputuloksen, ja hinta on tiedossa etukäteen.
+        </p>
+      </div>
+      <div class="ruudukko">
+        {PALVELUJEN_JARJESTYS.map((a) => <PalveluKortti avain={a} otsikkotaso="h2" />)}
+      </div>
+      <p class="pieni">
+        Hinnat alv 0 %. Tietotilinpäätös on kuntien palvelu: katso <a href="/kunnat">tietosuojapalvelut kunnille</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="osio osio--valkoinen">
+    <div class="kehys">
+      <div class="osio__otsikko">
+        <h2>Mitä tarvitsen?</h2>
+        <p class="johdatus">Etsi tilanteesi. Jos et löydä sitä, <a href="/pikatesti">pikatesti</a> kertoo kahdessa minuutissa, mistä kannattaa aloittaa.</p>
+      </div>
+      <div class="taulu">
+        <table class="taulukko">
+          <caption>Yleisimmät tilanteet ja niihin sopivat palvelut</caption>
+          <thead>
+            <tr><th scope="col">Tilanne</th><th scope="col">Sopiva palvelu</th></tr>
+          </thead>
+          <tbody>
+            {
+              TILANTEET.map((t) => (
+                <tr>
+                  <td>{t.tilanne}</td>
+                  <td><a href={t.polku}>{t.ratkaisu}</a></td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="osio">
+    <div class="kehys ruudukko ruudukko--2">
+      <div class="kortti polku">
+        <h2>{PAKETTI.nimi} -paketti</h2>
+        <p>
+          Tietosuojatarkastus, tietosuojaselosteet ja seloste käsittelytoimista yhdessä, noin 20 % edullisemmin kuin
+          erikseen. Pienelle yritykselle {eur(PAKETTI.pieni)}.
+        </p>
+        <div class="kortti__ala"><a class="painike" href="/hinnasto#paketti">Katso paketti</a></div>
+      </div>
+      <div class="kortti polku">
+        <h2>Jatkuvat palvelut</h2>
+        <p>
+          {JATKUVAT.kunnossa.nimi} pitää asiakirjat ajan tasalla, alkaen {eur(JATKUVAT.kunnossa.pieni)}/kk.
+          <a href={JATKUVAT.vastaava.polku}>{JATKUVAT.vastaava.nimi}</a> alkaen {eur(JATKUVAT.vastaava.pieni)}/kk.
+        </p>
+        <div class="kortti__ala"><a class="painike painike--toinen" href="/hinnasto#jatkuvat">Katso jatkuvat palvelut</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="osio osio--valkoinen">
+    <div class="kehys"><Kysymykset kysymykset={KYSYMYKSET} /></div>
+  </section>
+
+  <Loppukehotus />
+</Perus>

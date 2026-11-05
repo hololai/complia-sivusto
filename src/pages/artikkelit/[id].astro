@@ -1,0 +1,115 @@
+---
+import { getCollection } from 'astro:content';
+import Perus from '../../layouts/Perus.astro';
+import Kysymykset from '../../components/Kysymykset.astro';
+import Tayta from '../../components/Tayta.astro';
+import { SIVUSTO } from '../../../site.config.mjs';
+import { sijoitaHinnat } from '../../data/hinnat';
+import { artikkeli as artikkeliSchema, usein } from '../../data/schema';
+
+export async function getStaticPaths() {
+  const artikkelit = await getCollection('artikkelit');
+  return artikkelit.map((a) => ({ params: { id: a.id }, props: { a } }));
+}
+
+const { a } = Astro.props;
+const d = a.data;
+const sisalto = sijoitaHinnat(a.rendered?.html ?? '');
+const polku = `/artikkelit/${a.id}`;
+const kysymykset = d.usein.map((q) => ({ k: q.k, v: sijoitaHinnat(q.v) }));
+const muotoile = (p: Date) => `${p.getUTCDate()}.${p.getUTCMonth() + 1}.${p.getUTCFullYear()}`;
+const iso = (p: Date) => p.toISOString().slice(0, 10);
+
+const muut = (await getCollection('artikkelit'))
+  .filter((m) => m.id !== a.id && (m.data.kohde === d.kohde || m.data.kohde === 'molemmat' || d.kohde === 'molemmat'))
+  .sort((x, y) => x.data.jarjestys - y.data.jarjestys)
+  .slice(0, 3);
+---
+
+<Perus
+  otsikko={d.otsikko}
+  kuvaus={d.kuvaus}
+  ogTyyppi="article"
+  murut={[{ nimi: 'Artikkelit', polku: '/artikkelit' }, { nimi: d.h1, polku }]}
+  schema={[
+    artikkeliSchema({ otsikko: d.h1, kuvaus: d.kuvaus, polku, julkaistu: d.julkaistu, paivitetty: d.paivitetty }),
+    ...(kysymykset.length ? [usein(kysymykset)] : []),
+  ]}
+>
+  <article class="osio">
+    <div class="kehys">
+      <h1 class="artikkeli__h1">{d.h1}</h1>
+      <p class="artikkeli__tiedot">
+        Päivitetty <time datetime={iso(d.paivitetty)}>{muotoile(d.paivitetty)}</time> ·
+        {
+          SIVUSTO.asiantuntija.nimi ? (
+            <a href="/meista">{SIVUSTO.asiantuntija.nimi}</a>
+          ) : (
+            <Tayta>kirjoittajan nimi</Tayta>
+          )
+        }
+      </p>
+      <div class="proosa" set:html={sisalto} />
+      {
+        kysymykset.length > 0 && (
+          <div class="artikkeli__usein">
+            <Kysymykset kysymykset={kysymykset} />
+          </div>
+        )
+      }
+      <aside class="kehotus">
+        <h2>{d.kehotus.otsikko}</h2>
+        <p>{sijoitaHinnat(d.kehotus.teksti)}</p>
+        <div class="painikkeet">
+          <a class="painike" href={d.kehotus.linkki}>{d.kehotus.nappi}</a>
+          <a class="painike painike--toinen" href="/pikatesti">Tee 2 minuutin pikatesti</a>
+        </div>
+      </aside>
+      {
+        d.lahteet.length > 0 && (
+          <section class="lahteet">
+            <h2>Lähteet</h2>
+            <ul>
+              {d.lahteet.map((l) => (
+                <li>
+                  <a href={l.url} rel="noopener">
+                    {l.nimi}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
+      <p class="vastuu">Tämä ohje on yleistä tietoa, ei oikeudellinen neuvo yksittäiseen tapaukseen.</p>
+      {
+        muut.length > 0 && (
+          <nav class="lahteet" aria-label="Muita ohjeita">
+            <h2>Muita ohjeita</h2>
+            <ul>
+              {muut.map((m) => (
+                <li>
+                  <a href={`/artikkelit/${m.id}`}>{m.data.h1}</a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        )
+      }
+    </div>
+  </article>
+</Perus>
+
+<style>
+  .artikkeli__h1 {
+    max-width: 48rem;
+    font-size: clamp(2rem, 1.5rem + 2.2vw, 3rem);
+  }
+  .artikkeli__usein {
+    max-width: var(--teksti);
+    margin-top: 2.25rem;
+  }
+  .artikkeli__usein :global(.kysymykset) {
+    grid-template-columns: 1fr;
+  }
+</style>

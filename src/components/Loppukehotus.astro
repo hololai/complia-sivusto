@@ -1,0 +1,24 @@
+---
+interface Props {
+  otsikko?: string;
+  teksti?: string;
+  nappi?: string;
+  linkki?: string;
+}
+const {
+  otsikko = 'Aloitetaan maksuttomalla kartoituksella',
+  teksti = '20 minuuttia, ja tiedät, mitä puuttuu ja mitä sen korjaaminen maksaa.',
+  nappi = 'Varaa aika',
+  linkki = '/ajanvaraus',
+} = Astro.props;
+---
+
+<section class="osio osio--tumma loppukehotus">
+  <div class="kehys">
+    <h2>{otsikko}</h2>
+    <p>{teksti}</p>
+    <div class="painikkeet">
+      <a class="painike painike--vaalea" href={linkki}>{nappi}</a>
+    </div>
+  </div>
+</section>

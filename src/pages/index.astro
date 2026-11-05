@@ -1,0 +1,207 @@
+---
+import { getCollection } from 'astro:content';
+import Perus from '../layouts/Perus.astro';
+import PalveluKortti from '../components/PalveluKortti.astro';
+import Kysymykset from '../components/Kysymykset.astro';
+import Loppukehotus from '../components/Loppukehotus.astro';
+import { SIVUSTO } from '../../site.config.mjs';
+import { HINNAT, PAKETTI, JATKUVAT, ESIMERKIT, PALVELUJEN_JARJESTYS, eur, pakettiErikseen } from '../data/hinnat';
+import { organisaatio, verkkosivusto, usein } from '../data/schema';
+
+const KYSYMYKSET = [
+  {
+    k: 'Tarvitseeko pienikin yritys tietosuojaselosteen?',
+    v: 'Kyllä, jos käsittelette asiakkaiden, työntekijöiden tai työnhakijoiden henkilötietoja.',
+  },
+  { k: 'Mitä teiltä tarvitaan?', v: 'Noin tunnin haastattelu ja tiedot käytössä olevista järjestelmistä.' },
+  { k: 'Kuka asiakirjat omistaa?', v: 'Te. Saatte ne muokattavina tiedostoina.' },
+  {
+    k: 'Voiko kunta ostaa ilman kilpailutusta?',
+    v: 'Kertapalvelut ovat pienhankintojen kokoluokkaa; noudattakaa kuntanne hankintaohjetta.',
+  },
+  {
+    k: 'Mitä tapahtuu lain muuttuessa?',
+    v: `Tietosuoja kunnossa -jatkopalvelu päivittää asiakirjat, alkaen ${eur(JATKUVAT.kunnossa.pieni)}/kk.`,
+  },
+];
+
+const artikkelit = (await getCollection('artikkelit')).sort((a, b) => a.data.jarjestys - b.data.jarjestys).slice(0, 4);
+---
+
+<Perus
+  otsikko={`${SIVUSTO.slogan} | ${SIVUSTO.nimi}`}
+  kuvaus="GDPR kuntoon valmiilla asiakirjoilla: tietosuojaselosteet, selosteet käsittelytoimista ja vaikutustenarvioinnit yrityksille ja kunnille. Julkiset hinnat."
+  schema={[organisaatio(), verkkosivusto(), usein(KYSYMYKSET)]}
+>
+  <section class="paa">
+    <div class="kehys paa__ruudukko">
+      <div>
+        <h1>Tietosuoja ja GDPR kuntoon – valmiina ja kiinteällä hinnalla</h1>
+        <p class="paa__alaotsikko">
+          Teemme tietosuojaselosteet, selosteet käsittelytoimista, vaikutustenarvioinnit ja tietosuojatarkastukset
+          yrityksille ja kunnille. Sinä hyväksyt, me hoidamme loput.
+        </p>
+        <div class="painikkeet">
+          <a class="painike" href="/hinnasto">Katso hinnat</a>
+          <a class="painike painike--toinen" href="/pikatesti">Tee 2 minuutin pikatesti</a>
+        </div>
+      </div>
+      <aside class="asiakirja" aria-label="Esimerkkihinta">
+        <p class="asiakirja__ots">{PAKETTI.nimi} -paketti</p>
+        <p class="asiakirja__kuvaus">Esimerkki: parturi-kampaamo, 4 henkeä</p>
+        <ul class="rivit">
+          <li><span>Tietosuojatarkastus</span><span>{eur(HINNAT.tarkastus.pieni)}</span></li>
+          <li><span>Tietosuojaselosteet</span><span>{eur(HINNAT.tietosuojaseloste.pieni)}</span></li>
+          <li><span>Seloste käsittelytoimista</span><span>{eur(HINNAT.seloste.pieni)}</span></li>
+          <li class="rivit__yliviivattu"><span>Erikseen yhteensä</span><span>{eur(pakettiErikseen('pieni'))}</span></li>
+        </ul>
+        <p class="asiakirja__summa"><span>Pakettina, alv 0 %</span><strong>{eur(PAKETTI.pieni)}</strong></p>
+        <p class="asiakirja__hyvaksynta">
+          <svg viewBox="0 0 20 20" aria-hidden="true">
+            <path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+          {SIVUSTO.iskulause}
+        </p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="osio osio--valkoinen" aria-label="Kaksi polkua">
+    <div class="kehys ruudukko ruudukko--2">
+      <div class="kortti polku">
+        <h2>Yrityksille</h2>
+        <p>
+          Asiakas kysyy tietosuojaselostetta, tarjouspyyntö vaatii käsittelysopimuksen tai et tiedä, mitä puuttuu?
+          Teemme asiakirjat valmiiksi muutamassa päivässä.
+        </p>
+        <div class="kortti__ala"><a class="painike" href="/palvelut">Yrityksen palvelut →</a></div>
+      </div>
+      <div class="kortti polku">
+        <h2>Kunnille</h2>
+        <p>
+          Hankinta odottaa vaikutustenarviointia tai tietotilinpäätös lähestyy? Kiinteähintaiset palvelut, jotka voi
+          ostaa pienhankintana.
+        </p>
+        <div class="kortti__ala"><a class="painike" href="/kunnat">Kuntien palvelut →</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="osio">
+    <div class="kehys">
+      <div class="osio__otsikko">
+        <h2>Näin se toimii</h2>
+      </div>
+      <ol class="vaiheet">
+        <li>
+          <h3>Kerro tilanteesi</h3>
+          <p>Maksuton 20 minuutin kartoitus tai lyhyt lomake.</p>
+        </li>
+        <li>
+          <h3>Me teemme asiakirjat</h3>
+          <p>Valmiina 3–10 arkipäivässä.</p>
+        </li>
+        <li>
+          <h3>Sinä hyväksyt</h3>
+          <p>Tarkistamme muutokset kanssasi, ja asiakirjat ovat käytössä.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="osio osio--valkoinen">
+    <div class="kehys">
+      <div class="osio__otsikko">
+        <h2>Tietosuojapalvelut ja hinnat</h2>
+        <p class="johdatus">Jokaisella palvelulla on julkinen hinta ja luvattu toimitusaika. Hinnat alv 0 %.</p>
+      </div>
+      <div class="ruudukko">
+        {PALVELUJEN_JARJESTYS.map((a) => <PalveluKortti avain={a} />)}
+      </div>
+      <div class="painikkeet">
+        <a class="painike painike--toinen" href="/hinnasto">Katso koko hinnasto</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="osio">
+    <div class="kehys">
+      <div class="osio__otsikko"><h2>Miksi {SIVUSTO.nimi}</h2></div>
+      <div class="ruudukko ruudukko--2">
+        <div>
+          <h3>Hinta näkyy etukäteen</h3>
+          <p>Ei tarjouspyyntöjä eikä tuntilaskutuksen yllätyksiä.</p>
+        </div>
+        <div>
+          <h3>Valmista päivissä</h3>
+          <p>Oma Complia-työkalumme tekee dokumentoinnista nopeaa.</p>
+        </div>
+        <div>
+          <h3>Asiantuntija vastaa</h3>
+          <p>Jokainen asiakirja tarkistetaan ennen luovutusta.</p>
+        </div>
+        <div>
+          <h3>Selkeää suomea</h3>
+          <p>Asiakirjat, jotka henkilöstökin ymmärtää.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="osio osio--valkoinen">
+    <div class="kehys">
+      <div class="osio__otsikko">
+        <h2>Esimerkkihinnat</h2>
+      </div>
+      <div class="ruudukko">
+        <div class="kortti">
+          <h3>Parturi-kampaamo, 4 henkeä</h3>
+          <p>Kaikki perusasiakirjat.</p>
+          <div class="kortti__ala"><span class="kortti__hinta">{eur(PAKETTI.pieni)}</span></div>
+        </div>
+        <div class="kortti">
+          <h3>IT-yritys, 25 henkeä, ottaa Copilotin käyttöön</h3>
+          <p>Ennakkoarvio ja tarvittaessa vaikutustenarviointi.</p>
+          <div class="kortti__ala"><span class="kortti__hinta">enintään {eur(ESIMERKIT.copilot)}</span></div>
+        </div>
+        <div class="kortti">
+          <h3>Kunnan uusi asiakastietojärjestelmä</h3>
+          <p>Vaikutustenarviointi.</p>
+          <div class="kortti__ala"><span class="kortti__hinta">{eur(HINNAT.vaikutustenarviointi.laaja)}</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="osio">
+    <div class="kehys">
+      <div class="osio__otsikko">
+        <h2>Tietosuojaohjeet</h2>
+        <p class="johdatus">Selkeät vastaukset yleisimpiin tietosuojakysymyksiin.</p>
+      </div>
+      <div class="ruudukko ruudukko--2">
+        {
+          artikkelit.map((a) => (
+            <article class="kortti">
+              <h3>
+                <a href={`/artikkelit/${a.id}`}>{a.data.h1}</a>
+              </h3>
+              <p>{a.data.tiivistelma}</p>
+            </article>
+          ))
+        }
+      </div>
+      <div class="painikkeet">
+        <a class="painike painike--toinen" href="/artikkelit">Kaikki ohjeet</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="osio osio--valkoinen">
+    <div class="kehys">
+      <Kysymykset kysymykset={KYSYMYKSET} />
+    </div>
+  </section>
+
+  <Loppukehotus />
+</Perus>

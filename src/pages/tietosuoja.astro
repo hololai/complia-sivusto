@@ -1,0 +1,80 @@
+---
+import Perus from '../layouts/Perus.astro';
+import Tayta from '../components/Tayta.astro';
+import { SIVUSTO } from '../../site.config.mjs';
+
+// Osoite on /tietosuoja, koska /tietosuojaseloste on palvelusivun tärkein hakuosoite.
+const { yritys } = SIVUSTO;
+---
+
+<Perus
+  otsikko={`Tietosuojaseloste: näin käsittelemme tietojasi | ${SIVUSTO.nimi}`}
+  kuvaus="Complian tietosuojaseloste: mitä tietoja käsittelemme, miksi, kenelle niitä luovutetaan ja kuinka kauan säilytämme. Sivustolla ei ole seurantaevästeitä."
+  murut={[{ nimi: 'Tietosuojaseloste', polku: '/tietosuoja' }]}
+>
+  <section class="osio">
+    <div class="kehys proosa">
+      <h1>Tietosuojaseloste</h1>
+      <p class="johdatus">Tässä selosteessa kerromme, miten käsittelemme asiakkaidemme ja sivuston kävijöiden henkilötietoja.</p>
+      <p><Tayta>tarkista seloste ja lisää päivityspäivä ennen julkaisua. Kohdat perustuvat suunnitelmaan, eivät vielä toteutuneisiin ratkaisuihin.</Tayta></p>
+
+      <h2>Rekisterinpitäjä</h2>
+      <p>
+        {yritys.nimi ?? <Tayta>yrityksen nimi</Tayta>}, Y-tunnus {yritys.ytunnus ?? <Tayta>Y-tunnus</Tayta>},
+        {' '}{yritys.katuosoite ?? <Tayta>osoite</Tayta>}. Tietosuoja-asioissa tavoitat meidät osoitteesta
+        <a href={`mailto:${SIVUSTO.sahkoposti}`}>{SIVUSTO.sahkoposti}</a>.
+      </p>
+
+      <h2>Mitä tietoja käsittelemme ja miksi</h2>
+      <table>
+        <thead>
+          <tr><th scope="col">Tarkoitus</th><th scope="col">Tiedot</th><th scope="col">Oikeusperuste</th><th scope="col">Säilytysaika</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Yhteydenottoihin vastaaminen ja kartoitus</td>
+            <td>nimi, sähköposti, organisaatio, viesti</td>
+            <td>oikeutettu etu: vastaamme meille lähetettyihin viesteihin</td>
+            <td><Tayta>säilytysaika, esim. 12 kuukautta</Tayta></td>
+          </tr>
+          <tr>
+            <td>Toimeksiannon toteuttaminen ja laskutus</td>
+            <td>yhteyshenkilön nimi ja yhteystiedot, tilaustiedot</td>
+            <td>sopimus ja lakisääteinen velvoite</td>
+            <td>sopimuksen ajan; kirjanpitoaineisto kirjanpitolain mukaan</td>
+          </tr>
+          <tr>
+            <td>Sivuston turvallisuus ja toimivuus</td>
+            <td>palvelimen lokitiedot, kuten IP-osoite ja selaintiedot</td>
+            <td>oikeutettu etu: sivuston suojaaminen</td>
+            <td><Tayta>palveluntarjoajan säilytysaika</Tayta></td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Pikatestin vastauksia ei lähetetä eikä tallenneta. Tulos lasketaan vain selaimessasi.</p>
+
+      <h2>Evästeet ja kävijäseuranta</h2>
+      <p>Sivustolla ei käytetä seurantaevästeitä eikä evästebanneria tarvita. Fontit tulevat omalta palvelimeltamme, eikä sivuilla ole ulkoisia upotuksia tai seurantapikseleitä.</p>
+      <p><Tayta>evästeetön kävijäanalytiikka, jos sellainen otetaan käyttöön</Tayta></p>
+
+      <h2>Kenelle tietoja luovutetaan</h2>
+      <p>Emme myy tietoja emmekä luovuta niitä markkinointiin. Käytämme palveluntarjoajia, jotka käsittelevät tietoja puolestamme käsittelysopimuksen perusteella:</p>
+      <ul>
+        <li><Tayta>sivuston hosting, esim. Google (Firebase Hosting)</Tayta></li>
+        <li><Tayta>sähköposti ja lomakepalvelu</Tayta></li>
+        <li><Tayta>ajanvaraustyökalu</Tayta></li>
+        <li><Tayta>kirjanpito ja laskutus</Tayta></li>
+      </ul>
+
+      <h2>Siirrot EU:n ja ETA:n ulkopuolelle</h2>
+      <p><Tayta>kerro siirroista ja suojatoimista. Firebase Hosting jakaa sisältöä maailmanlaajuisen verkon kautta, joten kuvaa tämä, jos se valitaan.</Tayta></p>
+
+      <h2>Oikeutesi</h2>
+      <p>Sinulla on oikeus saada pääsy tietoihisi, oikaista ja poistaa niitä, rajoittaa ja vastustaa käsittelyä sekä siirtää tiedot toiseen järjestelmään. Jos käsittely perustuu suostumukseen, voit perua sen milloin tahansa. Lähetä pyyntö osoitteeseen <a href={`mailto:${SIVUSTO.sahkoposti}`}>{SIVUSTO.sahkoposti}</a>.</p>
+      <p>Sinulla on myös oikeus tehdä valitus <a href="https://tietosuoja.fi/" rel="noopener">tietosuojavaltuutetun toimistolle</a>.</p>
+
+      <h2>Automaattinen päätöksenteko</h2>
+      <p>Emme tee sinua koskevia päätöksiä pelkästään automaattisesti emmekä profiloi sivuston kävijöitä.</p>
+    </div>
+  </section>
+</Perus>

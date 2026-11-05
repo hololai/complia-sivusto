@@ -1,0 +1,18 @@
+---
+import Perus from '../layouts/Perus.astro';
+import { SIVUSTO } from '../../site.config.mjs';
+---
+
+<Perus otsikko={`Sivua ei löytynyt | ${SIVUSTO.nimi}`} kuvaus="Etsimääsi sivua ei löytynyt. Palaa etusivulle tai katso palvelut ja hinnat." noindex>
+  <section class="osio">
+    <div class="kehys">
+      <h1>Sivua ei löytynyt</h1>
+      <p class="johdatus">Osoite on voinut muuttua. Näistä pääset eteenpäin:</p>
+      <div class="painikkeet">
+        <a class="painike" href="/">Etusivulle</a>
+        <a class="painike painike--toinen" href="/hinnasto">Hinnasto</a>
+        <a class="painike painike--toinen" href="/artikkelit">Tietosuojaohjeet</a>
+      </div>
+    </div>
+  </section>
+</Perus>

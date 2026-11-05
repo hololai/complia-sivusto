@@ -1,0 +1,109 @@
+---
+import Perus from '../layouts/Perus.astro';
+import Tayta from '../components/Tayta.astro';
+import { SIVUSTO } from '../../site.config.mjs';
+import { HINNAT, PAKETTI, JATKUVAT, PALVELUJEN_JARJESTYS } from '../data/hinnat';
+
+const AIHEET = [
+  { arvo: 'kartoitus', nimi: 'Maksuton kartoitus' },
+  { arvo: 'paketti', nimi: `${PAKETTI.nimi} -paketti` },
+  ...PALVELUJEN_JARJESTYS.map((a) => ({ arvo: HINNAT[a].polku.slice(1), nimi: HINNAT[a].nimi })),
+  { arvo: 'tietosuojavastaava', nimi: JATKUVAT.vastaava.nimi },
+  { arvo: 'kunnossa', nimi: JATKUVAT.kunnossa.nimi },
+];
+const toiminto = SIVUSTO.lomakeOsoite ?? `mailto:${SIVUSTO.sahkoposti}`;
+---
+
+<Perus
+  otsikko={`Varaa maksuton tietosuojakartoitus | ${SIVUSTO.nimi}`}
+  kuvaus="Varaa maksuton 20 minuutin kartoitus: tiedät sen jälkeen, mitä tietosuojasta puuttuu ja mitä korjaaminen maksaa. Voit myös tilata palvelun suoraan."
+  murut={[{ nimi: 'Ajanvaraus', polku: '/ajanvaraus' }]}
+>
+  <section class="osio">
+    <div class="kehys palvelu__ruudukko">
+      <div>
+        <h1>Varaa maksuton 20 minuutin kartoitus</h1>
+        <p class="johdatus">Käymme tilanteen läpi yhdessä. Sen jälkeen tiedät, mitä puuttuu ja mitä sen korjaaminen maksaa.</p>
+        <ol class="vaiheet ajanvaraus__vaiheet">
+          <li>
+            <h2 class="ajanvaraus__h">Kerro tilanteesi</h2>
+            <p>Varaa aika tai lähetä viesti lomakkeella.</p>
+          </li>
+          <li>
+            <h2 class="ajanvaraus__h">Saat tilausvahvistuksen</h2>
+            <p>Kiinteä hinta ja toimitusaika kirjallisena.</p>
+          </li>
+          <li>
+            <h2 class="ajanvaraus__h">Hyväksyt valmiit asiakirjat</h2>
+            <p>Lasku lähtee vasta hyväksynnän jälkeen.</p>
+          </li>
+        </ol>
+        {
+          SIVUSTO.ajanvarausOsoite ? (
+            <p>
+              <a class="painike" href={SIVUSTO.ajanvarausOsoite} rel="noopener">
+                Avaa kalenteri
+              </a>
+            </p>
+          ) : (
+            <p>
+              <Tayta>kalenterilinkki. Työkalun pitää säilyttää data EU:ssa, ja käsittelysopimus tehdään ennen käyttöönottoa.</Tayta>
+            </p>
+          )
+        }
+      </div>
+      <div class="hintakortti">
+        <h2>Lähetä viesti tai tilaa</h2>
+        {
+          !SIVUSTO.lomakeOsoite && (
+            <p class="virheilmo">
+              <span data-tayta>Täydennä:</span> lomakkeella ei ole vielä vastaanottavaa palvelua. Se avaa nyt sähköpostiviestin.
+            </p>
+          )
+        }
+        <form class="lomake" action={toiminto} method="post" enctype={SIVUSTO.lomakeOsoite ? undefined : 'text/plain'} data-yhteys data-osoite={SIVUSTO.sahkoposti}>
+          <div>
+            <label for="nimi">Nimi</label>
+            <input id="nimi" name="nimi" type="text" autocomplete="name" required />
+          </div>
+          <div>
+            <label for="sahkoposti">Sähköposti</label>
+            <input id="sahkoposti" name="sahkoposti" type="email" autocomplete="email" required />
+          </div>
+          <div>
+            <label for="organisaatio">Organisaatio</label>
+            <input id="organisaatio" name="organisaatio" type="text" autocomplete="organization" required />
+          </div>
+          <div>
+            <label for="aihe">Aihe</label>
+            <select id="aihe" name="aihe">
+              {AIHEET.map((a) => <option value={a.arvo}>{a.nimi}</option>)}
+            </select>
+          </div>
+          <div>
+            <label for="viesti">Viesti</label>
+            <textarea id="viesti" name="viesti" rows="4" aria-describedby="viesti-ohje"></textarea>
+            <span class="apu" id="viesti-ohje">Älä kirjoita viestiin henkilötunnuksia tai muita arkaluonteisia tietoja.</span>
+          </div>
+          <button class="painike" type="submit">Lähetä</button>
+          <p class="pieni">
+            Käytämme tietoja vain viestiisi vastaamiseen. Lue <a href="/tietosuoja">tietosuojaseloste</a>.
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+</Perus>
+
+<style>
+  .ajanvaraus__vaiheet {
+    grid-template-columns: 1fr;
+    margin-block: 1.5rem;
+  }
+  .ajanvaraus__h {
+    font-size: 1.2rem;
+    margin-bottom: 0.25rem;
+  }
+</style>
+
+<script src="../scripts/lomake.ts"></script>
