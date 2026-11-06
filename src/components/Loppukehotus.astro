@@ -1,4 +1,7 @@
 ---
+import { SIVUSTO } from '../../site.config.mjs';
+import { puhelinLinkki } from '../data/html';
+
 interface Props {
   otsikko?: string;
   teksti?: string;
@@ -7,9 +10,9 @@ interface Props {
 }
 const {
   otsikko = 'Kerro tilanteesi, niin kerromme hinnan',
-  teksti = 'Lähetä lyhyt viesti. Vastaamme, mitä tarvitsette ja mitä se maksaa kiinteällä hinnalla.',
+  teksti = 'Soita tai lähetä sähköpostia. Kerromme, mitä tarvitsette ja mitä se maksaa kiinteällä hinnalla.',
   nappi = 'Ota yhteyttä',
-  linkki = '/yhteydenotto',
+  linkki = '/yhteystiedot',
 } = Astro.props;
 ---
 
@@ -20,5 +23,9 @@ const {
     <div class="painikkeet">
       <a class="painike painike--vaalea" href={linkki}>{nappi}</a>
     </div>
+    <p class="loppukehotus__yhteys">
+      {SIVUSTO.yritys.puhelin && <a href={puhelinLinkki(SIVUSTO.yritys.puhelin)}>{SIVUSTO.yritys.puhelin}</a>}
+      <a href={`mailto:${SIVUSTO.sahkoposti}`}>{SIVUSTO.sahkoposti}</a>
+    </p>
   </div>
 </section>

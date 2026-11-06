@@ -33,7 +33,8 @@ Node 24 (`.nvmrc`). Aja ensin `nvm use`.
 ## Säännöt
 
 - Käyttöliittymä, tekstit, kommentit ja commit-viestit suomeksi. Kommentit kertovat miksi, eivät mitä.
-- Sivuston oma tietosuoja on näyte osaamisesta: ei seurantaa, evästeitä, ulkoisia fontteja, upotuksia tai CDN-skriptejä.
+- Sivuston oma tietosuoja on näyte osaamisesta: ei seurantaa, evästeitä, selaintallennusta, ulkoisia fontteja, upotuksia tai CDN-skriptejä.
+- Ei lomakkeita, jotka lähettävät tietoja. Yhteydenotot tulevat puhelimella tai sähköpostilla (`/yhteystiedot`), ja CSP:ssä on `form-action 'none'`. Tarkistin valvoo molempia.
 - CSP on tiukka: ei sisäisiä skriptejä, tyylejä tai `style`-attribuutteja. Interaktiivisuus on lisä, ja sisällön ja hintojen pitää näkyä ilman JavaScriptiä.
 - Uudella artikkelilla pitää olla hakusana, alle 155 merkin metakuvaus, kehotus palveluun, ensisijaiset lähteet ja päivityspäivä. Linkitä se palvelusivulta ja palvelusivulle.
 - Palvelusivu ja artikkeli eivät kilpaile samasta hausta: palvelusivu vastaa ostoaikeeseen, artikkeli tiedonhakuun.

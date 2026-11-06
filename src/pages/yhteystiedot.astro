@@ -1,0 +1,121 @@
+---
+// Sivustolla ei ole lomakkeita (päätös 6.11.2026): yhteydenotot tulevat puhelimella tai sähköpostilla,
+// joten sivusto ei käsittele kävijöiden tietoja lainkaan.
+import Perus from '../layouts/Perus.astro';
+import Tayta from '../components/Tayta.astro';
+import Ikoni from '../components/Ikoni.astro';
+import { SIVUSTO } from '../../site.config.mjs';
+import { puhelinLinkki } from '../data/html';
+
+const { yritys } = SIVUSTO;
+---
+
+<Perus
+  otsikko={`Yhteystiedot: puhelin ja sähköposti | ${SIVUSTO.nimi}`}
+  kuvaus="Tilaa tietosuojapalvelu tai kysy lisää puhelimella tai sähköpostilla. Vahvistamme kiinteän hinnan ja toimitusajan kirjallisena ennen työn alkua."
+  murut={[{ nimi: 'Yhteystiedot', polku: '/yhteystiedot' }]}
+>
+  <section class="osio">
+    <div class="kehys palvelu__ruudukko">
+      <div>
+        <h1>Ota yhteyttä</h1>
+        <p class="johdatus">
+          Soita tai lähetä sähköpostia. Kerro lyhyesti, mitä tarvitsette, niin vahvistamme kiinteän hinnan ja
+          toimitusajan kirjallisena ennen kuin työ alkaa.
+        </p>
+        <ol class="vaiheet yhteys__vaiheet">
+          <li>
+            <h2 class="yhteys__h">Kerro tilanteesi</h2>
+            <p>Organisaation nimi ja koko, mitä palvelua tarvitsette ja toivottu aikataulu.</p>
+          </li>
+          <li>
+            <h2 class="yhteys__h">Saat tilausvahvistuksen</h2>
+            <p>Kiinteä hinta ja toimitusaika kirjallisena.</p>
+          </li>
+          <li>
+            <h2 class="yhteys__h">Hyväksyt valmiit asiakirjat</h2>
+            <p>Lasku lähtee vasta hyväksynnän jälkeen.</p>
+          </li>
+        </ol>
+      </div>
+      <aside class="hintakortti yhteys" aria-labelledby="yhteys-otsikko">
+        <h2 id="yhteys-otsikko">Yhteystiedot</h2>
+        <ul class="yhteys__lista">
+          <li>
+            <span class="kortti__ikoni"><Ikoni nimi="puhelin" /></span>
+            <span>
+              <span class="pieni">Puhelin</span>
+              {yritys.puhelin ? <a href={puhelinLinkki(yritys.puhelin)}>{yritys.puhelin}</a> : <Tayta>puhelin</Tayta>}
+            </span>
+          </li>
+          <li>
+            <span class="kortti__ikoni"><Ikoni nimi="kirje" /></span>
+            <span>
+              <span class="pieni">Sähköposti</span>
+              <a href={`mailto:${SIVUSTO.sahkoposti}`}>{SIVUSTO.sahkoposti}</a>
+            </span>
+          </li>
+        </ul>
+        <p class="yhteys__yritys">
+          {yritys.nimi ?? <Tayta>yrityksen nimi</Tayta>}<br />
+          {yritys.katuosoite ?? <Tayta>osoite</Tayta>}<br />
+          Y-tunnus {yritys.ytunnus ?? <Tayta>Y-tunnus</Tayta>}
+        </p>
+        <p class="pieni">
+          Älä lähetä sähköpostilla henkilötunnuksia tai muita arkaluonteisia tietoja. Lue, miten käsittelemme
+          yhteydenottoja, <a href="/tietosuoja">tietosuojaselosteesta</a>. Tilauksiin sovelletaan
+          <a href="/toimitusehdot">toimitusehtoja</a> ja <a href="/kasittelysopimus">käsittelysopimusta</a>.
+        </p>
+      </aside>
+    </div>
+  </section>
+</Perus>
+
+<style>
+  .yhteys__vaiheet {
+    grid-template-columns: 1fr;
+    margin-block: 1.5rem;
+  }
+  /* Pystysuorassa listassa vaiheita yhdistävä vaakaviiva olisi harhaanjohtava. */
+  .yhteys__vaiheet li::after {
+    display: none;
+  }
+  .yhteys__h {
+    font-size: 1.2rem;
+    margin-bottom: 0.25rem;
+  }
+  .yhteys__lista {
+    display: grid;
+    gap: 1rem;
+    list-style: none;
+    margin: 0 0 1.25rem;
+    padding: 0;
+  }
+  .yhteys__lista li {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+  }
+  .yhteys__lista .kortti__ikoni {
+    margin: 0;
+    flex: none;
+  }
+  .yhteys__lista .pieni {
+    display: block;
+    line-height: 1.3;
+  }
+  .yhteys__lista a {
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .yhteys__lista a:hover {
+    text-decoration: underline;
+  }
+  .yhteys__yritys {
+    padding-top: 1rem;
+    border-top: 1px solid var(--viiva);
+    line-height: 1.5;
+  }
+</style>

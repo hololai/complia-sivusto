@@ -54,7 +54,7 @@ const KYSYMYKSET = [
   },
   {
     k: 'Entä jos tarvitsemme laajemman kokonaisuuden?',
-    v: 'Useampi järjestelmä samassa arvioinnissa ja laajemmat kokonaisuudet hinnoitellaan kiinteällä tarjouksella. Kerro tilanteesi yhteydenottolomakkeella.',
+    v: 'Useampi järjestelmä samassa arvioinnissa ja laajemmat kokonaisuudet hinnoitellaan kiinteällä tarjouksella. Kerro tilanteesi puhelimella tai sähköpostilla.',
   },
 ];
 
@@ -163,14 +163,14 @@ const OPAS = [
                     <th scope="row">
                       <a href={p.polku}>{p.nimi}</a>
                       <span>{p.lyhyt}</span>
-                      <span class="vain-kapea">Toimitus {p.toimitus} · <a href={`/yhteydenotto?palvelu=${p.polku.slice(1)}`}>Tilaa</a></span>
+                      <span class="vain-kapea">Toimitus {p.toimitus} · <a href="/yhteystiedot">Tilaa</a></span>
                     </th>
                     {KOOT.map((k) => (
                       <td class={`h k-${k.id}`}>{p[k.id] === null ? '–' : eur(p[k.id] as number)}</td>
                     ))}
                     <td class="sarake-toimitus">{p.toimitus}</td>
                     <td class="sarake-toimitus">
-                      <a class="painike painike--pieni painike--toinen" href={`/yhteydenotto?palvelu=${p.polku.slice(1)}`}>
+                      <a class="painike painike--pieni painike--toinen" href="/yhteystiedot">
                         Tilaa
                       </a>
                     </td>
@@ -191,8 +191,8 @@ const OPAS = [
             teettäneet GAP-analyysin, sen hinta vähennetään paketista.
           </p>
           <div class="painikkeet">
-            <a class="painike" href="/yhteydenotto?palvelu=paketti">Tilaa paketti</a>
-            <a class="painike painike--toinen" href="/yhteydenotto">Kysy lisää</a>
+            <a class="painike" href="/yhteystiedot">Tilaa paketti</a>
+            <a class="painike painike--toinen" href="/yhteystiedot">Kysy lisää</a>
           </div>
         </div>
         <div class="taulu">

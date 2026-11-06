@@ -24,11 +24,12 @@ export const SIVUSTO = {
   // Toimii vasta, kun verkkotunnus ja sähköposti on otettu käyttöön.
   sahkoposti: 'hei@complia.fi',
 
+  // Yhtiö on perusteilla 6.11.2026, joten Y-tunnus puuttuu vielä.
   yritys: {
-    nimi: null,
+    nimi: 'Complia GDPR Oy',
     ytunnus: null,
-    katuosoite: null,
-    puhelin: null,
+    katuosoite: 'Huvilatie 7, 54100 Joutseno',
+    puhelin: '040 964 8668',
   },
 
   // Nimetyt asiantuntijat ovat hakukoneille ja ostajille tärkein luottamustekijä.
@@ -68,6 +69,4 @@ export const SIVUSTO = {
     },
   ],
 
-  // Lomakkeen vastaanottava palvelu. Niin kauan kuin null, lomake avaa sähköpostiviestin.
-  lomakeOsoite: null,
 };

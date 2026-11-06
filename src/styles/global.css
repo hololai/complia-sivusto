@@ -1168,6 +1168,14 @@ a:hover {
 .loppukehotus .painikkeet {
   justify-content: center;
 }
+.loppukehotus__yhteys {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem 1.5rem;
+  margin: 1.25rem 0 0;
+  font-weight: 600;
+}
 .loppukehotus .painike--vaalea {
   background: linear-gradient(180deg, var(--kulta-vaalea), var(--kulta));
   border-color: var(--kulta);
@@ -1549,34 +1557,7 @@ a:hover {
   margin-bottom: 0.75rem;
 }
 
-/* Lomakkeet ja pikatesti */
-.lomake {
-  display: grid;
-  gap: 1.1rem;
-  max-width: 34rem;
-}
-.lomake label {
-  display: block;
-  font-weight: 600;
-  margin-bottom: 0.3rem;
-}
-.lomake input,
-.lomake select,
-.lomake textarea {
-  width: 100%;
-  padding: 0.65rem 0.75rem;
-  font: inherit;
-  color: inherit;
-  background: var(--valkoinen);
-  border: 1.5px solid #8a8f88;
-  border-radius: 7px;
-}
-.lomake .apu {
-  display: block;
-  font-size: 0.9rem;
-  color: var(--harmaa);
-  margin-top: 0.25rem;
-}
+/* Pikatesti */
 .testi {
   counter-reset: kysymys;
   display: grid;

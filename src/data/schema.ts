@@ -1,4 +1,5 @@
 import { SIVUSTO } from '../../site.config.mjs';
+import { puhelinLinkki } from './html';
 
 export const ORG_ID = `${SIVUSTO.osoite}/#organisaatio`;
 
@@ -19,7 +20,7 @@ export function organisaatio() {
     image: `${SIVUSTO.osoite}/og.png`,
     logo: `${SIVUSTO.osoite}/apple-touch-icon.png`,
     ...(yritys.ytunnus ? { vatID: yritys.ytunnus } : {}),
-    ...(yritys.puhelin ? { telephone: yritys.puhelin } : {}),
+    ...(yritys.puhelin ? { telephone: puhelinLinkki(yritys.puhelin).slice(4) } : {}),
     ...(yritys.katuosoite ? { address: yritys.katuosoite } : {}),
   };
 }

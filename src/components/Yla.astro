@@ -2,7 +2,7 @@
 import { SIVUSTO } from '../../site.config.mjs';
 import { sivunPolku } from '../data/polku';
 
-// Päävalikko: seitsemän kohtaa, joista yhteydenotto on painike.
+// Päävalikko: seitsemän kohtaa, joista yhteystiedot on painike.
 const KOHDAT = [
   { nimi: 'Palvelut', polku: '/palvelut' },
   { nimi: 'Hinnasto', polku: '/hinnasto' },
@@ -39,7 +39,7 @@ const onNyt = (polku: string) => nyt === polku || nyt.startsWith(`${polku}/`);
             </li>
           ))
         }
-        <li><a class="painike painike--pieni" href="/yhteydenotto">Ota yhteyttä</a></li>
+        <li><a class="painike painike--pieni" href="/yhteystiedot">Ota yhteyttä</a></li>
       </ul>
     </nav>
 
@@ -57,7 +57,7 @@ const onNyt = (polku: string) => nyt === polku || nyt.startsWith(`${polku}/`);
               </li>
             ))
           }
-          <li><a href="/yhteydenotto" aria-current={onNyt('/yhteydenotto') ? 'page' : undefined}>Ota yhteyttä</a></li>
+          <li><a href="/yhteystiedot" aria-current={onNyt('/yhteystiedot') ? 'page' : undefined}>Ota yhteyttä</a></li>
         </ul>
       </nav>
     </details>

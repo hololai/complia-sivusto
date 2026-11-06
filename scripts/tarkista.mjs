@@ -104,6 +104,11 @@ for (const s of sivut) {
   }
   if (/<style\b/.test(html)) virhe(polku, 'sisäinen style-tagi rikkoo CSP:n');
   if (/\sstyle="/.test(html)) virhe(polku, 'style-attribuutti rikkoo CSP:n');
+  // Sivustolla ei ole lomakkeita, jotka lähettäisivät tietoja (päätös 6.11.2026). Pikatesti laskee selaimessa.
+  for (const m of html.matchAll(/<form\b[^>]*>/g)) {
+    if (/\s(?:action|method)=/.test(m[0])) virhe(polku, `lomake lähettää tietoja: ${m[0]}`);
+  }
+  if (!html.includes("form-action 'none'") && /http-equiv="Content-Security-Policy"/.test(html)) virhe(polku, "CSP:stä puuttuu form-action 'none'");
   for (const m of html.matchAll(/<img\b[^>]*>/g)) {
     if (!/\salt="/.test(m[0])) virhe(polku, `kuvalta puuttuu alt: ${m[0]}`);
   }
@@ -211,6 +216,12 @@ const koko = tiedostot(DIST)
   .filter((t) => /\.(js|css|woff2)$/.test(t))
   .map((t) => ({ nimi: relative(DIST, t), tavua: statSync(t).size }));
 const skriptit = koko.filter((t) => t.nimi.endsWith('.js')).reduce((a, t) => a + t.tavua, 0);
+
+// Ei evästeitä eikä selaintallennusta. Salasanaportti (portti.js) on ainoa poikkeus, ja se poistuu julkaisussa.
+for (const t of koko.filter((k) => k.nimi.endsWith('.js') && k.nimi !== 'portti.js')) {
+  const sisalto = readFileSync(join(DIST, t.nimi), 'utf8');
+  if (/document\.cookie|localStorage|sessionStorage|indexedDB/.test(sisalto)) virhe(t.nimi, 'skripti käyttää evästeitä tai selaintallennusta');
+}
 const tyylit = koko.filter((t) => t.nimi.endsWith('.css')).reduce((a, t) => a + t.tavua, 0);
 
 console.log(`Sivuja ${sivut.length}, sivukartassa ${sivut.length - 1}. JavaScript yhteensä ${(skriptit / 1024).toFixed(1)} kt, tyylit ${(tyylit / 1024).toFixed(1)} kt.`);
