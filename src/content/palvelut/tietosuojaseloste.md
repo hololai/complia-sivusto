@@ -13,7 +13,7 @@ tarvitsemme: "30 minuutin haastattelun ja listan järjestelmistä."
 artikkeli: mita-tietosuojaselosteessa-pitaa-olla
 usein:
   - k: "Mitä tietosuojaseloste maksaa?"
-    v: "Koon mukaan {{tietosuojaseloste.pieni}}, {{tietosuojaseloste.keski}} tai {{tietosuojaseloste.laaja}} (alv 0 %). Hintaan kuuluvat kaikki neljä selostetta."
+    v: "Kaikki tarvittavat selosteet maksavat koon mukaan {{tietosuojaseloste.pieni}}, {{tietosuojaseloste.keski}} tai {{tietosuojaseloste.laaja}} (alv 0 %). Hinta ei riipu selosteiden määrästä."
   - k: "Onko tietosuojaseloste sama asia kuin rekisteriseloste?"
     v: "Melkein. Rekisteriseloste on vanhan henkilötietolain termi, ja moni hakee selostetta yhä sillä nimellä. Vanhasta rekisteriselosteesta puuttuu yleensä nykyään pakollisia tietoja, kuten oikeusperuste ja säilytysaika."
   - k: "Riittääkö yksi seloste koko yritykselle?"
@@ -52,3 +52,5 @@ Jos teillä on yksi järjestelmä ja aikaa perehtyä, pääset alkuun [ilmaisell
 Säilytysajalla on merkitystä: määrittelemätön säilytysaika oli yksi syy Verkkokauppa.comin 792 639 euron seuraamusmaksuun, jonka korkein hallinto-oikeus piti voimassa kesäkuussa 2026.
 
 Tarvitsetko myös sisäisen kuvauksen käsittelyistä? Tietosuojaselosteen pari on [seloste käsittelytoimista](/seloste-kasittelytoimista). Molemmat kuuluvat [Tietosuoja kuntoon -pakettiin](/hinnasto#paketti).
+
+Kun teemme järjestelmästä [vaikutustenarvioinnin](/vaikutustenarviointi), sen käsittelyn päivitys tietosuojaselosteeseen sisältyy arvioinnin hintaan.

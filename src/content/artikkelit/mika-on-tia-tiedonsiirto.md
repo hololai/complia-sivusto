@@ -16,7 +16,7 @@ liittyvat:
   - google-workspace-tietosuoja
 kehotus:
   otsikko: "Haluatko arvioinnin valmiina?"
-  teksti: "Teemme siirtovaikutusten arvioinnin kolmessa arkipäivässä, alkaen {{tia.pieni}} toimittajaa kohden (alv 0 %)."
+  teksti: "Teemme siirtovaikutusten arvioinnin kolmessa arkipäivässä, {{tia.pieni}} toimittajaa kohden (alv 0 %)."
   nappi: "Katso siirtovaikutusten arviointi"
   linkki: "/siirtovaikutusten-arviointi"
 usein:
@@ -81,4 +81,4 @@ Ratkaisu riippuu toimittajan nykyisestä siirtoperusteesta ja alihankkijoista, j
 - [Google Workspace](/artikkelit/google-workspace-tietosuoja) ja [Gemini](/artikkelit/google-gemini-tietosuoja)
 - [Claude Team](/artikkelit/claude-team-tietosuoja)
 
-Hinta on {{tia.pieni}}, {{tia.keski}} tai {{tia.laaja}} toimittajaa kohden koon mukaan (alv 0 %).
+Erillisenä arviointi maksaa {{tia.pieni}} toimittajaa kohden (alv 0 %). Kun teemme järjestelmästä vaikutustenarvioinnin, siirtojen arviointi sisältyy sen hintaan.

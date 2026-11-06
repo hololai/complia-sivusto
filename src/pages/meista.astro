@@ -5,7 +5,7 @@ import Loppukehotus from '../components/Loppukehotus.astro';
 import { SIVUSTO } from '../../site.config.mjs';
 import { henkilo } from '../data/schema';
 
-const { asiantuntijat, julkaisut, esiintymiset } = SIVUSTO;
+const { asiantuntijat, julkaisut } = SIVUSTO;
 const paivays = (iso: string) => {
   const [v, k, p] = iso.split('-').map(Number);
   return `${p}.${k}.${v}`;
@@ -57,7 +57,7 @@ const paivays = (iso: string) => {
   <section class="osio osio--valkoinen">
     <div class="kehys">
       <div class="osio__otsikko">
-        <h2>Oppaat ja esiintymiset</h2>
+        <h2>Oppaamme tekoälyn tietosuojasta</h2>
         <p class="johdatus">
           Olemme kirjoittaneet yhdessä Matti Kähkösen kanssa kaksi avointa opasta, jotka on julkaistu Avointen
           oppimateriaalien kirjastossa CC BY-SA 4.0 -lisenssillä. Ne ovat kenen tahansa käytettävissä.
@@ -81,21 +81,6 @@ const paivays = (iso: string) => {
         }
       </div>
 
-      <h3 class="esiintymiset__otsikko">Esiintymisiä</h3>
-      <ul class="esiintymiset">
-        {
-          esiintymiset.map((e) => (
-            <li>
-              <a href={e.url} rel="noopener">
-                {e.nimi}
-              </a>
-              <span class="pieni">
-                {e.tapahtuma}, {paivays(e.paiva)}. {e.esiintyjat}.
-              </span>
-            </li>
-          ))
-        }
-      </ul>
     </div>
   </section>
 
@@ -198,18 +183,5 @@ const paivays = (iso: string) => {
   }
   .asiantuntija li {
     margin-bottom: 0.3rem;
-  }
-  .esiintymiset__otsikko {
-    margin-top: 2rem;
-  }
-  .esiintymiset {
-    margin: 0;
-    padding-left: 1.15rem;
-  }
-  .esiintymiset li {
-    margin-bottom: 0.5rem;
-  }
-  .esiintymiset .pieni {
-    display: block;
   }
 </style>

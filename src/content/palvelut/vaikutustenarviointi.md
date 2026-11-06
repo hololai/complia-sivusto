@@ -8,12 +8,12 @@ h1: "Tietosuojan vaikutustenarviointi (DPIA) kiinteällä hinnalla"
 kuvaus: "Teemme vaikutustenarvioinnin (DPIA) uudelle järjestelmälle tai käsittelylle 5–10 arkipäivässä. Kiinteä hinta alkaen {{vaikutustenarviointi.pieni}}, myös kuntien hankintoihin."
 johdanto: "Vaikutustenarviointi tunnistaa riskit, joita käsittely aiheuttaa ihmisille, ja toimet niiden pienentämiseksi. Se on pakollinen, kun käsittelystä todennäköisesti aiheutuu korkea riski."
 sopii: "ennakkoarvio tai hankinta edellyttää sitä, tai käsittelette arkaluonteisia tietoja laajasti."
-saat: "käsittelyn kuvauksen, tarpeellisuuden arvion, riskiarvion ja toimenpidesuunnitelman."
+saat: "ennakkoarvion, käsittelyn kuvauksen, riskiarvion ja toimenpidesuunnitelman, tarvittaessa tasapainotestin ja siirtovaikutusten arvioinnin sekä kirjaukset tietosuojaselosteeseen ja selosteeseen käsittelytoimista."
 tarvitsemme: "1–2 haastattelua ja järjestelmän toimittajan tietoturvakuvauksen."
 artikkeli: milloin-vaikutustenarviointi-on-pakollinen
 usein:
   - k: "Mitä vaikutustenarviointi maksaa?"
-    v: "Koon mukaan {{vaikutustenarviointi.pieni}}, {{vaikutustenarviointi.keski}} tai {{vaikutustenarviointi.laaja}} (alv 0 %). Toimitus 5–10 arkipäivässä."
+    v: "Hinta riippuu järjestelmästä ja organisaation koosta: rajatusta työkalusta pienelle yritykselle {{rajattu.pieni}}, arkaluonteisia tietoja käsittelevästä järjestelmästä laajalle organisaatiolle {{arkaluonteinen.laaja}} (alv 0 %). Ennakkoarvio ja kirjaukset selosteisiin sisältyvät hintaan."
   - k: "Milloin arviointi pitää tehdä?"
     v: "Ennen käsittelyn aloittamista, eli käytännössä ennen kuin järjestelmä otetaan käyttöön. Hankinnassa se kannattaa tehdä viimeistään ennen sopimuksen allekirjoittamista."
   - k: "Mitä jos riski jää korkeaksi?"
@@ -37,34 +37,33 @@ Se on pakollinen ainakin, kun arvioidaan tai profiloidaan ihmisiä järjestelmä
 
 Kirjoitamme arvioinnin niin, että johto ja toimittaja ymmärtävät siitä, mitä pitää tehdä. Toimenpidesuunnitelma on tärkein osa: se muuttaa paperin korjauksiksi.
 
-## Hinta ohjelmiston mukaan
+## Yksi hinta kattaa koko järjestelmän
 
-Hinta riippuu organisaation koon lisäksi siitä, mitä arvioidaan. Erillinen tekoälytyökalu on suppeampi kuin koko toimisto-ohjelmisto, ja tekoäly, joka pääsee käyttäjän sähköposteihin ja tiedostoihin, laajentaa arviota eniten.
+Hintaan sisältyy kaikki, mitä yhden järjestelmän tai tekoälytyökalun käyttöönotto tietosuojan kannalta vaatii:
 
-| Ohjelmisto | Pieni | Keskikokoinen | Laaja |
+- ennakkoarvio: tarvitaanko vaikutustenarviointi
+- vaikutustenarviointi riskeineen ja toimenpiteineen
+- [tasapainotesti](/oikeutetun-edun-arviointi), jos käsittely perustuu oikeutettuun etuun
+- [siirtovaikutusten arviointi](/siirtovaikutusten-arviointi), jos tiedot siirtyvät EU:n ulkopuolelle
+- käsittelyn kirjaus [selosteeseen käsittelytoimista](/seloste-kasittelytoimista)
+- käsittelyn päivitys [tietosuojaselosteeseen](/tietosuojaseloste)
+
+Jos ennakkoarvio osoittaa, ettei vaikutustenarviointia tarvita, maksat vain ennakkoarvion ({{ennakkoarvio.pieni}}).
+
+| Järjestelmä | Pieni | Keskikokoinen | Laaja |
 |---|---|---|---|
-| [Claude Team](/artikkelit/claude-team-tietosuoja) | {{claude.pieni}} | {{claude.keski}} | {{claude.laaja}} |
-| [Microsoft 365 (O365)](/artikkelit/microsoft-365-tietosuoja) | {{m365.pieni}} | {{m365.keski}} | {{m365.laaja}} |
-| [Google Workspace](/artikkelit/google-workspace-tietosuoja) | {{workspace.pieni}} | {{workspace.keski}} | {{workspace.laaja}} |
-| [Microsoft 365 ja Copilot](/artikkelit/microsoft-365-copilot-tietosuoja) | {{copilot.pieni}} | {{copilot.keski}} | {{copilot.laaja}} |
-| [Google Workspace ja Gemini](/artikkelit/google-gemini-tietosuoja) | {{gemini.pieni}} | {{gemini.keski}} | {{gemini.laaja}} |
-| Muu yksittäinen järjestelmä | {{vaikutustenarviointi.pieni}} | {{vaikutustenarviointi.keski}} | {{vaikutustenarviointi.laaja}} |
+| Rajattu järjestelmä tai tekoälytyökalu, esim. [Claude Team](/artikkelit/claude-team-tietosuoja) | {{rajattu.pieni}} | {{rajattu.keski}} | {{rajattu.laaja}} |
+| Toimisto-ohjelmisto: [Microsoft 365](/artikkelit/microsoft-365-tietosuoja), [Google Workspace](/artikkelit/google-workspace-tietosuoja) | {{toimisto.pieni}} | {{toimisto.keski}} | {{toimisto.laaja}} |
+| Tekoäly toimisto-ohjelmistossa: [Copilot](/artikkelit/microsoft-365-copilot-tietosuoja), [Gemini](/artikkelit/google-gemini-tietosuoja) | {{tekoaly.pieni}} | {{tekoaly.keski}} | {{tekoaly.laaja}} |
+| Arkaluonteisia tietoja käsittelevä järjestelmä | {{arkaluonteinen.pieni}} | {{arkaluonteinen.keski}} | {{arkaluonteinen.laaja}} |
 
-Hinnat alv 0 %. Jos liitätte Clauden sähköpostiin tai tiedostoihin, arvio laajenee, ja useampi ohjelmisto samassa arvioinnissa hinnoitellaan kiinteällä tarjouksella.
+Hinnat alv 0 %. Useampi järjestelmä samassa arvioinnissa hinnoitellaan kiinteällä tarjouksella. Suuririskisen tekoälyn käyttöönottaja voi tarvita lisäksi [perusoikeusvaikutusten arvioinnin](/perusoikeusvaikutusten-arviointi).
 
 Tekoälyn vaikutus näkyy myös julkisissa arvioinneissa. Alankomaiden SLM ja SURF löysivät Microsoft 365 Copilotista joulukuussa 2024 neljä korkeaa riskiä. [Koulutusalan lisenssejä koskevassa päivityksessä](https://www.privacycompany.eu/blog/update-dpia-on-microsoft-365-copilot-for-education) syyskuussa 2025 korkeita riskejä ei enää ollut, mutta kaksi jäi keskitasolle. Arviointi kannattaa siksi tehdä omien asetusten ja käyttöoikeuksien mukaan.
 
 ## Tekoälypalvelun vaikutustenarviointi
 
 Asiantuntijamme ovat kirjoittaneet yhdessä Matti Kähkösen kanssa avoimen oppaan [tekoälypalvelun vaikutustenarvioinnista](https://aoe.fi/materiaali/4848). Opas on kaikkien käytettävissä. Jos haluat arvioinnin valmiina, teemme sen samalla menetelmällä teidän palvelunne ja asetustenne mukaan.
-
-## Mitä muuta voidaan tarvita?
-
-- [Tasapainotesti eli oikeutetun edun arviointi (LIA)](/oikeutetun-edun-arviointi), jos käsittely perustuu oikeutettuun etuun.
-- [Siirtovaikutusten arviointi (TIA)](/siirtovaikutusten-arviointi), jos tiedot siirtyvät EU:n ulkopuolelle esimerkiksi vakiosopimuslausekkeilla.
-- [Perusoikeusvaikutusten arviointi (FRIA)](/perusoikeusvaikutusten-arviointi), jos kyse on tietyn käyttöönottajan suuririskisestä tekoälystä.
-
-Katso, miten nämä vaikuttavat kokonaishintaan: [esimerkkikokonaisuudet erikokoisille](/hinnasto#kokonaisuudet).
 
 ## Näin työ etenee
 
@@ -74,6 +73,6 @@ Katso, miten nämä vaikuttavat kokonaishintaan: [esimerkkikokonaisuudet erikoko
 
 ## Kunnan hankinnan vaikutustenarviointi
 
-Kunnan järjestelmähankinnoissa arviointi on usein se kohta, joka venyttää aikataulua, koska tietosuojavastaavan aika ei riitä. Esimerkiksi varhaiskasvatuksen asiakastietojärjestelmän arviointi maksaa {{vaikutustenarviointi.laaja}} (alv 0 %), joten sen voi ostaa pienhankintana. Lue lisää [kuntien palveluista](/kunnat).
+Kunnan järjestelmähankinnoissa arviointi on usein se kohta, joka venyttää aikataulua, koska tietosuojavastaavan aika ei riitä. Esimerkiksi varhaiskasvatuksen asiakastietojärjestelmän arviointi maksaa {{arkaluonteinen.laaja}} (alv 0 %), joten sen voi ostaa pienhankintana. Lue lisää [kuntien palveluista](/kunnat).
 
-Etkö ole varma, tarvitaanko arviointia? Aloita [ennakkoarviosta](/tarvitaanko-vaikutustenarviointi), alkaen {{ennakkoarvio.pieni}}.
+Etkö ole varma, tarvitaanko arviointia? Aloita [ennakkoarviosta](/tarvitaanko-vaikutustenarviointi), joka maksaa {{ennakkoarvio.pieni}} ja vähennetään arvioinnin hinnasta.

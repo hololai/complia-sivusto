@@ -75,24 +75,6 @@ export const SIVUSTO = {
     },
   ],
 
-  // Julkiset esiintymiset, joihin on tallenne tai kuvaus verkossa.
-  esiintymiset: [
-    {
-      nimi: 'Tekoälypalvelun tietosuojattu käyttöönotto oppilaitoksessa',
-      tapahtuma: 'Apuna AI -koulutus, Tekoäly oman työn tukena',
-      esiintyjat: 'Miika Miinin ja Matti Kähkönen',
-      paiva: '2025-05-06',
-      url: 'https://www.youtube.com/watch?v=NfTkp1JCy6I',
-    },
-    {
-      nimi: 'Tekoäly opettajan apuna',
-      tapahtuma: 'ITK-konferenssin webinaari',
-      esiintyjat: 'Miika Miinin',
-      paiva: '2025-10-07',
-      url: 'https://itk-konferenssi.fi/en/blog/webinar-recordings-5/tekoaly-opettajan-apuna-217',
-    },
-  ],
-
   // Lomakkeen vastaanottava palvelu. Niin kauan kuin null, lomake avaa sähköpostiviestin.
   lomakeOsoite: null,
   // EU:ssa dataa säilyttävän ajanvaraustyökalun osoite.

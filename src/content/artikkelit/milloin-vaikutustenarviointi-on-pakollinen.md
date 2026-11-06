@@ -16,7 +16,7 @@ liittyvat:
   - mika-on-lia-tasapainotesti
 kehotus:
   otsikko: "Ei varmuutta?"
-  teksti: "Ennakkoarvio kertoo kahdessa arkipäivässä, tarvitaanko vaikutustenarviointi, alkaen {{ennakkoarvio.pieni}}. Jos tarvitaan, teemme sen 5–10 arkipäivässä, alkaen {{vaikutustenarviointi.pieni}} (alv 0 %)."
+  teksti: "Ennakkoarvio kertoo kahdessa arkipäivässä, tarvitaanko vaikutustenarviointi, hintaan {{ennakkoarvio.pieni}}. Jos tarvitaan, teemme sen 5–10 arkipäivässä, alkaen {{vaikutustenarviointi.pieni}} (alv 0 %)."
   nappi: "Tilaa ennakkoarvio"
   linkki: "/tarvitaanko-vaikutustenarviointi"
 usein:
@@ -87,4 +87,4 @@ Jos riski jää toimista huolimatta korkeaksi, tietosuojavaltuutettua on kuultav
 - **Arvioidaan yrityksen riskejä.** Arvioinnin kohde on ihminen, jonka tietoja käsitellään: mitä hänelle voi tapahtua?
 - **Mitään ei kirjata, kun arviointia ei tehdä.** Myös päätös olla tekemättä arviointia kannattaa perustella kirjallisesti.
 
-Tekoälytyökalun käyttöönotossa hyvä lähtökohta on [tekoälytyökalujen tarkistuslista](/artikkelit/tekoaly-tyopaikalla-tietosuoja). Arvioinnin hinta riippuu koosta ja ohjelmistosta: katso [esimerkkihinnat ohjelmistoittain](/hinnasto#ohjelmistot). Suuririskisessä tekoälyssä tietyt käyttöönottajat tarvitsevat lisäksi [perusoikeusvaikutusten arvioinnin](/perusoikeusvaikutusten-arviointi).
+Tekoälytyökalun käyttöönotossa hyvä lähtökohta on [tekoälytyökalujen tarkistuslista](/artikkelit/tekoaly-tyopaikalla-tietosuoja). Arvioinnin hinta riippuu koosta ja ohjelmistosta: katso [esimerkkihinnat ohjelmistoittain](/hinnasto#jarjestelmat). Suuririskisessä tekoälyssä tietyt käyttöönottajat tarvitsevat lisäksi [perusoikeusvaikutusten arvioinnin](/perusoikeusvaikutusten-arviointi).

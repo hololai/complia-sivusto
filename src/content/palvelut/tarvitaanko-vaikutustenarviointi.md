@@ -5,7 +5,7 @@ jarjestys: 3
 hakusana: ennakkoarvio vaikutustenarviointi
 otsikko: "Tarvitaanko vaikutustenarviointi? Ennakkoarvio | Complia"
 h1: "Tarvitaanko vaikutustenarviointi? Ennakkoarvio kahdessa arkipäivässä"
-kuvaus: "Ennakkoarvio kertoo, tarvitaanko vaikutustenarviointi (DPIA), ja dokumentoi perustelun. Kiinteä hinta alkaen {{ennakkoarvio.pieni}}, valmis kahdessa arkipäivässä."
+kuvaus: "Ennakkoarvio kertoo, tarvitaanko vaikutustenarviointi (DPIA), ja dokumentoi perustelun. Kiinteä hinta {{ennakkoarvio.pieni}}, valmis kahdessa arkipäivässä."
 johdanto: "Kaikki käsittelyt eivät vaadi vaikutustenarviointia, mutta ratkaisu pitää perustella. Ennakkoarvio kertoo, tarvitaanko se, ja dokumentoi perustelun."
 sopii: "otatte käyttöön uuden järjestelmän, tekoälytyökalun, kameravalvonnan tai seurannan."
 saat: "kirjallisen arvion ja perustelut, jotka voi näyttää valvojalle."
@@ -13,9 +13,9 @@ tarvitsemme: "kuvauksen käsittelystä ja järjestelmästä."
 artikkeli: milloin-vaikutustenarviointi-on-pakollinen
 usein:
   - k: "Mitä ennakkoarvio maksaa?"
-    v: "Koon mukaan {{ennakkoarvio.pieni}}, {{ennakkoarvio.keski}} tai {{ennakkoarvio.laaja}} (alv 0 %). Toimitus kahdessa arkipäivässä."
+    v: "{{ennakkoarvio.pieni}} (alv 0 %) organisaation koosta riippumatta. Jos vaikutustenarviointi tarvitaan, ennakkoarvion hinta vähennetään sen hinnasta."
   - k: "Entä jos vaikutustenarviointi tarvitaan?"
-    v: "Saat arviosta suoraan tiedon, mitä riskejä arvioinnissa pitää käsitellä. Teemme vaikutustenarvioinnin 5–10 arkipäivässä, alkaen {{vaikutustenarviointi.pieni}}."
+    v: "Saat arviosta suoraan tiedon, mitä riskejä arvioinnissa pitää käsitellä. Teemme vaikutustenarvioinnin 5–10 arkipäivässä, alkaen {{vaikutustenarviointi.pieni}}, ja ennakkoarvion hinta vähennetään."
   - k: "Pitääkö kielteinen päätös dokumentoida?"
     v: "Kannattaa. Rekisterinpitäjän on pystyttävä osoittamaan, että se noudattaa asetusta, joten perustelu on syytä kirjata myös silloin, kun arviointia ei tehdä."
 ---
@@ -51,6 +51,6 @@ Ennakkoarviossa käymme käsittelyn läpi Euroopan tietosuojaviranomaisten yhdek
 
 ## Esimerkki hinnasta
 
-IT-yritys, 25 henkeä, ottaa Copilotin käyttöön: ennakkoarvio {{ennakkoarvio.keski}}. Jos vaikutustenarviointi tarvitaan, sen hinta on {{vaikutustenarviointi.keski}}, eli yhteensä enintään {{esim.copilot}} (alv 0 %).
+IT-yritys, 25 henkeä, ottaa Copilotin käyttöön: ennakkoarvio maksaa {{ennakkoarvio.pieni}}. Jos vaikutustenarviointi tarvitaan, kokonaishinta on {{esim.copilot}} (alv 0 %), ja siihen sisältyvät myös tasapainotesti, siirtovaikutusten arviointi ja kirjaukset selosteisiin.
 
 Lue kriteerit ja esimerkit ohjeesta [milloin vaikutustenarviointi on pakollinen](/artikkelit/milloin-vaikutustenarviointi-on-pakollinen). Jos tiedät jo arvioinnin olevan tarpeen, siirry suoraan [vaikutustenarviointiin](/vaikutustenarviointi).

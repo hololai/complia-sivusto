@@ -16,7 +16,7 @@ liittyvat:
   - mika-on-lia-tasapainotesti
 kehotus:
   otsikko: "Otatteko Geminin käyttöön?"
-  teksti: "Ennakkoarvio valmistuu kahdessa arkipäivässä, alkaen {{ennakkoarvio.pieni}}. Google Workspacen ja Geminin vaikutustenarviointi alkaen {{gemini.pieni}} (alv 0 %)."
+  teksti: "Ennakkoarvio valmistuu kahdessa arkipäivässä ja maksaa {{ennakkoarvio.pieni}}. Google Workspacen ja Geminin vaikutustenarviointi alkaen {{gemini.pieni}} (alv 0 %)."
   nappi: "Tilaa ennakkoarvio"
   linkki: "/tarvitaanko-vaikutustenarviointi"
 usein:
@@ -75,8 +75,8 @@ Säilytysaika on päätös, joka kuuluu selosteeseen käsittelytoimista. Pelkkä
 
 Usein kyllä. Uusi teknologia ja työntekijöiden tiedot täyttävät jo kaksi Euroopan tietosuojaviranomaisten [yhdeksästä kriteeristä](/artikkelit/milloin-vaikutustenarviointi-on-pakollinen), ja arviointi on silloin yleensä tarpeen. Jos käyttö on rajattua eikä ratkaisu ole selvä, [ennakkoarvio](/tarvitaanko-vaikutustenarviointi) dokumentoi perustelun.
 
-Lisäksi voidaan tarvita [tasapainotesti eli oikeutetun edun arviointi](/artikkelit/mika-on-lia-tasapainotesti), jos käsittely perustuu oikeutettuun etuun, ja [siirtovaikutusten arviointi](/artikkelit/mika-on-tia-tiedonsiirto), jos siirto perustuu vakiosopimuslausekkeisiin. Työkalun perusasiat ovat [Google Workspacen tietosuojaohjeessa](/artikkelit/google-workspace-tietosuoja).
+Hintaan sisältyvät tarvittaessa [tasapainotesti](/artikkelit/mika-on-lia-tasapainotesti), jos käsittely perustuu oikeutettuun etuun, ja [siirtovaikutusten arviointi](/artikkelit/mika-on-tia-tiedonsiirto), jos siirto perustuu vakiosopimuslausekkeisiin. Työkalun perusasiat ovat [Google Workspacen tietosuojaohjeessa](/artikkelit/google-workspace-tietosuoja).
 
 ## Mitä arviointi maksaa?
 
-Google Workspacen ja Geminin vaikutustenarviointi maksaa koon mukaan {{gemini.pieni}}, {{gemini.keski}} tai {{gemini.laaja}} (alv 0 %). Katso [kaikki ohjelmistot](/hinnasto#ohjelmistot) ja [esimerkkikokonaisuudet](/hinnasto#kokonaisuudet).
+Google Workspacen ja Geminin vaikutustenarviointi maksaa koon mukaan {{gemini.pieni}}, {{gemini.keski}} tai {{gemini.laaja}} (alv 0 %). Katso [kaikki ohjelmistot](/hinnasto#jarjestelmat) ja [esimerkkikokonaisuudet](/hinnasto#kokonaisuudet).

@@ -2,10 +2,11 @@
 import { getCollection } from 'astro:content';
 import Perus from '../layouts/Perus.astro';
 import PalveluKortti from '../components/PalveluKortti.astro';
+import Ikoni from '../components/Ikoni.astro';
 import Kysymykset from '../components/Kysymykset.astro';
 import Loppukehotus from '../components/Loppukehotus.astro';
 import { SIVUSTO } from '../../site.config.mjs';
-import { ARVIOINNIT, HINNAT, PAKETTI, JATKUVAT, ESIMERKIT, PALVELUJEN_JARJESTYS, eur, pakettiErikseen } from '../data/hinnat';
+import { ARVIOINNIT, HINNAT, JARJESTELMAT, PAKETTI, JATKUVAT, ESIMERKIT, PALVELUJEN_JARJESTYS, eur, pakettiErikseen } from '../data/hinnat';
 import { organisaatio, verkkosivusto, usein } from '../data/schema';
 
 const KYSYMYKSET = [
@@ -34,55 +35,76 @@ const artikkelit = (await getCollection('artikkelit')).sort((a, b) => a.data.jar
   schema={[organisaatio(), verkkosivusto(), usein(KYSYMYKSET)]}
 >
   <section class="paa">
-    <div class="kehys paa__ruudukko">
-      <div>
-        <h1>Tietosuoja ja GDPR kuntoon – valmiina ja kiinteällä hinnalla</h1>
-        <p class="paa__alaotsikko">
-          Teemme tietosuojaselosteet, selosteet käsittelytoimista, vaikutustenarvioinnit ja tietosuojatarkastukset
-          yrityksille ja kunnille. Sinä hyväksyt, me hoidamme loput.
-        </p>
-        <div class="painikkeet">
-          <a class="painike" href="/hinnasto">Katso hinnat</a>
-          <a class="painike painike--toinen" href="/pikatesti">Tee 2 minuutin pikatesti</a>
+    <div class="paa__paneeli">
+      <div class="kehys paa__ruudukko">
+        <div class="paa__teksti">
+          <p class="paa__nostin"><span class="paa__piste" aria-hidden="true"></span>Yrityksille ja kunnille</p>
+          <h1>Tietosuoja ja GDPR kuntoon – <span class="korostus">valmiina ja kiinteällä hinnalla</span></h1>
+          <p class="paa__alaotsikko">
+            Teemme tietosuojaselosteet, selosteet käsittelytoimista, vaikutustenarvioinnit ja tietosuojatarkastukset
+            yrityksille ja kunnille. Sinä hyväksyt, me hoidamme loput.
+          </p>
+          <div class="painikkeet">
+            <a class="painike painike--kulta" href="/hinnasto">Katso hinnat <Ikoni nimi="nuoli" class="ikoni ikoni--nuoli" /></a>
+            <a class="painike painike--haamu" href="/pikatesti">Tee 2 minuutin pikatesti</a>
+          </div>
+          <ul class="paa__lupaukset">
+            <li><Ikoni nimi="tarkistus" />Hinta näkyy etukäteen</li>
+            <li><Ikoni nimi="tarkistus" />Valmiina 3–10 arkipäivässä</li>
+            <li><Ikoni nimi="tarkistus" />Asiakirjat jäävät teille</li>
+          </ul>
+        </div>
+        <div class="paa__kuva">
+          <aside class="asiakirja" aria-label="Esimerkkihinta">
+            <span class="leima" aria-hidden="true">Hyväksytty</span>
+            <p class="asiakirja__ots">{PAKETTI.nimi} -paketti</p>
+            <p class="asiakirja__kuvaus">Esimerkki: parturi-kampaamo, 4 henkeä</p>
+            <ul class="rivit">
+              <li><span>Tietosuojatarkastus</span><span>{eur(HINNAT.tarkastus.pieni)}</span></li>
+              <li><span>Tietosuojaselosteet</span><span>{eur(HINNAT.tietosuojaseloste.pieni)}</span></li>
+              <li><span>Seloste käsittelytoimista</span><span>{eur(HINNAT.seloste.pieni)}</span></li>
+              <li class="rivit__yliviivattu"><span>Erikseen yhteensä</span><span>{eur(pakettiErikseen('pieni'))}</span></li>
+            </ul>
+            <p class="asiakirja__summa"><span>Pakettina, alv 0 %</span><strong>{eur(PAKETTI.pieni)}</strong></p>
+            <p class="asiakirja__hyvaksynta">
+              <Ikoni nimi="tarkistus" />
+              {SIVUSTO.iskulause}
+            </p>
+          </aside>
+          <p class="sirpale sirpale--1" aria-hidden="true"><Ikoni nimi="kello" />Selosteet 3 arkipäivässä</p>
+          <p class="sirpale sirpale--2" aria-hidden="true"><Ikoni nimi="hinta" />Ei tuntilaskutusta</p>
         </div>
       </div>
-      <aside class="asiakirja" aria-label="Esimerkkihinta">
-        <p class="asiakirja__ots">{PAKETTI.nimi} -paketti</p>
-        <p class="asiakirja__kuvaus">Esimerkki: parturi-kampaamo, 4 henkeä</p>
-        <ul class="rivit">
-          <li><span>Tietosuojatarkastus</span><span>{eur(HINNAT.tarkastus.pieni)}</span></li>
-          <li><span>Tietosuojaselosteet</span><span>{eur(HINNAT.tietosuojaseloste.pieni)}</span></li>
-          <li><span>Seloste käsittelytoimista</span><span>{eur(HINNAT.seloste.pieni)}</span></li>
-          <li class="rivit__yliviivattu"><span>Erikseen yhteensä</span><span>{eur(pakettiErikseen('pieni'))}</span></li>
-        </ul>
-        <p class="asiakirja__summa"><span>Pakettina, alv 0 %</span><strong>{eur(PAKETTI.pieni)}</strong></p>
-        <p class="asiakirja__hyvaksynta">
-          <svg viewBox="0 0 20 20" aria-hidden="true">
-            <path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path>
-          </svg>
-          {SIVUSTO.iskulause}
-        </p>
-      </aside>
+    </div>
+    <div class="kehys">
+      <dl class="luvut">
+        <div><dt>kartoitus, 20 minuuttia</dt><dd>0 €</dd></div>
+        <div><dt>arkipäivää toimitukseen</dt><dd>3–10</dd></div>
+        <div><dt>kaikki tietosuojaselosteet pienelle yritykselle</dt><dd>{eur(HINNAT.tietosuojaseloste.pieni)}</dd></div>
+        <div><dt><a href="/meista">julkaistua opasta</a> tekoälyn tietosuojasta</dt><dd>2</dd></div>
+      </dl>
     </div>
   </section>
 
   <section class="osio osio--valkoinen" aria-label="Kaksi polkua">
     <div class="kehys ruudukko ruudukko--2">
-      <div class="kortti polku">
+      <div class="kortti polku polku--yritys">
+        <span class="kortti__ikoni"><Ikoni nimi="yritys" /></span>
         <h2>Yrityksille</h2>
         <p>
           Asiakas kysyy tietosuojaselostetta, tarjouspyyntö vaatii käsittelysopimuksen tai et tiedä, mitä puuttuu?
           Teemme asiakirjat valmiiksi muutamassa päivässä.
         </p>
-        <div class="kortti__ala"><a class="painike" href="/palvelut">Yrityksen palvelut →</a></div>
+        <div class="kortti__ala"><a class="painike" href="/palvelut">Yrityksen palvelut <Ikoni nimi="nuoli" class="ikoni ikoni--nuoli" /></a></div>
       </div>
-      <div class="kortti polku">
+      <div class="kortti polku polku--kunta">
+        <span class="kortti__ikoni"><Ikoni nimi="kunta" /></span>
         <h2>Kunnille</h2>
         <p>
           Hankinta odottaa vaikutustenarviointia tai tietotilinpäätös lähestyy? Kiinteähintaiset palvelut, jotka voi
           ostaa pienhankintana.
         </p>
-        <div class="kortti__ala"><a class="painike" href="/kunnat">Kuntien palvelut →</a></div>
+        <div class="kortti__ala"><a class="painike" href="/kunnat">Kuntien palvelut <Ikoni nimi="nuoli" class="ikoni ikoni--nuoli" /></a></div>
       </div>
     </div>
   </section>
@@ -119,9 +141,9 @@ const artikkelit = (await getCollection('artikkelit')).sort((a, b) => a.data.jar
         {PALVELUJEN_JARJESTYS.map((a) => <PalveluKortti avain={a} />)}
       </div>
       <p class="pieni">
-        Tarpeen mukaan myös <a href={ARVIOINNIT.lia.polku}>tasapainotesti eli oikeutetun edun arviointi (LIA)</a>,
-        <a href={ARVIOINNIT.tia.polku}>siirtovaikutusten arviointi (TIA)</a> ja
-        <a href={ARVIOINNIT.fria.polku}>perusoikeusvaikutusten arviointi (FRIA)</a>.
+        Vaikutustenarviointiin sisältyvät tarvittaessa <a href={ARVIOINNIT.lia.polku}>tasapainotesti (LIA)</a> ja
+        <a href={ARVIOINNIT.tia.polku}>siirtovaikutusten arviointi (TIA)</a>. Suuririskisen tekoälyn käyttöönottaja voi
+        tarvita lisäksi <a href={ARVIOINNIT.fria.polku}>perusoikeusvaikutusten arvioinnin (FRIA)</a>.
       </p>
       <div class="painikkeet">
         <a class="painike painike--toinen" href="/hinnasto">Katso koko hinnasto</a>
@@ -132,16 +154,19 @@ const artikkelit = (await getCollection('artikkelit')).sort((a, b) => a.data.jar
   <section class="osio">
     <div class="kehys">
       <div class="osio__otsikko"><h2>Miksi {SIVUSTO.nimi}</h2></div>
-      <div class="ruudukko ruudukko--2">
+      <div class="syyt">
         <div>
+          <span class="kortti__ikoni"><Ikoni nimi="hinta" /></span>
           <h3>Hinta näkyy etukäteen</h3>
           <p>Ei tarjouspyyntöjä eikä tuntilaskutuksen yllätyksiä.</p>
         </div>
         <div>
+          <span class="kortti__ikoni"><Ikoni nimi="kello" /></span>
           <h3>Valmista päivissä</h3>
           <p>Oma Complia-työkalumme tekee dokumentoinnista nopeaa.</p>
         </div>
         <div>
+          <span class="kortti__ikoni"><Ikoni nimi="asiantuntija" /></span>
           <h3>Asiantuntija vastaa</h3>
           <p>
             Jokainen asiakirja tarkistetaan ennen luovutusta. Tekijöinä <a href="/meista">Heikki Laivamaa ja Miika
@@ -149,6 +174,7 @@ const artikkelit = (await getCollection('artikkelit')).sort((a, b) => a.data.jar
           </p>
         </div>
         <div>
+          <span class="kortti__ikoni"><Ikoni nimi="puhe" /></span>
           <h3>Selkeää suomea</h3>
           <p>Asiakirjat, jotka henkilöstökin ymmärtää.</p>
         </div>
@@ -169,13 +195,13 @@ const artikkelit = (await getCollection('artikkelit')).sort((a, b) => a.data.jar
         </div>
         <div class="kortti">
           <h3>IT-yritys, 25 henkeä, ottaa Copilotin käyttöön</h3>
-          <p>Ennakkoarvio ja tarvittaessa vaikutustenarviointi.</p>
+          <p>Vaikutustenarviointi, jossa ennakkoarvio, siirtojen arviointi ja kirjaukset selosteisiin ovat mukana.</p>
           <div class="kortti__ala"><span class="kortti__hinta">enintään {eur(ESIMERKIT.copilot)}</span></div>
         </div>
         <div class="kortti">
           <h3>Kunnan uusi asiakastietojärjestelmä</h3>
-          <p>Vaikutustenarviointi.</p>
-          <div class="kortti__ala"><span class="kortti__hinta">{eur(HINNAT.vaikutustenarviointi.laaja)}</span></div>
+          <p>Arkaluonteisia tietoja käsittelevän järjestelmän vaikutustenarviointi.</p>
+          <div class="kortti__ala"><span class="kortti__hinta">{eur(JARJESTELMAT.arkaluonteinen.laaja)}</span></div>
         </div>
       </div>
     </div>

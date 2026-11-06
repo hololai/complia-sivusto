@@ -4,7 +4,7 @@ import Perus from '../layouts/Perus.astro';
 import Kysymykset from '../components/Kysymykset.astro';
 import Loppukehotus from '../components/Loppukehotus.astro';
 import { SIVUSTO } from '../../site.config.mjs';
-import { ARVIOINNIT, HINNAT, JATKUVAT, KOOT, eur, sijoitaHinnat } from '../data/hinnat';
+import { ARVIOINNIT, HINNAT, JARJESTELMAT, JATKUVAT, KOOT, eur, kiintea, sijoitaHinnat } from '../data/hinnat';
 import { palvelu as palveluSchema, usein } from '../data/schema';
 
 export async function getStaticPaths() {
@@ -25,12 +25,17 @@ const toimitus = 'toimitus' in hintatieto ? hintatieto.toimitus : 'aloitus sovit
 const yksikko = 'yksikko' in hintatieto ? hintatieto.yksikko : null;
 const paate = onJatkuva ? '/kk' : '';
 
-const koot = KOOT.map((k) => ({
-  // Tietotilinpäätöksen koko tarkoittaa kuntaa, joten sillä on omat nimensä.
-  nimi: d.avain === 'tietotilinpaatos' ? (k.id === 'keski' ? 'Keskikokoinen kunta' : 'Iso kunta') : k.nimi,
-  lisa: d.avain === 'tietotilinpaatos' ? '' : k.lyhyt,
-  hinta: hintatieto[k.id],
-})).filter((k): k is { nimi: string; lisa: string; hinta: number } => k.hinta !== null);
+// Kiinteä hinta näytetään yhtenä rivinä, jotta samaa lukua ei toisteta kolmesti.
+const koot = kiintea(hintatieto)
+  ? [{ nimi: 'Kaikki kokoluokat', lisa: '', hinta: hintatieto.keski, ylin: null }]
+  : KOOT.map((k) => ({
+      // Tietotilinpäätöksen koko tarkoittaa kuntaa, joten sillä on omat nimensä.
+      nimi: d.avain === 'tietotilinpaatos' ? (k.id === 'keski' ? 'Keskikokoinen kunta' : 'Iso kunta') : k.nimi,
+      lisa: d.avain === 'tietotilinpaatos' ? '' : k.lyhyt,
+      hinta: hintatieto[k.id],
+      // Vaikutustenarvioinnin hinta riippuu myös järjestelmästä, joten näytetään koko vaihteluväli.
+      ylin: d.avain === 'vaikutustenarviointi' ? JARJESTELMAT.arkaluonteinen[k.id] : null,
+    })).filter((k): k is { nimi: string; lisa: string; hinta: number; ylin: number | null } => k.hinta !== null);
 
 const usein_ = d.usein.map((q) => ({ k: q.k, v: sijoitaHinnat(q.v) }));
 const kuvaus = sijoitaHinnat(d.kuvaus);
@@ -85,7 +90,7 @@ if (d.artikkeli && !artikkeli) throw new Error(`Palvelun ${p.id} artikkelia ei l
                   {k.lisa && <span class="pieni">{k.lisa}</span>}
                 </span>
                 <span>
-                  {eur(k.hinta)}
+                  {k.ylin ? `${eur(k.hinta).slice(0, -2)}–${eur(k.ylin)}` : eur(k.hinta)}
                   {paate}
                 </span>
               </li>
@@ -100,7 +105,8 @@ if (d.artikkeli && !artikkeli) throw new Error(`Palvelun ${p.id} artikkelia ei l
         {
           d.avain === 'vaikutustenarviointi' && (
             <p class="pieni">
-              Hinta riippuu myös ohjelmistosta: katso <a href="/hinnasto#ohjelmistot">esimerkkihinnat</a>.
+              Hinta riippuu järjestelmästä, ja siihen sisältyvät ennakkoarvio ja kirjaukset selosteisiin. Katso
+              <a href="/hinnasto#jarjestelmat">hinnat järjestelmittäin</a>.
             </p>
           )
         }

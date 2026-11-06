@@ -5,7 +5,7 @@ jarjestys: 8
 hakusana: oikeutetun edun arviointi
 otsikko: "Tasapainotesti eli oikeutetun edun arviointi (LIA) | Complia"
 h1: "Tasapainotesti eli oikeutetun edun arviointi (LIA) kiinteällä hinnalla"
-kuvaus: "Tasapainotesti eli oikeutetun edun arviointi (LIA) kertoo, voiko käsittely perustua oikeutettuun etuun. Kiinteä hinta alkaen {{lia.pieni}}."
+kuvaus: "Tasapainotesti eli oikeutetun edun arviointi (LIA) kertoo, voiko käsittely perustua oikeutettuun etuun. Kiinteä hinta {{lia.pieni}}."
 johdanto: "Oikeutettu etu on käsittelyperuste vain, jos etu on aito, käsittely tarpeellista eivätkä ihmisten oikeudet syrjäytä sitä. Arviointi dokumentoi tämän ja perustelee ratkaisun valvojalle."
 sopii: "käsittelette tietoja oikeutetun edun perusteella esimerkiksi suoramarkkinoinnissa, kameravalvonnassa, tietoturvalokeissa tai tekoälytyökalussa, eikä perustelua ole kirjattu."
 saat: "kirjallisen kolmivaiheisen arvioinnin, johtopäätöksen, tarvittavat suojatoimet ja tekstin tietosuojaselosteeseen."
@@ -13,7 +13,7 @@ tarvitsemme: "kuvauksen käsittelystä ja 30 minuutin haastattelun."
 artikkeli: mika-on-lia-tasapainotesti
 usein:
   - k: "Mitä tasapainotesti maksaa?"
-    v: "Koon mukaan {{lia.pieni}}, {{lia.keski}} tai {{lia.laaja}} käsittelyä kohden (alv 0 %). Toimitus kahdessa arkipäivässä."
+    v: "{{lia.pieni}} käsittelyä kohden (alv 0 %) organisaation koosta riippumatta. Jos teemme samasta käsittelystä vaikutustenarvioinnin, tasapainotesti sisältyy siihen."
   - k: "Onko LIA pakollinen?"
     v: "Asetus ei mainitse sitä nimeltä. Rekisterinpitäjän on kuitenkin pystyttävä osoittamaan, että käsittely on lainmukaista, ja ilman kirjallista arviointia se on oikeutetun edun kohdalla vaikeaa."
   - k: "Pitääkö arviointi julkaista?"
@@ -50,6 +50,6 @@ Työntekijöiden tiedoissa on lisäksi otettava huomioon työelämän tietosuoja
 
 Viranomainen ei voi perustaa tehtäviensä hoitoon liittyvää käsittelyä oikeutettuun etuun. Kunnassa arviointia tarvitaan siksi harvoin, ja käsittelyperuste on yleensä lakisääteinen velvoite tai yleisen edun mukainen tehtävä.
 
-## Miten LIA vaikuttaa kokonaishintaan?
+## Hinta
 
-Arviointi hinnoitellaan käsittelyä kohden, ja se lisätään [Tietosuoja kuntoon -pakettiin](/hinnasto#paketti) tarpeen mukaan. Se voidaan tehdä myös samassa yhteydessä kuin [vaikutustenarviointi](/vaikutustenarviointi). Katso [esimerkkikokonaisuudet](/hinnasto#kokonaisuudet).
+Erillinen tasapainotesti maksaa {{lia.pieni}} käsittelyä kohden. Kun teemme järjestelmästä [vaikutustenarvioinnin](/vaikutustenarviointi), tasapainotesti sisältyy sen hintaan. Katso [hinnasto](/hinnasto#lisaarvioinnit).

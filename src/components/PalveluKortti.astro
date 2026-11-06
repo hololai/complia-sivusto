@@ -1,5 +1,6 @@
 ---
-import { HINNAT, eur, type PalveluAvain } from '../data/hinnat';
+import Ikoni, { type IkoninNimi } from './Ikoni.astro';
+import { HINNAT, eur, kiintea, type PalveluAvain } from '../data/hinnat';
 
 interface Props {
   avain: PalveluAvain;
@@ -8,13 +9,23 @@ interface Props {
 const { avain, otsikkotaso: Otsikko = 'h3' } = Astro.props;
 const p = HINNAT[avain];
 const alin = p.pieni ?? p.keski;
+
+const IKONIT: Record<PalveluAvain, IkoninNimi> = {
+  tietosuojaseloste: 'seloste',
+  seloste: 'lista',
+  ennakkoarvio: 'kysymys',
+  vaikutustenarviointi: 'kilpi',
+  tarkastus: 'suurennus',
+  tietotilinpaatos: 'kaavio',
+};
 ---
 
-<article class="kortti">
+<article class="kortti kortti--palvelu">
+  <span class="kortti__ikoni"><Ikoni nimi={IKONIT[avain]} /></span>
   <Otsikko><a href={p.polku}>{p.nimi}</a></Otsikko>
   <p>{p.lyhyt}</p>
   <div class="kortti__ala">
-    <span class="kortti__hinta">alkaen {eur(alin)}</span>
+    <span class="kortti__hinta">{kiintea(p) ? '' : 'alkaen '}{eur(alin)}</span>
     <span class="pieni">{p.toimitus}</span>
   </div>
 </article>

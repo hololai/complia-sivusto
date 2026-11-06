@@ -1,5 +1,12 @@
 // Hinnat ovat vain tässä tiedostossa. Sivut, rakenteiset tiedot ja artikkelien
 // {{tunnus}}-merkinnät lukevat ne täältä, jotta hinnan muutos ei jää mihinkään vanhana.
+//
+// Hinnoittelun periaatteet (päätös 6.11.2026, perustelut docs/SIVUSTOSUUNNITELMA.md):
+// - Perusasiakirjat hinnoitellaan organisaation koon mukaan.
+// - Vaikutustenarviointi hinnoitellaan järjestelmää kohden, ja hinta sisältää kaiken, mitä yhden
+//   järjestelmän käyttöönotto vaatii: ennakkoarvion, tarvittaessa tasapainotestin ja
+//   siirtovaikutusten arvioinnin sekä kirjaukset selosteisiin.
+// - Erillisillä arvioinneilla on yksi kiinteä hinta koosta riippumatta.
 
 export const KOOT = [
   {
@@ -25,14 +32,68 @@ export const KOOT = [
 
 export type KokoId = (typeof KOOT)[number]['id'];
 
+// Vaikutustenarviointi järjestelmän laajuuden mukaan. Rivit kasvavat sekä alaspäin että oikealle.
+export const JARJESTELMAT = {
+  rajattu: {
+    nimi: 'Rajattu järjestelmä tai tekoälytyökalu',
+    esimerkit: 'ajanvaraus, asiakasrekisteri tai kameravalvonta',
+    artikkelit: [{ nimi: 'Claude Team', polku: '/artikkelit/claude-team-tietosuoja' }],
+    pieni: 990,
+    keski: 1490,
+    laaja: 2400,
+  },
+  toimisto: {
+    nimi: 'Toimisto-ohjelmisto',
+    esimerkit: '',
+    artikkelit: [
+      { nimi: 'Microsoft 365 (O365)', polku: '/artikkelit/microsoft-365-tietosuoja' },
+      { nimi: 'Google Workspace', polku: '/artikkelit/google-workspace-tietosuoja' },
+    ],
+    pieni: 1190,
+    keski: 1790,
+    laaja: 2900,
+  },
+  tekoaly: {
+    nimi: 'Tekoäly toimisto-ohjelmistossa',
+    esimerkit: '',
+    artikkelit: [
+      { nimi: 'Microsoft 365 Copilot', polku: '/artikkelit/microsoft-365-copilot-tietosuoja' },
+      { nimi: 'Gemini', polku: '/artikkelit/google-gemini-tietosuoja' },
+    ],
+    pieni: 1490,
+    keski: 2190,
+    laaja: 3400,
+  },
+  arkaluonteinen: {
+    nimi: 'Arkaluonteisia tietoja käsittelevä järjestelmä',
+    esimerkit: 'esim. asiakas- tai potilastietojärjestelmä, varhaiskasvatus tai rekrytointi',
+    artikkelit: [],
+    pieni: 1790,
+    keski: 2690,
+    laaja: 3900,
+  },
+} as const;
+
+export type JarjestelmaAvain = keyof typeof JARJESTELMAT;
+export const JARJESTELMIEN_JARJESTYS = Object.keys(JARJESTELMAT) as JarjestelmaAvain[];
+
+export const ARVIOINNIN_SISALTO = [
+  'ennakkoarvio: tarvitaanko vaikutustenarviointi',
+  'vaikutustenarviointi riskeineen ja toimenpiteineen',
+  'tasapainotesti, jos käsittely perustuu oikeutettuun etuun',
+  'siirtovaikutusten arviointi, jos tiedot siirtyvät EU:n ulkopuolelle',
+  'käsittelyn kirjaus selosteeseen käsittelytoimista',
+  'käsittelyn päivitys tietosuojaselosteeseen',
+] as const;
+
 export const HINNAT = {
   tietosuojaseloste: {
     nimi: 'Tietosuojaselosteet',
     polku: '/tietosuojaseloste',
-    lyhyt: 'Asiakkaille, työntekijöille, työnhakijoille ja verkkosivuille.',
-    pieni: 390,
-    keski: 790,
-    laaja: 1490,
+    lyhyt: 'Kaikki tarvittavat selosteet: asiakkaat, työntekijät, työnhakijat ja verkkosivut.',
+    pieni: 290,
+    keski: 590,
+    laaja: 990,
     toimitus: '3 arkipäivää',
   },
   seloste: {
@@ -47,19 +108,19 @@ export const HINNAT = {
   ennakkoarvio: {
     nimi: 'Ennakkoarvio',
     polku: '/tarvitaanko-vaikutustenarviointi',
-    lyhyt: 'Selvitämme, tarvitaanko vaikutustenarviointi.',
+    lyhyt: 'Tarvitaanko vaikutustenarviointi? Hinta vähennetään, jos jatkatte arviointiin.',
     pieni: 290,
-    keski: 490,
-    laaja: 790,
+    keski: 290,
+    laaja: 290,
     toimitus: '2 arkipäivää',
   },
   vaikutustenarviointi: {
     nimi: 'Vaikutustenarviointi',
     polku: '/vaikutustenarviointi',
-    lyhyt: 'Riskit ja toimenpiteet uudelle järjestelmälle tai käsittelylle.',
-    pieni: 890,
-    keski: 1790,
-    laaja: 3900,
+    lyhyt: 'Kaikki, mitä yhden järjestelmän käyttöönotto vaatii, myös kirjaukset selosteisiin.',
+    pieni: JARJESTELMAT.rajattu.pieni,
+    keski: JARJESTELMAT.rajattu.keski,
+    laaja: JARJESTELMAT.rajattu.laaja,
     toimitus: '5–10 arkipäivää',
   },
   tarkastus: {
@@ -88,9 +149,9 @@ export const PALVELUJEN_JARJESTYS = Object.keys(HINNAT) as PalveluAvain[];
 export const PAKETTI = {
   nimi: 'Tietosuoja kuntoon',
   sisalto: 'tietosuojatarkastus, tietosuojaselosteet ja seloste käsittelytoimista',
-  pieni: 1490,
-  keski: 3590,
-  laaja: 7900,
+  pieni: 1390,
+  keski: 3390,
+  laaja: 7490,
 } as const;
 
 export const JATKUVAT = {
@@ -111,55 +172,8 @@ export const JATKUVAT = {
   },
 } as const;
 
-// Vaikutustenarvioinnin hinta ohjelmiston laajuuden mukaan. Ylin rivi vastaa perushintaa,
-// jotta aiemmat esimerkkihinnat pätevät edelleen.
-export const OHJELMISTOT = {
-  claude: {
-    nimi: 'Claude Team',
-    artikkeli: '/artikkelit/claude-team-tietosuoja',
-    lyhyt: 'Erillinen tekoälytyökalu ilman koko toimisto-ohjelmiston arviointia.',
-    pieni: 890,
-    keski: 1290,
-    laaja: 2900,
-  },
-  m365: {
-    nimi: 'Microsoft 365 (O365)',
-    artikkeli: '/artikkelit/microsoft-365-tietosuoja',
-    lyhyt: 'Sähköposti, tiedostot, Teams ja yhteistyö.',
-    pieni: 990,
-    keski: 1490,
-    laaja: 3400,
-  },
-  workspace: {
-    nimi: 'Google Workspace',
-    artikkeli: '/artikkelit/google-workspace-tietosuoja',
-    lyhyt: 'Gmail, Drive, Meet ja yhteistyö.',
-    pieni: 990,
-    keski: 1490,
-    laaja: 3400,
-  },
-  copilot: {
-    nimi: 'Microsoft 365 ja Copilot',
-    artikkeli: '/artikkelit/microsoft-365-copilot-tietosuoja',
-    lyhyt: 'Tekoäly pääsee käyttäjän sähköposteihin ja tiedostoihin.',
-    pieni: 1190,
-    keski: 1790,
-    laaja: 3900,
-  },
-  gemini: {
-    nimi: 'Google Workspace ja Gemini',
-    artikkeli: '/artikkelit/google-gemini-tietosuoja',
-    lyhyt: 'Tekoäly pääsee käyttäjän sähköposteihin ja tiedostoihin.',
-    pieni: 1190,
-    keski: 1790,
-    laaja: 3900,
-  },
-} as const;
-
-export type OhjelmistoAvain = keyof typeof OHJELMISTOT;
-export const OHJELMISTOJEN_JARJESTYS = Object.keys(OHJELMISTOT) as OhjelmistoAvain[];
-
-// Lisäarvioinnit tarvitaan vain tietyissä tilanteissa, joten ne eivät kuulu pakettiin vaan lisätään siihen.
+// Erilliset arvioinnit. Tasapainotesti ja siirtovaikutusten arviointi sisältyvät
+// vaikutustenarviointiin; erikseen ostettuna niillä on yksi hinta koosta riippumatta.
 export const ARVIOINNIT = {
   lia: {
     nimi: 'Tasapainotesti eli oikeutetun edun arviointi (LIA)',
@@ -167,8 +181,8 @@ export const ARVIOINNIT = {
     lyhyt: 'Voiko käsittely perustua oikeutettuun etuun?',
     yksikko: 'käsittelyä kohden',
     pieni: 290,
-    keski: 490,
-    laaja: 790,
+    keski: 290,
+    laaja: 290,
     toimitus: '2 arkipäivää',
   },
   tia: {
@@ -177,8 +191,8 @@ export const ARVIOINNIT = {
     lyhyt: 'Ovatko EU:n ulkopuolelle siirtyvät tiedot suojassa?',
     yksikko: 'toimittajaa kohden',
     pieni: 390,
-    keski: 690,
-    laaja: 1290,
+    keski: 390,
+    laaja: 390,
     toimitus: '3 arkipäivää',
   },
   fria: {
@@ -196,17 +210,24 @@ export const ARVIOINNIT = {
 export type ArviointiAvain = keyof typeof ARVIOINNIT;
 export const ARVIOINTIEN_JARJESTYS = Object.keys(ARVIOINNIT) as ArviointiAvain[];
 
+type Koollinen = { pieni: number | null; keski: number; laaja: number };
+
+/** Onko hinta sama kaikille kokoluokille. Silloin se näytetään yhtenä hintana. */
+export function kiintea(h: Koollinen): boolean {
+  return h.pieni === h.keski && h.keski === h.laaja;
+}
+
 /** Paketin osien yhteenlaskettu hinta erikseen ostettuna. */
 export function pakettiErikseen(koko: KokoId): number {
   return HINNAT.tarkastus[koko] + HINNAT.tietosuojaseloste[koko] + HINNAT.seloste[koko];
 }
 
 export const ESIMERKIT = {
-  // 25 hengen yritys: ennakkoarvio ja tarvittaessa vaikutustenarviointi.
-  copilot: HINNAT.ennakkoarvio.keski + HINNAT.vaikutustenarviointi.keski,
+  // 25 hengen yritys ottaa Copilotin käyttöön: ennakkoarvio sisältyy, joten tämä on enimmäishinta.
+  copilot: JARJESTELMAT.tekoaly.keski,
   // Kunnan suuririskinen tekoälyjärjestelmä tarvitsee molemmat arvioinnit.
-  kuntafria: HINNAT.vaikutustenarviointi.laaja + ARVIOINNIT.fria.laaja,
-  claudekeski: OHJELMISTOT.claude.keski + ARVIOINNIT.tia.keski,
+  kuntafria: JARJESTELMAT.arkaluonteinen.laaja + ARVIOINNIT.fria.laaja,
+  claudekeski: JARJESTELMAT.rajattu.keski,
 };
 
 const paketti = (koko: KokoId) => ({ nimi: `${PAKETTI.nimi} -paketti`, hinta: PAKETTI[koko] });
@@ -214,46 +235,34 @@ const paketti = (koko: KokoId) => ({ nimi: `${PAKETTI.nimi} -paketti`, hinta: PA
 // Lasketaan yhteen koodissa, jotta summa ei voi jäädä vanhaksi hinnan muuttuessa.
 export const KOKONAISUUDET = [
   {
-    otsikko: 'Pieni yritys, 8 henkeä',
-    kuvaus: 'Google Workspace ja Gemini',
-    rivit: [
-      paketti('pieni'),
-      { nimi: 'Vaikutustenarviointi: Workspace ja Gemini', hinta: OHJELMISTOT.gemini.pieni },
-      { nimi: ARVIOINNIT.lia.nimi, hinta: ARVIOINNIT.lia.pieni },
-    ],
+    otsikko: 'Parturi-kampaamo, 4 henkeä',
+    kuvaus: 'Ajanvarausjärjestelmä, ei tekoälyä',
+    rivit: [paketti('pieni')],
   },
   {
     otsikko: 'Ohjelmistoyritys, 25 henkeä',
-    kuvaus: 'Claude Team, perusasiakirjat kunnossa',
-    rivit: [
-      { nimi: 'Vaikutustenarviointi: Claude Team', hinta: OHJELMISTOT.claude.keski },
-      { nimi: 'Siirtovaikutusten arviointi (TIA)', hinta: ARVIOINNIT.tia.keski },
-    ],
+    kuvaus: 'Claude Team, perusasiakirjat jo kunnossa',
+    rivit: [{ nimi: 'Vaikutustenarviointi, siirtojen arviointi mukana', hinta: JARJESTELMAT.rajattu.keski }],
   },
   {
     otsikko: 'Asiantuntijayritys, 30 henkeä',
     kuvaus: 'Microsoft 365 ja Copilot',
-    rivit: [
-      paketti('keski'),
-      { nimi: 'Vaikutustenarviointi: Microsoft 365 ja Copilot', hinta: OHJELMISTOT.copilot.keski },
-      { nimi: ARVIOINNIT.lia.nimi, hinta: ARVIOINNIT.lia.keski },
-    ],
+    rivit: [paketti('keski'), { nimi: 'Vaikutustenarviointi: Copilot', hinta: JARJESTELMAT.tekoaly.keski }],
   },
   {
     otsikko: 'Palveluyritys, 120 henkeä',
-    kuvaus: 'Microsoft 365, Copilot ja yksi toimittaja EU:n ulkopuolella',
+    kuvaus: 'Microsoft 365, Copilot ja yksi muu toimittaja EU:n ulkopuolella',
     rivit: [
       paketti('laaja'),
-      { nimi: 'Vaikutustenarviointi: Microsoft 365 ja Copilot', hinta: OHJELMISTOT.copilot.laaja },
-      { nimi: 'Siirtovaikutusten arviointi (TIA)', hinta: ARVIOINNIT.tia.laaja },
-      { nimi: ARVIOINNIT.lia.nimi, hinta: ARVIOINNIT.lia.laaja },
+      { nimi: 'Vaikutustenarviointi: Copilot', hinta: JARJESTELMAT.tekoaly.laaja },
+      { nimi: 'Siirtovaikutusten arviointi, muu toimittaja', hinta: ARVIOINNIT.tia.laaja },
     ],
   },
   {
     otsikko: 'Kunta, tekoäly rekrytoinnissa',
     kuvaus: 'Suuririskinen tekoälyjärjestelmä',
     rivit: [
-      { nimi: 'Vaikutustenarviointi, laaja', hinta: HINNAT.vaikutustenarviointi.laaja },
+      { nimi: 'Vaikutustenarviointi', hinta: JARJESTELMAT.arkaluonteinen.laaja },
       { nimi: 'Perusoikeusvaikutusten arviointi (FRIA)', hinta: ARVIOINNIT.fria.laaja },
     ],
   },
@@ -261,14 +270,21 @@ export const KOKONAISUUDET = [
 
 /** Muotoilee summan suomalaisittain sitovilla väleillä, jottei hinta katkea rivinvaihdossa. */
 export function eur(summa: number): string {
-  return `${String(summa).replace(/\B(?=(\d{3})+(?!\d))/g, ' ')} €`;
+  return `${String(summa).replace(/\B(?=(\d{3})+(?!\d))/g, ' ')} €`;
 }
 
+// Artikkeleissa käytetyt ohjelmistotunnukset osoittavat järjestelmäriveihin, jotta vanhat
+// {{copilot.keski}}-merkinnät pysyvät oikeina.
 const TUNNUKSET: Record<string, Record<string, unknown>> = {
   ...HINNAT,
   paketti: PAKETTI,
   ...JATKUVAT,
-  ...OHJELMISTOT,
+  ...JARJESTELMAT,
+  claude: JARJESTELMAT.rajattu,
+  m365: JARJESTELMAT.toimisto,
+  workspace: JARJESTELMAT.toimisto,
+  copilot: JARJESTELMAT.tekoaly,
+  gemini: JARJESTELMAT.tekoaly,
   ...ARVIOINNIT,
   esim: ESIMERKIT,
 };

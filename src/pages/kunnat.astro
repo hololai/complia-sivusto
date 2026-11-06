@@ -5,7 +5,7 @@ import Kysymykset from '../components/Kysymykset.astro';
 import Loppukehotus from '../components/Loppukehotus.astro';
 import Tayta from '../components/Tayta.astro';
 import { SIVUSTO } from '../../site.config.mjs';
-import { ARVIOINNIT, HINNAT, JATKUVAT, eur } from '../data/hinnat';
+import { ARVIOINNIT, HINNAT, JARJESTELMAT, JATKUVAT, eur } from '../data/hinnat';
 import { usein } from '../data/schema';
 
 const KYSYMYKSET = [
@@ -50,7 +50,7 @@ const artikkeliTtp = await getEntry('artikkelit', 'tietotilinpaatos-sisalto-ja-a
         <article class="kortti">
           <h2><a href={HINNAT.vaikutustenarviointi.polku}>Hankinnan vaikutustenarviointi</a></h2>
           <p>Järjestelmähankinta ei jää odottamaan arviointia. Toimitus {HINNAT.vaikutustenarviointi.toimitus}.</p>
-          <div class="kortti__ala"><span class="kortti__hinta">{eur(HINNAT.vaikutustenarviointi.keski)}–{eur(HINNAT.vaikutustenarviointi.laaja)}</span></div>
+          <div class="kortti__ala"><span class="kortti__hinta">{eur(JARJESTELMAT.arkaluonteinen.keski)}–{eur(JARJESTELMAT.arkaluonteinen.laaja)}</span></div>
         </article>
         <article class="kortti">
           <h2><a href={HINNAT.tietotilinpaatos.polku}>Tietotilinpäätös</a></h2>

@@ -16,7 +16,7 @@ liittyvat:
   - tekoaly-tyopaikalla-tietosuoja
 kehotus:
   otsikko: "Haluatko arvioinnin valmiina?"
-  teksti: "Teemme tasapainotestin kahdessa arkipäivässä, alkaen {{lia.pieni}} käsittelyä kohden (alv 0 %)."
+  teksti: "Teemme tasapainotestin kahdessa arkipäivässä, {{lia.pieni}} käsittelyä kohden (alv 0 %)."
   nappi: "Katso tasapainotesti"
   linkki: "/oikeutetun-edun-arviointi"
 usein:

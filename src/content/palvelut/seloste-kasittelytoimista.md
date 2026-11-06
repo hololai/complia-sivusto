@@ -53,3 +53,5 @@ Velvollisuus koskee lähes kaikkia organisaatioita, ja kunnat tarvitsevat selost
 EU:ssa on käsittelyssä ehdotus, joka laajentaisi poikkeuksen alle 750 hengen yrityksiin korkean riskin käsittelyä lukuun ottamatta. Ehdotus ei ole voimassa marraskuussa 2026. Vaikka se hyväksyttäisiin, sama tieto tarvitaan yhä tietosuojaselosteisiin ja osoitusvelvollisuuden täyttämiseen.
 
 Selosteen saat myös osana [Tietosuoja kuntoon -pakettia](/hinnasto#paketti), johon kuuluvat [tietosuojaselosteet](/tietosuojaseloste) ja [tietosuojatarkastus](/tietosuojatarkastus).
+
+Uuden järjestelmän kirjaus selosteeseen sisältyy [vaikutustenarvioinnin](/vaikutustenarviointi) hintaan.

@@ -16,7 +16,7 @@ liittyvat:
   - claude-team-tietosuoja
 kehotus:
   otsikko: "Haluatko arvion valmiina?"
-  teksti: "Teemme ennakkoarvion kahdessa arkipäivässä, alkaen {{ennakkoarvio.pieni}}, ja tarvittaessa vaikutustenarvioinnin. Esimerkki: 25 hengen yritys, Copilotin käyttöönotto, enintään {{esim.copilot}} (alv 0 %)."
+  teksti: "Teemme ennakkoarvion kahdessa arkipäivässä, hintaan {{ennakkoarvio.pieni}}, ja tarvittaessa vaikutustenarvioinnin. Esimerkki: 25 hengen yritys, Copilotin käyttöönotto, enintään {{esim.copilot}} (alv 0 %)."
   nappi: "Tilaa ennakkoarvio"
   linkki: "/tarvitaanko-vaikutustenarviointi"
 usein:
@@ -75,7 +75,7 @@ Hinta riippuu organisaation koosta ja ohjelmistosta. Esimerkiksi keskikokoiselle
 | Microsoft 365 ja Copilot | {{copilot.keski}} |
 | Google Workspace ja Gemini | {{gemini.keski}} |
 
-Katso [kaikki koot ja ohjelmistot](/hinnasto#ohjelmistot).
+Katso [hinnat järjestelmittäin](/hinnasto#jarjestelmat).
 
 ## Mitä henkilöstön ohjeeseen kirjoitetaan?
 

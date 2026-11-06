@@ -35,17 +35,31 @@ Alkuperäinen suunnitelma lupasi hostingin EU:ssa. GitHub Pages toimii Yhdysvall
 | Usein kysytyt | FAQ-rakenne rikkaita tuloksia varten | sisältö ja merkintä säilyvät | Google lopetti FAQ-rikastulokset toukokuussa 2026, joten etua ei saa enää hakutuloksen ulkoasuun. Merkintä on yhä sallittu. |
 | Kuntasivun PDF ja käsittelysopimus | ladattavissa | Täydennä-merkintä | Vaativat yrityksen tiedot ja oikeudellisen pohjan. |
 
-## Hinnat ohjelmistoittain ja lisäarvioinnit
+## Hinnoittelu
 
-Lisätty käyttäjän pyynnöstä 5.11.2026: vaikutustenarvioinnin hintaan vaikuttaa ohjelmiston laajuus, ja FRIA, TIA ja LIA vaikuttavat pakettien kokonaishintaan.
+Kaikki hinnat ovat tiedostossa `src/data/hinnat.ts`. Rakenne uudistettiin 6.11.2026 käyttäjän palautteen perusteella: vanha hinnoittelu oli sekava, koska vaikutustenarviointi hinnoiteltiin sekä koon että ohjelmiston mukaan ja LIA ja TIA laskutettiin päälle.
 
-Hinnat ehdotti Claude, ja käyttäjä hyväksyi ne 5.11.2026. Kaikki hinnat ovat tiedostossa `src/data/hinnat.ts`.
+Hinnoittelu on kolmessa osassa:
 
-- Ohjelmistorivit sovitettiin niin, että ylin rivi (Microsoft 365 ja Copilot) vastaa vanhaa perushintaa keskikokoisessa ja laajassa koossa. Siksi aiempi esimerkki "enintään 2 280 €" pätee edelleen.
-- Tasapainotesti ja oikeutetun edun arviointi ovat sama asia, joten palvelun nimessä ovat molemmat (käyttäjän päätös 5.11.2026). Tasapainotesti on tutumpi termi, oikeutetun edun arviointi suora käännös LIA:sta.
-- Lisäarvioinneille ei ole pakettialennusta: ne lisätään pakettiin omalla hinnallaan.
+1. **Perusasiakirjat organisaation koon mukaan:** tietosuojaselosteet 290 / 590 / 990 €, seloste käsittelytoimista 590 / 1 290 / 2 490 €, tietosuojatarkastus 890 / 2 400 / 5 900 €, tietotilinpäätös – / 1 900 / 3 900 € ja niistä koottu paketti 1 390 / 3 390 / 7 490 € (säästö noin 20 %).
+2. **Vaikutustenarviointi järjestelmää kohden.** Hinta sisältää ennakkoarvion, arvioinnin, tarvittaessa tasapainotestin ja siirtovaikutusten arvioinnin sekä kirjaukset tietosuojaselosteeseen ja selosteeseen käsittelytoimista. Neljä riviä: rajattu järjestelmä tai tekoälytyökalu 990 / 1 490 / 2 400 €, toimisto-ohjelmisto 1 190 / 1 790 / 2 900 €, tekoäly toimisto-ohjelmistossa 1 490 / 2 190 / 3 400 € ja arkaluonteisia tietoja käsittelevä järjestelmä 1 790 / 2 690 / 3 900 €.
+3. **Jatkuvat palvelut:** ennallaan.
+
+Erikseen ostettavat arvioinnit: ennakkoarvio 290 € (hyvitetään, jos jatketaan arviointiin), tasapainotesti 290 € käsittelyä kohden, siirtovaikutusten arviointi 390 € toimittajaa kohden ja FRIA 1 290 / 2 490 / 4 900 €. Kolmella ensimmäisellä on yksi hinta koosta riippumatta, koska työ on käsittely- tai toimittajakohtaista eikä kasva organisaation koon mukana.
+
+Perustelut (markkinakatsaus 6.11.2026):
+
+- Yksittäinen tietosuojaseloste maksaa markkinalla noin 200–230 € + alv (esim. Tietosuojatalo 229 €, Lakihelppi 199 €), lakitoimistoissa selvästi enemmän. Vanha 390 € näytti kalliilta, vaikka se sisälsi neljä selostetta. Uusi 290 € kaikista selosteista on kilpailukykyinen ja kertoo sisällön suoraan.
+- Käyttäjän havainto: vaikutustenarvioinnissa syntyy aina tietosuojaseloste ja ropa-kirjaus samasta käsittelystä. Siksi ne kuuluvat arvioinnin hintaan eivätkä tule erillisinä laskuina.
+- Ulkoistettu tietosuojavastaava maksaa markkinalla noin 300–2 500 €/kk ja tietosuojaohjelmistot noin 80–350 €/kk, joten jatkuvien palvelujen hinnat (89–1 500 €/kk) pysyvät ennallaan.
+- Tarkistin (`scripts/tarkista.mjs`) vaatii, että hinta ei laske koon kasvaessa, järjestelmärivit kasvavat alaspäin ja paketin säästö on noin 20 %.
+
+Muut periaatteet:
+
+- Tasapainotesti ja oikeutetun edun arviointi ovat sama asia, joten palvelun nimessä ovat molemmat (käyttäjän päätös 5.11.2026).
 - FRIA ei koske tavallista Copilotin, Geminin tai Clauden käyttöä, vaan tiettyjä suuririskisen tekoälyn käyttöönottajia. Tätä ei saa markkinoida kaikille pakollisena.
 - TIA riippuu toimittajan siirtoperusteesta, joten sitä ei liitetä automaattisesti Microsoft 365:een tai Google Workspaceen.
+- Vanhat `{{claude.koko}}`-, `{{m365.koko}}`-, `{{copilot.koko}}`-tyyppiset tunnukset osoittavat järjestelmäriveihin, joten artikkelien hinnat päivittyvät automaattisesti.
 
 ## Sivukartta ja hakusanat
 

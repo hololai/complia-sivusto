@@ -76,10 +76,12 @@ Sama arvio ei sellaisenaan sovi teille, koska lisenssit, asetukset ja tiedot ova
 
 ## Mitä muuta voidaan tarvita?
 
-- [Tasapainotesti eli oikeutetun edun arviointi](/artikkelit/mika-on-lia-tasapainotesti), jos käsittely perustuu oikeutettuun etuun.
+- [Tasapainotesti](/artikkelit/mika-on-lia-tasapainotesti), jos käsittely perustuu oikeutettuun etuun.
 - [Siirtovaikutusten arviointi](/artikkelit/mika-on-tia-tiedonsiirto), jos tiedot siirtyvät EU:n ulkopuolelle vakiosopimuslausekkeilla.
 - Henkilöstön ohje siitä, mitä Copilotiin saa kirjoittaa. Mallin saat [tekoälyn tarkistuslistasta](/artikkelit/tekoaly-tyopaikalla-tietosuoja).
 
+Tasapainotesti ja siirtojen arviointi sisältyvät vaikutustenarviointimme hintaan, kun niitä tarvitaan.
+
 ## Mitä arviointi maksaa?
 
-Microsoft 365:n ja Copilotin vaikutustenarviointi maksaa koon mukaan {{copilot.pieni}}, {{copilot.keski}} tai {{copilot.laaja}} (alv 0 %). Katso [kaikki ohjelmistot](/hinnasto#ohjelmistot) ja [esimerkkikokonaisuudet](/hinnasto#kokonaisuudet).
+Microsoft 365:n ja Copilotin vaikutustenarviointi maksaa koon mukaan {{copilot.pieni}}, {{copilot.keski}} tai {{copilot.laaja}} (alv 0 %). Hintaan sisältyvät ennakkoarvio ja kirjaukset selosteisiin. Katso [kaikki ohjelmistot](/hinnasto#jarjestelmat) ja [esimerkkikokonaisuudet](/hinnasto#kokonaisuudet).

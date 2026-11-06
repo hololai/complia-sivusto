@@ -64,7 +64,7 @@ Google Workspacessa ovat organisaation sähköpostit, tiedostot, kalenterit ja k
 
 Ei automaattisesti. Arviointi on yleensä perusteltu, jos palvelussa käsitellään arkaluonteisia tietoja laajasti, työntekijöitä seurataan järjestelmällisesti tai palvelua käyttää laaja organisaatio. Katso [yhdeksän kriteeriä](/artikkelit/milloin-vaikutustenarviointi-on-pakollinen).
 
-Kunnissa ja kouluissa mukana on usein lasten tietoja, joten tarve on syytä arvioida aina. Jos ratkaisu ei ole selvä, [ennakkoarvio](/tarvitaanko-vaikutustenarviointi) kertoo sen, alkaen {{ennakkoarvio.pieni}}.
+Kunnissa ja kouluissa mukana on usein lasten tietoja, joten tarve on syytä arvioida aina. Jos ratkaisu ei ole selvä, [ennakkoarvio](/tarvitaanko-vaikutustenarviointi) kertoo sen, hintaan {{ennakkoarvio.pieni}}.
 
 ## Mitä arviointi maksaa?
 
@@ -73,4 +73,4 @@ Kunnissa ja kouluissa mukana on usein lasten tietoja, joten tarve on syytä arvi
 | Google Workspace | {{workspace.pieni}} | {{workspace.keski}} | {{workspace.laaja}} |
 | Google Workspace ja Gemini | {{gemini.pieni}} | {{gemini.keski}} | {{gemini.laaja}} |
 
-Hinnat alv 0 %. Gemini muuttaa arvioinnin sisältöä, koska tekoäly pääsee käyttäjän tietoihin: lue [Geminin tietosuojaohje](/artikkelit/google-gemini-tietosuoja) ja katso [kaikki hinnat](/hinnasto#ohjelmistot).
+Hinnat alv 0 %, ja niihin sisältyvät ennakkoarvio ja kirjaukset selosteisiin. Gemini muuttaa arvioinnin sisältöä, koska tekoäly pääsee käyttäjän tietoihin: lue [Geminin tietosuojaohje](/artikkelit/google-gemini-tietosuoja) ja katso [kaikki hinnat](/hinnasto#jarjestelmat).

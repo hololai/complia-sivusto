@@ -4,70 +4,81 @@ import Kysymykset from '../components/Kysymykset.astro';
 import Loppukehotus from '../components/Loppukehotus.astro';
 import { SIVUSTO } from '../../site.config.mjs';
 import {
+  ARVIOINNIN_SISALTO,
   ARVIOINNIT,
-  ARVIOINTIEN_JARJESTYS,
-  ESIMERKIT,
   HINNAT,
+  JARJESTELMAT,
+  JARJESTELMIEN_JARJESTYS,
   JATKUVAT,
   KOKONAISUUDET,
   KOOT,
-  OHJELMISTOJEN_JARJESTYS,
-  OHJELMISTOT,
   PAKETTI,
-  PALVELUJEN_JARJESTYS,
   eur,
+  kiintea,
   pakettiErikseen,
 } from '../data/hinnat';
 import { usein } from '../data/schema';
 
+// Perusasiakirjat hinnoitellaan koon mukaan. Ennakkoarvio ja vaikutustenarviointi ovat
+// omassa osiossaan, jotta jokainen hinta näkyy vain yhdessä paikassa.
+const PERUS = ['tietosuojaseloste', 'seloste', 'tarkastus', 'tietotilinpaatos'] as const;
+
+const ERILLISET = [
+  { ...HINNAT.ennakkoarvio, yksikko: 'hyvitetään, jos jatkatte arviointiin' },
+  ARVIOINNIT.lia,
+  ARVIOINNIT.tia,
+  ARVIOINNIT.fria,
+];
+
 const KYSYMYKSET = [
   {
     k: 'Mitä tietosuojaseloste maksaa?',
-    v: `Tietosuojaselosteet maksavat koon mukaan ${eur(HINNAT.tietosuojaseloste.pieni)}, ${eur(HINNAT.tietosuojaseloste.keski)} tai ${eur(HINNAT.tietosuojaseloste.laaja)} (alv 0 %). Hintaan kuuluvat selosteet asiakkaille, työntekijöille, työnhakijoille ja verkkosivuille.`,
+    v: `Kaikki tarvittavat tietosuojaselosteet maksavat koon mukaan ${eur(HINNAT.tietosuojaseloste.pieni)}, ${eur(HINNAT.tietosuojaseloste.keski)} tai ${eur(HINNAT.tietosuojaseloste.laaja)} (alv 0 %). Hintaan kuuluvat selosteet asiakkaille, työntekijöille, työnhakijoille ja verkkosivuille, eikä se riipu selosteiden määrästä.`,
+  },
+  {
+    k: 'Mitä vaikutustenarvioinnin hintaan sisältyy?',
+    v: 'Kaikki, mitä yhden järjestelmän käyttöönotto vaatii: ennakkoarvio, arviointi riskeineen ja toimenpiteineen, tarvittaessa tasapainotesti ja siirtovaikutusten arviointi sekä kirjaukset tietosuojaselosteeseen ja selosteeseen käsittelytoimista. Erikseen hinnoitellaan vain perusoikeusvaikutusten arviointi (FRIA), jota tarvitsevat tietyt suuririskisen tekoälyn käyttöönottajat.',
+  },
+  {
+    k: 'Entä jos vaikutustenarviointia ei tarvita?',
+    v: `Silloin maksatte vain ennakkoarvion, ${eur(HINNAT.ennakkoarvio.pieni)}, ja saatte kirjallisen perustelun. Jos arviointi tarvitaan, ennakkoarvion hinta vähennetään sen hinnasta.`,
+  },
+  {
+    k: 'Miksi järjestelmä vaikuttaa hintaan?',
+    v: 'Koska arvioitavaa on eri määrä. Erillinen tekoälytyökalu on suppeampi kuin koko toimisto-ohjelmisto, ja tekoäly, joka pääsee käyttäjän sähköposteihin ja tiedostoihin, laajentaa arviota. Arkaluonteiset tiedot laajentavat sitä eniten.',
   },
   {
     k: 'Sisältyykö hintoihin arvonlisävero?',
     v: 'Ei. Hinnat ovat alv 0 %, ja niihin lisätään arvonlisävero 25,5 %.',
   },
   {
-    k: 'Miksi ohjelmisto vaikuttaa vaikutustenarvioinnin hintaan?',
-    v: 'Koska arvioitavaa on eri määrä. Erillinen tekoälytyökalu on suppeampi kuin koko toimisto-ohjelmisto, ja tekoäly, joka pääsee käyttäjän sähköposteihin ja tiedostoihin, laajentaa arviota eniten.',
-  },
-  {
-    k: 'Kuuluvatko LIA, TIA ja FRIA Tietosuoja kuntoon -pakettiin?',
-    v: 'Eivät. Niitä tarvitaan vain tietyissä tilanteissa, joten ne lisätään pakettiin tarpeen mukaan omalla hinnallaan. Kokonaishinta riippuu siitä, mitä teidän tilanteessanne tarvitaan.',
-  },
-  {
-    k: 'Tarvitsenko kaikki kolme lisäarviointia?',
-    v: 'Harvoin. LIA tarvitaan, kun käsittely perustuu oikeutettuun etuun. TIA tarvitaan, kun tiedot siirtyvät EU:n ulkopuolelle esimerkiksi vakiosopimuslausekkeilla. FRIA koskee vain tiettyjä suuririskisen tekoälyn käyttöönottajia.',
-  },
-  {
     k: 'Entä jos tarvitsemme laajemman kokonaisuuden?',
-    v: 'Laajemmat kokonaisuudet hinnoitellaan kiinteällä tarjouksella. Kerro tilanteesi maksuttomassa kartoituksessa.',
+    v: 'Useampi järjestelmä samassa arvioinnissa ja laajemmat kokonaisuudet hinnoitellaan kiinteällä tarjouksella. Kerro tilanteesi maksuttomassa kartoituksessa.',
   },
 ];
 
-const ESIMERKKIHINNAT = [
-  { kuka: 'Parturi-kampaamo, 4 henkeä, ajanvarausjärjestelmä', mita: `${PAKETTI.nimi}, pieni`, hinta: eur(PAKETTI.pieni) },
+const alin = (rivit: { pieni: number | null; keski: number }[]) => Math.min(...rivit.map((r) => r.pieni ?? r.keski));
+const OPAS = [
   {
-    kuka: 'IT-yritys, 25 henkeä, ottaa Copilotin käyttöön',
-    mita: `ennakkoarvio ${eur(HINNAT.ennakkoarvio.keski)}, tarvittaessa vaikutustenarviointi ${eur(HINNAT.vaikutustenarviointi.keski)}`,
-    hinta: `enintään ${eur(ESIMERKIT.copilot)}`,
+    nro: '1',
+    otsikko: 'Perusasiakirjat kuntoon',
+    teksti: 'Tietosuojaselosteet, seloste käsittelytoimista ja tarkastus.',
+    hinta: `alkaen ${eur(alin(PERUS.map((a) => HINNAT[a])))}`,
+    ankkuri: '#perusasiakirjat',
   },
   {
-    kuka: 'Rekrytointiyritys, 60 henkeä',
-    mita: `tietosuojatarkastus, laaja; sen jälkeen ${JATKUVAT.kunnossa.nimi} ${eur(JATKUVAT.kunnossa.laaja)}/kk`,
-    hinta: eur(HINNAT.tarkastus.laaja),
+    nro: '2',
+    otsikko: 'Uusi järjestelmä tai tekoäly',
+    teksti: 'Vaikutustenarviointi, jossa kaikki tarvittava on mukana.',
+    hinta: `alkaen ${eur(JARJESTELMAT.rajattu.pieni)}`,
+    ankkuri: '#jarjestelmat',
   },
   {
-    kuka: 'Kunta hankkii varhaiskasvatuksen asiakastietojärjestelmän',
-    mita: 'vaikutustenarviointi, laaja',
-    hinta: eur(HINNAT.vaikutustenarviointi.laaja),
-  },
-  {
-    kuka: 'Kunnan tietotilinpäätös',
-    mita: 'keskikokoinen tai iso kunta',
-    hinta: `${eur(HINNAT.tietotilinpaatos.keski)} tai ${eur(HINNAT.tietotilinpaatos.laaja)}`,
+    nro: '3',
+    otsikko: 'Pysyy kunnossa',
+    teksti: 'Vuosipäivitys tai tietosuojavastaava palveluna.',
+    hinta: `alkaen ${eur(JATKUVAT.kunnossa.pieni)}/kk`,
+    ankkuri: '#jatkuvat',
   },
 ];
 ---
@@ -78,11 +89,38 @@ const ESIMERKKIHINNAT = [
   murut={[{ nimi: 'Hinnasto', polku: '/hinnasto' }]}
   schema={[usein(KYSYMYKSET)]}
 >
-  <section class="osio hinnasto" id="hinnasto">
+  <section class="osio hinnasto-alku">
     <div class="kehys">
       <div class="osio__otsikko">
+        <p class="nostin">Hinnasto</p>
         <h1>Tietosuojapalvelujen hinnasto: kaikki hinnat näkyvillä</h1>
-        <p class="johdatus">Hinta riippuu organisaation koosta ja käsittelyn laajuudesta. Valitse koko, niin näet hinnan heti.</p>
+        <p class="johdatus">
+          Hinta riippuu kahdesta asiasta: organisaation koosta ja siitä, mitä tarvitsette. Useimmat tarvitsevat vain
+          ensimmäisen kohdan.
+        </p>
+      </div>
+      <ol class="opas">
+        {
+          OPAS.map((o) => (
+            <li>
+              <a class="opas__kortti" href={o.ankkuri}>
+                <span class="opas__nro" aria-hidden="true">{o.nro}</span>
+                <span class="opas__otsikko">{o.otsikko}</span>
+                <span class="opas__teksti">{o.teksti}</span>
+                <span class="opas__hinta">{o.hinta}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="osio osio--valkoinen hinnasto" id="perusasiakirjat">
+    <div class="kehys">
+      <div class="osio__otsikko">
+        <h2>1. Perusasiakirjat organisaation koon mukaan</h2>
+        <p class="johdatus">Nämä tarvitsee jokainen, joka käsittelee asiakkaiden, työntekijöiden tai työnhakijoiden tietoja.</p>
       </div>
 
       <!-- Ilman JavaScriptiä valitsin pysyy piilossa ja kaikki kolme hintasaraketta näkyvät. -->
@@ -103,9 +141,9 @@ const ESIMERKKIHINNAT = [
         </div>
       </fieldset>
 
-      <div class="taulu" role="region" aria-label="Hinnasto" tabindex="0">
+      <div class="taulu" role="region" aria-label="Perusasiakirjojen hinnat" tabindex="0">
         <table class="taulukko">
-          <caption>Kertapalvelut, hinnat alv 0 %</caption>
+          <caption>Perusasiakirjat, hinnat alv 0 %</caption>
           <thead>
             <tr>
               <th scope="col">Palvelu</th>
@@ -116,7 +154,7 @@ const ESIMERKKIHINNAT = [
           </thead>
           <tbody>
             {
-              PALVELUJEN_JARJESTYS.map((a) => {
+              PERUS.map((a) => {
                 const p = HINNAT[a];
                 return (
                   <tr>
@@ -142,12 +180,41 @@ const ESIMERKKIHINNAT = [
         </table>
       </div>
 
-      <p class="pieni">
-        Vaikutustenarvioinnin hinta riippuu myös ohjelmistosta: katso <a href="#ohjelmistot">esimerkkihinnat ohjelmistoittain</a>.
-      </p>
+      <div class="paketti" id="paketti">
+        <div>
+          <span class="merkinta">Säästät noin 20 %</span>
+          <h3>{PAKETTI.nimi} -paketti</h3>
+          <p>Tietosuojatarkastus, tietosuojaselosteet ja seloste käsittelytoimista yhdessä. Suosituin valinta.</p>
+          <div class="painikkeet">
+            <a class="painike" href="/ajanvaraus?palvelu=paketti">Tilaa paketti</a>
+            <a class="painike painike--toinen" href="/ajanvaraus">Varaa kartoitus</a>
+          </div>
+        </div>
+        <div class="taulu">
+          <table class="taulukko">
+            <caption>Paketin hinta koon mukaan, alv 0 %</caption>
+            <thead>
+              <tr>
+                <th scope="col"><span class="pieni">Hinta</span></th>
+                {KOOT.map((k) => <th scope="col" class={`h k-${k.id}`}>{k.nimi}</th>)}
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="rivi--erikseen">
+                <th scope="row">Erikseen</th>
+                {KOOT.map((k) => <td class={`h k-${k.id}`}>{eur(pakettiErikseen(k.id))}</td>)}
+              </tr>
+              <tr>
+                <th scope="row">Pakettina</th>
+                {KOOT.map((k) => <td class={`h k-${k.id}`}><strong>{eur(PAKETTI[k.id])}</strong></td>)}
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
 
-      <h2>Mitä koot tarkoittavat?</h2>
-      <dl class="tiedot">
+      <h3 class="koot-otsikko">Mitä koot tarkoittavat?</h3>
+      <dl class="tiedot tiedot--koot">
         {
           KOOT.map((k) => (
             <div>
@@ -160,143 +227,150 @@ const ESIMERKKIHINNAT = [
     </div>
   </section>
 
-  <section class="osio osio--valkoinen hinnasto" id="paketti">
+  <section class="osio hinnasto" id="jarjestelmat">
     <div class="kehys">
-      <div class="paketti">
-        <span class="merkinta">Säästät noin 20 %</span>
-        <h2>{PAKETTI.nimi} -paketti</h2>
-        <p>Tietosuojatarkastus, tietosuojaselosteet ja seloste käsittelytoimista yhdessä.</p>
-        <div class="taulu">
+      <div class="osio__otsikko">
+        <h2>2. Uusi järjestelmä tai tekoäly: yksi hinta, kaikki mukana</h2>
+        <p class="johdatus">
+          Vaikutustenarviointi hinnoitellaan järjestelmää kohden. Hinta kattaa kaiken, mitä käyttöönotto tietosuojan
+          kannalta vaatii, joten lisälaskuja ei tule.
+        </p>
+      </div>
+      <div class="jarjestelmat">
+        <div class="sisaltyy">
+          <h3>Hintaan sisältyy</h3>
+          <ul class="tarkistukset">
+            {
+              ARVIOINNIN_SISALTO.map((s) => (
+                <li>
+                  <svg viewBox="0 0 20 20" aria-hidden="true">
+                    <path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path>
+                  </svg>
+                  <span>{s.charAt(0).toUpperCase() + s.slice(1)}</span>
+                </li>
+              ))
+            }
+          </ul>
+          <p class="pieni">
+            Jos ennakkoarvio osoittaa, ettei arviointia tarvita, maksatte vain sen: {eur(HINNAT.ennakkoarvio.pieni)}.
+          </p>
+        </div>
+        <div class="taulu" role="region" aria-label="Vaikutustenarvioinnin hinnat järjestelmittäin" tabindex="0">
           <table class="taulukko">
-            <caption>Paketin hinta koon mukaan, alv 0 %</caption>
+            <caption>Vaikutustenarviointi järjestelmää kohden, alv 0 %, toimitus {HINNAT.vaikutustenarviointi.toimitus}</caption>
             <thead>
               <tr>
-                <th scope="col"><span class="pieni">Hinta</span></th>
+                <th scope="col">Järjestelmä</th>
                 {KOOT.map((k) => <th scope="col" class={`h k-${k.id}`}>{k.nimi}</th>)}
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">Erikseen</th>
-                {KOOT.map((k) => <td class={`h k-${k.id}`}>{eur(pakettiErikseen(k.id))}</td>)}
-              </tr>
-              <tr>
-                <th scope="row">Pakettina</th>
-                {KOOT.map((k) => <td class={`h k-${k.id}`}><strong>{eur(PAKETTI[k.id])}</strong></td>)}
-              </tr>
+              {
+                JARJESTELMIEN_JARJESTYS.map((a) => {
+                  const j = JARJESTELMAT[a];
+                  return (
+                    <tr>
+                      <th scope="row">
+                        {j.nimi}
+                        {/* Yhdellä rivillä, jotta pilkkujen eteen ei tule välilyöntiä. */}
+                        <span>{j.artikkelit.map((r, i) => <>{i > 0 && ', '}<a href={r.polku}>{r.nimi}</a></>)}{j.artikkelit.length > 0 && j.esimerkit ? ', ' : ''}{j.esimerkit}</span>
+                      </th>
+                      {KOOT.map((k) => (
+                        <td class={`h k-${k.id}`}>{eur(j[k.id])}</td>
+                      ))}
+                    </tr>
+                  );
+                })
+              }
             </tbody>
           </table>
         </div>
-        <div class="painikkeet">
-          <a class="painike" href="/ajanvaraus?palvelu=paketti">Tilaa paketti</a>
-          <a class="painike painike--toinen" href="/ajanvaraus">Varaa kartoitus</a>
-        </div>
+      </div>
+      <p class="pieni">
+        Useampi järjestelmä samassa arvioinnissa hinnoitellaan kiinteällä tarjouksella. Lue lisää
+        <a href={HINNAT.vaikutustenarviointi.polku}>vaikutustenarvioinnista</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="osio osio--valkoinen" id="lisaarvioinnit">
+    <div class="kehys">
+      <div class="osio__otsikko">
+        <h2>Erilliset arvioinnit kiinteään hintaan</h2>
+        <p class="johdatus">
+          Kun ette tarvitse koko vaikutustenarviointia, voitte tilata yksittäisen arvioinnin. Ennakkoarvio, tasapainotesti
+          ja siirtovaikutusten arviointi maksavat saman organisaation koosta riippumatta.
+        </p>
+      </div>
+      <div class="ruudukko ruudukko--4">
+        {
+          ERILLISET.map((p) => (
+            <article class="kortti kortti--hinta">
+              <h3><a href={p.polku}>{p.nimi}</a></h3>
+              <p>{p.lyhyt}</p>
+              <div class="kortti__ala">
+                {kiintea(p) ? (
+                  <span class="kortti__hinta">{eur(p.keski)}</span>
+                ) : (
+                  <ul class="rivit">
+                    {KOOT.map((k) => (
+                      <li>
+                        <span>{k.nimi}</span>
+                        <span>{eur(p[k.id] as number)}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                <span class="pieni">
+                  {p.yksikko}, toimitus {p.toimitus}
+                </span>
+              </div>
+            </article>
+          ))
+        }
       </div>
     </div>
   </section>
 
-  <section class="osio hinnasto" id="ohjelmistot">
+  <section class="osio hinnasto" id="jatkuvat">
     <div class="kehys">
       <div class="osio__otsikko">
-        <h2>Vaikutustenarvioinnin hinta ohjelmiston mukaan</h2>
-        <p class="johdatus">
-          Hinta riippuu organisaation koon lisäksi siitä, mitä arvioidaan. Yksi ohjelmisto yhteen arviointiin, toimitus 5–10 arkipäivässä.
-        </p>
+        <h2>3. Jatkuvat palvelut</h2>
+        <p class="johdatus">Vapaaehtoisia. Kertaostos riittää, jos haluat vain asiakirjat kuntoon.</p>
       </div>
-      <div class="taulu" role="region" aria-label="Vaikutustenarvioinnin hinnat ohjelmistoittain" tabindex="0">
+      <div class="taulu">
         <table class="taulukko">
-          <caption>Esimerkkihinnat ohjelmistoittain, alv 0 %</caption>
+          <caption>Kuukausihinnat, alv 0 %</caption>
           <thead>
             <tr>
-              <th scope="col">Ohjelmisto</th>
+              <th scope="col">Palvelu</th>
               {KOOT.map((k) => <th scope="col" class={`h k-${k.id}`}>{k.nimi}</th>)}
             </tr>
           </thead>
           <tbody>
-            {
-              OHJELMISTOJEN_JARJESTYS.map((a) => {
-                const o = OHJELMISTOT[a];
-                return (
-                  <tr>
-                    <th scope="row">
-                      <a href={o.artikkeli}>{o.nimi}</a>
-                      <span>{o.lyhyt}</span>
-                    </th>
-                    {KOOT.map((k) => (
-                      <td class={`h k-${k.id}`}>{eur(o[k.id])}</td>
-                    ))}
-                  </tr>
-                );
-              })
-            }
             <tr>
-              <th scope="row">
-                Muu yksittäinen järjestelmä
-                <span>Esimerkiksi asiakas- tai henkilöstöjärjestelmä.</span>
-              </th>
-              {KOOT.map((k) => <td class={`h k-${k.id}`}>{eur(HINNAT.vaikutustenarviointi[k.id])}</td>)}
+              <th scope="row">{JATKUVAT.kunnossa.nimi}<span>{JATKUVAT.kunnossa.lyhyt}</span></th>
+              {KOOT.map((k) => <td class={`h k-${k.id}`}>{eur(JATKUVAT.kunnossa[k.id])}/kk</td>)}
+            </tr>
+            <tr>
+              <th scope="row"><a href={JATKUVAT.vastaava.polku}>{JATKUVAT.vastaava.nimi}</a><span>{JATKUVAT.vastaava.lyhyt}</span></th>
+              {KOOT.map((k) => <td class={`h k-${k.id}`}>{eur(JATKUVAT.vastaava[k.id])}/kk</td>)}
             </tr>
           </tbody>
         </table>
       </div>
       <p class="pieni">
-        Useampi ohjelmisto samassa arvioinnissa hinnoitellaan kiinteällä tarjouksella. Lue lisää <a href={HINNAT.vaikutustenarviointi.polku}>vaikutustenarvioinnista</a>.
+        Hinnat alv 0 % (alv 25,5 % lisätään). Tilauksiin sovelletaan <a href="/toimitusehdot">toimitusehtoja</a> ja
+        <a href="/kasittelysopimus">käsittelysopimusta</a>.
       </p>
     </div>
   </section>
 
-  <section class="osio osio--valkoinen hinnasto" id="lisaarvioinnit">
+  <section class="osio osio--valkoinen" id="kokonaisuudet">
     <div class="kehys">
       <div class="osio__otsikko">
-        <h2>LIA, TIA ja FRIA</h2>
-        <p class="johdatus">Lisäarvioinnit tarvitaan vain tietyissä tilanteissa, joten ne lisätään pakettiin tarpeen mukaan omalla hinnallaan.</p>
-      </div>
-      <div class="taulu" role="region" aria-label="Lisäarviointien hinnat" tabindex="0">
-        <table class="taulukko">
-          <caption>Lisäarvioinnit, hinnat alv 0 %</caption>
-          <thead>
-            <tr>
-              <th scope="col">Arviointi</th>
-              {KOOT.map((k) => <th scope="col" class={`h k-${k.id}`}>{k.nimi}</th>)}
-              <th scope="col" class="sarake-toimitus">Toimitus</th>
-              <th scope="col" class="sarake-toimitus"><span class="pieni">Toiminto</span></th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              ARVIOINTIEN_JARJESTYS.map((a) => {
-                const p = ARVIOINNIT[a];
-                return (
-                  <tr>
-                    <th scope="row">
-                      <a href={p.polku}>{p.nimi}</a>
-                      <span>{p.lyhyt} Hinta {p.yksikko}.</span>
-                      <span class="vain-kapea">Toimitus {p.toimitus} · <a href={`/ajanvaraus?palvelu=${p.polku.slice(1)}`}>Tilaa</a></span>
-                    </th>
-                    {KOOT.map((k) => (
-                      <td class={`h k-${k.id}`}>{eur(p[k.id])}</td>
-                    ))}
-                    <td class="sarake-toimitus">{p.toimitus}</td>
-                    <td class="sarake-toimitus">
-                      <a class="painike painike--pieni painike--toinen" href={`/ajanvaraus?palvelu=${p.polku.slice(1)}`}>
-                        Tilaa
-                      </a>
-                    </td>
-                  </tr>
-                );
-              })
-            }
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <section class="osio" id="kokonaisuudet">
-    <div class="kehys">
-      <div class="osio__otsikko">
-        <h2>Esimerkkikokonaisuudet erikokoisille</h2>
-        <p class="johdatus">Näin ohjelmisto ja lisäarvioinnit vaikuttavat kokonaishintaan. Lopullinen sisältö riippuu käsittelyistänne ja toimittajien siirtoperusteista.</p>
+        <h2>Esimerkkejä: mitä kokonaisuus maksaa?</h2>
+        <p class="johdatus">Lopullinen sisältö riippuu käsittelyistänne ja toimittajien siirtoperusteista.</p>
       </div>
       <div class="ruudukko">
         {
@@ -323,66 +397,7 @@ const ESIMERKKIHINNAT = [
     </div>
   </section>
 
-  <section class="osio osio--valkoinen hinnasto" id="jatkuvat">
-    <div class="kehys">
-      <div class="osio__otsikko">
-        <h2>Jatkuvat palvelut</h2>
-        <p class="johdatus">Vapaaehtoisia. Kertaostos riittää, jos haluat vain asiakirjat kuntoon.</p>
-      </div>
-      <div class="taulu">
-        <table class="taulukko">
-          <caption>Kuukausihinnat, alv 0 %</caption>
-          <thead>
-            <tr>
-              <th scope="col">Palvelu</th>
-              {KOOT.map((k) => <th scope="col" class={`h k-${k.id}`}>{k.nimi}</th>)}
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">{JATKUVAT.kunnossa.nimi}<span>{JATKUVAT.kunnossa.lyhyt}</span></th>
-              {KOOT.map((k) => <td class={`h k-${k.id}`}>{eur(JATKUVAT.kunnossa[k.id])}/kk</td>)}
-            </tr>
-            <tr>
-              <th scope="row"><a href={JATKUVAT.vastaava.polku}>{JATKUVAT.vastaava.nimi}</a><span>{JATKUVAT.vastaava.lyhyt}</span></th>
-              {KOOT.map((k) => <td class={`h k-${k.id}`}>{eur(JATKUVAT.vastaava[k.id])}/kk</td>)}
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <p class="pieni">
-        Hinnat alv 0 % (alv 25,5 % lisätään). Laajemmat kokonaisuudet hinnoitellaan kiinteällä tarjouksella. Tilauksiin
-        sovelletaan <a href="/toimitusehdot">toimitusehtoja</a> ja <a href="/kasittelysopimus">käsittelysopimusta</a>.
-      </p>
-    </div>
-  </section>
-
   <section class="osio">
-    <div class="kehys">
-      <h2>Esimerkkihinnat</h2>
-      <div class="taulu" role="region" aria-label="Esimerkkihinnat" tabindex="0">
-        <table class="taulukko">
-          <caption>Esimerkkejä organisaation koon mukaan, alv 0 %</caption>
-          <thead>
-            <tr><th scope="col">Asiakas</th><th scope="col">Palvelu</th><th scope="col" class="h">Hinta</th></tr>
-          </thead>
-          <tbody>
-            {
-              ESIMERKKIHINNAT.map((e) => (
-                <tr>
-                  <td>{e.kuka}</td>
-                  <td>{e.mita}</td>
-                  <td class="h">{e.hinta}</td>
-                </tr>
-              ))
-            }
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <section class="osio osio--valkoinen">
     <div class="kehys"><Kysymykset kysymykset={KYSYMYKSET} /></div>
   </section>
 

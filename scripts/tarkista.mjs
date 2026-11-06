@@ -4,7 +4,7 @@ import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { SIVUSTO } from '../site.config.mjs';
-import { ARVIOINNIT, HINNAT, KOOT, OHJELMISTOT, PAKETTI, pakettiErikseen } from '../src/data/hinnat.ts';
+import { ARVIOINNIT, HINNAT, JARJESTELMAT, JARJESTELMIEN_JARJESTYS, KOOT, PAKETTI, pakettiErikseen } from '../src/data/hinnat.ts';
 
 const JULKAISU = process.argv.includes('--julkaisu');
 const PAGES = process.argv.includes('--pages');
@@ -190,9 +190,15 @@ for (const k of KOOT) {
   const ale = 1 - PAKETTI[k.id] / erikseen;
   if (Math.abs(ale - 0.2) > 0.015) virhe('hinnat', `paketin alennus koossa ${k.id} on ${(ale * 100).toFixed(1)} %, luvattu noin 20 %`);
 }
-for (const [avain, p] of Object.entries({ ...HINNAT, ...OHJELMISTOT, ...ARVIOINNIT })) {
+for (const [avain, p] of Object.entries({ ...HINNAT, ...JARJESTELMAT, ...ARVIOINNIT })) {
   const hinnat = [p.pieni, p.keski, p.laaja].filter((h) => h !== null);
-  if (hinnat.some((h, i) => i > 0 && h <= hinnat[i - 1])) virhe('hinnat', `${avain}: hinta ei kasva koon mukana`);
+  if (hinnat.some((h, i) => i > 0 && h < hinnat[i - 1])) virhe('hinnat', `${avain}: hinta laskee koon kasvaessa`);
+}
+
+// Laajempi järjestelmä ei saa olla halvempi kuin suppeampi samassa kokoluokassa.
+for (const k of KOOT) {
+  const rivi = JARJESTELMIEN_JARJESTYS.map((a) => JARJESTELMAT[a][k.id]);
+  if (rivi.some((h, i) => i > 0 && h <= rivi[i - 1])) virhe('hinnat', `vaikutustenarvioinnin järjestelmärivit eivät kasva koossa ${k.id}`);
 }
 
 if (JULKAISU && !SIVUSTO.julkaistu) virhe('site.config.mjs', 'julkaistu on false: kaikki sivut ovat noindex');

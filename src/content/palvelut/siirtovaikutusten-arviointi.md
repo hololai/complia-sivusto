@@ -5,7 +5,7 @@ jarjestys: 9
 hakusana: siirtovaikutusten arviointi
 otsikko: "Siirtovaikutusten arviointi (TIA) kiinteällä hinnalla | Complia"
 h1: "Siirtovaikutusten arviointi (TIA) kiinteällä hinnalla"
-kuvaus: "Siirtovaikutusten arviointi (TIA) selvittää, ovatko EU:n ulkopuolelle siirtyvät tiedot suojassa vakiosopimuslausekkeilla. Hinta alkaen {{tia.pieni}}."
+kuvaus: "Siirtovaikutusten arviointi (TIA) selvittää, ovatko EU:n ulkopuolelle siirtyvät tiedot suojassa vakiosopimuslausekkeilla. Kiinteä hinta {{tia.pieni}}."
 johdanto: "Kun henkilötietoja siirretään EU:n ja ETA:n ulkopuolelle vakiosopimuslausekkeilla, pelkkä sopimus ei riitä. Siirtovaikutusten arviointi selvittää, suojaako se tiedot kohdemaassa myös käytännössä."
 sopii: "toimittaja tai sen alihankkija käsittelee tietoja EU:n ulkopuolella vakiosopimuslausekkeiden perusteella, tai asiakas tai hankinta pyytää arviota."
 saat: "kirjallisen arvion siirrosta, kohdemaan lainsäädännöstä ja lisäsuojatoimista sekä johtopäätöksen."
@@ -13,7 +13,7 @@ tarvitsemme: "toimittajan nimen, sopimukset ja kuvauksen siirrettävistä tiedoi
 artikkeli: mika-on-tia-tiedonsiirto
 usein:
   - k: "Mitä siirtovaikutusten arviointi maksaa?"
-    v: "Koon mukaan {{tia.pieni}}, {{tia.keski}} tai {{tia.laaja}} toimittajaa kohden (alv 0 %). Toimitus kolmessa arkipäivässä."
+    v: "{{tia.pieni}} toimittajaa kohden (alv 0 %) organisaation koosta riippumatta. Jos teemme järjestelmästä vaikutustenarvioinnin, siirtojen arviointi sisältyy siihen."
   - k: "Tarvitseeko Microsoft 365 tai Google Workspace aina TIA:n?"
     v: "Ei aina. Jos toimittaja on sertifioitu EU–US Data Privacy Frameworkiin ja siirto kuuluu sen piiriin, se voi perustua komission riittävyyspäätökseen. Tarkistamme sertifioinnin ja alihankkijat toimittajakohtaisesti."
   - k: "Riittääkö toimittajan oma arvio?"
@@ -49,6 +49,6 @@ Arvio tehdään aina toimittajan nykyisen siirtoperusteen ja alihankkijoiden muk
 - tekniset, sopimukselliset ja organisatoriset lisäsuojatoimet
 - johtopäätös ja seurantapäivä
 
-## Miten TIA vaikuttaa kokonaishintaan?
+## Hinta
 
-Arviointi hinnoitellaan toimittajaa kohden, ja se lisätään [Tietosuoja kuntoon -pakettiin](/hinnasto#paketti) tai [vaikutustenarviointiin](/vaikutustenarviointi) tarpeen mukaan. Katso [esimerkkikokonaisuudet](/hinnasto#kokonaisuudet).
+Erillinen siirtovaikutusten arviointi maksaa {{tia.pieni}} toimittajaa kohden. Kun teemme järjestelmästä [vaikutustenarvioinnin](/vaikutustenarviointi), siirtojen arviointi sisältyy sen hintaan. Katso [hinnasto](/hinnasto#lisaarvioinnit).

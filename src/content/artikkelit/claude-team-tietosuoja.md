@@ -16,7 +16,7 @@ liittyvat:
   - mika-on-lia-tasapainotesti
 kehotus:
   otsikko: "Otatteko Claude Teamin käyttöön?"
-  teksti: "Vaikutustenarviointi alkaen {{claude.pieni}} ja siirtovaikutusten arviointi alkaen {{tia.pieni}} (alv 0 %). Esimerkki: 25 hengen yritys, molemmat yhteensä {{esim.claudekeski}}."
+  teksti: "Vaikutustenarviointi alkaen {{claude.pieni}} (alv 0 %), ja siihen sisältyvät siirtovaikutusten arviointi ja kirjaukset selosteisiin. Esimerkki: 25 hengen yritys {{esim.claudekeski}}."
   nappi: "Katso vaikutustenarviointi"
   linkki: "/vaikutustenarviointi"
 usein:
@@ -76,6 +76,5 @@ Se riippuu käytöstä. Tekstien luonnostelu ilman henkilötietoja on eri asia k
 | Arviointi | Pieni | Keskikokoinen | Laaja |
 |---|---|---|---|
 | Vaikutustenarviointi: Claude Team | {{claude.pieni}} | {{claude.keski}} | {{claude.laaja}} |
-| Siirtovaikutusten arviointi (TIA) | {{tia.pieni}} | {{tia.keski}} | {{tia.laaja}} |
 
-Hinnat alv 0 %. Jos Claude liitetään sähköpostiin tai tiedostoihin, arvio laajenee. Katso [kaikki hinnat](/hinnasto#ohjelmistot).
+Hinnat alv 0 %. Hintaan sisältyvät ennakkoarvio, siirtovaikutusten arviointi ja kirjaukset selosteisiin. Jos Claude liitetään sähköpostiin tai tiedostoihin, arvio laajenee. Katso [kaikki hinnat](/hinnasto#jarjestelmat).

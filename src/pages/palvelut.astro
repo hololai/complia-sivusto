@@ -4,7 +4,7 @@ import PalveluKortti from '../components/PalveluKortti.astro';
 import Kysymykset from '../components/Kysymykset.astro';
 import Loppukehotus from '../components/Loppukehotus.astro';
 import { SIVUSTO } from '../../site.config.mjs';
-import { ARVIOINNIT, ARVIOINTIEN_JARJESTYS, HINNAT, PAKETTI, JATKUVAT, PALVELUJEN_JARJESTYS, eur } from '../data/hinnat';
+import { ARVIOINNIT, ARVIOINTIEN_JARJESTYS, HINNAT, PAKETTI, JATKUVAT, PALVELUJEN_JARJESTYS, eur, kiintea } from '../data/hinnat';
 import { usein } from '../data/schema';
 
 const TILANTEET = [
@@ -99,7 +99,7 @@ const KYSYMYKSET = [
     <div class="kehys">
       <div class="osio__otsikko">
         <h2>Lisäarvioinnit tarpeen mukaan</h2>
-        <p class="johdatus">Nämä tarvitaan vain tietyissä tilanteissa, ja ne vaikuttavat kokonaishintaan. Katso <a href="/hinnasto#kokonaisuudet">esimerkkikokonaisuudet</a>.</p>
+        <p class="johdatus">Tasapainotesti ja siirtovaikutusten arviointi sisältyvät vaikutustenarviointiin, kun niitä tarvitaan. Erikseen ostettuna niillä on kiinteä hinta. Katso <a href="/hinnasto#kokonaisuudet">esimerkkikokonaisuudet</a>.</p>
       </div>
       <div class="ruudukko">
         {
@@ -108,7 +108,7 @@ const KYSYMYKSET = [
               <h3><a href={ARVIOINNIT[a].polku}>{ARVIOINNIT[a].nimi}</a></h3>
               <p>{ARVIOINNIT[a].lyhyt}</p>
               <div class="kortti__ala">
-                <span class="kortti__hinta">alkaen {eur(ARVIOINNIT[a].pieni)}</span>
+                <span class="kortti__hinta">{kiintea(ARVIOINNIT[a]) ? '' : 'alkaen '}{eur(ARVIOINNIT[a].pieni)}</span>
                 <span class="pieni">{ARVIOINNIT[a].toimitus}</span>
               </div>
             </article>

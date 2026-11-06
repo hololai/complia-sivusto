@@ -64,7 +64,7 @@ Microsoft 365 (entinen Office 365) on monen organisaation tärkein henkilötieto
 
 Ei automaattisesti. Arviointi on yleensä perusteltu, jos palvelussa käsitellään arkaluonteisia tietoja laajasti, työntekijöitä seurataan järjestelmällisesti tai palvelua käyttää laaja organisaatio. Työntekijät ovat Euroopan tietosuojaviranomaisten ohjeen mukaan haavoittuvassa asemassa, joten kaksi [yhdeksästä kriteeristä](/artikkelit/milloin-vaikutustenarviointi-on-pakollinen) täyttyy helposti.
 
-Jos ratkaisu ei ole selvä, [ennakkoarvio](/tarvitaanko-vaikutustenarviointi) kertoo sen ja dokumentoi perustelun, alkaen {{ennakkoarvio.pieni}}.
+Jos ratkaisu ei ole selvä, [ennakkoarvio](/tarvitaanko-vaikutustenarviointi) kertoo sen ja dokumentoi perustelun, hintaan {{ennakkoarvio.pieni}}.
 
 ## Mitä arviointi maksaa?
 
@@ -73,4 +73,4 @@ Jos ratkaisu ei ole selvä, [ennakkoarvio](/tarvitaanko-vaikutustenarviointi) ke
 | Microsoft 365 | {{m365.pieni}} | {{m365.keski}} | {{m365.laaja}} |
 | Microsoft 365 ja Copilot | {{copilot.pieni}} | {{copilot.keski}} | {{copilot.laaja}} |
 
-Hinnat alv 0 %. Copilot muuttaa arvioinnin sisältöä, koska tekoäly pääsee käyttäjän tietoihin: lue [Copilotin tietosuojaohje](/artikkelit/microsoft-365-copilot-tietosuoja) ja katso [kaikki hinnat](/hinnasto#ohjelmistot).
+Hinnat alv 0 %, ja niihin sisältyvät ennakkoarvio ja kirjaukset selosteisiin. Copilot muuttaa arvioinnin sisältöä, koska tekoäly pääsee käyttäjän tietoihin: lue [Copilotin tietosuojaohje](/artikkelit/microsoft-365-copilot-tietosuoja) ja katso [kaikki hinnat](/hinnasto#jarjestelmat).
