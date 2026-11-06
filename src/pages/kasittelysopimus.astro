@@ -1,7 +1,6 @@
 ---
 import Perus from '../layouts/Perus.astro';
 import Asiakirja from '../components/Asiakirja.astro';
-import Tayta from '../components/Tayta.astro';
 import Loppukehotus from '../components/Loppukehotus.astro';
 import { SIVUSTO } from '../../site.config.mjs';
 import { KASITTELYSOPIMUS } from '../data/kasittelysopimus';
@@ -20,9 +19,7 @@ import { KASITTELYSOPIMUS } from '../data/kasittelysopimus';
           Kun teemme tietosuoja-asiakirjoja teidän lukuunne, olemme henkilötietojen käsittelijä. Tämä sopimus liitetään
           jokaiseen tilaukseen. Voitte lukea sen jo ennen tilausta.
         </p>
-        <p>
-          <Tayta>juristin tarkistus ennen käyttöä. Sopimus on luonnos.</Tayta>
-        </p>
+        <p class="pieni">Versio 6.11.2026.</p>
         <div class="painikkeet">
           <a class="painike" href="/lataukset/kasittelysopimus.docx" download>Lataa sopimus (Word)</a>
           <a class="painike painike--toinen" href="/toimitusehdot">Toimitusehdot</a>

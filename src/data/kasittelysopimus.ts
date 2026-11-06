@@ -1,11 +1,11 @@
-// Complian käsittelysopimus (tietosuoja-asetus 28 art.). Luonnos: juristi tarkistaa ennen käyttöä.
+// Complian käsittelysopimus (tietosuoja-asetus 28 art.). Lopullinen versio 6.11.2026.
 // Tiedot Complia-työkalusta perustuvat sen omaan dokumentaatioon. Asiakkaat eivät kirjaudu työkaluun,
 // joten kirjautumispalvelua ei mainita. Käsittelijä on Famula Group Oy (Complia on sen palvelu), ja Google
 // tallentaa työkalun tiedot pilveensä. Sähköposti on Planeetta Internet Oy:n (Domainhotelli) palvelussa (päätökset 6.11.2026).
 import { SIVUSTO } from '../../site.config.mjs';
 import type { Asiakirja } from './asiakirja';
 
-const kasittelija = SIVUSTO.yritys.nimi ?? '<<yrityksen virallinen nimi>>';
+const kasittelija = SIVUSTO.yritys.nimi ?? '<<yrityksen virallinen nimi>>'; // täytetty site.config.mjs:ssä
 const ytunnus = SIVUSTO.yritys.ytunnus ?? '<<Y-tunnus>>';
 
 export const KASITTELYSOPIMUS: Asiakirja = {
@@ -75,7 +75,7 @@ export const KASITTELYSOPIMUS: Asiakirja = {
         {
           tyyppi: 'kappale',
           teksti:
-            'Käsittelijä ilmoittaa rekisterinpitäjälle henkilötietojen tietoturvaloukkauksesta ilman aiheetonta viivytystä ja viimeistään <<tuntimäärä, esim. 24>> tunnin kuluessa siitä, kun se on saanut tiedon loukkauksesta. Ilmoituksessa kerrotaan, mitä tiedetään, ja sitä täydennetään tietojen tarkentuessa.',
+            'Käsittelijä ilmoittaa rekisterinpitäjälle henkilötietojen tietoturvaloukkauksesta ilman aiheetonta viivytystä ja viimeistään 48 tunnin kuluessa siitä, kun se on saanut tiedon loukkauksesta. Ilmoituksessa kerrotaan, mitä tiedetään, ja sitä täydennetään tietojen tarkentuessa.',
         },
       ],
     },
@@ -145,7 +145,7 @@ export const KASITTELYSOPIMUS: Asiakirja = {
           tyyppi: 'rivit',
           rivit: [
             'Rekisterinpitäjä: [nimi, asema ja päivämäärä]',
-            `Käsittelijä: <<allekirjoittajan nimi ja asema>>, ${kasittelija}`,
+            `Käsittelijä: [nimi, asema ja päivämäärä], ${kasittelija}`,
           ],
         },
       ],

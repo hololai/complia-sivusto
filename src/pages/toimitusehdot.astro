@@ -1,7 +1,6 @@
 ---
 import Perus from '../layouts/Perus.astro';
 import Asiakirja from '../components/Asiakirja.astro';
-import Tayta from '../components/Tayta.astro';
 import { SIVUSTO } from '../../site.config.mjs';
 import { TOIMITUSEHDOT } from '../data/toimitusehdot';
 ---
@@ -18,9 +17,6 @@ import { TOIMITUSEHDOT } from '../data/toimitusehdot';
         <p class="johdatus">
           Näitä ehtoja sovelletaan tilauksiin. Henkilötietojen käsittelystä sovitaan
           <a href="/kasittelysopimus">käsittelysopimuksessa</a>.
-        </p>
-        <p>
-          <Tayta>juristin tarkistus ennen käyttöä. Ehdot ovat luonnos, ja merkityt kohdat ovat päätettävänä.</Tayta>
         </p>
       </div>
       <Asiakirja asiakirja={TOIMITUSEHDOT} id="ehdot" />

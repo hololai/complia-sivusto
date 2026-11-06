@@ -1,5 +1,4 @@
-// Toimitusehtojen luonnos. Juristi tarkistaa ennen käyttöä; <<merkityt>> kohdat ovat päätöksiä,
-// jotka pitää tehdä. Palvelut myydään vain yrityksille ja julkisyhteisöille.
+// Toimitusehdot, voimassa 6.11.2026 alkaen. Palvelut myydään vain yrityksille ja julkisyhteisöille.
 import { SIVUSTO } from '../../site.config.mjs';
 import type { Asiakirja } from './asiakirja';
 
@@ -8,7 +7,7 @@ const ytunnus = SIVUSTO.yritys.ytunnus ?? '<<Y-tunnus>>';
 
 export const TOIMITUSEHDOT: Asiakirja = {
   otsikko: 'Toimitusehdot',
-  alaotsikko: 'Voimassa <<voimaantulopäivä>> alkaen',
+  alaotsikko: 'Voimassa 6.11.2026 alkaen',
   osiot: [
     {
       otsikko: 'Soveltaminen',
@@ -36,8 +35,8 @@ export const TOIMITUSEHDOT: Asiakirja = {
           kohdat: [
             'Hinnat ovat hinnaston tai tilausvahvistuksen mukaiset, ja niihin lisätään arvonlisävero.',
             'Kertapalvelut laskutetaan, kun asiakas on hyväksynyt asiakirjat tai tarkistusaika on päättynyt.',
-            'Jatkuvat palvelut laskutetaan <<laskutusväli, esim. kuukausittain etukäteen>>.',
-            'Maksuaika on <<maksuaika, esim. 14>> päivää netto. Viivästyneestä maksusta peritään korkolain mukainen viivästyskorko.',
+            'Jatkuvat palvelut laskutetaan kuukausittain etukäteen.',
+            'Maksuaika on 14 päivää netto. Viivästyneestä maksusta peritään korkolain mukainen viivästyskorko.',
           ],
         },
       ],
@@ -68,7 +67,7 @@ export const TOIMITUSEHDOT: Asiakirja = {
         {
           tyyppi: 'kappale',
           teksti:
-            'Asiakas tarkistaa asiakirjat <<tarkistusaika, esim. 14>> päivän kuluessa toimituksesta. Jos asiakirjassa on virhe, korjaamme sen maksutta. Asiakirjat katsotaan hyväksytyiksi, kun asiakas hyväksyy ne tai tarkistusaika päättyy ilman huomautuksia.',
+            'Asiakas tarkistaa asiakirjat 14 päivän kuluessa toimituksesta. Jos asiakirjassa on virhe, korjaamme sen maksutta. Asiakirjat katsotaan hyväksytyiksi, kun asiakas hyväksyy ne tai tarkistusaika päättyy ilman huomautuksia.',
         },
       ],
     },
@@ -108,11 +107,11 @@ export const TOIMITUSEHDOT: Asiakirja = {
         {
           tyyppi: 'lista',
           kohdat: [
-            'Vastuumme rajoittuu kertapalvelussa sen hintaan ja jatkuvassa palvelussa <<kuukausimäärä, esim. 12>> kuukauden laskutukseen.',
+            'Vastuumme rajoittuu kertapalvelussa sen hintaan ja jatkuvassa palvelussa 12 kuukauden laskutukseen.',
             'Emme vastaa välillisistä vahingoista, kuten saamatta jääneestä voitosta tai toiminnan keskeytyksestä.',
             'Emme vastaa viranomaisen asiakkaalle määräämistä seuraamusmaksuista.',
             'Vastuunrajoitus ei koske tahallisesti tai törkeällä huolimattomuudella aiheutettua vahinkoa.',
-            'Vahingosta on ilmoitettava kirjallisesti <<määräaika>> kuluessa siitä, kun asiakas havaitsi sen.',
+            'Vahingosta on ilmoitettava kirjallisesti kolmen kuukauden kuluessa siitä, kun asiakas havaitsi sen.',
           ],
         },
       ],
@@ -123,7 +122,7 @@ export const TOIMITUSEHDOT: Asiakirja = {
         {
           tyyppi: 'kappale',
           teksti:
-            'Jatkuva palvelu on voimassa toistaiseksi, ja kumpikin osapuoli voi irtisanoa sen <<irtisanomisaika, esim. yhden kuukauden>> irtisanomisajalla. Sopimuksen päättyessä toimimme käsittelysopimuksen mukaisesti.',
+            'Jatkuva palvelu on voimassa toistaiseksi, ja kumpikin osapuoli voi irtisanoa sen yhden kuukauden irtisanomisajalla. Sopimuksen päättyessä toimimme käsittelysopimuksen mukaisesti.',
         },
       ],
     },
@@ -151,7 +150,7 @@ export const TOIMITUSEHDOT: Asiakirja = {
         {
           tyyppi: 'kappale',
           teksti:
-            'Sopimukseen sovelletaan Suomen lakia. Riidat pyritään ratkaisemaan neuvottelemalla, ja muuten ne ratkaistaan <<käräjäoikeus, esim. yrityksen kotipaikan käräjäoikeudessa>>.',
+            'Sopimukseen sovelletaan Suomen lakia. Riidat pyritään ratkaisemaan neuvottelemalla, ja muuten ne ratkaistaan Etelä-Karjalan käräjäoikeudessa.',
         },
       ],
     },
