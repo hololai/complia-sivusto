@@ -1,6 +1,7 @@
 // Complian käsittelysopimus (tietosuoja-asetus 28 art.). Luonnos: juristi tarkistaa ennen käyttöä.
 // Tiedot Complia-työkalusta perustuvat sen omaan dokumentaatioon. Asiakkaat eivät kirjaudu työkaluun,
-// joten kirjautumispalvelua ei mainita; Google on alikäsittelijä, koska tiedot tallentuvat sen pilveen.
+// joten kirjautumispalvelua ei mainita. Työkalun toimittaa Famula Group Oy, jonka alihankkijana Google tallentaa
+// tiedot pilveensä. Sähköposti on Planeetta Internet Oy:n (Domainhotelli) palvelussa (päätökset 6.11.2026).
 import { SIVUSTO } from '../../site.config.mjs';
 import type { Asiakirja } from './asiakirja';
 
@@ -156,7 +157,7 @@ export const KASITTELYSOPIMUS: Asiakirja = {
         {
           tyyppi: 'lista',
           kohdat: [
-            'Tiedot ovat Complia-työkalussa, joka toimii Googlen pilvipalvelussa EU:ssa.',
+            'Tiedot ovat Complia-työkalussa, jonka toimittaa Famula Group Oy ja joka toimii Googlen pilvipalvelussa EU:ssa.',
             'Työkaluun kirjautuu vain nimetty asiantuntija, ja istunto päättyy kahdeksan tunnin kuluttua.',
             'Organisaatioiden tiedot erotetaan toisistaan tietokannan pääsysäännöillä, ja niiden toiminta testataan automaattisesti jokaisen muutoksen yhteydessä.',
             'Kehitystyö tehdään erillisessä ympäristössä testidatalla.',
@@ -176,14 +177,19 @@ export const KASITTELYSOPIMUS: Asiakirja = {
           otsikot: ['Alikäsittelijä', 'Tehtävä', 'Sijainti ja siirtoperuste'],
           rivit: [
             [
-              'Google, pilvipalvelu',
+              'Famula Group Oy (Y-tunnus 3358275-6)',
+              'Complia-työkalu: ohjelmisto ja ylläpito',
+              'Suomi',
+            ],
+            [
+              'Google, pilvipalvelu (Famula Group Oy:n alihankkija)',
               'Complia-työkalun tietojen tallennus',
               'EU. Mahdollisiin siirtoihin Yhdysvaltoihin sovelletaan EU–US Data Privacy Frameworkia.',
             ],
             [
-              'Google, Google Workspace',
+              'Planeetta Internet Oy (Domainhotelli, Y-tunnus 1753494-9)',
               'Sähköposti ja asiakirjojen toimitus',
-              'Googlen konesalit, myös EU:n ulkopuolella. Siirtoihin Yhdysvaltoihin sovelletaan EU–US Data Privacy Frameworkia.',
+              'Palvelinkeskukset pääsääntöisesti Suomessa. Mahdollisiin siirtoihin EU:n ja ETA:n ulkopuolelle sovelletaan vakiosopimuslausekkeita.',
             ],
           ],
         },

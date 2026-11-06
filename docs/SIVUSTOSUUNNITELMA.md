@@ -123,14 +123,14 @@ npm run tarkista:julkaisu
 Komento ei mene läpi, ennen kuin kaikki keltaiset Täydennä-kohdat on hoidettu ja `julkaistu: true` on asetettu.
 
 1. `complia.fi` on varattu (6.11.2026). Tarkista vielä nimi PRH:n kaupparekisteristä ja tavaramerkeistä. Julkaisussa osoite kytketään GitHub Pagesiin: DNS-tietueet GitHubin ohjeen mukaan, Pagesin custom domain ja HTTPS päälle, ja työnkulusta poistetaan `SIVUSTON_POLKU`, koska sivusto ei enää ole alipolussa.
-2. Ota info@complia.fi käyttöön Google Workspacessa ennen julkaisua: complia.fi:llä on vain Domainhotellin DNS-palvelu ilman postilaatikkoa, joten posti ei nyt mene perille. Zone Editorissa MX `smtp.google.com` (prioriteetti 1) Domainhotellin MX:n tilalle, SPF `v=spf1 include:_spf.google.com ~all` nykyisen tilalle, DKIM (`google._domainkey`) ja DMARC (`_dmarc`).
+2. Ota info@complia.fi käyttöön Domainhotellin webhotellissa (Planeetta Internet Oy, päätös 6.11.2026). MX ja SPF osoittavat jo Domainhotelliin. Tarkista DKIM ja lisää DMARC (`_dmarc`), ja tilaa käsittelysopimus voimaan webhotellin mukana.
 2. Täytä tiedostoon `site.config.mjs` Y-tunnus, kun Complia GDPR Oy on perustettu (nimi, osoite ja puhelin lisätty 6.11.2026). Asiantuntijat ja julkaisut on lisätty 5.11.2026, kuvat puuttuvat. Molemmille on merkitty FM-tutkinto: varmista, että se pitää paikkansa.
 3. Sivustolla ei ole lomakkeita eikä ajanvarausta (käyttäjän päätökset 6.11.2026). Yhteydenotot tulevat puhelimella tai sähköpostilla sivun `/yhteystiedot` kautta, joten sivuston tietosuojaseloste kattaa vain yhteydenotot ja asiakkuudet. GitHub Pagesia ei mainita selosteessa käyttäjän päätöksellä. Säilytysajat: kirjanpitolaki 2 luku 10 § (6 ja 10 vuotta), laki velan vanhentumisesta 4 § (3 vuotta) ja yhteydenotot 12 kuukautta (oma päätös, ei lakisääteinen).
 4. Päätä hosting ja täydennä `/tietosuoja`. Tee saavutettavuusarviointi ja täydennä `/saavutettavuus`.
 5. Kuntien palvelukuvaus (PDF) tehty 6.11.2026 (`npm run asiakirjat`). Y-tunnus puuttuu siitä, ja tarkistin estää julkaisun, kunnes se on lisätty ja PDF tehty uudelleen. Käsittelysopimus ja toimitusehdot ovat luonnoksina sivuilla `/kasittelysopimus` ja `/toimitusehdot`, ja juristin pitää tarkistaa ne. Ennen julkaisua pitää selvittää:
    - että työkalun tietokanta on EU-alueella
-   - kenen nimissä työkalun pilvisopimus on, jotta käsittelijäksi kirjataan oikea yhtiö
-   - sähköpostipalvelu ja muut alikäsittelijät
+   - työkalun toimittaa Famula Group Oy, jonka nimissä Google-pilvisopimus on; molemmat on kirjattu alikäsittelijöiksi (6.11.2026)
+   - Domainhotellin käsittelysopimus (2022) viittaa vanhoihin vakiosopimuslausekkeisiin (2002/16/EY): kysy päivitetty versio
 6. Heikki ja Miika lukevat kaikki tekstit läpi, koska artikkeleissa on heidän nimensä. Tarkista lopuksi nämä, koska ne voivat muuttua:
    - HE 46/2026 (seuraamusmaksut viranomaisille), oli vireillä 5.11.2026
    - PeVL 40/2026:n sisältö: lausuntoa ei saatu luettua alkuperäisenä
