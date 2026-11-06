@@ -126,7 +126,7 @@ Komento ei mene läpi, ennen kuin kaikki keltaiset Täydennä-kohdat on hoidettu
 2. Täytä tiedostoon `site.config.mjs` Y-tunnus, kun Complia GDPR Oy on perustettu (nimi, osoite ja puhelin lisätty 6.11.2026). Asiantuntijat ja julkaisut on lisätty 5.11.2026, kuvat puuttuvat. Molemmille on merkitty FM-tutkinto: varmista, että se pitää paikkansa.
 3. Sivustolla ei ole lomakkeita eikä ajanvarausta (käyttäjän päätökset 6.11.2026). Yhteydenotot tulevat puhelimella tai sähköpostilla sivun `/yhteystiedot` kautta, joten sivuston tietosuojaseloste kattaa vain yhteydenotot ja asiakkuudet. GitHub Pagesia ei mainita selosteessa käyttäjän päätöksellä. Säilytysajat: kirjanpitolaki 2 luku 10 § (6 ja 10 vuotta), laki velan vanhentumisesta 4 § (3 vuotta) ja yhteydenotot 12 kuukautta (oma päätös, ei lakisääteinen).
 4. Päätä hosting ja täydennä `/tietosuoja`. Tee saavutettavuusarviointi ja täydennä `/saavutettavuus`.
-5. Tee kuntien palvelukuvaus (PDF). Käsittelysopimus ja toimitusehdot ovat luonnoksina sivuilla `/kasittelysopimus` ja `/toimitusehdot`, ja juristin pitää tarkistaa ne. Ennen julkaisua pitää selvittää:
+5. Kuntien palvelukuvaus (PDF) tehty 6.11.2026 (`npm run asiakirjat`). Y-tunnus puuttuu siitä, ja tarkistin estää julkaisun, kunnes se on lisätty ja PDF tehty uudelleen. Käsittelysopimus ja toimitusehdot ovat luonnoksina sivuilla `/kasittelysopimus` ja `/toimitusehdot`, ja juristin pitää tarkistaa ne. Ennen julkaisua pitää selvittää:
    - että työkalun tietokanta on EU-alueella
    - kenen nimissä työkalun pilvisopimus on, jotta käsittelijäksi kirjataan oikea yhtiö
    - sähköpostipalvelu ja muut alikäsittelijät

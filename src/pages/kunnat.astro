@@ -3,7 +3,8 @@ import { getEntry } from 'astro:content';
 import Perus from '../layouts/Perus.astro';
 import Kysymykset from '../components/Kysymykset.astro';
 import Loppukehotus from '../components/Loppukehotus.astro';
-import Tayta from '../components/Tayta.astro';
+import { statSync } from 'node:fs';
+import { join } from 'node:path';
 import { SIVUSTO } from '../../site.config.mjs';
 import { ARVIOINNIT, HINNAT, JARJESTELMAT, JATKUVAT, eur } from '../data/hinnat';
 import { usein } from '../data/schema';
@@ -26,6 +27,10 @@ const KYSYMYKSET = [
     v: 'Kyllä. Palvelukuvauksessa on sisältö, hinnat ja toimitusajat valmiina liitettäväksi hankintapäätökseen.',
   },
 ];
+
+// PDF tehdään komennolla npm run asiakirjat (scripts/tee-palvelukuvaus.mjs) samasta datasta kuin sivut.
+const PALVELUKUVAUS = '/lataukset/complia-palvelukuvaus-kunnille.pdf';
+const palvelukuvausKt = Math.round(statSync(join(process.cwd(), 'public', PALVELUKUVAUS)).size / 1024);
 
 const artikkeliTekoaly = await getEntry('artikkelit', 'tekoaly-tyopaikalla-tietosuoja');
 const artikkeliTtp = await getEntry('artikkelit', 'tietotilinpaatos-sisalto-ja-aikataulu');
@@ -64,9 +69,10 @@ const artikkeliTtp = await getEntry('artikkelit', 'tietotilinpaatos-sisalto-ja-a
         </article>
       </div>
       <p class="pieni">Hinnat alv 0 %. Kaikki koot ja palvelut näet <a href="/hinnasto">hinnastosta</a>.</p>
-      <p>
-        <Tayta>ladattava palvelukuvaus (PDF): sisältö, hinnat ja toimitusajat hankintapäätöksen liitteeksi. Tehdään, kun yrityksen tiedot ovat selvillä.</Tayta>
-      </p>
+      <div class="lataus">
+        <a class="painike" href={PALVELUKUVAUS}>Lataa palvelukuvaus (PDF, {palvelukuvausKt} kt)</a>
+        <p class="pieni">Sisältö, hinnat ja toimitusajat valmiina hankintapäätöksen liitteeksi.</p>
+      </div>
     </div>
   </section>
 

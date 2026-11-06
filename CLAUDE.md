@@ -18,7 +18,7 @@ Node 24 (`.nvmrc`). Aja ensin `nvm use`.
 | `npm run tarkista` | Build ja SEO-, saavutettavuus- ja tietosuojatarkistus |
 | `npm run tarkista:julkaisu` | Sama, ja puuttuvat tiedot ovat virheitä |
 | `npm run salasana` | Asettaa esikatselun salasanan (tiiviste tiedostoon `site.config.mjs`) |
-| `npm run asiakirjat` | Rakentaa ladattavat Word-tiedostot (selostepohja ja käsittelysopimus) datasta |
+| `npm run asiakirjat` | Rakentaa ladattavat Word-tiedostot (selostepohja ja käsittelysopimus) ja kuntien palvelukuvauksen (PDF, tulostetaan Chromella) datasta. Aja aina, kun hinnat tai yrityksen tiedot muuttuvat: tarkistin huomaa vanhentuneen PDF:n. |
 
 ## Rakenne
 

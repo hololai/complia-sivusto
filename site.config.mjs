@@ -22,7 +22,7 @@ export const SIVUSTO = {
   },
 
   // Toimii vasta, kun verkkotunnus ja sähköposti on otettu käyttöön.
-  sahkoposti: 'hei@complia.fi',
+  sahkoposti: 'info@complia.fi',
 
   // Yhtiö on perusteilla 6.11.2026, joten Y-tunnus puuttuu vielä.
   yritys: {

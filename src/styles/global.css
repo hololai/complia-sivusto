@@ -1493,6 +1493,16 @@ a:hover {
     justify-items: end;
   }
 }
+.lataus {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  margin-top: 1.5rem;
+}
+.lataus .pieni {
+  margin: 0;
+}
 .osio--aloitus {
   padding-block: clamp(2rem, 4vw, 3rem) 0;
 }

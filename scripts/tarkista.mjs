@@ -4,6 +4,7 @@ import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { SIVUSTO } from '../site.config.mjs';
+import { PDF_POLKU, TILA_POLKU, palvelukuvaus } from './palvelukuvaus.mjs';
 import { ARVIOINNIT, HINNAT, JARJESTELMAT, JARJESTELMIEN_JARJESTYS, KOOT, PAKETTI, pakettiErikseen } from '../src/data/hinnat.ts';
 
 const JULKAISU = process.argv.includes('--julkaisu');
@@ -216,6 +217,18 @@ const koko = tiedostot(DIST)
   .filter((t) => /\.(js|css|woff2)$/.test(t))
   .map((t) => ({ nimi: relative(DIST, t), tavua: statSync(t).size }));
 const skriptit = koko.filter((t) => t.nimi.endsWith('.js')).reduce((a, t) => a + t.tavua, 0);
+
+// Kuntien palvelukuvaus (PDF) tehdään samasta datasta kuin sivut. Jos hinnat tai yrityksen tiedot
+// muuttuvat, PDF pitää tehdä uudelleen, muuten liitteessä olisi vanhoja hintoja.
+const kuvaus = palvelukuvaus();
+const kuvauksenTila = existsSync(TILA_POLKU) ? JSON.parse(readFileSync(TILA_POLKU, 'utf8')) : null;
+if (!existsSync(join(DIST, PDF_POLKU))) virhe(PDF_POLKU, 'palvelukuvaus puuttuu: aja npm run asiakirjat');
+else if (kuvauksenTila?.tiiviste !== kuvaus.tiiviste) virhe(PDF_POLKU, 'palvelukuvaus on vanhentunut: aja npm run asiakirjat');
+if (kuvaus.puuttuvat.length) {
+  const viesti = `palvelukuvauksesta puuttuu: ${kuvaus.puuttuvat.join(', ')}`;
+  if (JULKAISU) virhe(PDF_POLKU, viesti);
+  else varoitukset.push(`${PDF_POLKU}: ${viesti}`);
+}
 
 // Ei evästeitä eikä selaintallennusta. Salasanaportti (portti.js) on ainoa poikkeus, ja se poistuu julkaisussa.
 for (const t of koko.filter((k) => k.nimi.endsWith('.js') && k.nimi !== 'portti.js')) {
