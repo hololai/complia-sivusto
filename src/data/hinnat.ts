@@ -209,9 +209,10 @@ export const ARVIOINNIT = {
     polku: '/perusoikeusvaikutusten-arviointi',
     lyhyt: 'Suuririskisen tekoälyn vaikutukset perusoikeuksiin.',
     yksikko: 'järjestelmää kohden',
-    pieni: 1290,
-    keski: 2490,
-    laaja: 4900,
+    // Työkalu tekee arvioinnin rungon, joten hinta on vaikutustenarviointia pienempi (päätös 6.11.2026).
+    pieni: 690,
+    keski: 990,
+    laaja: 1490,
     toimitus: '5–10 arkipäivää',
   },
 } as const;

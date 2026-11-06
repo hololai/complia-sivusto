@@ -47,7 +47,7 @@ Hinnoittelu on kolmessa osassa:
 
 GAP-analyysi (6.11.2026, käyttäjän ehdotus): tietosuojatarkastus on sisällöltään GAP-analyysi, joten palvelussa käytetään molempia nimiä ("Tietosuojatarkastus eli GAP-analyysi"). Se on suositeltu aloitus: ensimmäisenä palvelulistoissa, Aloita tästä -laatikko etusivulla ja hinnastossa. Jos asiakas tilaa analyysin jälkeen paketin, analyysin hinta vähennetään (`JATKO` tiedostossa `hinnat.ts`): loput paketista 500 / 990 / 1 590 €. Hyvitykselle ei ole vielä määräaikaa, ja se pitää lisätä toimitusehtoihin ennen julkaisua.
 
-Erikseen ostettavat arvioinnit: ennakkoarvio 290 € (hyvitetään, jos jatketaan arviointiin), tasapainotesti 290 € käsittelyä kohden, siirtovaikutusten arviointi 390 € toimittajaa kohden ja FRIA 1 290 / 2 490 / 4 900 €. Kolmella ensimmäisellä on yksi hinta koosta riippumatta, koska työ on käsittely- tai toimittajakohtaista eikä kasva organisaation koon mukana.
+Erikseen ostettavat arvioinnit: ennakkoarvio 290 € (hyvitetään, jos jatketaan arviointiin), tasapainotesti 290 € käsittelyä kohden, siirtovaikutusten arviointi 390 € toimittajaa kohden ja FRIA 690 / 990 / 1 490 € (laskettu 6.11.2026, koska työkalu tekee arvioinnin rungon). Kolmella ensimmäisellä on yksi hinta koosta riippumatta, koska työ on käsittely- tai toimittajakohtaista eikä kasva organisaation koon mukana.
 
 Perustelut (markkinakatsaus 6.11.2026):
 
