@@ -29,26 +29,16 @@ export const SIVUSTO = {
     nimi: 'Complia GDPR Oy',
     ytunnus: null,
     katuosoite: 'Huvilatie 7, 54100 Joutseno',
-    puhelin: '040 964 8668',
   },
 
-  // Nimetyt asiantuntijat ovat hakukoneille ja ostajille tärkein luottamustekijä.
-  // Pätevyyksiin vain sellaista, minkä voi osoittaa: emme ole juristeja, eikä sitä anneta ymmärtää.
-  asiantuntijat: [
-    {
-      nimi: 'Heikki Laivamaa',
-      titteli: 'Tietosuoja-asiantuntija',
-      kuvaus:
-        'Heikki on filosofian maisteri ja työskentelee IT-alan asiantuntijatehtävissä. Hän on suorittanut FCG:n tietosuojavastaavan koulutusohjelman ja kirjoittanut tekoälyn tietosuojaoppaat yhdessä Miika Miininin ja Matti Kähkösen kanssa.',
-      linkedin: null,
-    },
-    {
-      nimi: 'Miika Miinin',
-      titteli: 'Tietosuoja-asiantuntija',
-      kuvaus:
-        'Miika on filosofian maisteri ja työskentelee IT-alan asiantuntijatehtävissä. Hän on suorittanut FCG:n tietosuojavastaavan koulutusohjelman ja kirjoittanut tekoälyn tietosuojaoppaat yhdessä Heikki Laivamaan ja Matti Kähkösen kanssa.',
-      linkedin: null,
-    },
+  // Asiantuntijoiden nimiä ja puhelinnumeroa ei näytetä sivuilla (päätös 6.11.2026): tausta kerrotaan
+  // yhteisesti, ja yhteydenotot tulevat tarjouspyynnöllä tai sähköpostilla. Pätevyyksiin vain sellaista,
+  // minkä voi osoittaa: emme ole juristeja, eikä sitä anneta ymmärtää.
+  tiimi: [
+    'filosofian maisterin tutkinto',
+    'FCG:n tietosuojavastaavan koulutusohjelma',
+    'asiantuntijatehtävät IT-alalla',
+    'kaksi julkaistua opasta tekoälyn tietosuojasta',
   ],
 
   // Asiantuntijoiden kirjoittamat julkaisut. Näytetään Meistä-sivulla ja tekoälyartikkelien lähteissä.
@@ -56,14 +46,12 @@ export const SIVUSTO = {
     {
       nimi: 'Tekoälypalvelun vaikutustenarviointi',
       kuvaus: 'Askel askeleelta -opas tekoälypalvelun tietosuojan vaikutustenarviointiin käytännön esimerkkeineen.',
-      tekijat: 'Miika Miinin, Matti Kähkönen ja Heikki Laivamaa',
       julkaistu: '2025-05-27',
       url: 'https://aoe.fi/materiaali/4848',
     },
     {
       nimi: 'Tekoälyn tietosuojattu käyttöönotto oppilaitoksessa',
       kuvaus: 'Opas tekoälyn tietosuojattuun käyttöönottoon oppilaitoksessa.',
-      tekijat: 'Miika Miinin, Matti Kähkönen ja Heikki Laivamaa',
       julkaistu: '2025-05-27',
       url: 'https://aoe.fi/materiaali/4849',
     },

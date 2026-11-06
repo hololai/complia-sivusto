@@ -2,7 +2,6 @@
 import Perus from '../layouts/Perus.astro';
 import Tayta from '../components/Tayta.astro';
 import { SIVUSTO } from '../../site.config.mjs';
-import { puhelinLinkki } from '../data/html';
 
 // Osoite on /tietosuoja, koska /tietosuojaseloste on palvelusivun tärkein hakuosoite.
 // Sivusto on staattinen eikä kerää kävijöistä mitään, joten seloste kattaa vain yhteydenotot ja asiakkuudet.
@@ -33,7 +32,7 @@ const { yritys } = SIVUSTO;
         {yritys.nimi ?? <Tayta>yrityksen nimi</Tayta>}, Y-tunnus {yritys.ytunnus ?? <Tayta>Y-tunnus</Tayta>},
         {' '}{yritys.katuosoite ?? <Tayta>osoite</Tayta>}. Tietosuoja-asioissa tavoitat meidät osoitteesta
         <a href={`mailto:${SIVUSTO.sahkoposti}`}>{SIVUSTO.sahkoposti}</a>
-        {yritys.puhelin && <> tai numerosta <a href={puhelinLinkki(yritys.puhelin)}>{yritys.puhelin}</a></>}.
+.
       </p>
 
       <h2>Mitä tietoja käsittelemme ja miksi</h2>
@@ -44,7 +43,7 @@ const { yritys } = SIVUSTO;
           </thead>
           <tbody>
             <tr>
-              <td>Puheluihin ja sähköposteihin vastaaminen</td>
+              <td>Tarjouspyyntöihin ja sähköposteihin vastaaminen</td>
               <td>nimi, yhteystiedot, organisaatio ja viestin sisältö</td>
               <td>oikeutettu etu: vastaamme meihin yhteyttä ottaville</td>
               <td>
@@ -71,7 +70,10 @@ const { yritys } = SIVUSTO;
         </table>
       </div>
       <p>Saamme tiedot sinulta itseltäsi tai organisaatioltasi, kun otat yhteyttä tai teette tilauksen.</p>
-      <p>Pikatestin vastauksia ei lähetetä eikä tallenneta. Tulos lasketaan vain selaimessasi.</p>
+      <p>
+        Tarjouspyyntölomake ei lähetä tietoja: se kokoaa viestin, jonka lähetät itse omasta sähköpostistasi.
+        Pikatestin vastauksia ei lähetetä eikä tallenneta, vaan tulos lasketaan vain selaimessasi.
+      </p>
 
       <h2>Evästeet ja kävijäseuranta</h2>
       <p>
@@ -85,10 +87,10 @@ const { yritys } = SIVUSTO;
         puolestamme käsittelysopimuksen perusteella:
       </p>
       <ul>
-        <li>Planeetta Internet Oy (Domainhotelli): sähköposti</li>
+        <li>Planeetta Internet Oy (Domainhotelli): sähköpostin vastaanotto ja edelleenohjaus</li>
         <li>
-          Famula Group Oy: Complia-työkalu, johon toimeksiantojen aineisto tallennetaan. Työkalu toimii Googlen
-          pilvipalvelussa, ja Google on Famula Group Oy:n alihankkija.
+          Famula Group Oy: sähköposti ja Complia-työkalu, johon toimeksiantojen aineisto tallennetaan. Molemmat
+          toimivat Googlen palveluissa, ja Google on Famula Group Oy:n alihankkija.
         </li>
         <li>
           Anmara Oy: kirjanpito ja laskutus. Kirjanpito tehdään Lemonsoft Oyj:n taloushallinto-ohjelmistolla.
@@ -97,10 +99,10 @@ const { yritys } = SIVUSTO;
 
       <h2>Siirrot EU:n ja ETA:n ulkopuolelle</h2>
       <p>
-        Sähköposti on Planeetta Internet Oy:n palvelinkeskuksissa, jotka sijaitsevat pääsääntöisesti Suomessa.
-        Complia-työkalun tiedot tallennetaan Googlen pilvipalveluun EU:ssa, ja mahdollisiin siirtoihin
-        Yhdysvaltoihin sovelletaan EU–US Data Privacy Frameworkia. Kirjanpidon tiedot ovat Lemonsoftin palvelussa
-        EU:ssa.
+        Sähköposti vastaanotetaan Planeetta Internet Oy:n palvelimilla, jotka sijaitsevat pääsääntöisesti Suomessa,
+        ja ohjataan Googlen sähköpostipalveluun, jossa viestejä voidaan käsitellä myös EU:n ulkopuolella.
+        Complia-työkalun tiedot tallennetaan Googlen pilvipalveluun EU:ssa. Siirtoihin Yhdysvaltoihin sovelletaan
+        EU–US Data Privacy Frameworkia. Kirjanpidon tiedot ovat Lemonsoftin palvelussa EU:ssa.
       </p>
 
       <h2>Oikeutesi</h2>

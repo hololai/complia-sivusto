@@ -2,7 +2,6 @@
 import { getCollection } from 'astro:content';
 import Perus from '../../layouts/Perus.astro';
 import Kysymykset from '../../components/Kysymykset.astro';
-import Tayta from '../../components/Tayta.astro';
 import { SIVUSTO } from '../../../site.config.mjs';
 import { sijoitaHinnat } from '../../data/hinnat';
 import { artikkeli as artikkeliSchema, usein } from '../../data/schema';
@@ -44,13 +43,7 @@ const muut = d.liittyvat.map((id) => {
       <h1 class="artikkeli__h1">{d.h1}</h1>
       <p class="artikkeli__tiedot">
         Päivitetty <time datetime={iso(d.paivitetty)}>{muotoile(d.paivitetty)}</time> ·
-        {
-          SIVUSTO.asiantuntijat.length ? (
-            <a href="/meista">{SIVUSTO.asiantuntijat.map((a) => a.nimi).join(' ja ')}</a>
-          ) : (
-            <Tayta>kirjoittajan nimi</Tayta>
-          )
-        }
+        <a href="/meista">Complian asiantuntijat</a>
       </p>
       <div class="proosa" set:html={sisalto} />
       {

@@ -27,9 +27,9 @@ usein:
   - k: "Riittääkö pelkkä tietosuoja?"
     v: "Ei välttämättä. EU:n tekoälyasetus asettaa omat velvoitteensa, ja työntekijöitä koskevissa käsittelyissä sovelletaan myös työelämän tietosuojalakia."
 lahteet:
-  - nimi: "Miinin, Kähkönen ja Laivamaa: Tekoälypalvelun vaikutustenarviointi (aoe.fi, 2025)"
+  - nimi: "Tekoälypalvelun vaikutustenarviointi (aoe.fi, 2025)"
     url: "https://aoe.fi/materiaali/4848"
-  - nimi: "Miinin, Kähkönen ja Laivamaa: Tekoälyn tietosuojattu käyttöönotto oppilaitoksessa (aoe.fi, 2025)"
+  - nimi: "Tekoälyn tietosuojattu käyttöönotto oppilaitoksessa (aoe.fi, 2025)"
     url: "https://aoe.fi/materiaali/4849"
   - nimi: "Tietosuoja-asetus (EU) 2016/679, 28, 30 ja 35 artikla"
     url: "https://eur-lex.europa.eu/legal-content/FI/TXT/?uri=CELEX:32016R0679"

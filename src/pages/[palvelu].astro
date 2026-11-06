@@ -102,7 +102,7 @@ if (d.artikkeli && !artikkeli) throw new Error(`Palvelun ${p.id} artikkelia ei l
           <strong>Toimitus:</strong> {toimitus}
           {yksikko && <><br />Hinta {yksikko}.</>}
         </p>
-        <a class="painike" href="/yhteystiedot">{onJatkuva ? 'Pyydä tarjous' : 'Tilaa tai kysy lisää'}</a>
+        <a class="painike" href={`/yhteystiedot?palvelu=${p.id}`}>{onJatkuva ? 'Pyydä tarjous' : 'Tilaa tai kysy lisää'}</a>
         {
           d.avain === 'vaikutustenarviointi' && (
             <p class="pieni">
@@ -138,6 +138,6 @@ if (d.artikkeli && !artikkeli) throw new Error(`Palvelun ${p.id} artikkelia ei l
   <Loppukehotus
     otsikko={`${d.nimi}: tilaa tai kysy lisää`}
     teksti="Kerro lyhyesti tilanteesi, niin vahvistamme kiinteän hinnan ja toimitusajan."
-    linkki="/yhteystiedot"
+    linkki={`/yhteystiedot?palvelu=${p.id}`}
   />
 </Perus>

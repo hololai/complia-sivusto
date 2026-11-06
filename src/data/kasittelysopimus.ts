@@ -178,17 +178,17 @@ export const KASITTELYSOPIMUS: Asiakirja = {
           rivit: [
             [
               'Famula Group Oy (Y-tunnus 3358275-6)',
-              'Complia-työkalu: ohjelmisto ja ylläpito',
+              'Complia-työkalu (ohjelmisto ja ylläpito) ja sähköposti',
               'Suomi',
             ],
             [
-              'Google, pilvipalvelu (Famula Group Oy:n alihankkija)',
-              'Complia-työkalun tietojen tallennus',
-              'EU. Mahdollisiin siirtoihin Yhdysvaltoihin sovelletaan EU–US Data Privacy Frameworkia.',
+              'Google (Famula Group Oy:n alihankkija)',
+              'Complia-työkalun tietojen tallennus ja sähköposti (Google Workspace)',
+              'Työkalun tiedot EU:ssa. Sähköpostia voidaan käsitellä myös EU:n ulkopuolella. Siirtoihin Yhdysvaltoihin sovelletaan EU–US Data Privacy Frameworkia.',
             ],
             [
               'Planeetta Internet Oy (Domainhotelli, Y-tunnus 1753494-9)',
-              'Sähköposti ja asiakirjojen toimitus',
+              'Sähköpostin vastaanotto ja edelleenohjaus',
               'Palvelinkeskukset pääsääntöisesti Suomessa. Mahdollisiin siirtoihin EU:n ja ETA:n ulkopuolelle sovelletaan vakiosopimuslausekkeita.',
             ],
           ],

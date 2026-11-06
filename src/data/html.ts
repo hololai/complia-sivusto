@@ -6,7 +6,3 @@ export function kaariTaulukot(html: string): string {
     .replace(/<\/table>/g, '</table></div>');
 }
 
-/** Suomalainen puhelinnumero tel:-linkiksi kansainvälisessä muodossa. */
-export function puhelinLinkki(numero: string): string {
-  return `tel:${numero.replace(/[\s-]/g, '').replace(/^0/, '+358')}`;
-}

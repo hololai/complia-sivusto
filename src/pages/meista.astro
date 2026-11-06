@@ -1,11 +1,10 @@
 ---
 import Perus from '../layouts/Perus.astro';
-import Tayta from '../components/Tayta.astro';
+import Ikoni from '../components/Ikoni.astro';
 import Loppukehotus from '../components/Loppukehotus.astro';
 import { SIVUSTO } from '../../site.config.mjs';
-import { henkilo } from '../data/schema';
 
-const { asiantuntijat, julkaisut } = SIVUSTO;
+const { tiimi, julkaisut } = SIVUSTO;
 const paivays = (iso: string) => {
   const [v, k, p] = iso.split('-').map(Number);
   return `${p}.${k}.${v}`;
@@ -14,9 +13,8 @@ const paivays = (iso: string) => {
 
 <Perus
   otsikko={`Meistä: tietosuojan ja IT:n asiantuntijat | ${SIVUSTO.nimi}`}
-  kuvaus="Complian asiantuntijat Heikki Laivamaa ja Miika Miinin yhdistävät tietosuojan ja IT:n. Lue tausta, oppaamme tekoälyn tietosuojasta ja työtapamme."
+  kuvaus="Complian asiantuntijat yhdistävät tietosuojan ja IT:n. Lue taustamme, oppaamme tekoälyn tietosuojasta ja se, miten käsittelemme tietojanne."
   murut={[{ nimi: 'Meistä', polku: '/meista' }]}
-  schema={asiantuntijat.map((a) => henkilo(a))}
 >
   <section class="osio">
     <div class="kehys">
@@ -28,28 +26,20 @@ const paivays = (iso: string) => {
         </p>
       </div>
 
-      <div class="ruudukko ruudukko--2">
-        {
-          asiantuntijat.map((a) => (
-            <article class="kortti asiantuntija">
-              <h2>{a.nimi}</h2>
-              <p class="nostin">{a.titteli}</p>
-              <p>{a.kuvaus}</p>
-              <p class="pieni">
-                <a href="#oppaat">Katso oppaat</a>
-              </p>
-              {a.linkedin && (
-                <p>
-                  <a href={a.linkedin} rel="noopener me">
-                    LinkedIn
-                  </a>
-                </p>
-              )}
-            </article>
-          ))
-        }
-      </div>
-      <p><Tayta>asiantuntijoiden kuvat</Tayta></p>
+      <article class="kortti tiimi">
+        <h2>Kaksi tietosuojan ja IT:n asiantuntijaa</h2>
+        <ul class="tarkistukset tiimi__lista">
+          {
+            tiimi.map((t) => (
+              <li>
+                <Ikoni nimi="tarkistus" />
+                <span>{t.charAt(0).toUpperCase() + t.slice(1)}</span>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="pieni"><a href="#oppaat">Katso oppaat</a></p>
+      </article>
     </div>
   </section>
 
@@ -72,9 +62,7 @@ const paivays = (iso: string) => {
                 </a>
               </h3>
               <p>{j.kuvaus}</p>
-              <p class="pieni">
-                {j.tekijat}. Julkaistu {paivays(j.julkaistu)}, aoe.fi.
-              </p>
+              <p class="pieni">Julkaistu {paivays(j.julkaistu)}, aoe.fi.</p>
             </article>
           ))
         }

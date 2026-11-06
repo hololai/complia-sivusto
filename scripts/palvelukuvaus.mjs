@@ -102,9 +102,9 @@ export function palvelukuvaus() {
   <table class="tiedot">
     <tbody>
       <tr><th scope="row">Yritys</th><td>${tieto(y.nimi, 'yrityksen nimi', puuttuvat)}</td><th scope="row">Y-tunnus</th><td>${tieto(y.ytunnus, 'Y-tunnus', puuttuvat)}</td></tr>
-      <tr><th scope="row">Osoite</th><td>${tieto(y.katuosoite, 'osoite', puuttuvat)}</td><th scope="row">Puhelin</th><td>${tieto(y.puhelin, 'puhelin', puuttuvat)}</td></tr>
-      <tr><th scope="row">Sähköposti</th><td>${html(SIVUSTO.sahkoposti)}</td><th scope="row">Verkkosivut</th><td>${html(domain)}</td></tr>
-      <tr><th scope="row">Asiantuntijat</th><td colspan="3">${SIVUSTO.asiantuntijat.map((a) => `${html(a.nimi)}, ${html(a.titteli.toLowerCase())}`).join(' · ')}</td></tr>
+      <tr><th scope="row">Osoite</th><td>${tieto(y.katuosoite, 'osoite', puuttuvat)}</td><th scope="row">Sähköposti</th><td>${html(SIVUSTO.sahkoposti)}</td></tr>
+      <tr><th scope="row">Verkkosivut</th><td>${html(domain)}</td><th scope="row">Tarjouspyyntö</th><td>${html(domain)}/yhteystiedot</td></tr>
+      <tr><th scope="row">Asiantuntijat</th><td colspan="3">${SIVUSTO.tiimi.map(iso).join(' · ')}</td></tr>
     </tbody>
   </table>
 </section>
@@ -214,7 +214,7 @@ export function palvelukuvaus() {
 <section class="palvelu">
   <h2>Näin työ etenee</h2>
   <ol>
-    <li><strong>Yhteydenotto.</strong> Soittakaa tai lähettäkää sähköpostia: mitä tarvitsette ja aikataulu.</li>
+    <li><strong>Tarjouspyyntö.</strong> Lähettäkää tarjouspyyntö tai sähköpostia: mitä tarvitsette ja aikataulu.</li>
     <li><strong>Tilausvahvistus.</strong> Kiinteä hinta ja toimitusaika kirjallisena. Tilaukseen liitetään käsittelysopimus (tietosuoja-asetuksen 28 artikla).</li>
     <li><strong>Aineisto ja haastattelut.</strong> Palvelukohtaisesti edellä kuvatulla tavalla.</li>
     <li><strong>Toimitus.</strong> Asiakirjat ovat teidän, ja saatte ne muokattavina tiedostoina.</li>

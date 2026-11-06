@@ -1567,6 +1567,71 @@ a:hover {
   margin-bottom: 0.75rem;
 }
 
+/* Tarjouspyyntö: kokoaa sähköpostiviestin, ei lähetä mitään */
+.tarjous {
+  display: grid;
+  gap: 0.25rem 1rem;
+  margin-top: 1.75rem;
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+  border: 1px solid var(--viiva);
+  border-radius: 16px;
+  background: var(--valkoinen);
+  box-shadow: var(--varjo-1);
+}
+.tarjous__rivi {
+  display: grid;
+  gap: 0 1rem;
+}
+@media (min-width: 36rem) {
+  .tarjous__rivi {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.kentta-ryhma {
+  margin: 0 0 0.85rem;
+}
+.kentta-ryhma label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.3rem;
+}
+.kentta-ryhma input,
+.kentta-ryhma select,
+.kentta-ryhma textarea {
+  width: 100%;
+  padding: 0.62rem 0.75rem;
+  font: inherit;
+  color: inherit;
+  background: var(--valkoinen);
+  border: 1.5px solid #8a8f88;
+  border-radius: 8px;
+}
+.kentta-ryhma :is(input, select, textarea):focus-visible {
+  border-color: var(--kuusi);
+}
+.kentta-ryhma .apu {
+  display: block;
+  font-size: 0.88rem;
+  color: var(--harmaa);
+  margin-top: 0.3rem;
+}
+.tarjous .painikkeet {
+  margin-top: 0.25rem;
+}
+.tarjous__tila {
+  min-height: 1.5em;
+  margin: 0.75rem 0 0.5rem;
+  font-weight: 600;
+  color: var(--kuusi);
+}
+.tiimi .tarkistukset {
+  margin-bottom: 1rem;
+}
+.tiimi .tarkistukset svg {
+  color: var(--kuusi);
+}
+
 /* Pikatesti */
 .testi {
   counter-reset: kysymys;

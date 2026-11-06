@@ -1,70 +1,132 @@
 ---
-// Sivustolla ei ole lomakkeita (päätös 6.11.2026): yhteydenotot tulevat puhelimella tai sähköpostilla,
-// joten sivusto ei käsittele kävijöiden tietoja lainkaan.
+// Tarjouspyyntö ilman palvelinta (päätös 6.11.2026): lomake kokoaa viestin, jonka kävijä lähettää omasta
+// sähköpostistaan. Sivusto ei lähetä eikä tallenna mitään, joten evästeitä tai lomakepalvelua ei tarvita.
+// Ilman JavaScriptiä lomake pysyy piilossa ja sähköpostiosoite riittää.
 import Perus from '../layouts/Perus.astro';
 import Tayta from '../components/Tayta.astro';
 import Ikoni from '../components/Ikoni.astro';
 import { SIVUSTO } from '../../site.config.mjs';
-import { puhelinLinkki } from '../data/html';
+import { ARVIOINNIT, ARVIOINTIEN_JARJESTYS, HINNAT, JATKUVAT, KOOT, PAKETTI, PALVELUJEN_JARJESTYS } from '../data/hinnat';
 
 const { yritys } = SIVUSTO;
+const PALVELUT = [
+  { arvo: '', nimi: 'En ole vielä varma' },
+  { arvo: 'paketti', nimi: `${PAKETTI.nimi} -paketti` },
+  ...PALVELUJEN_JARJESTYS.map((a) => ({ arvo: HINNAT[a].polku.slice(1), nimi: HINNAT[a].nimi })),
+  ...ARVIOINTIEN_JARJESTYS.map((a) => ({ arvo: ARVIOINNIT[a].polku.slice(1), nimi: ARVIOINNIT[a].nimi })),
+  { arvo: JATKUVAT.vastaava.polku.slice(1), nimi: JATKUVAT.vastaava.nimi },
+  { arvo: 'kunnossa', nimi: JATKUVAT.kunnossa.nimi },
+];
+const TYYPIT = ['Yritys', 'Kunta tai kuntayhtymä', 'Oppilaitos', 'Yhdistys tai säätiö', 'Muu'];
 ---
 
 <Perus
-  otsikko={`Yhteystiedot: puhelin ja sähköposti | ${SIVUSTO.nimi}`}
-  kuvaus="Tilaa tietosuojapalvelu tai kysy lisää puhelimella tai sähköpostilla. Vahvistamme kiinteän hinnan ja toimitusajan kirjallisena ennen työn alkua."
-  murut={[{ nimi: 'Yhteystiedot', polku: '/yhteystiedot' }]}
+  otsikko={`Pyydä tarjous tietosuojapalvelusta | ${SIVUSTO.nimi}`}
+  kuvaus="Pyydä tarjous tietosuojaselosteesta, GAP-analyysista tai vaikutustenarvioinnista. Vahvistamme kiinteän hinnan ja toimitusajan kirjallisena."
+  murut={[{ nimi: 'Pyydä tarjous', polku: '/yhteystiedot' }]}
 >
   <section class="osio">
     <div class="kehys palvelu__ruudukko">
       <div>
-        <h1>Ota yhteyttä</h1>
+        <h1>Pyydä tarjous</h1>
         <p class="johdatus">
-          Soita tai lähetä sähköpostia. Kerro lyhyesti, mitä tarvitsette, niin vahvistamme kiinteän hinnan ja
-          toimitusajan kirjallisena ennen kuin työ alkaa.
+          Kerro lyhyesti, mitä tarvitsette. Vahvistamme kiinteän hinnan ja toimitusajan kirjallisena ennen kuin työ
+          alkaa.
         </p>
-        <ol class="vaiheet yhteys__vaiheet">
-          <li>
-            <h2 class="yhteys__h">Kerro tilanteesi</h2>
-            <p>Organisaation nimi ja koko, mitä palvelua tarvitsette ja toivottu aikataulu.</p>
-          </li>
-          <li>
-            <h2 class="yhteys__h">Saat tilausvahvistuksen</h2>
-            <p>Kiinteä hinta ja toimitusaika kirjallisena.</p>
-          </li>
-          <li>
-            <h2 class="yhteys__h">Hyväksyt valmiit asiakirjat</h2>
-            <p>Lasku lähtee vasta hyväksynnän jälkeen.</p>
-          </li>
-        </ol>
+
+        <form class="tarjous" data-tarjous data-osoite={SIVUSTO.sahkoposti} hidden novalidate>
+          <div class="tarjous__rivi">
+            <p class="kentta-ryhma">
+              <label for="etunimi">Etunimi *</label>
+              <input id="etunimi" name="etunimi" type="text" autocomplete="given-name" required />
+            </p>
+            <p class="kentta-ryhma">
+              <label for="sukunimi">Sukunimi *</label>
+              <input id="sukunimi" name="sukunimi" type="text" autocomplete="family-name" required />
+            </p>
+          </div>
+          <div class="tarjous__rivi">
+            <p class="kentta-ryhma">
+              <label for="sahkoposti">Sähköposti *</label>
+              <input id="sahkoposti" name="sahkoposti" type="email" autocomplete="email" required />
+            </p>
+            <p class="kentta-ryhma">
+              <label for="puhelin">Puhelin</label>
+              <input id="puhelin" name="puhelin" type="tel" autocomplete="tel" />
+            </p>
+          </div>
+          <div class="tarjous__rivi">
+            <p class="kentta-ryhma">
+              <label for="organisaatio">Organisaatio *</label>
+              <input id="organisaatio" name="organisaatio" type="text" autocomplete="organization" required />
+            </p>
+            <p class="kentta-ryhma">
+              <label for="tehtava">Tehtävänimike</label>
+              <input id="tehtava" name="tehtava" type="text" autocomplete="organization-title" />
+            </p>
+          </div>
+          <div class="tarjous__rivi">
+            <p class="kentta-ryhma">
+              <label for="tyyppi">Organisaation tyyppi *</label>
+              <select id="tyyppi" name="tyyppi" required>
+                <option value="">Valitse</option>
+                {TYYPIT.map((t) => <option>{t}</option>)}
+              </select>
+            </p>
+            <p class="kentta-ryhma">
+              <label for="koko">Henkilöstön määrä *</label>
+              <select id="koko" name="koko" required>
+                <option value="">Valitse</option>
+                {KOOT.map((k) => <option value={k.lyhyt}>{k.lyhyt}</option>)}
+              </select>
+            </p>
+          </div>
+          <p class="kentta-ryhma">
+            <label for="palvelu">Palvelu</label>
+            <select id="palvelu" name="palvelu">
+              {PALVELUT.map((p) => <option value={p.arvo}>{p.nimi}</option>)}
+            </select>
+          </p>
+          <p class="kentta-ryhma">
+            <label for="viesti">Mitä tarvitsette? *</label>
+            <textarea id="viesti" name="viesti" rows="5" required aria-describedby="viesti-ohje"></textarea>
+            <span class="apu" id="viesti-ohje">
+              Esimerkiksi järjestelmä, jonka otatte käyttöön, ja toivottu aikataulu. Älä kirjoita henkilötunnuksia tai
+              muita arkaluonteisia tietoja.
+            </span>
+          </p>
+          <div class="painikkeet">
+            <button class="painike" type="submit">Avaa viesti sähköpostissa</button>
+            <button class="painike painike--toinen" type="button" data-tarjous-kopioi>Kopioi viesti</button>
+          </div>
+          <p class="tarjous__tila" data-tarjous-tila role="status" aria-live="polite"></p>
+          <p class="pieni">
+            Lomake ei lähetä eikä tallenna tietoja. Se kokoaa viestin, jonka lähetät itse omasta sähköpostistasi
+            osoitteeseen {SIVUSTO.sahkoposti}. Jos käytät selaimen sähköpostia, valitse Kopioi viesti ja liitä se
+            uuteen viestiin.
+          </p>
+        </form>
       </div>
+
       <aside class="hintakortti yhteys" aria-labelledby="yhteys-otsikko">
-        <h2 id="yhteys-otsikko">Yhteystiedot</h2>
-        <ul class="yhteys__lista">
-          <li>
-            <span class="kortti__ikoni"><Ikoni nimi="puhelin" /></span>
-            <span>
-              <span class="pieni">Puhelin</span>
-              {yritys.puhelin ? <a href={puhelinLinkki(yritys.puhelin)}>{yritys.puhelin}</a> : <Tayta>puhelin</Tayta>}
-            </span>
-          </li>
-          <li>
-            <span class="kortti__ikoni"><Ikoni nimi="kirje" /></span>
-            <span>
-              <span class="pieni">Sähköposti</span>
-              <a href={`mailto:${SIVUSTO.sahkoposti}`}>{SIVUSTO.sahkoposti}</a>
-            </span>
-          </li>
-        </ul>
+        <h2 id="yhteys-otsikko">Sähköposti</h2>
+        <p class="yhteys__osoite">
+          <span class="kortti__ikoni"><Ikoni nimi="kirje" /></span>
+          <a href={`mailto:${SIVUSTO.sahkoposti}`}>{SIVUSTO.sahkoposti}</a>
+        </p>
+        <ol class="yhteys__vaiheet">
+          <li><strong>Tarjouspyyntö.</strong> Mitä tarvitsette ja aikataulu.</li>
+          <li><strong>Tilausvahvistus.</strong> Kiinteä hinta ja toimitusaika kirjallisena.</li>
+          <li><strong>Hyväksyntä.</strong> Lasku lähtee vasta, kun olette hyväksyneet valmiit asiakirjat.</li>
+        </ol>
         <p class="yhteys__yritys">
           {yritys.nimi ?? <Tayta>yrityksen nimi</Tayta>}<br />
           {yritys.katuosoite ?? <Tayta>osoite</Tayta>}<br />
           Y-tunnus {yritys.ytunnus ?? <Tayta>Y-tunnus</Tayta>}
         </p>
         <p class="pieni">
-          Älä lähetä sähköpostilla henkilötunnuksia tai muita arkaluonteisia tietoja. Lue, miten käsittelemme
-          yhteydenottoja, <a href="/tietosuoja">tietosuojaselosteesta</a>. Tilauksiin sovelletaan
-          <a href="/toimitusehdot">toimitusehtoja</a> ja <a href="/kasittelysopimus">käsittelysopimusta</a>.
+          Lue, miten käsittelemme yhteydenottoja, <a href="/tietosuoja">tietosuojaselosteesta</a>. Tilauksiin
+          sovelletaan <a href="/toimitusehdot">toimitusehtoja</a> ja <a href="/kasittelysopimus">käsittelysopimusta</a>.
         </p>
       </aside>
     </div>
@@ -72,46 +134,32 @@ const { yritys } = SIVUSTO;
 </Perus>
 
 <style>
-  .yhteys__vaiheet {
-    grid-template-columns: 1fr;
-    margin-block: 1.5rem;
-  }
-  /* Pystysuorassa listassa vaiheita yhdistävä vaakaviiva olisi harhaanjohtava. */
-  .yhteys__vaiheet li::after {
-    display: none;
-  }
-  .yhteys__h {
-    font-size: 1.2rem;
-    margin-bottom: 0.25rem;
-  }
-  .yhteys__lista {
-    display: grid;
-    gap: 1rem;
-    list-style: none;
-    margin: 0 0 1.25rem;
-    padding: 0;
-  }
-  .yhteys__lista li {
+  .yhteys__osoite {
     display: flex;
     align-items: center;
     gap: 0.9rem;
+    margin: 0 0 1.25rem;
   }
-  .yhteys__lista .kortti__ikoni {
+  .yhteys__osoite .kortti__ikoni {
     margin: 0;
     flex: none;
   }
-  .yhteys__lista .pieni {
-    display: block;
-    line-height: 1.3;
-  }
-  .yhteys__lista a {
+  .yhteys__osoite a {
     font-family: var(--serif);
     font-size: 1.35rem;
     font-weight: 600;
     text-decoration: none;
   }
-  .yhteys__lista a:hover {
+  .yhteys__osoite a:hover {
     text-decoration: underline;
+  }
+  .yhteys__vaiheet {
+    margin: 0 0 1.25rem;
+    padding-left: 1.2rem;
+    font-size: 0.95rem;
+  }
+  .yhteys__vaiheet li {
+    margin-bottom: 0.4rem;
   }
   .yhteys__yritys {
     padding-top: 1rem;
@@ -119,3 +167,5 @@ const { yritys } = SIVUSTO;
     line-height: 1.5;
   }
 </style>
+
+<script src="../scripts/tarjous.ts"></script>

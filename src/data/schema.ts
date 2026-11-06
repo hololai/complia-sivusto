@@ -1,5 +1,4 @@
 import { SIVUSTO } from '../../site.config.mjs';
-import { puhelinLinkki } from './html';
 
 export const ORG_ID = `${SIVUSTO.osoite}/#organisaatio`;
 
@@ -20,7 +19,6 @@ export function organisaatio() {
     image: `${SIVUSTO.osoite}/og.png`,
     logo: `${SIVUSTO.osoite}/apple-touch-icon.png`,
     ...(yritys.ytunnus ? { vatID: yritys.ytunnus } : {}),
-    ...(yritys.puhelin ? { telephone: puhelinLinkki(yritys.puhelin).slice(4) } : {}),
     ...(yritys.katuosoite ? { address: yritys.katuosoite } : {}),
   };
 }
@@ -113,21 +111,6 @@ export function artikkeli(a: {
     dateModified: a.paivitetty.toISOString().slice(0, 10),
     image: `${SIVUSTO.osoite}/og.png`,
     publisher: { '@id': ORG_ID },
-    author: SIVUSTO.asiantuntijat.length ? SIVUSTO.asiantuntijat.map((a) => henkilo(a, false)) : { '@id': ORG_ID },
-  };
-}
-
-type Asiantuntija = (typeof SIVUSTO.asiantuntijat)[number];
-
-export function henkilo(a: Asiantuntija, erillinen = true) {
-  return {
-    ...(erillinen ? { '@context': 'https://schema.org' } : {}),
-    '@type': 'Person',
-    name: a.nimi,
-    jobTitle: a.titteli,
-    url: `${SIVUSTO.osoite}/meista`,
-    worksFor: { '@id': ORG_ID },
-    knowsAbout: ['tietosuoja', 'GDPR', 'tietosuojan vaikutustenarviointi', 'tekoäly ja tietosuoja'],
-    ...(a.linkedin ? { sameAs: [a.linkedin] } : {}),
+    author: { '@id': ORG_ID },
   };
 }

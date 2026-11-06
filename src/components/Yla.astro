@@ -39,7 +39,7 @@ const onNyt = (polku: string) => nyt === polku || nyt.startsWith(`${polku}/`);
             </li>
           ))
         }
-        <li><a class="painike painike--pieni" href="/yhteystiedot">Ota yhteyttä</a></li>
+        <li><a class="painike painike--pieni" href="/yhteystiedot">Pyydä tarjous</a></li>
       </ul>
     </nav>
 
@@ -57,7 +57,7 @@ const onNyt = (polku: string) => nyt === polku || nyt.startsWith(`${polku}/`);
               </li>
             ))
           }
-          <li><a href="/yhteystiedot" aria-current={onNyt('/yhteystiedot') ? 'page' : undefined}>Ota yhteyttä</a></li>
+          <li><a href="/yhteystiedot" aria-current={onNyt('/yhteystiedot') ? 'page' : undefined}>Pyydä tarjous</a></li>
         </ul>
       </nav>
     </details>
