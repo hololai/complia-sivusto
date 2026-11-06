@@ -7,7 +7,8 @@ import { puhelinLinkki } from '../data/html';
 // Osoite on /tietosuoja, koska /tietosuojaseloste on palvelusivun tärkein hakuosoite.
 // Sivusto on staattinen eikä kerää kävijöistä mitään, joten seloste kattaa vain yhteydenotot ja asiakkuudet.
 // Säilytysajat: kirjanpitolaki (1336/1997) 2 luku 10 § ja laki velan vanhentumisesta (728/2003) 4 §,
-// tarkistettu Finlexistä 6.11.2026.
+// tarkistettu Finlexistä 6.11.2026. Lemonsoftin tietojen sijainti: lemonsoft.fi/tietosuojaseloste
+// (Henkilötietojen käsittely Lemonsoft Alustapalveluissa, päivitetty 22.7.2026), luettu 6.11.2026.
 const { yritys } = SIVUSTO;
 ---
 
@@ -83,15 +84,18 @@ const { yritys } = SIVUSTO;
         puolestamme käsittelysopimuksen perusteella:
       </p>
       <ul>
+        <li>Google (Google Workspace): sähköposti</li>
         <li>Google, pilvipalvelu: toimeksiantojen aineiston tallennus Complia-työkalussa</li>
-        <li><Tayta>sähköpostipalvelun tarjoaja</Tayta></li>
-        <li><Tayta>kirjanpito ja laskutus</Tayta></li>
+        <li>
+          Anmara Oy: kirjanpito ja laskutus. Kirjanpito tehdään Lemonsoft Oyj:n taloushallinto-ohjelmistolla.
+        </li>
       </ul>
 
       <h2>Siirrot EU:n ja ETA:n ulkopuolelle</h2>
       <p>
-        Complia-työkalun tiedot tallennetaan Googlen pilvipalveluun EU:ssa. Mahdollisiin siirtoihin Yhdysvaltoihin
-        sovelletaan EU–US Data Privacy Frameworkia. <Tayta>sähköpostipalvelun sijainti ja siirtoperuste</Tayta>
+        Complia-työkalun tiedot tallennetaan Googlen pilvipalveluun EU:ssa. Sähköpostia (Google Workspace) voidaan
+        käsitellä Googlen konesaleissa myös EU:n ulkopuolella. Siirtoihin Yhdysvaltoihin sovelletaan EU–US Data
+        Privacy Frameworkia. Kirjanpidon tiedot ovat Lemonsoftin palvelussa EU:ssa.
       </p>
 
       <h2>Oikeutesi</h2>

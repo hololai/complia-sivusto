@@ -180,7 +180,11 @@ export const KASITTELYSOPIMUS: Asiakirja = {
               'Complia-työkalun tietojen tallennus',
               'EU. Mahdollisiin siirtoihin Yhdysvaltoihin sovelletaan EU–US Data Privacy Frameworkia.',
             ],
-            ['<<sähköpostipalvelun tarjoaja>>', 'Viestintä ja asiakirjojen toimitus', '<<sijainti ja siirtoperuste>>'],
+            [
+              'Google, Google Workspace',
+              'Sähköposti ja asiakirjojen toimitus',
+              'Googlen konesalit, myös EU:n ulkopuolella. Siirtoihin Yhdysvaltoihin sovelletaan EU–US Data Privacy Frameworkia.',
+            ],
           ],
         },
       ],
