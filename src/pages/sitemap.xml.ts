@@ -11,7 +11,7 @@ const KIINTEAT = [
   '/pikatesti',
   '/tietosuojaselostepohja',
   '/meista',
-  '/ajanvaraus',
+  '/yhteydenotto',
   '/tietosuoja',
   '/saavutettavuus',
   '/toimitusehdot',

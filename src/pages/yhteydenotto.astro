@@ -1,11 +1,10 @@
 ---
 import Perus from '../layouts/Perus.astro';
-import Tayta from '../components/Tayta.astro';
 import { SIVUSTO } from '../../site.config.mjs';
 import { ARVIOINNIT, ARVIOINTIEN_JARJESTYS, HINNAT, PAKETTI, JATKUVAT, PALVELUJEN_JARJESTYS } from '../data/hinnat';
 
 const AIHEET = [
-  { arvo: 'kartoitus', nimi: 'Maksuton kartoitus' },
+  { arvo: 'kysymys', nimi: 'Kysymys tai tarjouspyyntö' },
   { arvo: 'paketti', nimi: `${PAKETTI.nimi} -paketti` },
   ...PALVELUJEN_JARJESTYS.map((a) => ({ arvo: HINNAT[a].polku.slice(1), nimi: HINNAT[a].nimi })),
   ...ARVIOINTIEN_JARJESTYS.map((a) => ({ arvo: ARVIOINNIT[a].polku.slice(1), nimi: ARVIOINNIT[a].nimi })),
@@ -16,42 +15,31 @@ const toiminto = SIVUSTO.lomakeOsoite ?? `mailto:${SIVUSTO.sahkoposti}`;
 ---
 
 <Perus
-  otsikko={`Varaa maksuton tietosuojakartoitus | ${SIVUSTO.nimi}`}
-  kuvaus="Varaa maksuton 20 minuutin kartoitus: tiedät sen jälkeen, mitä tietosuojasta puuttuu ja mitä korjaaminen maksaa. Voit myös tilata palvelun suoraan."
-  murut={[{ nimi: 'Ajanvaraus', polku: '/ajanvaraus' }]}
+  otsikko={`Ota yhteyttä tai tilaa tietosuojapalvelu | ${SIVUSTO.nimi}`}
+  kuvaus="Tilaa tietosuojaseloste, vaikutustenarviointi tai muu palvelu kiinteällä hinnalla tai kysy lisää. Vahvistamme hinnan ja toimitusajan kirjallisena."
+  murut={[{ nimi: 'Yhteydenotto', polku: '/yhteydenotto' }]}
 >
   <section class="osio">
     <div class="kehys palvelu__ruudukko">
       <div>
-        <h1>Varaa maksuton 20 minuutin kartoitus</h1>
-        <p class="johdatus">Käymme tilanteen läpi yhdessä. Sen jälkeen tiedät, mitä puuttuu ja mitä sen korjaaminen maksaa.</p>
-        <ol class="vaiheet ajanvaraus__vaiheet">
+        <h1>Tilaa palvelu tai kysy lisää</h1>
+        <p class="johdatus">
+          Kerro lyhyesti, mitä tarvitsette. Vahvistamme kiinteän hinnan ja toimitusajan kirjallisena ennen kuin työ alkaa.
+        </p>
+        <ol class="vaiheet yhteys__vaiheet">
           <li>
-            <h2 class="ajanvaraus__h">Kerro tilanteesi</h2>
-            <p>Varaa aika tai lähetä viesti lomakkeella.</p>
+            <h2 class="yhteys__h">Kerro tilanteesi</h2>
+            <p>Lähetä viesti lomakkeella tai sähköpostilla <a href={`mailto:${SIVUSTO.sahkoposti}`}>{SIVUSTO.sahkoposti}</a>.</p>
           </li>
           <li>
-            <h2 class="ajanvaraus__h">Saat tilausvahvistuksen</h2>
+            <h2 class="yhteys__h">Saat tilausvahvistuksen</h2>
             <p>Kiinteä hinta ja toimitusaika kirjallisena.</p>
           </li>
           <li>
-            <h2 class="ajanvaraus__h">Hyväksyt valmiit asiakirjat</h2>
+            <h2 class="yhteys__h">Hyväksyt valmiit asiakirjat</h2>
             <p>Lasku lähtee vasta hyväksynnän jälkeen.</p>
           </li>
         </ol>
-        {
-          SIVUSTO.ajanvarausOsoite ? (
-            <p>
-              <a class="painike" href={SIVUSTO.ajanvarausOsoite} rel="noopener">
-                Avaa kalenteri
-              </a>
-            </p>
-          ) : (
-            <p>
-              <Tayta>kalenterilinkki. Työkalun pitää säilyttää data EU:ssa, ja käsittelysopimus tehdään ennen käyttöönottoa.</Tayta>
-            </p>
-          )
-        }
       </div>
       <div class="hintakortti">
         <h2>Lähetä viesti tai tilaa</h2>
@@ -98,11 +86,15 @@ const toiminto = SIVUSTO.lomakeOsoite ?? `mailto:${SIVUSTO.sahkoposti}`;
 </Perus>
 
 <style>
-  .ajanvaraus__vaiheet {
+  .yhteys__vaiheet {
     grid-template-columns: 1fr;
     margin-block: 1.5rem;
   }
-  .ajanvaraus__h {
+  /* Pystysuorassa listassa vaiheita yhdistävä vaakaviiva olisi harhaanjohtava. */
+  .yhteys__vaiheet li::after {
+    display: none;
+  }
+  .yhteys__h {
     font-size: 1.2rem;
     margin-bottom: 0.25rem;
   }

@@ -53,7 +53,7 @@ const KYSYMYKSET = [
   },
   {
     k: 'Entä jos tarvitsemme laajemman kokonaisuuden?',
-    v: 'Useampi järjestelmä samassa arvioinnissa ja laajemmat kokonaisuudet hinnoitellaan kiinteällä tarjouksella. Kerro tilanteesi maksuttomassa kartoituksessa.',
+    v: 'Useampi järjestelmä samassa arvioinnissa ja laajemmat kokonaisuudet hinnoitellaan kiinteällä tarjouksella. Kerro tilanteesi yhteydenottolomakkeella.',
   },
 ];
 
@@ -161,14 +161,14 @@ const OPAS = [
                     <th scope="row">
                       <a href={p.polku}>{p.nimi}</a>
                       <span>{p.lyhyt}</span>
-                      <span class="vain-kapea">Toimitus {p.toimitus} · <a href={`/ajanvaraus?palvelu=${p.polku.slice(1)}`}>Tilaa</a></span>
+                      <span class="vain-kapea">Toimitus {p.toimitus} · <a href={`/yhteydenotto?palvelu=${p.polku.slice(1)}`}>Tilaa</a></span>
                     </th>
                     {KOOT.map((k) => (
                       <td class={`h k-${k.id}`}>{p[k.id] === null ? '–' : eur(p[k.id] as number)}</td>
                     ))}
                     <td class="sarake-toimitus">{p.toimitus}</td>
                     <td class="sarake-toimitus">
-                      <a class="painike painike--pieni painike--toinen" href={`/ajanvaraus?palvelu=${p.polku.slice(1)}`}>
+                      <a class="painike painike--pieni painike--toinen" href={`/yhteydenotto?palvelu=${p.polku.slice(1)}`}>
                         Tilaa
                       </a>
                     </td>
@@ -186,8 +186,8 @@ const OPAS = [
           <h3>{PAKETTI.nimi} -paketti</h3>
           <p>Tietosuojatarkastus, tietosuojaselosteet ja seloste käsittelytoimista yhdessä. Suosituin valinta.</p>
           <div class="painikkeet">
-            <a class="painike" href="/ajanvaraus?palvelu=paketti">Tilaa paketti</a>
-            <a class="painike painike--toinen" href="/ajanvaraus">Varaa kartoitus</a>
+            <a class="painike" href="/yhteydenotto?palvelu=paketti">Tilaa paketti</a>
+            <a class="painike painike--toinen" href="/yhteydenotto">Kysy lisää</a>
           </div>
         </div>
         <div class="taulu">

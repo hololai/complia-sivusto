@@ -77,6 +77,4 @@ export const SIVUSTO = {
 
   // Lomakkeen vastaanottava palvelu. Niin kauan kuin null, lomake avaa sähköpostiviestin.
   lomakeOsoite: null,
-  // EU:ssa dataa säilyttävän ajanvaraustyökalun osoite.
-  ajanvarausOsoite: null,
 };

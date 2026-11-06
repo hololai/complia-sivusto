@@ -122,7 +122,7 @@ Komento ei mene läpi, ennen kuin kaikki keltaiset Täydennä-kohdat on hoidettu
 
 1. Rekisteröi `complia.fi` ja tarkista nimi PRH:n kaupparekisteristä ja tavaramerkeistä.
 2. Täytä tiedostoon `site.config.mjs` yrityksen tiedot. Asiantuntijat ja julkaisut on lisätty 5.11.2026, kuvat puuttuvat. Molemmille on merkitty FM-tutkinto: varmista, että se pitää paikkansa.
-3. Päätä lomakkeen vastaanottaja ja EU:ssa toimiva ajanvarauskalenteri. Lomake avaa toistaiseksi sähköpostin.
+3. Päätä lomakkeen vastaanottaja. Lomake avaa toistaiseksi sähköpostin. Ajanvarausta ei ole: se poistettiin käyttäjän pyynnöstä 6.11.2026, ja yhteydenotot ja tilaukset kulkevat sivun `/yhteydenotto` lomakkeella.
 4. Päätä hosting ja täydennä `/tietosuoja`. Tee saavutettavuusarviointi ja täydennä `/saavutettavuus`.
 5. Tee kuntien palvelukuvaus (PDF). Käsittelysopimus ja toimitusehdot ovat luonnoksina sivuilla `/kasittelysopimus` ja `/toimitusehdot`, ja juristin pitää tarkistaa ne. Ennen julkaisua pitää selvittää:
    - että työkalun tietokanta on EU-alueella

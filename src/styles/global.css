@@ -668,6 +668,9 @@ a:hover {
   .luvut > div:nth-child(n + 3) {
     border-top: 1px solid var(--viiva);
   }
+  .luvut > div:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
 }
 
 @keyframes syke {
@@ -1077,12 +1080,11 @@ a:hover {
   font-size: 0.97rem;
   background: var(--valkoinen);
 }
-.proosa table {
-  display: block;
-  overflow-x: auto;
-  margin: 1.5em 0;
+/* Tekstin taulukot ovat .taulu-laatikossa (src/data/html.ts), joka vierittää kapealla näytöllä. */
+.proosa .taulu {
   border: 1px solid var(--viiva);
-  border-radius: 6px;
+  border-radius: 10px;
+  background: var(--valkoinen);
 }
 .proosa th,
 .proosa td,

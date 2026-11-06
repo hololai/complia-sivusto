@@ -67,7 +67,7 @@ Tarkistuslista on sama, mutta sopimukset, säilytysajat ja asetukset vaihtelevat
 
 ## Mitä vaikutustenarviointi maksaa?
 
-Hinta riippuu organisaation koosta ja ohjelmistosta. Esimerkiksi keskikokoiselle organisaatiolle arviointi maksaa:
+Hinta riippuu organisaation koosta ja järjestelmästä. Siihen sisältyvät ennakkoarvio, tarvittaessa siirtovaikutusten arviointi ja kirjaukset selosteisiin. Esimerkiksi keskikokoiselle organisaatiolle arviointi maksaa:
 
 | Ohjelmisto | Hinta, alv 0 % |
 |---|---|

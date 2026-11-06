@@ -6,6 +6,7 @@ import Loppukehotus from '../components/Loppukehotus.astro';
 import { SIVUSTO } from '../../site.config.mjs';
 import { ARVIOINNIT, HINNAT, JARJESTELMAT, JATKUVAT, KOOT, eur, kiintea, sijoitaHinnat } from '../data/hinnat';
 import { palvelu as palveluSchema, usein } from '../data/schema';
+import { kaariTaulukot } from '../data/html';
 
 export async function getStaticPaths() {
   const palvelut = await getCollection('palvelut');
@@ -14,14 +15,14 @@ export async function getStaticPaths() {
 
 const { p } = Astro.props;
 // Hinnat sijoitetaan valmiiseen HTML:ään vasta tässä, jotta välimuistiin ei jää vanhoja hintoja.
-const sisalto = sijoitaHinnat(p.rendered?.html ?? '');
+const sisalto = kaariTaulukot(sijoitaHinnat(p.rendered?.html ?? ''));
 const d = p.data;
 
 const onJatkuva = d.avain === 'vastaava';
 const KAIKKI_HINNAT = { ...HINNAT, ...ARVIOINNIT, vastaava: JATKUVAT.vastaava };
 const hintatieto = KAIKKI_HINNAT[d.avain as keyof typeof KAIKKI_HINNAT];
 if (!hintatieto) throw new Error(`Palvelun ${p.id} hintatunnusta ei löydy: ${d.avain}`);
-const toimitus = 'toimitus' in hintatieto ? hintatieto.toimitus : 'aloitus sovitaan kartoituksessa';
+const toimitus = 'toimitus' in hintatieto ? hintatieto.toimitus : 'aloitus sovitaan tilauksen yhteydessä';
 const yksikko = 'yksikko' in hintatieto ? hintatieto.yksikko : null;
 const paate = onJatkuva ? '/kk' : '';
 
@@ -101,7 +102,7 @@ if (d.artikkeli && !artikkeli) throw new Error(`Palvelun ${p.id} artikkelia ei l
           <strong>Toimitus:</strong> {toimitus}
           {yksikko && <><br />Hinta {yksikko}.</>}
         </p>
-        <a class="painike" href={`/ajanvaraus?palvelu=${p.id}`}>{onJatkuva ? 'Varaa kartoitus' : 'Tilaa tai varaa kartoitus'}</a>
+        <a class="painike" href={`/yhteydenotto?palvelu=${p.id}`}>{onJatkuva ? 'Pyydä tarjous' : 'Tilaa tai kysy lisää'}</a>
         {
           d.avain === 'vaikutustenarviointi' && (
             <p class="pieni">
@@ -135,7 +136,8 @@ if (d.artikkeli && !artikkeli) throw new Error(`Palvelun ${p.id} artikkelia ei l
   </section>
 
   <Loppukehotus
-    otsikko={`${d.nimi}: aloitetaan kartoituksella`}
-    teksti="Maksuton 20 minuuttia, ja tiedät, mitä tarvitset ja mitä se maksaa."
+    otsikko={`${d.nimi}: tilaa tai kysy lisää`}
+    teksti="Kerro lyhyesti tilanteesi, niin vahvistamme kiinteän hinnan ja toimitusajan."
+    linkki={`/yhteydenotto?palvelu=${p.id}`}
   />
 </Perus>

@@ -6,6 +6,7 @@ import Tayta from '../../components/Tayta.astro';
 import { SIVUSTO } from '../../../site.config.mjs';
 import { sijoitaHinnat } from '../../data/hinnat';
 import { artikkeli as artikkeliSchema, usein } from '../../data/schema';
+import { kaariTaulukot } from '../../data/html';
 
 export async function getStaticPaths() {
   const artikkelit = await getCollection('artikkelit');
@@ -14,7 +15,7 @@ export async function getStaticPaths() {
 
 const { a } = Astro.props;
 const d = a.data;
-const sisalto = sijoitaHinnat(a.rendered?.html ?? '');
+const sisalto = kaariTaulukot(sijoitaHinnat(a.rendered?.html ?? ''));
 const polku = `/artikkelit/${a.id}`;
 const kysymykset = d.usein.map((q) => ({ k: q.k, v: sijoitaHinnat(q.v) }));
 const muotoile = (p: Date) => `${p.getUTCDate()}.${p.getUTCMonth() + 1}.${p.getUTCFullYear()}`;
