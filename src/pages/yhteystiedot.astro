@@ -17,7 +17,6 @@ const PALVELUT = [
   { arvo: JATKUVAT.vastaava.polku.slice(1), nimi: JATKUVAT.vastaava.nimi },
   { arvo: 'kunnossa', nimi: JATKUVAT.kunnossa.nimi },
 ];
-const TYYPIT = ['Yritys', 'Kunta tai kuntayhtymä', 'Oppilaitos', 'Yhdistys tai säätiö', 'Muu'];
 ---
 
 <Perus
@@ -42,47 +41,25 @@ const TYYPIT = ['Yritys', 'Kunta tai kuntayhtymä', 'Oppilaitos', 'Yhdistys tai 
             <input id="verkkosivu" name="verkkosivu" type="text" tabindex="-1" autocomplete="off" />
           </p>
           <input type="hidden" name="aloitettu" value="" data-tarjous-aika />
+          <!-- Vain vastaamiseen tarvittavat tiedot ovat pakollisia (tietojen minimointi). -->
           <div class="tarjous__rivi">
             <p class="kentta-ryhma">
-              <label for="etunimi">Etunimi *</label>
-              <input id="etunimi" name="etunimi" type="text" autocomplete="given-name" required />
+              <label for="nimi">Nimi *</label>
+              <input id="nimi" name="nimi" type="text" autocomplete="name" required />
             </p>
-            <p class="kentta-ryhma">
-              <label for="sukunimi">Sukunimi *</label>
-              <input id="sukunimi" name="sukunimi" type="text" autocomplete="family-name" required />
-            </p>
-          </div>
-          <div class="tarjous__rivi">
             <p class="kentta-ryhma">
               <label for="sahkoposti">Sähköposti *</label>
               <input id="sahkoposti" name="sahkoposti" type="email" autocomplete="email" required />
             </p>
-            <p class="kentta-ryhma">
-              <label for="puhelin">Puhelin</label>
-              <input id="puhelin" name="puhelin" type="tel" autocomplete="tel" />
-            </p>
           </div>
           <div class="tarjous__rivi">
             <p class="kentta-ryhma">
-              <label for="organisaatio">Organisaatio *</label>
-              <input id="organisaatio" name="organisaatio" type="text" autocomplete="organization" required />
+              <label for="organisaatio">Organisaatio</label>
+              <input id="organisaatio" name="organisaatio" type="text" autocomplete="organization" />
             </p>
             <p class="kentta-ryhma">
-              <label for="tehtava">Tehtävänimike</label>
-              <input id="tehtava" name="tehtava" type="text" autocomplete="organization-title" />
-            </p>
-          </div>
-          <div class="tarjous__rivi">
-            <p class="kentta-ryhma">
-              <label for="tyyppi">Organisaation tyyppi *</label>
-              <select id="tyyppi" name="tyyppi" required>
-                <option value="">Valitse</option>
-                {TYYPIT.map((t) => <option>{t}</option>)}
-              </select>
-            </p>
-            <p class="kentta-ryhma">
-              <label for="koko">Henkilöstön määrä *</label>
-              <select id="koko" name="koko" required>
+              <label for="koko">Henkilöstön määrä</label>
+              <select id="koko" name="koko">
                 <option value="">Valitse</option>
                 {KOOT.map((k) => <option value={k.lyhyt}>{k.lyhyt}</option>)}
               </select>

@@ -8,7 +8,7 @@
 // Ympäristömuuttujat:
 //   SALLITUT_ALKUPERAT  pilkulla erotetut sivuston osoitteet, esim. https://complia.fi
 //   PALUUOSOITE         sivusto, jonne kävijä ohjataan lähetyksen jälkeen, esim. https://complia.fi
-//   VASTAANOTTAJA       esim. info@complia.fi
+//   VASTAANOTTAJA       postilaatikko, johon tarjouspyynnöt tulevat (ei repoon)
 //   SMTP_KAYTTAJA       Google Workspace -tili, jonka kautta posti lähtee
 //   SMTP_SALASANA       tilin sovellussalasana (Secret Managerista, ei koskaan repoon)
 import { createServer } from 'node:http';
@@ -37,14 +37,10 @@ const RAJA = { maara: 5, jaksoMs: 60 * 60 * 1000 };
 
 // Kentät ja enimmäispituudet. Vain nämä päätyvät viestiin.
 const KENTAT = {
-  etunimi: { nimi: 'Etunimi', pituus: 80, pakollinen: true },
-  sukunimi: { nimi: 'Sukunimi', pituus: 80, pakollinen: true },
+  nimi: { nimi: 'Nimi', pituus: 120, pakollinen: true },
   sahkoposti: { nimi: 'Sähköposti', pituus: 200, pakollinen: true },
-  puhelin: { nimi: 'Puhelin', pituus: 40 },
-  organisaatio: { nimi: 'Organisaatio', pituus: 200, pakollinen: true },
-  tehtava: { nimi: 'Tehtävänimike', pituus: 120 },
-  tyyppi: { nimi: 'Organisaation tyyppi', pituus: 60, pakollinen: true },
-  koko: { nimi: 'Henkilöstö', pituus: 60, pakollinen: true },
+  organisaatio: { nimi: 'Organisaatio', pituus: 200 },
+  koko: { nimi: 'Henkilöstö', pituus: 60 },
   palvelu: { nimi: 'Palvelu', pituus: 120 },
   viesti: { nimi: 'Viesti', pituus: 4000, pakollinen: true },
 };
@@ -153,10 +149,10 @@ async function kasittele(req, res) {
     .map(([avain, k]) => `${k.nimi}: ${arvot[avain]}`);
   try {
     await posti.sendMail({
-      from: { name: 'Complia tarjouspyyntö', address: KAYTTAJA },
+      from: { name: 'Complia-lomake', address: KAYTTAJA },
       to: VASTAANOTTAJA,
-      replyTo: { name: `${arvot.etunimi} ${arvot.sukunimi}`, address: arvot.sahkoposti },
-      subject: `Tarjouspyyntö: ${palvelu} – ${arvot.organisaatio}`,
+      replyTo: { name: arvot.nimi, address: arvot.sahkoposti },
+      subject: `Tarjouspyyntö: ${palvelu} – ${arvot.organisaatio || arvot.nimi}`,
       text: `${rivit.join('\n')}\n\n${arvot.viesti}\n\n--\nLähetetty complia.fi:n tarjouspyyntölomakkeella. Vastaa tähän viestiin, niin vastaus menee pyytäjälle.`,
     });
   } catch (virhe) {

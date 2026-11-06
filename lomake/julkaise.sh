@@ -9,6 +9,9 @@ ALUE=europe-north1
 if [ -z "${SMTP_KAYTTAJA:-}" ]; then
   read -rp "Lähettäjätili (Google Workspace): " SMTP_KAYTTAJA
 fi
+# Gmail ei näytä Saapuneissa omia lähetyksiään, jotka palaavat edelleenohjauksen kautta. Siksi viesti
+# lähetetään suoraan lukijan postilaatikkoon eikä info@complia.fi-osoitteen kautta.
+VASTAANOTTAJA="${VASTAANOTTAJA:-$SMTP_KAYTTAJA}"
 
 # Julkinen osoite ilman allUsers-oikeutta: organisaation käytäntö sallii oikeudet vain omalle verkkotunnukselle.
 gcloud run deploy complia-lomake \
@@ -22,6 +25,6 @@ gcloud run deploy complia-lomake \
   --cpu=1 \
   --concurrency=20 \
   --timeout=30 \
-  --set-env-vars="SALLITUT_ALKUPERAT=https://complia.fi,PALUUOSOITE=https://complia.fi,VASTAANOTTAJA=info@complia.fi,SMTP_KAYTTAJA=$SMTP_KAYTTAJA" \
+  --set-env-vars="SALLITUT_ALKUPERAT=https://complia.fi,PALUUOSOITE=https://complia.fi,VASTAANOTTAJA=$VASTAANOTTAJA,SMTP_KAYTTAJA=$SMTP_KAYTTAJA" \
   --set-secrets="SMTP_SALASANA=smtp-salasana:latest" \
   --quiet
