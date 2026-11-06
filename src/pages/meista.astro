@@ -34,11 +34,10 @@ const paivays = (iso: string) => {
             <article class="kortti asiantuntija">
               <h2>{a.nimi}</h2>
               <p class="nostin">{a.titteli}</p>
-              <ul>
-                {a.tausta.map((t) => (
-                  <li>{t.charAt(0).toUpperCase() + t.slice(1)}</li>
-                ))}
-              </ul>
+              <p>{a.kuvaus}</p>
+              <p class="pieni">
+                <a href="#oppaat">Katso oppaat</a>
+              </p>
               {a.linkedin && (
                 <p>
                   <a href={a.linkedin} rel="noopener me">
@@ -54,7 +53,7 @@ const paivays = (iso: string) => {
     </div>
   </section>
 
-  <section class="osio osio--valkoinen">
+  <section class="osio osio--valkoinen" id="oppaat">
     <div class="kehys">
       <div class="osio__otsikko">
         <h2>Oppaamme tekoälyn tietosuojasta</h2>

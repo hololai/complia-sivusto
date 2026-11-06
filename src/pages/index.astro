@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import Perus from '../layouts/Perus.astro';
 import PalveluKortti from '../components/PalveluKortti.astro';
 import Ikoni from '../components/Ikoni.astro';
+import Aloitus from '../components/Aloitus.astro';
 import Kysymykset from '../components/Kysymykset.astro';
 import Loppukehotus from '../components/Loppukehotus.astro';
 import { SIVUSTO } from '../../site.config.mjs';
@@ -60,7 +61,7 @@ const artikkelit = (await getCollection('artikkelit')).sort((a, b) => a.data.jar
             <p class="asiakirja__ots">{PAKETTI.nimi} -paketti</p>
             <p class="asiakirja__kuvaus">Esimerkki: parturi-kampaamo, 4 henkeä</p>
             <ul class="rivit">
-              <li><span>Tietosuojatarkastus</span><span>{eur(HINNAT.tarkastus.pieni)}</span></li>
+              <li><span>GAP-analyysi</span><span>{eur(HINNAT.tarkastus.pieni)}</span></li>
               <li><span>Tietosuojaselosteet</span><span>{eur(HINNAT.tietosuojaseloste.pieni)}</span></li>
               <li><span>Seloste käsittelytoimista</span><span>{eur(HINNAT.seloste.pieni)}</span></li>
               <li class="rivit__yliviivattu"><span>Erikseen yhteensä</span><span>{eur(pakettiErikseen('pieni'))}</span></li>
@@ -106,6 +107,10 @@ const artikkelit = (await getCollection('artikkelit')).sort((a, b) => a.data.jar
         <div class="kortti__ala"><a class="painike" href="/kunnat">Kuntien palvelut <Ikoni nimi="nuoli" class="ikoni ikoni--nuoli" /></a></div>
       </div>
     </div>
+  </section>
+
+  <section class="osio osio--aloitus">
+    <div class="kehys"><Aloitus /></div>
   </section>
 
   <section class="osio">

@@ -1412,6 +1412,95 @@ a:hover {
   margin-top: 0.1rem;
   color: var(--kulta);
 }
+/* GAP-analyysi aloituspalveluna */
+.aloitus {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  gap: 1rem 1.75rem;
+  align-items: center;
+  padding: clamp(1.4rem, 3vw, 2.1rem);
+  border-radius: 20px;
+  background:
+    radial-gradient(28rem 16rem at 100% 0%, rgb(226 189 104 / 22%), transparent 70%),
+    radial-gradient(30rem 18rem at 0% 120%, rgb(59 132 108 / 45%), transparent 70%),
+    var(--kuusi-tumma);
+  color: #eef3ef;
+  box-shadow: var(--varjo-2);
+}
+.aloitus :focus-visible {
+  outline-color: #fff;
+}
+.aloitus__ikoni {
+  margin: 0;
+  width: 3.25rem;
+  height: 3.25rem;
+  background: rgb(255 255 255 / 10%);
+  color: var(--kulta);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 16%);
+}
+.aloitus__nostin {
+  margin: 0 0 0.3rem;
+  color: var(--kulta-vaalea);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.aloitus__otsikko {
+  color: #fff;
+  font-size: clamp(1.4rem, 1.2rem + 0.9vw, 1.9rem);
+  margin-bottom: 0.4rem;
+}
+.aloitus__teksti {
+  margin: 0;
+  max-width: 40rem;
+  color: rgb(238 243 239 / 82%);
+}
+.aloitus__toiminto {
+  display: grid;
+  gap: 0.6rem;
+  justify-items: start;
+}
+.aloitus__hinta {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  color: rgb(238 243 239 / 82%);
+}
+.aloitus__hinta strong {
+  font-family: var(--serif);
+  font-size: 2rem;
+  font-weight: 650;
+  color: #fff;
+  white-space: nowrap;
+}
+@media (min-width: 56rem) {
+  .aloitus {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+  .aloitus__toiminto {
+    justify-items: end;
+  }
+}
+.osio--aloitus {
+  padding-block: clamp(2rem, 4vw, 3rem) 0;
+}
+.hinnasto-alku .aloitus {
+  margin-bottom: 1.25rem;
+}
+.kortti--suositus {
+  border-color: var(--kuusi);
+  box-shadow: 0 0 0 1px var(--kuusi), var(--varjo-1);
+}
+.kortti__merkinta {
+  position: absolute;
+  top: 1.35rem;
+  right: 1.35rem;
+  margin: 0;
+}
 .ruudukko--4 {
   grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 1fr));
 }

@@ -1,12 +1,12 @@
 ---
-nimi: Tietosuojatarkastus
+nimi: Tietosuojatarkastus eli GAP-analyysi
 avain: tarkastus
-jarjestys: 5
+jarjestys: 0
 hakusana: tietosuojatarkastus
-otsikko: "Tietosuojatarkastus ja GDPR-auditointi | Complia"
-h1: "Tietosuojatarkastus: tietosuoja-auditointi kiinteällä hinnalla"
-kuvaus: "Tietosuojatarkastus näyttää, missä olette nyt ja mitä puuttuu. Saat raportin, riskiluokat ja toimenpidelistan hintoineen. Kiinteä hinta alkaen {{tarkastus.pieni}}."
-johdanto: "Tietosuojatarkastus näyttää, missä olette nyt ja mitä puuttuu. Saat toimenpidelistan tärkeysjärjestyksessä ja hinnan jokaiselle korjaukselle."
+otsikko: "Tietosuojatarkastus, GAP-analyysi ja GDPR-auditointi | Complia"
+h1: "Tietosuojatarkastus eli GAP-analyysi kiinteällä hinnalla"
+kuvaus: "Tietosuojatarkastus eli GAP-analyysi näyttää, missä olette nyt ja mitä puuttuu. Saat raportin, riskiluokat ja toimenpidelistan. Alkaen {{tarkastus.pieni}}."
+johdanto: "Paras paikka aloittaa, kun ette tiedä, mitä tietosuojasta puuttuu. Analyysi näyttää nykytilan ja aukot vaatimuksiin, ja saatte toimenpidelistan tärkeysjärjestyksessä hintoineen."
 sopii: "et tiedä, mitä tietosuojasta puuttuu, tai tarvitset tilannekuvan johdolle."
 saat: "raportin nykytilasta, puutteista riskiluokittain ja 1 tunnin purkupalaverin."
 tarvitsemme: "1–3 haastattelua ja nykyiset asiakirjat."
@@ -14,6 +14,10 @@ artikkeli: tietomurto-mita-tehda
 usein:
   - k: "Mitä tietosuojatarkastus maksaa?"
     v: "Koon mukaan {{tarkastus.pieni}}, {{tarkastus.keski}} tai {{tarkastus.laaja}} (alv 0 %). Toimitus kymmenessä arkipäivässä."
+  - k: "Onko tietosuojatarkastus sama kuin GAP-analyysi?"
+    v: "Kyllä. GAP-analyysi vertaa nykytilaa vaatimuksiin ja näyttää aukot niiden välillä. Käytämme samasta palvelusta molempia nimiä."
+  - k: "Hyvitetäänkö analyysin hinta, jos jatkamme korjauksiin?"
+    v: "Kyllä. Jos tilaatte analyysin jälkeen Tietosuoja kuntoon -paketin, analyysin hinta vähennetään, koska paketti sisältää sen. Pienelle yritykselle loput paketista maksaa {{jatko.pieni}} (alv 0 %)."
   - k: "Mitä eroa on tarkastuksella ja auditoinnilla?"
     v: "Tässä yhteydessä sama asia. Tietosuoja-auditointi tai GDPR-auditointi tarkoittaa nykytilan vertaamista vaatimuksiin. Emme kuitenkaan myönnä virallista sertifikaattia, vaan raportin ja toimenpidelistan."
   - k: "Pitääkö puutteet korjauttaa teillä?"
@@ -22,7 +26,7 @@ usein:
 
 ## Mitä tietosuojatarkastus kertoo?
 
-Tietosuojatarkastus eli tietosuoja-auditointi vertaa nykytilaanne tietosuoja-asetuksen vaatimuksiin. Tuloksena on kuva siitä, mikä on kunnossa, mikä puuttuu ja mistä kannattaa aloittaa. Tarkastus sopii erityisesti silloin, kun asiakas, tarjouspyyntö tai johto kysyy, onko tietosuoja kunnossa, eikä kukaan osaa vastata varmasti.
+Tietosuojatarkastus eli GAP-analyysi vertaa nykytilaanne tietosuoja-asetuksen vaatimuksiin. Nimi tulee englannin sanasta gap, aukko: analyysi näyttää aukot nykytilan ja vaatimusten välillä. Samasta työstä puhutaan myös tietosuoja-auditointina. Tuloksena on kuva siitä, mikä on kunnossa, mikä puuttuu ja mistä kannattaa aloittaa. Tarkastus sopii erityisesti silloin, kun asiakas, tarjouspyyntö tai johto kysyy, onko tietosuoja kunnossa, eikä kukaan osaa vastata varmasti.
 
 ## Milloin tarkastus kannattaa tehdä?
 
@@ -60,4 +64,14 @@ Raportti on kirjoitettu johdolle luettavaksi. Pääset siitä suoraan päätöks
 2. **Tarkastus.** Teemme raportin kymmenessä arkipäivässä.
 3. **Purku.** Käymme havainnot läpi tunnin palaverissa, ja päätät jatkosta.
 
-Tarkastus kuuluu myös [Tietosuoja kuntoon -pakettiin](/hinnasto#paketti), jossa korjaat samalla kaksi yleisintä puutetta: [tietosuojaselosteet](/tietosuojaseloste) ja [selosteen käsittelytoimista](/seloste-kasittelytoimista). Haluatko ensin nopean suunnan? Tee ilmainen [pikatesti](/pikatesti).
+## Analyysistä korjauksiin
+
+Kun analyysi on valmis, voitte korjata puutteet itse tai tilata korjaukset meiltä. Jos tilaatte [Tietosuoja kuntoon -paketin](/hinnasto#paketti), analyysin hinta vähennetään, koska paketti sisältää sen. Maksatte silloin vain [tietosuojaselosteista](/tietosuojaseloste) ja [selosteesta käsittelytoimista](/seloste-kasittelytoimista) jäävän osan.
+
+| | Pieni | Keskikokoinen | Laaja |
+|---|---|---|---|
+| GAP-analyysi | {{tarkastus.pieni}} | {{tarkastus.keski}} | {{tarkastus.laaja}} |
+| Loput paketista analyysin jälkeen | {{jatko.pieni}} | {{jatko.keski}} | {{jatko.laaja}} |
+| Yhteensä, sama kuin paketti | {{paketti.pieni}} | {{paketti.keski}} | {{paketti.laaja}} |
+
+Hinnat alv 0 %. Haluatko ensin nopean suunnan? Tee ilmainen [pikatesti](/pikatesti).

@@ -87,6 +87,16 @@ export const ARVIOINNIN_SISALTO = [
 ] as const;
 
 export const HINNAT = {
+  // Ensimmäisenä, koska GAP-analyysi on suositeltu aloitus (päätös 6.11.2026).
+  tarkastus: {
+    nimi: 'Tietosuojatarkastus eli GAP-analyysi',
+    polku: '/tietosuojatarkastus',
+    lyhyt: 'Hyvä aloitus: nykytila, puutteet ja toimenpidelista hintoineen.',
+    pieni: 890,
+    keski: 2400,
+    laaja: 5900,
+    toimitus: '10 arkipäivää',
+  },
   tietosuojaseloste: {
     nimi: 'Tietosuojaselosteet',
     polku: '/tietosuojaseloste',
@@ -123,15 +133,6 @@ export const HINNAT = {
     laaja: JARJESTELMAT.rajattu.laaja,
     toimitus: '5–10 arkipäivää',
   },
-  tarkastus: {
-    nimi: 'Tietosuojatarkastus',
-    polku: '/tietosuojatarkastus',
-    lyhyt: 'Nykytila, puutteet ja toimenpidelista tärkeysjärjestyksessä.',
-    pieni: 890,
-    keski: 2400,
-    laaja: 5900,
-    toimitus: '10 arkipäivää',
-  },
   tietotilinpaatos: {
     nimi: 'Tietotilinpäätös',
     polku: '/tietotilinpaatos',
@@ -148,10 +149,18 @@ export const PALVELUJEN_JARJESTYS = Object.keys(HINNAT) as PalveluAvain[];
 
 export const PAKETTI = {
   nimi: 'Tietosuoja kuntoon',
-  sisalto: 'tietosuojatarkastus, tietosuojaselosteet ja seloste käsittelytoimista',
+  sisalto: 'GAP-analyysi, tietosuojaselosteet ja seloste käsittelytoimista',
   pieni: 1390,
   keski: 3390,
   laaja: 7490,
+} as const;
+
+// Paketti sisältää GAP-analyysin, joten analyysin jälkeen tilatusta paketista maksetaan vain erotus.
+export const JATKO = {
+  nimi: `${PAKETTI.nimi} -paketti GAP-analyysin jälkeen`,
+  pieni: PAKETTI.pieni - HINNAT.tarkastus.pieni,
+  keski: PAKETTI.keski - HINNAT.tarkastus.keski,
+  laaja: PAKETTI.laaja - HINNAT.tarkastus.laaja,
 } as const;
 
 export const JATKUVAT = {
@@ -278,6 +287,7 @@ export function eur(summa: number): string {
 const TUNNUKSET: Record<string, Record<string, unknown>> = {
   ...HINNAT,
   paketti: PAKETTI,
+  jatko: JATKO,
   ...JATKUVAT,
   ...JARJESTELMAT,
   claude: JARJESTELMAT.rajattu,

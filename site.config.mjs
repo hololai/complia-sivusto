@@ -37,22 +37,15 @@ export const SIVUSTO = {
     {
       nimi: 'Heikki Laivamaa',
       titteli: 'Tietosuoja-asiantuntija',
-      tausta: [
-        'filosofian maisteri',
-        'suorittanut FCG:n tietosuojavastaavan koulutusohjelman',
-        'työskentelee IT-alan asiantuntijatehtävissä',
-        'hoitaa useamman yrityksen tietosuoja-asioita',
-      ],
+      kuvaus:
+        'Heikki on filosofian maisteri ja työskentelee IT-alan asiantuntijatehtävissä. Hän on suorittanut FCG:n tietosuojavastaavan koulutusohjelman ja kirjoittanut tekoälyn tietosuojaoppaat yhdessä Miika Miininin ja Matti Kähkösen kanssa.',
       linkedin: null,
     },
     {
       nimi: 'Miika Miinin',
       titteli: 'Tietosuoja-asiantuntija',
-      tausta: [
-        'filosofian maisteri',
-        'suorittanut FCG:n tietosuojavastaavan koulutusohjelman',
-        'työskentelee IT-alan asiantuntijatehtävissä',
-      ],
+      kuvaus:
+        'Miika on filosofian maisteri ja työskentelee IT-alan asiantuntijatehtävissä. Hän on suorittanut FCG:n tietosuojavastaavan koulutusohjelman ja kirjoittanut tekoälyn tietosuojaoppaat yhdessä Heikki Laivamaan ja Matti Kähkösen kanssa.',
       linkedin: null,
     },
   ],

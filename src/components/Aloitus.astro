@@ -1,0 +1,23 @@
+---
+// GAP-analyysi on suositeltu ensimmäinen askel, joten se nostetaan omaksi laatikokseen.
+import Ikoni from './Ikoni.astro';
+import { HINNAT, PAKETTI, eur } from '../data/hinnat';
+
+const t = HINNAT.tarkastus;
+---
+
+<aside class="aloitus" aria-labelledby="aloitus-otsikko">
+  <span class="kortti__ikoni aloitus__ikoni"><Ikoni nimi="suurennus" /></span>
+  <div>
+    <p class="aloitus__nostin">Aloita tästä</p>
+    <h2 class="aloitus__otsikko" id="aloitus-otsikko">Ette tiedä, mistä aloittaa? Tilatkaa GAP-analyysi.</h2>
+    <p class="aloitus__teksti">
+      Tietosuojatarkastus näyttää nykytilan, puutteet riskiluokittain ja korjaukset hintoineen. Jos jatkatte
+      {PAKETTI.nimi} -pakettiin, analyysin hinta vähennetään.
+    </p>
+  </div>
+  <div class="aloitus__toiminto">
+    <p class="aloitus__hinta"><span>alkaen</span> <strong>{eur(t.pieni)}</strong></p>
+    <a class="painike painike--kulta" href={t.polku}>Katso GAP-analyysi <Ikoni nimi="nuoli" class="ikoni ikoni--nuoli" /></a>
+  </div>
+</aside>

@@ -12,7 +12,7 @@ Päivitetty 5.11.2026. Pohjana on [nettisivusuunnitelma](../../02-Nettisivusuunn
 | Toteutus | Astro, staattiset sivut | Selaimeen ei mene kehystä. Sivut toimivat missä tahansa palvelimella, joten hostingin voi vaihtaa myöhemmin. |
 | Hosting | GitHub Pages, julkinen repo | Käyttäjän päätös 6.11.2026. Esikatselu on salasanaportin takana ja noindex. Pages ei salli omia otsakkeita, joten CSP on vain metatasolla, eikä `frame-ancestors` ole käytössä. Kun verkkotunnus on valmis, alipolku poistetaan (`SIVUSTON_POLKU`). |
 | Varmuuskopiot | Salatulla työkoneella | Käsittelysopimuksen suojatoimi perustuu tähän. |
-| Asiantuntijoiden tausta | Ei työnantajaa eikä aiempia virkoja, vain koulutus, tehtävätaso, julkaisut ja esiintymiset | Käyttäjän päätös 5.11.2026. |
+| Asiantuntijoiden tausta | Lyhyt kappale: koulutus, tehtävätaso ja julkaisut. Ei työnantajaa, aiempia virkoja, esiintymisiä eikä mainintaa muiden yritysten tietosuoja-asioiden hoitamisesta | Käyttäjän päätökset 5.11. ja 6.11.2026. |
 | Sijainti repossa | `sivusto/` omana kansionaan | Markkinointisuunnitelma ja budjetit pysyvät repon ulkopuolella, vaikka repo joskus muuttuisi julkiseksi. |
 
 ### Hosting ja EU
@@ -44,6 +44,8 @@ Hinnoittelu on kolmessa osassa:
 1. **Perusasiakirjat organisaation koon mukaan:** tietosuojaselosteet 290 / 590 / 990 €, seloste käsittelytoimista 590 / 1 290 / 2 490 €, tietosuojatarkastus 890 / 2 400 / 5 900 €, tietotilinpäätös – / 1 900 / 3 900 € ja niistä koottu paketti 1 390 / 3 390 / 7 490 € (säästö noin 20 %).
 2. **Vaikutustenarviointi järjestelmää kohden.** Hinta sisältää ennakkoarvion, arvioinnin, tarvittaessa tasapainotestin ja siirtovaikutusten arvioinnin sekä kirjaukset tietosuojaselosteeseen ja selosteeseen käsittelytoimista. Neljä riviä: rajattu järjestelmä tai tekoälytyökalu 990 / 1 490 / 2 400 €, toimisto-ohjelmisto 1 190 / 1 790 / 2 900 €, tekoäly toimisto-ohjelmistossa 1 490 / 2 190 / 3 400 € ja arkaluonteisia tietoja käsittelevä järjestelmä 1 790 / 2 690 / 3 900 €.
 3. **Jatkuvat palvelut:** ennallaan.
+
+GAP-analyysi (6.11.2026, käyttäjän ehdotus): tietosuojatarkastus on sisällöltään GAP-analyysi, joten palvelussa käytetään molempia nimiä ("Tietosuojatarkastus eli GAP-analyysi"). Se on suositeltu aloitus: ensimmäisenä palvelulistoissa, Aloita tästä -laatikko etusivulla ja hinnastossa. Jos asiakas tilaa analyysin jälkeen paketin, analyysin hinta vähennetään (`JATKO` tiedostossa `hinnat.ts`): loput paketista 500 / 990 / 1 590 €. Hyvitykselle ei ole vielä määräaikaa, ja se pitää lisätä toimitusehtoihin ennen julkaisua.
 
 Erikseen ostettavat arvioinnit: ennakkoarvio 290 € (hyvitetään, jos jatketaan arviointiin), tasapainotesti 290 € käsittelyä kohden, siirtovaikutusten arviointi 390 € toimittajaa kohden ja FRIA 1 290 / 2 490 / 4 900 €. Kolmella ensimmäisellä on yksi hinta koosta riippumatta, koska työ on käsittely- tai toimittajakohtaista eikä kasva organisaation koon mukana.
 

@@ -2,6 +2,7 @@
 import Perus from '../layouts/Perus.astro';
 import Kysymykset from '../components/Kysymykset.astro';
 import Loppukehotus from '../components/Loppukehotus.astro';
+import Aloitus from '../components/Aloitus.astro';
 import { SIVUSTO } from '../../site.config.mjs';
 import {
   ARVIOINNIN_SISALTO,
@@ -21,7 +22,7 @@ import { usein } from '../data/schema';
 
 // Perusasiakirjat hinnoitellaan koon mukaan. Ennakkoarvio ja vaikutustenarviointi ovat
 // omassa osiossaan, jotta jokainen hinta näkyy vain yhdessä paikassa.
-const PERUS = ['tietosuojaseloste', 'seloste', 'tarkastus', 'tietotilinpaatos'] as const;
+const PERUS = ['tarkastus', 'tietosuojaseloste', 'seloste', 'tietotilinpaatos'] as const;
 
 const ERILLISET = [
   { ...HINNAT.ennakkoarvio, yksikko: 'hyvitetään, jos jatkatte arviointiin' },
@@ -62,7 +63,7 @@ const OPAS = [
   {
     nro: '1',
     otsikko: 'Perusasiakirjat kuntoon',
-    teksti: 'Tietosuojaselosteet, seloste käsittelytoimista ja tarkastus.',
+    teksti: 'GAP-analyysi, tietosuojaselosteet ja seloste käsittelytoimista.',
     hinta: `alkaen ${eur(alin(PERUS.map((a) => HINNAT[a])))}`,
     ankkuri: '#perusasiakirjat',
   },
@@ -95,10 +96,11 @@ const OPAS = [
         <p class="nostin">Hinnasto</p>
         <h1>Tietosuojapalvelujen hinnasto: kaikki hinnat näkyvillä</h1>
         <p class="johdatus">
-          Hinta riippuu kahdesta asiasta: organisaation koosta ja siitä, mitä tarvitsette. Useimmat tarvitsevat vain
-          ensimmäisen kohdan.
+          Hinta riippuu kahdesta asiasta: organisaation koosta ja siitä, mitä tarvitsette. Kaikilla palveluilla on
+          kiinteä hinta ja luvattu toimitusaika.
         </p>
       </div>
+      <Aloitus />
       <ol class="opas">
         {
           OPAS.map((o) => (
@@ -184,7 +186,10 @@ const OPAS = [
         <div>
           <span class="merkinta">Säästät noin 20 %</span>
           <h3>{PAKETTI.nimi} -paketti</h3>
-          <p>Tietosuojatarkastus, tietosuojaselosteet ja seloste käsittelytoimista yhdessä. Suosituin valinta.</p>
+          <p>
+            GAP-analyysi, tietosuojaselosteet ja seloste käsittelytoimista yhdessä. Suosituin valinta. Jos olette jo
+            teettäneet GAP-analyysin, sen hinta vähennetään paketista.
+          </p>
           <div class="painikkeet">
             <a class="painike" href="/yhteydenotto?palvelu=paketti">Tilaa paketti</a>
             <a class="painike painike--toinen" href="/yhteydenotto">Kysy lisää</a>
