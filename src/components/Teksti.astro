@@ -1,11 +1,24 @@
 ---
-import { palat } from '../data/pohja';
+import { palat } from '../data/asiakirja';
+import Tayta from './Tayta.astro';
 
-// Näyttää pohjan tekstin niin, että täytettävät [kentät] erottuvat.
+// Näyttää asiakirjan tekstin niin, että asiakkaan täytettävät [kentät] erottuvat ja meidän
+// täydennettävät <<kohdat>> näkyvät Täydennä-merkintöinä, jotka julkaisutarkistus estää.
 interface Props {
   teksti: string;
 }
 const { teksti } = Astro.props;
 ---
 
-{palat(teksti).map((p) => (p.kentta ? <span class="kentta">{p.teksti.replace(/-/g, '\u2011')}</span> : p.teksti))}
+{
+  palat(teksti).map((p) =>
+    p.tyyppi === 'kentta' ? (
+      // Sitova yhdysmerkki pitää kentän kuten [Y-tunnus] yhtenä kokonaisuutena.
+      <span class="kentta">{p.teksti.replace(/-/g, '‑')}</span>
+    ) : p.tyyppi === 'tayta' ? (
+      <Tayta>{p.teksti}</Tayta>
+    ) : (
+      p.teksti
+    ),
+  )
+}

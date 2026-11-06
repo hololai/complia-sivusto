@@ -1232,3 +1232,54 @@ a:hover {
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
+
+/* Esikatselun salasanaportti (public/portti.js). Sisältö piilotetaan, kunnes portti avataan. */
+html.lukittu body > :not(.portti) {
+  display: none !important;
+}
+.portti {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: var(--sivuvali);
+}
+.portti__kortti {
+  width: min(24rem, 100%);
+  display: grid;
+  gap: 0.6rem;
+  padding: 2rem;
+  background: var(--valkoinen);
+  border: 1px solid var(--viiva);
+  border-radius: var(--pyoristys);
+  box-shadow: 0 24px 48px -28px rgb(24 33 30 / 30%);
+}
+.portti__merkki {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  font-weight: 650;
+  color: var(--kuusi);
+}
+.portti__otsikko {
+  font-size: 1.6rem;
+  margin: 0;
+}
+.portti__teksti {
+  margin: 0 0 0.5rem;
+  color: var(--harmaa);
+}
+.portti label {
+  font-weight: 600;
+}
+.portti input {
+  padding: 0.65rem 0.75rem;
+  font: inherit;
+  border: 1.5px solid #8a8f88;
+  border-radius: 7px;
+}
+.portti__virhe {
+  min-height: 1.4em;
+  margin: 0;
+  color: #9b2c1a;
+  font-size: 0.92rem;
+}

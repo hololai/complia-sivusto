@@ -2,10 +2,11 @@
 import Perus from '../layouts/Perus.astro';
 import Kysymykset from '../components/Kysymykset.astro';
 import Loppukehotus from '../components/Loppukehotus.astro';
-import Teksti from '../components/Teksti.astro';
+import Asiakirja from '../components/Asiakirja.astro';
 import { SIVUSTO } from '../../site.config.mjs';
 import { HINNAT, eur } from '../data/hinnat';
-import { POHJA, POHJA_OTSIKKO, POHJA_PAIVAYS, kirjain, pohjaTekstina } from '../data/pohja';
+import { POHJA } from '../data/pohja';
+import { tekstina } from '../data/asiakirja';
 import { usein } from '../data/schema';
 
 const KYSYMYKSET = [
@@ -68,80 +69,9 @@ const VIRHEET = [
           </dl>
         </aside>
 
-        <article class="arkki" id="pohja" aria-labelledby="pohja-otsikko">
-          <header class="arkki__yla">
-            <h2 id="pohja-otsikko"><Teksti teksti={POHJA_OTSIKKO} /></h2>
-            <p class="arkki__paivays"><Teksti teksti={POHJA_PAIVAYS} /></p>
-          </header>
-          {
-            POHJA.map((osio, i) => (
-              <section class="arkki__osio">
-                <span class="arkki__numero" aria-hidden="true">{i + 1}</span>
-                <div>
-                  <h3>
-                    <span class="visually-hidden">{i + 1}. </span>
-                    {osio.otsikko}
-                  </h3>
-                  {osio.osat.map((osa) => {
-                    if (osa.tyyppi === 'kappale') return <p><Teksti teksti={osa.teksti} /></p>;
-                    if (osa.tyyppi === 'rivit')
-                      return (
-                        <p>
-                          {osa.rivit.map((r, j) => (
-                            <>
-                              {j > 0 && <br />}
-                              <Teksti teksti={r} />
-                            </>
-                          ))}
-                        </p>
-                      );
-                    if (osa.tyyppi === 'lista')
-                      return (
-                        <ul>
-                          {osa.kohdat.map((k) => (
-                            <li><Teksti teksti={k} /></li>
-                          ))}
-                        </ul>
-                      );
-                    if (osa.tyyppi === 'taulukko')
-                      return (
-                        <div class="taulu">
-                          <table class="taulukko">
-                            <thead>
-                              <tr>{osa.otsikot.map((o) => <th scope="col">{o}</th>)}</tr>
-                            </thead>
-                            <tbody>
-                              {osa.rivit.map((r) => (
-                                <tr>{r.map((solu) => <td><Teksti teksti={solu} /></td>)}</tr>
-                              ))}
-                            </tbody>
-                          </table>
-                        </div>
-                      );
-                    if (osa.tyyppi === 'vaihtoehdot')
-                      return (
-                        <div class="vaihtoehdot">
-                          {osa.vaihtoehdot.map((v, j) => (
-                            <p class="vaihtoehto">
-                              <span class="vaihtoehto__nimi">Vaihtoehto {kirjain(j)}</span>
-                              <Teksti teksti={v} />
-                            </p>
-                          ))}
-                        </div>
-                      );
-                    return (
-                      <p class="arkki__ohje">
-                        <strong>Ohje:</strong> {osa.teksti}
-                      </p>
-                    );
-                  })}
-                </div>
-              </section>
-            ))
-          }
-        </article>
+        <Asiakirja asiakirja={POHJA} id="pohja" />
       </div>
-      <template data-pohja-teksti>{pohjaTekstina()}</template>
+      <template data-pohja-teksti>{tekstina(POHJA)}</template>
     </div>
   </section>
 

@@ -10,13 +10,14 @@ Päivitetty 5.11.2026. Pohjana on [nettisivusuunnitelma](../../02-Nettisivusuunn
 | Slogan | **Tietosuoja ja GDPR kuntoon kiinteällä hinnalla** | Sisältää hakusanat ja erottautumisen. Näkyy etusivun otsikossa ja H1:ssä, yläpalkissa, alatunnisteessa, jakokuvassa ja rakenteisissa tiedoissa. |
 | Vanha iskulause | "Me teemme, sinä hyväksyt." säilyy tekstissä | Kertoo työtavan, mutta ei sisällä hakusanoja. |
 | Toteutus | Astro, staattiset sivut | Selaimeen ei mene kehystä. Sivut toimivat missä tahansa palvelimella, joten hostingin voi vaihtaa myöhemmin. |
-| Hosting | Firebase Hosting, yksityinen GitHub-repo | Otsakkeet, uudelleenohjaukset ja siistit osoitteet toimivat, ja yksityinen repo on ilmainen. GitHub Pages ei salli omia otsakkeita, ja yksityisestä reposta se vaatii maksullisen tilin. Ei vielä julkaistu. |
+| Hosting | GitHub Pages, julkinen repo | Käyttäjän päätös 6.11.2026. Esikatselu on salasanaportin takana ja noindex. Pages ei salli omia otsakkeita, joten CSP on vain metatasolla, eikä `frame-ancestors` ole käytössä. Kun verkkotunnus on valmis, alipolku poistetaan (`SIVUSTON_POLKU`). |
+| Varmuuskopiot | Salatulla työkoneella | Käsittelysopimuksen suojatoimi perustuu tähän. |
 | Asiantuntijoiden tausta | Ei työnantajaa eikä aiempia virkoja, vain koulutus, tehtävätaso, julkaisut ja esiintymiset | Käyttäjän päätös 5.11.2026. |
 | Sijainti repossa | `sivusto/` omana kansionaan | Markkinointisuunnitelma ja budjetit pysyvät repon ulkopuolella, vaikka repo joskus muuttuisi julkiseksi. |
 
-### Ratkaistava ennen julkaisua: "hosting EU:ssa"
+### Hosting ja EU
 
-Suunnitelma lupaa hostingin EU:ssa, mutta Firebase Hosting jakaa sisällön maailmanlaajuisen verkon kautta, eikä aluetta voi rajata. Sivuston oma tietosuoja on samalla näyte osaamisesta, joten tästä pitää päättää: joko Firebase kuvataan tietosuojaselosteessa tai sivut siirretään EU-palvelimelle. Sivut ovat staattisia, joten siirto ei vaadi muutoksia eikä haittaa hakunäkyvyyttä, jos osoite säilyy.
+Alkuperäinen suunnitelma lupasi hostingin EU:ssa. GitHub Pages toimii Yhdysvalloissa ja maailmanlaajuisen verkon kautta, joten lupaus ei toteudu. Sivuston omaan tietosuojaselosteeseen pitää kirjata GitHub ja siirtoperuste ennen julkaisua.
 
 ## Poikkeamat alkuperäisestä suunnitelmasta
 
@@ -109,7 +110,10 @@ Komento ei mene läpi, ennen kuin kaikki keltaiset Täydennä-kohdat on hoidettu
 2. Täytä tiedostoon `site.config.mjs` yrityksen tiedot. Asiantuntijat ja julkaisut on lisätty 5.11.2026, kuvat puuttuvat. Molemmille on merkitty FM-tutkinto: varmista, että se pitää paikkansa.
 3. Päätä lomakkeen vastaanottaja ja EU:ssa toimiva ajanvarauskalenteri. Lomake avaa toistaiseksi sähköpostin.
 4. Päätä hosting ja täydennä `/tietosuoja`. Tee saavutettavuusarviointi ja täydennä `/saavutettavuus`.
-5. Tee kuntien palvelukuvaus (PDF) ja käsittelysopimuspohja.
+5. Tee kuntien palvelukuvaus (PDF). Käsittelysopimus ja toimitusehdot ovat luonnoksina sivuilla `/kasittelysopimus` ja `/toimitusehdot`, ja juristin pitää tarkistaa ne. Ennen julkaisua pitää selvittää:
+   - että työkalun tietokanta on EU-alueella
+   - kenen nimissä työkalun pilvisopimus on, jotta käsittelijäksi kirjataan oikea yhtiö
+   - sähköpostipalvelu ja muut alikäsittelijät
 6. Heikki ja Miika lukevat kaikki tekstit läpi, koska artikkeleissa on heidän nimensä. Tarkista lopuksi nämä, koska ne voivat muuttua:
    - HE 46/2026 (seuraamusmaksut viranomaisille), oli vireillä 5.11.2026
    - PeVL 40/2026:n sisältö: lausuntoa ei saatu luettua alkuperäisenä

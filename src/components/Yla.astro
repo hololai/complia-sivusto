@@ -1,5 +1,6 @@
 ---
 import { SIVUSTO } from '../../site.config.mjs';
+import { sivunPolku } from '../data/polku';
 
 // Päävalikko suunnitelman mukaan: seitsemän kohtaa, joista ajanvaraus on painike.
 const KOHDAT = [
@@ -10,7 +11,7 @@ const KOHDAT = [
   { nimi: 'Pikatesti ja pohja', polku: '/pikatesti' },
   { nimi: 'Meistä', polku: '/meista' },
 ];
-const nyt = Astro.url.pathname.replace(/\.html$/, '').replace(/\/(index)?$/, '') || '/';
+const nyt = sivunPolku(Astro.url);
 const onNyt = (polku: string) => nyt === polku || nyt.startsWith(`${polku}/`);
 ---
 

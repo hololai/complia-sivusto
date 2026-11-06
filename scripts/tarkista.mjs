@@ -7,6 +7,7 @@ import { SIVUSTO } from '../site.config.mjs';
 import { ARVIOINNIT, HINNAT, KOOT, OHJELMISTOT, PAKETTI, pakettiErikseen } from '../src/data/hinnat.ts';
 
 const JULKAISU = process.argv.includes('--julkaisu');
+const PAGES = process.argv.includes('--pages');
 const JUURI = fileURLToPath(new URL('..', import.meta.url));
 const DIST = join(JUURI, 'dist');
 const virheet = [];
@@ -108,6 +109,7 @@ for (const s of sivut) {
   }
 
   if (html.includes('{{')) virhe(polku, 'korvaamaton {{hintatunnus}} sivulla');
+  if (html.includes('&lt;&lt;')) virhe(polku, 'käsittelemätön <<täydennä>>-merkintä sivulla');
 
   // Sisäiset linkit ja ankkurit: rikkinäinen linkki on sekä hakukone- että käyttäjäongelma.
   for (const m of html.matchAll(/\s(?:href|src)="([^"]+)"/g)) {
@@ -194,6 +196,9 @@ for (const [avain, p] of Object.entries({ ...HINNAT, ...OHJELMISTOT, ...ARVIOINN
 }
 
 if (JULKAISU && !SIVUSTO.julkaistu) virhe('site.config.mjs', 'julkaistu on false: kaikki sivut ovat noindex');
+// Esikatselua ei saa julkaista ilman salasanaa, eikä valmista sivustoa portin takana.
+if (PAGES && SIVUSTO.esikatselu.paalla && !SIVUSTO.esikatselu.tiiviste) virhe('site.config.mjs', 'esikatselun salasana puuttuu: aja npm run salasana');
+if (JULKAISU && SIVUSTO.esikatselu.paalla) virhe('site.config.mjs', 'esikatselun salasanaportti on päällä');
 if (!JULKAISU && !SIVUSTO.julkaistu) varoitukset.push('site.config.mjs: julkaistu on false, joten sivut ovat noindex (oikein ennen julkaisua)');
 
 const koko = tiedostot(DIST)

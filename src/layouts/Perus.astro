@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import { SIVUSTO } from '../../site.config.mjs';
 import { murupolku } from '../data/schema';
+import { sivunPolku } from '../data/polku';
 import Yla from '../components/Yla.astro';
 import Ala from '../components/Ala.astro';
 import interUrl from '../../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
@@ -18,7 +19,8 @@ interface Props {
 
 const { otsikko, kuvaus, murut = [], schema = [], noindex = false, ogTyyppi = 'website' } = Astro.props;
 
-const polku = Astro.url.pathname.replace(/\.html$/, '').replace(/\/(index)?$/, '') || '/';
+const polku = sivunPolku(Astro.url);
+const portti = import.meta.env.PROD && SIVUSTO.esikatselu.paalla && SIVUSTO.esikatselu.tiiviste;
 const canonical = new URL(polku, SIVUSTO.osoite).href;
 const estaIndeksointi = noindex || !SIVUSTO.julkaistu;
 const kaikkiMurut = murut.length ? [{ nimi: 'Etusivu', polku: '/' }, ...murut] : [];
@@ -39,6 +41,8 @@ const csp =
     <meta name="description" content={kuvaus} />
     <link rel="canonical" href={canonical} />
     {estaIndeksointi && <meta name="robots" content="noindex" />}
+    {portti && <meta name="esikatselu" content={SIVUSTO.esikatselu.tiiviste} />}
+    {portti && <script is:inline src="/portti.js"></script>}
     <meta name="theme-color" content="#17453a" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <link rel="preload" href={interUrl} as="font" type="font/woff2" crossorigin />

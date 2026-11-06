@@ -1,0 +1,29 @@
+---
+import Perus from '../layouts/Perus.astro';
+import Asiakirja from '../components/Asiakirja.astro';
+import Tayta from '../components/Tayta.astro';
+import { SIVUSTO } from '../../site.config.mjs';
+import { TOIMITUSEHDOT } from '../data/toimitusehdot';
+---
+
+<Perus
+  otsikko={`Toimitusehdot | ${SIVUSTO.nimi}`}
+  kuvaus="Complian toimitusehdot yrityksille ja julkisyhteisöille: tilaus, hinnat ja maksaminen, toimitus, hyväksyntä, oikeudet asiakirjoihin ja vastuunrajoitus."
+  murut={[{ nimi: 'Toimitusehdot', polku: '/toimitusehdot' }]}
+>
+  <section class="osio">
+    <div class="kehys">
+      <div class="osio__otsikko">
+        <h1>Toimitusehdot</h1>
+        <p class="johdatus">
+          Näitä ehtoja sovelletaan tilauksiin. Henkilötietojen käsittelystä sovitaan
+          <a href="/kasittelysopimus">käsittelysopimuksessa</a>.
+        </p>
+        <p>
+          <Tayta>juristin tarkistus ennen käyttöä. Ehdot ovat luonnos, ja merkityt kohdat ovat päätettävänä.</Tayta>
+        </p>
+      </div>
+      <Asiakirja asiakirja={TOIMITUSEHDOT} id="ehdot" />
+    </div>
+  </section>
+</Perus>

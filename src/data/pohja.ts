@@ -1,24 +1,7 @@
-// Tietosuojaselosteen pohja. Samasta datasta syntyvät sivun malli, kopioitava teksti ja
-// ladattava Word-tiedosto, jotta ne eivät voi erota toisistaan.
-// Hakasulkeissa oleva teksti on täytettävä kenttä. Ohjeet eivät kuulu valmiiseen selosteeseen.
+// Tietosuojaselosteen pohja asiakkaille. Rakenne ja merkinnät: ./asiakirja.ts.
+import type { Asiakirja, Osio } from './asiakirja';
 
-export type Osa =
-  | { tyyppi: 'kappale'; teksti: string }
-  | { tyyppi: 'rivit'; rivit: string[] }
-  | { tyyppi: 'lista'; kohdat: string[] }
-  | { tyyppi: 'taulukko'; otsikot: string[]; rivit: string[][] }
-  | { tyyppi: 'vaihtoehdot'; vaihtoehdot: string[] }
-  | { tyyppi: 'ohje'; teksti: string };
-
-export interface Osio {
-  otsikko: string;
-  osat: Osa[];
-}
-
-export const POHJA_OTSIKKO = 'Tietosuojaseloste: [Yrityksen nimi], asiakkaat';
-export const POHJA_PAIVAYS = 'Päivitetty [päivämäärä]';
-
-export const POHJA: Osio[] = [
+const OSIOT: Osio[] = [
   {
     otsikko: 'Rekisterinpitäjä',
     osat: [
@@ -152,29 +135,9 @@ export const POHJA: Osio[] = [
   },
 ];
 
-/** Pilkkoo tekstin tavalliseen tekstiin ja täytettäviin [kenttiin]. */
-export function palat(teksti: string): { teksti: string; kentta: boolean }[] {
-  return teksti
-    .split(/(\[[^\]]+\])/)
-    .filter(Boolean)
-    .map((osa) => ({ teksti: osa, kentta: osa.startsWith('[') }));
-}
-
-export const kirjain = (i: number) => String.fromCharCode(65 + i);
-
-/** Kopioitava teksti ilman täyttöohjeita. */
-export function pohjaTekstina(): string {
-  const rivit: string[] = [POHJA_OTSIKKO, POHJA_PAIVAYS, ''];
-  POHJA.forEach((osio, i) => {
-    rivit.push(`${i + 1}. ${osio.otsikko}`);
-    for (const osa of osio.osat) {
-      if (osa.tyyppi === 'kappale') rivit.push(osa.teksti);
-      if (osa.tyyppi === 'rivit') rivit.push(...osa.rivit);
-      if (osa.tyyppi === 'lista') rivit.push(...osa.kohdat.map((k) => `- ${k}`));
-      if (osa.tyyppi === 'taulukko') rivit.push(...osa.rivit.map((r) => `- ${r.join(': ')}`));
-      if (osa.tyyppi === 'vaihtoehdot') rivit.push(...osa.vaihtoehdot.map((v, j) => `Vaihtoehto ${kirjain(j)}: ${v}`));
-    }
-    rivit.push('');
-  });
-  return rivit.join('\n').trim();
-}
+export const POHJA: Asiakirja = {
+  otsikko: 'Tietosuojaseloste: [Yrityksen nimi], asiakkaat',
+  alaotsikko: 'Päivitetty [päivämäärä]',
+  ohje: 'Täytä keltaiset kohdat, valitse vaihtoehdot ja poista ohjeet ennen julkaisua.',
+  osiot: OSIOT,
+};

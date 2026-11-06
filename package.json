@@ -10,6 +10,8 @@
     "dev": "ASTRO_TELEMETRY_DISABLED=1 astro dev --port 4321",
     "build": "ASTRO_TELEMETRY_DISABLED=1 astro build",
     "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview --port 4321",
+    "asiakirjat": "node scripts/tee-asiakirjat.mjs",
+    "salasana": "node scripts/aseta-salasana.mjs",
     "tarkista": "npm run build && node scripts/tarkista.mjs",
     "tarkista:julkaisu": "npm run build && node scripts/tarkista.mjs --julkaisu"
   },

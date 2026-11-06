@@ -14,6 +14,13 @@ export const SIVUSTO = {
   // Pidetään false, kunnes sivut julkaistaan oikeasti. Tällöin jokainen sivu on noindex.
   julkaistu: false,
 
+  // Esikatselun salasana estää sivustoa näkymästä ennen julkaisua. Se ei ole tietoturvaa:
+  // sisältö on julkisessa repossa. Tiiviste asetetaan komennolla `npm run salasana`.
+  esikatselu: {
+    paalla: true,
+    tiiviste: '0972dbe5ffc1690e4d733810e5bd0037:200000:e155000a02c7f436e54029d562633be42a091b6b4fb6da39246f10623bc36c32',
+  },
+
   // Toimii vasta, kun verkkotunnus ja sähköposti on otettu käyttöön.
   sahkoposti: 'hei@complia.fi',
 

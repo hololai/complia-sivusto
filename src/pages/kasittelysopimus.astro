@@ -1,0 +1,35 @@
+---
+import Perus from '../layouts/Perus.astro';
+import Asiakirja from '../components/Asiakirja.astro';
+import Tayta from '../components/Tayta.astro';
+import Loppukehotus from '../components/Loppukehotus.astro';
+import { SIVUSTO } from '../../site.config.mjs';
+import { KASITTELYSOPIMUS } from '../data/kasittelysopimus';
+---
+
+<Perus
+  otsikko={`Käsittelysopimus (DPA) | ${SIVUSTO.nimi}`}
+  kuvaus="Complian henkilötietojen käsittelysopimus: mitä tietoja käsittelemme, missä ne ovat, keitä alikäsittelijöitä käytämme ja miten tiedot poistetaan."
+  murut={[{ nimi: 'Meistä', polku: '/meista' }, { nimi: 'Käsittelysopimus', polku: '/kasittelysopimus' }]}
+>
+  <section class="osio">
+    <div class="kehys">
+      <div class="osio__otsikko">
+        <h1>Käsittelysopimus</h1>
+        <p class="johdatus">
+          Kun teemme tietosuoja-asiakirjoja teidän lukuunne, olemme henkilötietojen käsittelijä. Tämä sopimus liitetään
+          jokaiseen tilaukseen. Voitte lukea sen jo ennen tilausta.
+        </p>
+        <p>
+          <Tayta>juristin tarkistus ennen käyttöä. Sopimus on luonnos.</Tayta>
+        </p>
+        <div class="painikkeet">
+          <a class="painike" href="/lataukset/kasittelysopimus.docx" download>Lataa sopimus (Word)</a>
+          <a class="painike painike--toinen" href="/toimitusehdot">Toimitusehdot</a>
+        </div>
+      </div>
+      <Asiakirja asiakirja={KASITTELYSOPIMUS} id="sopimus" />
+    </div>
+  </section>
+  <Loppukehotus />
+</Perus>

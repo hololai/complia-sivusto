@@ -14,6 +14,8 @@ const KIINTEAT = [
   '/ajanvaraus',
   '/tietosuoja',
   '/saavutettavuus',
+  '/toimitusehdot',
+  '/kasittelysopimus',
 ];
 
 // Päivämäärä vain artikkeleille: Google luottaa lastmod-arvoon vain, jos se pitää paikkansa.
