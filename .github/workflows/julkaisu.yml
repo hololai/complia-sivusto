@@ -28,10 +28,9 @@ jobs:
       - run: npm ci
       - name: Tarkista sivusto
         run: npm run tarkista -- --pages
-      - name: Rakenna GitHub Pagesin alipolkuun
+      # Sivusto toimii omassa osoitteessaan complia.fi, joten alipolkua ei tarvita.
+      - name: Rakenna
         run: npm run build
-        env:
-          SIVUSTON_POLKU: /complia-sivusto
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
