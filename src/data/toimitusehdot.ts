@@ -4,6 +4,7 @@ import { SIVUSTO } from '../../site.config.mjs';
 import type { Asiakirja } from './asiakirja';
 
 const yritys = SIVUSTO.yritys.nimi ?? '<<yrityksen virallinen nimi>>';
+const ytunnus = SIVUSTO.yritys.ytunnus ?? '<<Y-tunnus>>';
 
 export const TOIMITUSEHDOT: Asiakirja = {
   otsikko: 'Toimitusehdot',
@@ -14,7 +15,7 @@ export const TOIMITUSEHDOT: Asiakirja = {
       osat: [
         {
           tyyppi: 'kappale',
-          teksti: `Näitä ehtoja sovelletaan palveluihin, jotka ${yritys} (Complia) toimittaa yrityksille ja julkisyhteisöille. Palveluja ei myydä kuluttajille. Ehdot ovat osa jokaista tilausta, ellei kirjallisesti toisin sovita.`,
+          teksti: `Näitä ehtoja sovelletaan palveluihin, jotka ${yritys} (Y-tunnus ${ytunnus}) toimittaa Complia-nimellä yrityksille ja julkisyhteisöille. Palveluja ei myydä kuluttajille. Ehdot ovat osa jokaista tilausta, ellei kirjallisesti toisin sovita.`,
         },
       ],
     },

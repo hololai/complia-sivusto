@@ -28,7 +28,8 @@ const rakenteiset = [...schema, ...(kaikkiMurut.length ? [murupolku(kaikkiMurut)
 
 // Metatason CSP toimii kaikilla palvelimilla ja on siksi testattavissa paikallisesti.
 const csp =
-  "default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self'; manifest-src 'self'; form-action 'none'; base-uri 'none'";
+  // Lomake saa lähettää vain omalle vastaanottopalvelulle, joka ohjaa takaisin sivustolle.
+  `default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self'; manifest-src 'self'; form-action 'self' ${new URL(SIVUSTO.lomakeOsoite).origin}; base-uri 'none'`;
 ---
 
 <!doctype html>

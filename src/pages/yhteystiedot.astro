@@ -1,7 +1,7 @@
 ---
-// Tarjouspyyntö ilman palvelinta (päätös 6.11.2026): lomake kokoaa viestin, jonka kävijä lähettää omasta
-// sähköpostistaan. Sivusto ei lähetä eikä tallenna mitään, joten evästeitä tai lomakepalvelua ei tarvita.
-// Ilman JavaScriptiä lomake pysyy piilossa ja sähköpostiosoite riittää.
+// Tarjouspyyntö lähetetään omalle vastaanottopalvelulle (lomake/, Google Cloud Run Suomessa), joka lähettää
+// sen sähköpostina eikä tallenna mitään. Ei evästeitä eikä kolmansien osapuolten roskapostisuojaa: ansakenttä
+// ja täyttöaika riittävät. Lomake toimii myös ilman JavaScriptiä.
 import Perus from '../layouts/Perus.astro';
 import Tayta from '../components/Tayta.astro';
 import Ikoni from '../components/Ikoni.astro';
@@ -34,7 +34,14 @@ const TYYPIT = ['Yritys', 'Kunta tai kuntayhtymä', 'Oppilaitos', 'Yhdistys tai 
           alkaa.
         </p>
 
-        <form class="tarjous" data-tarjous data-osoite={SIVUSTO.sahkoposti} hidden novalidate>
+        <p class="tarjous__virhe" data-tarjous-virhe role="alert" hidden></p>
+        <form class="tarjous" data-tarjous action={`${SIVUSTO.lomakeOsoite}/laheta`} method="post">
+          <!-- Ansakenttä: ihmiset eivät näe sitä, botit täyttävät sen. -->
+          <p class="visually-hidden" aria-hidden="true">
+            <label for="verkkosivu">Jätä tämä kenttä tyhjäksi</label>
+            <input id="verkkosivu" name="verkkosivu" type="text" tabindex="-1" autocomplete="off" />
+          </p>
+          <input type="hidden" name="aloitettu" value="" data-tarjous-aika />
           <div class="tarjous__rivi">
             <p class="kentta-ryhma">
               <label for="etunimi">Etunimi *</label>
@@ -96,14 +103,11 @@ const TYYPIT = ['Yritys', 'Kunta tai kuntayhtymä', 'Oppilaitos', 'Yhdistys tai 
             </span>
           </p>
           <div class="painikkeet">
-            <button class="painike" type="submit">Avaa viesti sähköpostissa</button>
-            <button class="painike painike--toinen" type="button" data-tarjous-kopioi>Kopioi viesti</button>
+            <button class="painike" type="submit">Lähetä tarjouspyyntö</button>
           </div>
-          <p class="tarjous__tila" data-tarjous-tila role="status" aria-live="polite"></p>
           <p class="pieni">
-            Lomake ei lähetä eikä tallenna tietoja. Se kokoaa viestin, jonka lähetät itse omasta sähköpostistasi
-            osoitteeseen {SIVUSTO.sahkoposti}. Jos käytät selaimen sähköpostia, valitse Kopioi viesti ja liitä se
-            uuteen viestiin.
+            Tiedot lähetetään meille sähköpostina, eikä lomake tallenna niitä mihinkään. Vastaamme pyyntöösi
+            sähköpostilla. Lue lisää <a href="/tietosuoja">tietosuojaselosteesta</a>.
           </p>
         </form>
       </div>

@@ -1,7 +1,7 @@
 // Complian käsittelysopimus (tietosuoja-asetus 28 art.). Luonnos: juristi tarkistaa ennen käyttöä.
 // Tiedot Complia-työkalusta perustuvat sen omaan dokumentaatioon. Asiakkaat eivät kirjaudu työkaluun,
-// joten kirjautumispalvelua ei mainita. Työkalun toimittaa Famula Group Oy, jonka alihankkijana Google tallentaa
-// tiedot pilveensä. Sähköposti on Planeetta Internet Oy:n (Domainhotelli) palvelussa (päätökset 6.11.2026).
+// joten kirjautumispalvelua ei mainita. Käsittelijä on Famula Group Oy (Complia on sen palvelu), ja Google
+// tallentaa työkalun tiedot pilveensä. Sähköposti on Planeetta Internet Oy:n (Domainhotelli) palvelussa (päätökset 6.11.2026).
 import { SIVUSTO } from '../../site.config.mjs';
 import type { Asiakirja } from './asiakirja';
 
@@ -157,7 +157,7 @@ export const KASITTELYSOPIMUS: Asiakirja = {
         {
           tyyppi: 'lista',
           kohdat: [
-            'Tiedot ovat Complia-työkalussa, jonka toimittaa Famula Group Oy ja joka toimii Googlen pilvipalvelussa EU:ssa.',
+            'Tiedot ovat Complia-työkalussa, joka toimii Googlen pilvipalvelussa EU:ssa.',
             'Työkaluun kirjautuu vain nimetty asiantuntija, ja istunto päättyy kahdeksan tunnin kuluttua.',
             'Organisaatioiden tiedot erotetaan toisistaan tietokannan pääsysäännöillä, ja niiden toiminta testataan automaattisesti jokaisen muutoksen yhteydessä.',
             'Kehitystyö tehdään erillisessä ympäristössä testidatalla.',
@@ -177,12 +177,7 @@ export const KASITTELYSOPIMUS: Asiakirja = {
           otsikot: ['Alikäsittelijä', 'Tehtävä', 'Sijainti ja siirtoperuste'],
           rivit: [
             [
-              'Famula Group Oy (Y-tunnus 3358275-6)',
-              'Complia-työkalu (ohjelmisto ja ylläpito) ja sähköposti',
-              'Suomi',
-            ],
-            [
-              'Google (Famula Group Oy:n alihankkija)',
+              'Google',
               'Complia-työkalun tietojen tallennus ja sähköposti (Google Workspace)',
               'Työkalun tiedot EU:ssa. Sähköpostia voidaan käsitellä myös EU:n ulkopuolella. Siirtoihin Yhdysvaltoihin sovelletaan EU–US Data Privacy Frameworkia.',
             ],

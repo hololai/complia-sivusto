@@ -14,7 +14,7 @@ const { yritys } = SIVUSTO;
 
 <Perus
   otsikko={`Tietosuojaseloste: näin käsittelemme tietojasi | ${SIVUSTO.nimi}`}
-  kuvaus="Complian tietosuojaseloste: mitä tietoja käsittelemme, miksi ja kuinka kauan. Sivusto on staattinen eikä käytä evästeitä, lomakkeita tai seurantaa."
+  kuvaus="Complian tietosuojaseloste: mitä tietoja käsittelemme, miksi ja kuinka kauan. Sivusto ei käytä evästeitä eikä kävijäseurantaa."
   murut={[{ nimi: 'Tietosuojaseloste', polku: '/tietosuoja' }]}
 >
   <section class="osio">
@@ -22,17 +22,16 @@ const { yritys } = SIVUSTO;
       <h1>Tietosuojaseloste</h1>
       <p class="johdatus">
         Tässä selosteessa kerromme, miten käsittelemme asiakkaidemme ja meihin yhteyttä ottavien henkilötietoja.
-        Sivusto on staattinen: se ei käytä evästeitä, lomakkeita eikä kävijäseurantaa, emmekä kerää sivuston
-        kävijöistä tietoja.
+        Sivusto ei käytä evästeitä eikä kävijäseurantaa. Saamme tietoja vain silloin, kun lähetät
+        tarjouspyynnön tai sähköpostia.
       </p>
       <p><Tayta>päivityspäivä ennen julkaisua</Tayta></p>
 
       <h2>Rekisterinpitäjä</h2>
       <p>
         {yritys.nimi ?? <Tayta>yrityksen nimi</Tayta>}, Y-tunnus {yritys.ytunnus ?? <Tayta>Y-tunnus</Tayta>},
-        {' '}{yritys.katuosoite ?? <Tayta>osoite</Tayta>}. Tietosuoja-asioissa tavoitat meidät osoitteesta
-        <a href={`mailto:${SIVUSTO.sahkoposti}`}>{SIVUSTO.sahkoposti}</a>
-.
+        {' '}{yritys.katuosoite ?? <Tayta>osoite</Tayta>}. {SIVUSTO.nimi} on {yritys.nimi}:n palvelu. Tietosuoja-asioissa
+        tavoitat meidät osoitteesta <a href={`mailto:${SIVUSTO.sahkoposti}`}>{SIVUSTO.sahkoposti}</a>.
       </p>
 
       <h2>Mitä tietoja käsittelemme ja miksi</h2>
@@ -71,14 +70,15 @@ const { yritys } = SIVUSTO;
       </div>
       <p>Saamme tiedot sinulta itseltäsi tai organisaatioltasi, kun otat yhteyttä tai teette tilauksen.</p>
       <p>
-        Tarjouspyyntölomake ei lähetä tietoja: se kokoaa viestin, jonka lähetät itse omasta sähköpostistasi.
-        Pikatestin vastauksia ei lähetetä eikä tallenneta, vaan tulos lasketaan vain selaimessasi.
+        Tarjouspyyntölomakkeen tiedot lähetetään meille sähköpostina Google Cloud -palvelun kautta, joka toimii
+        Suomessa. Palvelu ei tallenna lomakkeen tietoja, eikä lomake käytä evästeitä. Pikatestin
+        vastauksia ei lähetetä eikä tallenneta, vaan tulos lasketaan vain selaimessasi.
       </p>
 
       <h2>Evästeet ja kävijäseuranta</h2>
       <p>
-        Sivusto ei käytä evästeitä, joten evästebanneria ei tarvita. Sivustolla ei ole lomakkeita, analytiikkaa,
-        ulkoisia fontteja, upotuksia eikä seurantapikseleitä.
+        Sivusto ei käytä evästeitä, joten evästebanneria ei tarvita. Sivustolla ei ole analytiikkaa, ulkoisia
+        fontteja, upotuksia eikä seurantapikseleitä.
       </p>
 
       <h2>Kenelle tietoja luovutetaan</h2>
@@ -89,8 +89,8 @@ const { yritys } = SIVUSTO;
       <ul>
         <li>Planeetta Internet Oy (Domainhotelli): sähköpostin vastaanotto ja edelleenohjaus</li>
         <li>
-          Famula Group Oy: sähköposti ja Complia-työkalu, johon toimeksiantojen aineisto tallennetaan. Molemmat
-          toimivat Googlen palveluissa, ja Google on Famula Group Oy:n alihankkija.
+          Google: sähköposti (Google Workspace), tarjouspyyntölomakkeen välitys (Google Cloud, Suomi) ja
+          Complia-työkalu, johon toimeksiantojen aineisto tallennetaan (Google Cloud, EU)
         </li>
         <li>
           Anmara Oy: kirjanpito ja laskutus. Kirjanpito tehdään Lemonsoft Oyj:n taloushallinto-ohjelmistolla.

@@ -1,0 +1,17 @@
+---
+// Vastaanottopalvelu ohjaa tänne onnistuneen lähetyksen jälkeen. Ei hakukoneisiin eikä sivukarttaan.
+import Perus from '../layouts/Perus.astro';
+import { SIVUSTO } from '../../site.config.mjs';
+---
+
+<Perus otsikko={`Kiitos tarjouspyynnöstä | ${SIVUSTO.nimi}`} kuvaus="Tarjouspyyntösi on vastaanotettu. Vastaamme sähköpostilla." noindex>
+  <section class="osio">
+    <div class="kehys proosa">
+      <h1>Kiitos, tarjouspyyntö on lähetetty</h1>
+      <p class="johdatus">
+        Vastaamme sähköpostilla ja vahvistamme kiinteän hinnan ja toimitusajan kirjallisena ennen kuin työ alkaa.
+      </p>
+      <p>Sillä välin voit tutustua <a href="/hinnasto">hinnastoon</a> tai <a href="/artikkelit">tietosuojaohjeisiin</a>.</p>
+    </div>
+  </section>
+</Perus>

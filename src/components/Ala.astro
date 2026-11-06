@@ -44,7 +44,7 @@ const vuosi = new Date().getFullYear();
       </div>
     </div>
     <p class="ala__loppu">
-      © {vuosi} {SIVUSTO.nimi} ·
+      © {vuosi} {SIVUSTO.nimi}{yritys.nimi && yritys.nimi !== SIVUSTO.nimi ? `, ${yritys.nimi}` : ''} ·
       <a href="/tietosuoja">Tietosuojaseloste</a> ·
       <a href="/toimitusehdot">Toimitusehdot</a> ·
       <a href="/kasittelysopimus">Käsittelysopimus</a> ·

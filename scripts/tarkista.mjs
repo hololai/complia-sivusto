@@ -105,11 +105,16 @@ for (const s of sivut) {
   }
   if (/<style\b/.test(html)) virhe(polku, 'sisäinen style-tagi rikkoo CSP:n');
   if (/\sstyle="/.test(html)) virhe(polku, 'style-attribuutti rikkoo CSP:n');
-  // Sivustolla ei ole lomakkeita, jotka lähettäisivät tietoja (päätös 6.11.2026). Pikatesti laskee selaimessa.
+  // Lomake saa lähettää tietoja vain omaan vastaanottopalveluun (lomake/, Google Cloud Run Suomessa).
+  // Pikatesti laskee selaimessa eikä lähetä mitään.
   for (const m of html.matchAll(/<form\b[^>]*>/g)) {
-    if (/\s(?:action|method)=/.test(m[0])) virhe(polku, `lomake lähettää tietoja: ${m[0]}`);
+    const kohde = m[0].match(/\saction="([^"]*)"/)?.[1];
+    if (kohde !== undefined && kohde !== `${SIVUSTO.lomakeOsoite}/laheta`) virhe(polku, `lomake lähettää muualle kuin omaan vastaanottoon: ${kohde}`);
+    if (kohde === undefined && /\smethod=/.test(m[0])) virhe(polku, `lomakkeella on method ilman vastaanottoa: ${m[0]}`);
   }
-  if (!html.includes("form-action 'none'") && /http-equiv="Content-Security-Policy"/.test(html)) virhe(polku, "CSP:stä puuttuu form-action 'none'");
+  if (/http-equiv="Content-Security-Policy"/.test(html) && !html.includes(`form-action 'self' ${new URL(SIVUSTO.lomakeOsoite).origin};`)) virhe(polku, 'CSP:n form-action ei rajaa lomaketta omaan vastaanottoon');
+  // Lomakkeen lähettäjätili ja muut henkilökohtaiset osoitteet eivät kuulu sivustolle.
+  if (/@famula\.fi/i.test(html)) virhe(polku, 'sivulla on famula.fi-sähköpostiosoite');
   for (const m of html.matchAll(/<img\b[^>]*>/g)) {
     if (!/\salt="/.test(m[0])) virhe(polku, `kuvalta puuttuu alt: ${m[0]}`);
   }
@@ -154,7 +159,7 @@ for (const [teksti, polut] of puuttuvat) {
 const sivukartta = readFileSync(join(DIST, 'sitemap.xml'), 'utf8');
 const kartalla = new Set([...sivukartta.matchAll(/<loc>(.*?)<\/loc>/g)].map((m) => m[1]));
 for (const s of sivut) {
-  if (s.polku === '/404') continue;
+  if (s.polku === '/404' || s.polku === '/kiitos') continue;
   const osoite = new URL(s.polku, SIVUSTO.osoite).href;
   if (!kartalla.has(osoite)) virhe(s.polku, 'puuttuu sivukartasta');
   kartalla.delete(osoite);

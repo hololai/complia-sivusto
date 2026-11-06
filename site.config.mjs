@@ -24,10 +24,15 @@ export const SIVUSTO = {
   // Toimii vasta, kun verkkotunnus ja sähköposti on otettu käyttöön.
   sahkoposti: 'info@complia.fi',
 
-  // Yhtiö on perusteilla 6.11.2026, joten Y-tunnus puuttuu vielä.
+  // Tarjouspyyntölomakkeen vastaanotto: Google Cloud Run, projekti complia-lomake-fi,
+  // alue europe-north1 (Suomi). Koodi kansiossa lomake/. Ei tallenna mitään, lähettää sähköpostin.
+  lomakeOsoite: 'https://complia-lomake-90958864324.europe-north1.run.app',
+
+  // Complia aloittaa Famula Group Oy:n palveluna (päätös 6.11.2026). Jos laskutus kasvaa, perustetaan oma
+  // yhtiö ja palvelu siirretään sen alle. Osoite on pakollinen tieto (sähköisten palvelujen tarjoaja).
   yritys: {
-    nimi: 'Complia GDPR Oy',
-    ytunnus: null,
+    nimi: 'Famula Group Oy',
+    ytunnus: '3358275-6',
     katuosoite: 'Huvilatie 7, 54100 Joutseno',
   },
 
