@@ -4,16 +4,12 @@ import Ikoni from '../components/Ikoni.astro';
 import Loppukehotus from '../components/Loppukehotus.astro';
 import { SIVUSTO } from '../../site.config.mjs';
 
-const { tiimi, julkaisut } = SIVUSTO;
-const paivays = (iso: string) => {
-  const [v, k, p] = iso.split('-').map(Number);
-  return `${p}.${k}.${v}`;
-};
+const { tiimi } = SIVUSTO;
 ---
 
 <Perus
   otsikko={`Meistä: tietosuojan ja IT:n asiantuntijat | ${SIVUSTO.nimi}`}
-  kuvaus="Complian asiantuntijat yhdistävät tietosuojan ja IT:n. Lue taustamme, oppaamme tekoälyn tietosuojasta ja se, miten käsittelemme tietojanne."
+  kuvaus="Complian asiantuntijat yhdistävät tietosuojan ja IT:n. Lue taustamme, työtapamme ja se, miten käsittelemme tietojanne."
   murut={[{ nimi: 'Meistä', polku: '/meista' }]}
 >
   <section class="osio">
@@ -38,36 +34,7 @@ const paivays = (iso: string) => {
             ))
           }
         </ul>
-        <p class="pieni"><a href="#oppaat">Katso oppaat</a></p>
       </article>
-    </div>
-  </section>
-
-  <section class="osio osio--valkoinen" id="oppaat">
-    <div class="kehys">
-      <div class="osio__otsikko">
-        <h2>Oppaamme tekoälyn tietosuojasta</h2>
-        <p class="johdatus">
-          Olemme kirjoittaneet yhdessä Matti Kähkösen kanssa kaksi avointa opasta, jotka on julkaistu Avointen
-          oppimateriaalien kirjastossa CC BY-SA 4.0 -lisenssillä. Ne ovat kenen tahansa käytettävissä.
-        </p>
-      </div>
-      <div class="ruudukko ruudukko--2">
-        {
-          julkaisut.map((j) => (
-            <article class="kortti">
-              <h3>
-                <a href={j.url} rel="noopener">
-                  {j.nimi}
-                </a>
-              </h3>
-              <p>{j.kuvaus}</p>
-              <p class="pieni">Julkaistu {paivays(j.julkaistu)}, aoe.fi.</p>
-            </article>
-          ))
-        }
-      </div>
-
     </div>
   </section>
 

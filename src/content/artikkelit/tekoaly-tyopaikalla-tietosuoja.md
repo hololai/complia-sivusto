@@ -27,10 +27,6 @@ usein:
   - k: "Riittääkö pelkkä tietosuoja?"
     v: "Ei välttämättä. EU:n tekoälyasetus asettaa omat velvoitteensa, ja työntekijöitä koskevissa käsittelyissä sovelletaan myös työelämän tietosuojalakia."
 lahteet:
-  - nimi: "Tekoälypalvelun vaikutustenarviointi (aoe.fi, 2025)"
-    url: "https://aoe.fi/materiaali/4848"
-  - nimi: "Tekoälyn tietosuojattu käyttöönotto oppilaitoksessa (aoe.fi, 2025)"
-    url: "https://aoe.fi/materiaali/4849"
   - nimi: "Tietosuoja-asetus (EU) 2016/679, 28, 30 ja 35 artikla"
     url: "https://eur-lex.europa.eu/legal-content/FI/TXT/?uri=CELEX:32016R0679"
   - nimi: "Laki yksityisyyden suojasta työelämässä 759/2004"
@@ -51,10 +47,6 @@ Tekoälyavustajat säästävät aikaa, mutta niihin kirjoitetaan helposti asiakk
 6. **Onko henkilöstöllä ohje?** Kertokaa selvästi, mitä työkaluun saa kirjoittaa ja mitä ei. Esimerkiksi henkilötunnukset, terveystiedot ja asiakkaiden yksilöivät tiedot kielletään.
 7. **Pitääkö tietosuojaselostetta päivittää?** Jos tekoälyä käytetään uuteen tarkoitukseen, kuten asiakasviestien analysointiin, se kerrotaan [selosteessa](/tietosuojaseloste). Jos peruste on oikeutettu etu, tehkää [tasapainotesti eli oikeutetun edun arviointi](/oikeutetun-edun-arviointi).
 8. **Koskeeko käyttöönotto työntekijöiden seurantaa?** Jos työkalu kerää tietoa työntekijöiden työskentelystä, tarkistakaa työelämän tietosuojalain ja yhteistoimintavelvoitteiden vaatimukset.
-
-## Tarvitsetko perusteellisemman ohjeen?
-
-Asiantuntijamme ovat kirjoittaneet yhdessä Matti Kähkösen kanssa kaksi avointa opasta: [tekoälyn tietosuojattu käyttöönotto](https://aoe.fi/materiaali/4849) ja [tekoälypalvelun vaikutustenarviointi](https://aoe.fi/materiaali/4848). Ne on tehty oppilaitoksille, mutta menetelmä sopii myös yrityksiin ja kuntiin.
 
 ## Ohjelmistokohtaiset ohjeet
 

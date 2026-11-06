@@ -38,23 +38,6 @@ export const SIVUSTO = {
     'filosofian maisterin tutkinto',
     'FCG:n tietosuojavastaavan koulutusohjelma',
     'asiantuntijatehtävät IT-alalla',
-    'kaksi julkaistua opasta tekoälyn tietosuojasta',
-  ],
-
-  // Asiantuntijoiden kirjoittamat julkaisut. Näytetään Meistä-sivulla ja tekoälyartikkelien lähteissä.
-  julkaisut: [
-    {
-      nimi: 'Tekoälypalvelun vaikutustenarviointi',
-      kuvaus: 'Askel askeleelta -opas tekoälypalvelun tietosuojan vaikutustenarviointiin käytännön esimerkkeineen.',
-      julkaistu: '2025-05-27',
-      url: 'https://aoe.fi/materiaali/4848',
-    },
-    {
-      nimi: 'Tekoälyn tietosuojattu käyttöönotto oppilaitoksessa',
-      kuvaus: 'Opas tekoälyn tietosuojattuun käyttöönottoon oppilaitoksessa.',
-      julkaistu: '2025-05-27',
-      url: 'https://aoe.fi/materiaali/4849',
-    },
   ],
 
 };

@@ -27,8 +27,6 @@ usein:
   - k: "Tarvitseeko Gemini perusoikeusvaikutusten arvioinnin (FRIA)?"
     v: "Tavallisessa toimistotyössä yleensä ei. Tilanne voi muuttua, jos Geminillä esimerkiksi arvioidaan työnhakijoita tai oikeutta palveluun."
 lahteet:
-  - nimi: "Tekoälypalvelun vaikutustenarviointi (aoe.fi, 2025)"
-    url: "https://aoe.fi/materiaali/4848"
   - nimi: "Google: Generative AI in Google Workspace Privacy Hub"
     url: "https://support.google.com/a/answer/15706919?hl=en"
   - nimi: "Google: Choose a geographic location for your data"

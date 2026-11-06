@@ -27,8 +27,6 @@ usein:
   - k: "Tarvitaanko siirtovaikutusten arviointi?"
     v: "Yleensä se on syytä tehdä, koska Anthropicin mukaan tiedot tallennetaan Yhdysvalloissa ja sen käsittelysopimukseen kuuluvat vakiosopimuslausekkeet. Tarkistakaa myös Data Privacy Framework -listan tilanne."
 lahteet:
-  - nimi: "Tekoälypalvelun vaikutustenarviointi (aoe.fi, 2025)"
-    url: "https://aoe.fi/materiaali/4848"
   - nimi: "Anthropic: käsittelysopimus (DPA)"
     url: "https://privacy.claude.com/en/articles/7996862"
   - nimi: "Anthropic: tietojen käyttö mallien koulutukseen"

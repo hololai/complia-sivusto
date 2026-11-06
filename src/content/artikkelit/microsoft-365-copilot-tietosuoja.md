@@ -27,8 +27,6 @@ usein:
   - k: "Kuka voi ottaa Claude-mallit käyttöön Copilotissa?"
     v: "EU:ssa ne ovat oletuksena pois päältä, ja ylläpitäjä voi ottaa ne käyttöön. Koska ne ovat EU Data Boundaryn ulkopuolella, päätös kannattaa perustella ja kirjata."
 lahteet:
-  - nimi: "Tekoälypalvelun vaikutustenarviointi (aoe.fi, 2025)"
-    url: "https://aoe.fi/materiaali/4848"
   - nimi: "Microsoft: Data, privacy, and security for Microsoft Copilot"
     url: "https://learn.microsoft.com/en-us/copilot/microsoft-365/microsoft-365-copilot-privacy"
   - nimi: "Microsoft: Claude models from Anthropic in Microsoft Online Services"
