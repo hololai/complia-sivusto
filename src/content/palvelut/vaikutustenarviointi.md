@@ -9,7 +9,7 @@ kuvaus: "Teemme vaikutustenarvioinnin (DPIA) uudelle järjestelmälle tai käsit
 johdanto: "Vaikutustenarviointi tunnistaa riskit, joita käsittely aiheuttaa ihmisille, ja toimet niiden pienentämiseksi. Se on pakollinen, kun käsittelystä todennäköisesti aiheutuu korkea riski."
 sopii: "ennakkoarvio tai hankinta edellyttää sitä, tai käsittelette arkaluonteisia tietoja laajasti."
 saat: "ennakkoarvion, käsittelyn kuvauksen, riskiarvion ja toimenpidesuunnitelman, tarvittaessa tasapainotestin ja siirtovaikutusten arvioinnin sekä kirjaukset tietosuojaselosteeseen ja selosteeseen käsittelytoimista."
-tarvitsemme: "1–2 haastattelua ja järjestelmän toimittajan tietoturvakuvauksen."
+tarvitsemme: "vastaukset valmiisiin kysymyksiin lomakkeella ja 1–2 etähaastattelua. Tietosuojaosaamista ei tarvita."
 artikkeli: milloin-vaikutustenarviointi-on-pakollinen
 usein:
   - k: "Mitä vaikutustenarviointi maksaa?"
@@ -60,12 +60,6 @@ Jos ennakkoarvio osoittaa, ettei vaikutustenarviointia tarvita, maksat vain enna
 Hinnat alv 0 %. Useampi järjestelmä samassa arvioinnissa hinnoitellaan kiinteällä tarjouksella. Suuririskisen tekoälyn käyttöönottaja voi tarvita lisäksi [perusoikeusvaikutusten arvioinnin](/perusoikeusvaikutusten-arviointi).
 
 Tekoälyn vaikutus näkyy myös julkisissa arvioinneissa. Alankomaiden SLM ja SURF löysivät Microsoft 365 Copilotista joulukuussa 2024 neljä korkeaa riskiä. [Koulutusalan lisenssejä koskevassa päivityksessä](https://www.privacycompany.eu/blog/update-dpia-on-microsoft-365-copilot-for-education) syyskuussa 2025 korkeita riskejä ei enää ollut, mutta kaksi jäi keskitasolle. Arviointi kannattaa siksi tehdä omien asetusten ja käyttöoikeuksien mukaan.
-
-## Näin työ etenee
-
-1. **Aloitus.** Pyydämme järjestelmän toimittajalta tietoturvakuvauksen ja haastattelemme vastuuhenkilöitä 1–2 kertaa.
-2. **Arviointi.** Teemme kuvauksen, riskiarvion ja toimenpidesuunnitelman 5–10 arkipäivässä.
-3. **Hyväksyntä.** Käymme havainnot läpi kanssasi. Jos sinulla on tietosuojavastaava, hänen neuvonsa kirjataan arviointiin.
 
 ## Kunnan hankinnan vaikutustenarviointi
 
