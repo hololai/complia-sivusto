@@ -119,14 +119,13 @@ if (d.artikkeli && !artikkeli) throw new Error(`Palvelun ${p.id} artikkelia ei l
 
   {d.avain === 'vaikutustenarviointi' && <ArvioinninKulku />}
 
-  <section class={d.avain === 'vaikutustenarviointi' ? 'osio' : 'osio osio--valkoinen'}>
+  <section class="osio osio--valkoinen">
     <div class="kehys">
       <div class="proosa" set:html={sisalto} />
     </div>
   </section>
 
-  {/* Kulku-osio on valkoinen, joten taustat vaihtavat paikkaa, jotta osiot vuorottelevat edelleen. */}
-  <section class={d.avain === 'vaikutustenarviointi' ? 'osio osio--valkoinen' : 'osio'}>
+  <section class="osio">
     <div class="kehys">
       <Kysymykset kysymykset={usein_} />
       {

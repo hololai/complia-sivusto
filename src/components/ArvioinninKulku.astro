@@ -1,7 +1,8 @@
 ---
 // Vaikutustenarvioinnin kulku asiakkaan näkökulmasta. Jokaisessa vaiheessa näytetään erikseen asiakkaan
 // osuus ja Complian osuus, jotta ostaja näkee, kuinka vähän työtä arviointi teettää hänellä itsellään.
-import Ikoni, { type IkoninNimi } from './Ikoni.astro';
+// Kuvat ovat sivuun upotettua SVG:tä: ei kuvatiedostoja eikä ulkoisia pyyntöjä, ja CSP pysyy tiukkana.
+import Ikoni from './Ikoni.astro';
 import Tayta from './Tayta.astro';
 import { ARVIOINNIN_SISALTO, HINNAT } from '../data/hinnat';
 
@@ -14,9 +15,87 @@ const AJAT: Record<'lomake' | 'haastattelu' | 'lapikaynti' | 'yhteensa', string 
   yhteensa: 'noin 2–3 h',
 };
 
+// Kuvien värit ovat samat kuin global.css:n muuttujissa. SVG:n värimääreet eivät voi lukea CSS-muuttujia.
+const KUVAT = {
+  lomake: `
+    <rect x="44" y="18" width="152" height="134" rx="12" fill="#fff" stroke="#ddd9cd"/>
+    <path d="M44 30a12 12 0 0 1 12-12h128a12 12 0 0 1 12 12v12H44z" fill="#17453a"/>
+    <circle cx="58" cy="30" r="3" fill="#e2bd68"/><circle cx="68" cy="30" r="3" fill="#f1d999"/><circle cx="78" cy="30" r="3" fill="#d4e4da"/>
+    <rect x="58" y="56" width="14" height="14" rx="3" fill="#17453a"/><path d="M61 63l3 3 5-6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="82" y="60" width="92" height="6" rx="3" fill="#d4e4da"/>
+    <rect x="58" y="80" width="14" height="14" rx="3" fill="#17453a"/><path d="M61 87l3 3 5-6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="82" y="84" width="70" height="6" rx="3" fill="#d4e4da"/>
+    <rect x="58" y="104" width="14" height="14" rx="3" fill="#fff" stroke="#c9c4b4" stroke-width="1.5"/>
+    <rect x="82" y="108" width="84" height="6" rx="3" fill="#ece9df"/>
+    <rect x="58" y="128" width="120" height="12" rx="4" fill="#faf8f3" stroke="#ddd9cd"/>
+    <rect x="64" y="131" width="1.6" height="6" fill="#17453a" class="kulku__kursori"/>
+    <path d="M180 92h34a10 10 0 0 1 10 10v16a10 10 0 0 1-10 10h-20l-10 9v-9h-4a10 10 0 0 1-10-10v-16a10 10 0 0 1 10-10z" fill="#e2bd68"/>
+    <text x="197" y="117" text-anchor="middle" font-family="Georgia, serif" font-size="20" font-weight="700" fill="#0e2f27">?</text>`,
+  haastattelu: `
+    <rect x="26" y="16" width="188" height="118" rx="12" fill="#17453a"/>
+    <rect x="36" y="26" width="82" height="80" rx="8" fill="#d4e4da"/>
+    <rect x="122" y="26" width="82" height="80" rx="8" fill="#f1d999"/>
+    <circle cx="77" cy="56" r="13" fill="#17453a"/><path d="M55 106a22 20 0 0 1 44 0z" fill="#17453a"/>
+    <circle cx="163" cy="56" r="13" fill="#7d5d1e"/><path d="M141 106a22 20 0 0 1 44 0z" fill="#7d5d1e"/>
+    <rect x="127" y="31" width="42" height="12" rx="6" fill="#17453a"/><text x="148" y="39.5" text-anchor="middle" font-family="system-ui, sans-serif" font-size="6.5" font-weight="700" letter-spacing=".4" fill="#fff">COMPLIA</text>
+    <circle cx="104" cy="120" r="5" fill="#fff" opacity=".85"/><circle cx="120" cy="120" r="5" fill="#e2bd68"/><circle cx="136" cy="120" r="5" fill="#fff" opacity=".85"/>
+    <rect x="104" y="134" width="32" height="10" fill="#c9c4b4"/><rect x="80" y="144" width="80" height="6" rx="3" fill="#ddd9cd"/>
+    <path d="M58 2h48a10 10 0 0 1 10 10v8a10 10 0 0 1-10 10H70l-8 7v-7h-4a10 10 0 0 1-10-10v-8a10 10 0 0 1 10-10z" fill="#fff" stroke="#ddd9cd"/>
+    <circle cx="70" cy="16" r="2.6" fill="#17453a" class="kulku__piste"/><circle cx="82" cy="16" r="2.6" fill="#17453a" class="kulku__piste"/><circle cx="94" cy="16" r="2.6" fill="#17453a" class="kulku__piste"/>`,
+  asiakirjat: `
+    <g transform="rotate(-9 120 86)"><rect x="66" y="22" width="104" height="128" rx="8" fill="#d4e4da"/></g>
+    <g transform="rotate(5 120 86)"><rect x="70" y="20" width="104" height="128" rx="8" fill="#f1d999"/></g>
+    <rect x="68" y="18" width="104" height="132" rx="8" fill="#fff" stroke="#ddd9cd"/>
+    <rect x="82" y="34" width="56" height="8" rx="4" fill="#17453a"/>
+    <rect x="82" y="52" width="76" height="5" rx="2.5" fill="#d4e4da"/><rect x="82" y="63" width="64" height="5" rx="2.5" fill="#d4e4da"/>
+    <rect x="82" y="80" width="22" height="22" rx="4" fill="#e5eee8"/><rect x="108" y="80" width="22" height="22" rx="4" fill="#f1d999"/><rect x="134" y="80" width="22" height="22" rx="4" fill="#e2bd68"/>
+    <rect x="82" y="112" width="76" height="5" rx="2.5" fill="#d4e4da"/><rect x="82" y="123" width="52" height="5" rx="2.5" fill="#d4e4da"/>
+    <circle cx="172" cy="128" r="20" fill="#17453a"/><path d="M172 116l9 4v6c0 6-4 10-9 12-5-2-9-6-9-12v-6z" fill="none" stroke="#e2bd68" stroke-width="2.2" stroke-linejoin="round"/><path d="M168 127l3 3 5-5" fill="none" stroke="#e2bd68" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M42 46l3 8 8 3-8 3-3 8-3-8-8-3 8-3z" fill="#e2bd68" class="kulku__tahti"/>
+    <path d="M196 36l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#e2bd68" class="kulku__tahti"/>
+    <path d="M50 120l1.6 4 4 1.6-4 1.6-1.6 4-1.6-4-4-1.6 4-1.6z" fill="#17453a" class="kulku__tahti"/>`,
+  lapikaynti: `
+    <rect x="34" y="18" width="116" height="134" rx="8" fill="#fff" stroke="#ddd9cd"/>
+    <rect x="48" y="34" width="60" height="8" rx="4" fill="#17453a"/>
+    <rect x="48" y="54" width="86" height="5" rx="2.5" fill="#d4e4da"/><rect x="48" y="65" width="72" height="5" rx="2.5" fill="#d4e4da"/>
+    <rect x="44" y="78" width="96" height="15" rx="3" fill="#f1d999"/><rect x="48" y="83" width="80" height="5" rx="2.5" fill="#c9a34f"/>
+    <rect x="48" y="102" width="86" height="5" rx="2.5" fill="#d4e4da"/><rect x="48" y="113" width="60" height="5" rx="2.5" fill="#d4e4da"/>
+    <rect x="48" y="124" width="76" height="5" rx="2.5" fill="#d4e4da"/>
+    <path d="M140 86h20" stroke="#c9a34f" stroke-width="1.5" stroke-dasharray="3 3"/>
+    <path d="M168 60h44a10 10 0 0 1 10 10v26a10 10 0 0 1-10 10h-28l-10 9v-9h-6a10 10 0 0 1-10-10V70a10 10 0 0 1 10-10z" fill="#17453a"/>
+    <circle cx="176" cy="74" r="6" fill="#f1d999"/><rect x="186" y="71" width="26" height="5" rx="2.5" fill="#d4e4da"/>
+    <rect x="168" y="84" width="44" height="4" rx="2" fill="#5f8a7c"/><rect x="168" y="92" width="32" height="4" rx="2" fill="#5f8a7c"/>
+    <circle cx="214" cy="112" r="11" fill="#e2bd68"/><path d="M209 112l3.5 3.5 6-6.5" fill="none" stroke="#0e2f27" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <g transform="rotate(35 120 140)"><rect x="104" y="134" width="44" height="9" rx="2" fill="#e2bd68"/><path d="M148 134l9 4.5-9 4.5z" fill="#17453a"/><rect x="100" y="134" width="6" height="9" rx="2" fill="#7d5d1e"/></g>`,
+  allekirjoitus: `
+    <rect x="150" y="66" width="74" height="74" rx="8" fill="#d4e4da"/><path d="M150 82h74" stroke="#17453a" stroke-width="2" opacity=".25"/>
+    <rect x="166" y="96" width="42" height="8" rx="4" fill="#17453a" opacity=".35"/>
+    <rect x="30" y="14" width="124" height="136" rx="8" fill="#fff" stroke="#ddd9cd"/>
+    <rect x="44" y="30" width="64" height="8" rx="4" fill="#17453a"/>
+    <rect x="44" y="50" width="94" height="5" rx="2.5" fill="#d4e4da"/><rect x="44" y="61" width="80" height="5" rx="2.5" fill="#d4e4da"/><rect x="44" y="72" width="88" height="5" rx="2.5" fill="#d4e4da"/>
+    <path d="M44 128h92" stroke="#c9c4b4" stroke-width="1.5"/>
+    <path class="kulku__nimi" d="M48 120c6-14 10-20 13-18 3 3-6 18-2 19 4 1 9-15 13-14 3 1-2 12 2 13 3 1 7-8 10-8 3 0 2 6 5 6 4 0 9-5 14-6 5-1 10 1 16 0" fill="none" stroke="#17453a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="140" cy="44" r="17" fill="#e2bd68"/><circle cx="140" cy="44" r="12" fill="none" stroke="#7d5d1e" stroke-width="1.2" stroke-dasharray="2 2"/>
+    <path d="M134 44l4 4 8-8" fill="none" stroke="#0e2f27" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>`,
+  paketti: `
+    <rect x="18" y="20" width="76" height="96" rx="6" fill="#fff" stroke="#ddd9cd" transform="rotate(-10 56 68)"/>
+    <rect x="60" y="10" width="76" height="96" rx="6" fill="#fff" stroke="#ddd9cd"/>
+    <rect x="72" y="24" width="40" height="6" rx="3" fill="#17453a"/><rect x="72" y="38" width="52" height="4" rx="2" fill="#d4e4da"/><rect x="72" y="48" width="44" height="4" rx="2" fill="#d4e4da"/>
+    <rect x="96" y="18" width="76" height="96" rx="6" fill="#fff" stroke="#ddd9cd" transform="rotate(9 134 66)"/>
+    <rect x="22" y="78" width="176" height="92" rx="10" fill="#17453a"/>
+    <rect x="22" y="78" width="176" height="20" rx="6" fill="#0e2f27"/>
+    <rect x="100" y="78" width="20" height="92" fill="#e2bd68"/>
+    <path d="M110 78c-14-18-34-16-30-4 3 8 20 6 30 4zm0 0c14-18 34-16 30-4-3 8-20 6-30 4z" fill="#f1d999" stroke="#c9a34f" stroke-width="1.5"/>
+    <circle cx="110" cy="78" r="6" fill="#e2bd68" stroke="#c9a34f" stroke-width="1.5"/>
+    <path d="M150 112l26 26" stroke="#f1d999" stroke-width="1.5"/>
+    <circle cx="186" cy="146" r="13" fill="none" stroke="#e2bd68" stroke-width="5"/>
+    <path d="M178 138l-26-26 M164 124l-6 6 M158 118l-6 6" stroke="#e2bd68" stroke-width="5" stroke-linecap="round"/>`,
+} as const;
+
 interface Vaihe {
-  ikoni: IkoninNimi;
+  kuva: keyof typeof KUVAT;
   otsikko: string;
+  kuvaus: string;
   // aika: merkkijono näytetään, null on Täydennä, puuttuva tarkoittaa, ettei vaiheessa ole kellotettavaa.
   te: { teksti: string; aika?: string | null; merkki?: string };
   complia: string;
@@ -24,79 +103,80 @@ interface Vaihe {
 
 const VAIHEET: Vaihe[] = [
   {
-    ikoni: 'lista',
+    kuva: 'lomake',
     otsikko: 'Vastaatte valmiisiin kysymyksiin',
-    te: {
-      teksti:
-        'Täytätte lähettämämme lomakkeen. Kysymykset ovat arkikieltä: mihin järjestelmää käytetään, ketkä sitä käyttävät ja mitä tietoja siihen tallennetaan.',
-      aika: AJAT.lomake,
-    },
-    complia:
-      'Lähetämme lomakkeen ja neuvomme, jos jokin kysymys mietityttää. Pyydämme järjestelmän toimittajalta tietoturvakuvauksen ja luemme sen puolestanne.',
+    kuvaus:
+      'Lähetämme lomakkeen, jossa kysytään arkikielellä, mihin järjestelmää käytetään, ketkä sitä käyttävät ja mitä tietoja siihen tallennetaan.',
+    te: { teksti: 'Vastaatte lomakkeeseen. Neuvomme, jos jokin kysymys mietityttää.', aika: AJAT.lomake },
+    complia: 'Pyydämme järjestelmän toimittajalta tietoturvakuvauksen ja luemme sen puolestanne.',
   },
   {
-    ikoni: 'puhe',
+    kuva: 'haastattelu',
     otsikko: 'Haastattelemme oikeat ihmiset etänä',
-    te: {
-      teksti: 'Järjestelmän vastuuhenkilö ja tarvittaessa pääkäyttäjä osallistuvat etähaastatteluun.',
-      aika: AJAT.haastattelu,
-    },
-    complia: 'Kysymme sen, mitä lomakkeesta ei selviä. Haastatteluja on yleensä 1–2.',
+    kuvaus: 'Kysymme sen, mitä lomakkeesta ei selviä. Haastatteluja on yleensä 1–2.',
+    te: { teksti: 'Vastuuhenkilö ja tarvittaessa pääkäyttäjä osallistuvat.', aika: AJAT.haastattelu },
+    complia: 'Valmistelemme kysymykset ja kirjaamme vastaukset.',
   },
   {
-    ikoni: 'seloste',
+    kuva: 'asiakirjat',
     otsikko: 'Me teemme asiakirjat',
-    te: { teksti: 'Teiltä ei tarvita mitään. Työ on meillä.', merkki: 'Ei tehtävää' },
-    complia:
-      'Kuvaamme käsittelyn, arvioimme riskit ihmisille ja laadimme toimenpidesuunnitelman. Teemme samalla tarvittavat lisäarvioinnit ja kirjaukset selosteisiin.',
+    kuvaus: 'Kuvaamme käsittelyn, arvioimme riskit ihmisille ja laadimme toimenpidesuunnitelman.',
+    te: { teksti: 'Voitte keskittyä omaan työhönne.', merkki: 'Ei tehtävää' },
+    complia: 'Teemme samalla tarvittavat lisäarvioinnit ja kirjaukset selosteisiin.',
   },
   {
-    ikoni: 'asiantuntija',
+    kuva: 'lapikaynti',
     otsikko: 'Käymme luonnoksen läpi yhdessä',
-    te: { teksti: 'Tarkistatte kanssamme, että kuvaus vastaa todellisuutta.', aika: AJAT.lapikaynti },
-    complia:
-      'Korjaamme virheet ja täydennykset. Jos teillä on tietosuojavastaava, hänen neuvonsa kirjataan arviointiin.',
+    kuvaus: 'Tarkistamme kanssanne, että kuvaus vastaa todellisuutta, ja korjaamme virheet.',
+    te: { teksti: 'Kommentoitte luonnosta.', aika: AJAT.lapikaynti },
+    complia: 'Korjaamme ja täydennämme. Jos teillä on tietosuojavastaava, hänen neuvonsa kirjataan arviointiin.',
   },
   {
-    ikoni: 'kilpi',
+    kuva: 'allekirjoitus',
     otsikko: 'Allekirjoitatte ja arkistoitte',
-    te: { teksti: 'Hyväksytte arvioinnin, allekirjoitatte sen ja arkistoitte sen organisaationne käytännön mukaan.' },
-    complia:
-      'Toimitamme valmiit asiakirjat ja toimenpidelistan. Arviointi tehdään teidän nimissänne, koska vastuu käsittelystä on rekisterinpitäjällä.',
+    kuvaus:
+      'Saatte valmiit asiakirjat. Arviointi tehdään teidän nimissänne, koska vastuu käsittelystä on rekisterinpitäjällä.',
+    te: { teksti: 'Hyväksytte, allekirjoitatte ja arkistoitte organisaationne käytännön mukaan.' },
+    complia: 'Toimenpidelista kertoo, mitä organisaation pitää tehdä ennen käyttöönottoa.',
   },
 ];
 
 const isolla = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 const PAKETTI = [
   ...ARVIOINNIN_SISALTO.map(isolla),
-  'Toimenpidelista: mitä organisaation pitää tehdä ennen käyttöönottoa, kuka sen tekee ja mihin mennessä',
+  'Toimenpidelista: mitä tehdään ennen käyttöönottoa, kuka sen tekee ja mihin mennessä',
   'Allekirjoitusvalmiit asiakirjat arkistoitavaksi',
 ];
 
 const toimitus = HINNAT.vaikutustenarviointi.toimitus;
+const svg = (nimi: keyof typeof KUVAT, vb = '0 0 240 170') =>
+  `<svg viewBox="${vb}" aria-hidden="true" focusable="false">${KUVAT[nimi]}</svg>`;
 ---
 
-<section class="osio osio--valkoinen kulku" id="nain-se-etenee" aria-labelledby="kulku-otsikko">
+<section class="osio osio--tumma kulku" id="nain-se-etenee" aria-labelledby="kulku-otsikko">
   <div class="kehys">
-    <div class="osio__otsikko">
+    <div class="kulku__alku">
       <p class="kulku__nostin">Avaimet käteen</p>
       <h2 id="kulku-otsikko">Näin vaikutustenarviointi etenee</h2>
-      <p class="johdatus">
+      <p class="kulku__johdatus">
         Teidän ei tarvitse osata tietosuojaa. Vastaatte kysymyksiin ja kerrotte, miten järjestelmää käytetään.
-        Vaikeat asiat, kuten riskit, lakiperusteet ja asiakirjat, hoidamme me.
+        <strong>Vaikeat asiat, kuten riskit, lakiperusteet ja asiakirjat, hoidamme me.</strong>
       </p>
     </div>
 
     <dl class="kulku__luvut">
       <div>
+        <span class="kulku__luku-ikoni"><Ikoni nimi="kello" /></span>
         <dt>Teidän työaikanne yhteensä</dt>
         <dd>{AJAT.yhteensa ?? <Tayta>aika</Tayta>}</dd>
       </div>
       <div>
-        <dt>Valmis</dt>
+        <span class="kulku__luku-ikoni"><Ikoni nimi="seloste" /></span>
+        <dt>Valmiina</dt>
         <dd>{toimitus}</dd>
       </div>
       <div>
+        <span class="kulku__luku-ikoni"><Ikoni nimi="kilpi" /></span>
         <dt>Tietosuojaosaamista</dt>
         <dd>ei tarvita</dd>
       </div>
@@ -106,35 +186,33 @@ const toimitus = HINNAT.vaikutustenarviointi.toimitus;
       {
         VAIHEET.map((v, i) => (
           <li class="kulku__vaihe">
-            <span class="kulku__merkki" aria-hidden="true">
-              <Ikoni nimi={v.ikoni} />
-            </span>
-            <div class="kulku__kortti">
+            <div class="kulku__kuva" set:html={svg(v.kuva)} />
+            <div class="kulku__teksti">
+              <span class="kulku__nro" aria-hidden="true">
+                {String(i + 1).padStart(2, '0')}
+              </span>
               <h3>
-                <span class="kulku__nro">Vaihe {i + 1}</span>
+                <span class="visually-hidden">Vaihe {i + 1}: </span>
                 {v.otsikko}
               </h3>
-              <div class="kulku__jako">
-                <div class="kulku__te">
-                  <p class="kulku__kuka">
-                    Te
-                    {v.te.merkki ? (
-                      <span class="kulku__aika kulku__aika--vapaa">{v.te.merkki}</span>
-                    ) : (
-                      v.te.aika !== undefined && (
-                        <span class="kulku__aika">
-                          <Ikoni nimi="kello" />
-                          {v.te.aika ?? <Tayta>aika</Tayta>}
-                        </span>
-                      )
-                    )}
-                  </p>
-                  <p>{v.te.teksti}</p>
-                </div>
-                <div class="kulku__me">
-                  <p class="kulku__kuka">Complia hoitaa</p>
-                  <p>{v.complia}</p>
-                </div>
+              <p class="kulku__kuvaus">{v.kuvaus}</p>
+              <div class="kulku__rivi kulku__rivi--te">
+                <span class="kulku__tunnus">Te</span>
+                {v.te.merkki ? (
+                  <span class="kulku__aika kulku__aika--vapaa">{v.te.merkki}</span>
+                ) : (
+                  v.te.aika !== undefined && (
+                    <span class="kulku__aika">
+                      <Ikoni nimi="kello" />
+                      {v.te.aika ?? <Tayta>aika</Tayta>}
+                    </span>
+                  )
+                )}
+                <p>{v.te.teksti}</p>
+              </div>
+              <div class="kulku__rivi kulku__rivi--me">
+                <span class="kulku__tunnus">Complia hoitaa</span>
+                <p>{v.complia}</p>
               </div>
             </div>
           </li>
@@ -143,238 +221,375 @@ const toimitus = HINNAT.vaikutustenarviointi.toimitus;
     </ol>
 
     <div class="kulku__paketti">
+      <div class="kulku__paketti-kuva" set:html={svg('paketti', '0 0 220 180')} />
       <div>
+        <p class="kulku__nostin kulku__nostin--tumma">Lopputulos</p>
         <h3>Valmis paketti, jonka saatte</h3>
         <p>
           Yksi kiinteä hinta kattaa kaiken, mitä järjestelmän käyttöönotto tietosuojan kannalta vaatii. Lasku lähtee
           vasta, kun olette hyväksyneet valmiit asiakirjat.
         </p>
+        <ul>
+          {
+            PAKETTI.map((rivi) => (
+              <li>
+                <Ikoni nimi="tarkistus" />
+                {rivi}
+              </li>
+            ))
+          }
+        </ul>
         <a class="painike painike--kulta" href="/yhteystiedot?palvelu=vaikutustenarviointi">
           Pyydä vaikutustenarviointi <Ikoni nimi="nuoli" class="ikoni ikoni--nuoli" />
         </a>
       </div>
-      <ul>
-        {
-          PAKETTI.map((rivi) => (
-            <li>
-              <Ikoni nimi="tarkistus" />
-              {rivi}
-            </li>
-          ))
-        }
-      </ul>
     </div>
   </div>
 </section>
 
 <style>
+  /* Tumma osio erottuu vaaleiden osioiden välissä ja kertoo, että tämä on sivun ydin. */
+  .kulku {
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(60rem 30rem at 85% -10%, rgb(226 189 104 / 16%), transparent 60%),
+      radial-gradient(50rem 30rem at -10% 60%, rgb(95 138 124 / 28%), transparent 60%),
+      linear-gradient(180deg, var(--kuusi), var(--kuusi-tumma));
+  }
+  .kulku__alku {
+    max-width: 48rem;
+    margin-bottom: clamp(1.75rem, 4vw, 2.75rem);
+  }
+  .kulku__alku h2 {
+    color: #fff;
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    line-height: 1.1;
+  }
   .kulku__nostin {
-    margin: 0 0 0.4rem;
-    color: var(--messinki);
-    font-size: 0.8rem;
+    display: inline-block;
+    margin: 0 0 0.9rem;
+    padding: 0.3rem 0.8rem;
+    border: 1px solid rgb(226 189 104 / 50%);
+    border-radius: 999px;
+    color: var(--kulta-vaalea);
+    font-size: 0.78rem;
     font-weight: 700;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
+  }
+  .kulku__nostin--tumma {
+    border-color: rgb(125 93 30 / 40%);
+    color: var(--messinki);
+  }
+  .kulku__johdatus {
+    margin: 0;
+    color: rgb(244 247 242 / 82%);
+    font-size: 1.1875rem;
+  }
+  .kulku__johdatus strong {
+    color: #fff;
   }
 
   /* Kolme lukua heti otsikon alla: lukija näkee vaivan ennen yksityiskohtia. */
   .kulku__luvut {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(13rem, 100%), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr));
     gap: 1rem;
-    margin: 0 0 clamp(2rem, 4vw, 3rem);
+    margin: 0 0 clamp(2.5rem, 6vw, 4.5rem);
   }
   .kulku__luvut > div {
-    padding: 1.1rem 1.25rem;
-    border: 1px solid var(--viiva);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 1rem;
+    align-items: center;
+    padding: 1.15rem 1.25rem;
+    border: 1px solid rgb(255 255 255 / 14%);
+    border-radius: 16px;
+    background: rgb(255 255 255 / 6%);
+  }
+  .kulku__luku-ikoni {
+    grid-row: span 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
     border-radius: 14px;
-    background: var(--paperi);
+    background: linear-gradient(145deg, var(--kulta-vaalea), var(--kulta));
+    color: var(--kuusi-tumma);
+  }
+  .kulku__luku-ikoni :global(.ikoni) {
+    width: 1.5rem;
+    height: 1.5rem;
   }
   .kulku__luvut dt {
-    color: var(--harmaa);
-    font-size: 0.9rem;
+    color: rgb(244 247 242 / 72%);
+    font-size: 0.875rem;
   }
   .kulku__luvut dd {
-    margin: 0.2rem 0 0;
-    color: var(--kuusi);
+    margin: 0;
+    color: #fff;
     font-family: var(--serif);
     font-size: 1.6rem;
     font-weight: 600;
     line-height: 1.2;
   }
 
+  /* Vaiheet: kuvat ja tekstit vuorottelevat aikajanan molemmin puolin leveällä näytöllä. */
   .kulku__vaiheet {
+    position: relative;
     list-style: none;
+    display: grid;
+    gap: clamp(2.5rem, 6vw, 4rem);
     margin: 0;
     padding: 0;
   }
   .kulku__vaihe {
-    position: relative;
     display: grid;
-    grid-template-columns: 3rem 1fr;
-    gap: 1rem;
-    padding-bottom: 1.25rem;
-  }
-  /* Pystyviiva yhdistää vaiheet yhdeksi poluksi. */
-  .kulku__vaihe:not(:last-child)::before {
-    content: '';
-    position: absolute;
-    top: 3rem;
-    bottom: 0;
-    left: 1.5rem;
-    border-left: 2px dashed rgb(23 69 58 / 25%);
-  }
-  .kulku__merkki {
-    position: relative;
-    display: flex;
+    gap: 1.25rem;
     align-items: center;
-    justify-content: center;
-    width: 3rem;
-    height: 3rem;
-    border-radius: 50%;
-    background: var(--kuusi);
-    color: #fff;
+  }
+  .kulku__kuva {
+    max-width: 26rem;
+    padding: 1.25rem;
+    border-radius: 22px;
+    background: linear-gradient(160deg, #fdfbf6, #efeadc);
     box-shadow:
-      0 0 0 6px var(--valkoinen),
-      0 0 0 7px rgb(23 69 58 / 18%);
+      0 0 0 1px rgb(255 255 255 / 30%),
+      0 30px 60px -30px rgb(0 0 0 / 55%);
   }
-  .kulku__merkki :global(.ikoni) {
-    width: 1.35rem;
-    height: 1.35rem;
-  }
-  .kulku__kortti {
-    padding: 1.1rem 1.25rem 1.25rem;
-    border: 1px solid var(--viiva);
-    border-radius: 14px;
-    background: var(--paperi);
-  }
-  .kulku__kortti h3 {
-    margin: 0 0 0.9rem;
-    font-size: 1.2rem;
+  .kulku__kuva :global(svg) {
+    display: block;
+    width: 100%;
+    height: auto;
   }
   .kulku__nro {
     display: block;
-    margin-bottom: 0.15rem;
-    color: var(--harmaa);
-    font-family: var(--sans);
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+    background: linear-gradient(180deg, var(--kulta-vaalea), var(--kulta));
+    background-clip: text;
+    color: transparent;
+    font-family: var(--serif);
+    font-size: clamp(2.75rem, 6vw, 3.75rem);
+    font-weight: 700;
+    line-height: 1;
   }
-  .kulku__jako {
-    display: grid;
-    gap: 0.75rem;
+  .kulku__teksti h3 {
+    margin: 0 0 0.5rem;
+    color: #fff;
+    font-size: clamp(1.35rem, 2.6vw, 1.65rem);
   }
-  @media (min-width: 46rem) {
-    /* Complian sarake on leveämpi, koska työ painottuu sinne. */
-    .kulku__jako {
-      grid-template-columns: 2fr 3fr;
-    }
+  .kulku__kuvaus {
+    margin: 0 0 1rem;
+    color: rgb(244 247 242 / 82%);
   }
-  .kulku__jako p {
-    margin: 0;
-  }
-  .kulku__te,
-  .kulku__me {
-    padding: 0.85rem 1rem;
-    border-radius: 10px;
-  }
-  .kulku__te {
-    background: var(--valkoinen);
-    border: 1px solid var(--viiva);
-  }
-  .kulku__me {
-    background: var(--sammal);
-  }
-  .kulku__kuka {
+  .kulku__rivi {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 0.35rem !important;
-    color: var(--kuusi);
-    font-size: 0.8rem;
+    gap: 0.35rem 0.6rem;
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+  }
+  .kulku__rivi + .kulku__rivi {
+    margin-top: 0.5rem;
+  }
+  .kulku__rivi p {
+    flex-basis: 100%;
+    margin: 0;
+    font-size: 0.95rem;
+  }
+  .kulku__rivi--te {
+    border: 1px solid rgb(255 255 255 / 16%);
+    background: rgb(255 255 255 / 5%);
+    color: rgb(244 247 242 / 88%);
+  }
+  .kulku__rivi--me {
+    border-left: 3px solid var(--kulta);
+    background: rgb(226 189 104 / 12%);
+    color: #fff;
+  }
+  .kulku__tunnus {
+    color: var(--kulta-vaalea);
+    font-size: 0.75rem;
     font-weight: 700;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
   }
   .kulku__aika {
     display: inline-flex;
     align-items: center;
     gap: 0.3rem;
-    padding: 0.1rem 0.55rem;
+    padding: 0.1rem 0.6rem;
     border-radius: 999px;
-    background: var(--sammal);
-    color: var(--kuusi);
+    background: #fff;
+    color: var(--kuusi-tumma);
     font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0;
-    text-transform: none;
+    font-weight: 700;
   }
   .kulku__aika :global(.ikoni) {
     width: 0.95rem;
     height: 0.95rem;
   }
   .kulku__aika--vapaa {
-    background: var(--kulta-vaalea);
-    color: var(--kuusi-tumma);
+    background: linear-gradient(180deg, var(--kulta-vaalea), var(--kulta));
   }
 
+  @media (min-width: 60rem) {
+    .kulku__vaihe {
+      grid-template-columns: 1fr 1fr;
+      gap: 7rem;
+    }
+    .kulku__vaihe:nth-child(even) .kulku__kuva {
+      order: 2;
+    }
+    .kulku__vaihe:nth-child(odd) .kulku__kuva {
+      justify-self: end;
+    }
+    /* Aikajana kulkee sarakkeiden välissä, ja jokaisen vaiheen kohdalla on kultainen piste. */
+    .kulku__vaiheet::before {
+      content: '';
+      position: absolute;
+      top: 2rem;
+      bottom: 2rem;
+      left: 50%;
+      border-left: 2px dashed rgb(226 189 104 / 45%);
+    }
+    .kulku__vaihe {
+      position: relative;
+    }
+    .kulku__vaihe::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 1.1rem;
+      height: 1.1rem;
+      margin: -0.55rem 0 0 -0.55rem;
+      border-radius: 50%;
+      background: var(--kulta);
+      box-shadow:
+        0 0 0 6px rgb(226 189 104 / 20%),
+        0 0 0 12px rgb(226 189 104 / 8%);
+    }
+  }
+
+  /* Paketti on vaalea kortti tummalla pohjalla, jotta lopputulos erottuu kuin lahja. */
   .kulku__paketti {
     display: grid;
-    gap: 1.5rem 2.5rem;
-    margin-top: clamp(1.5rem, 3vw, 2.25rem);
-    padding: clamp(1.5rem, 4vw, 2.5rem);
-    border-radius: 18px;
-    background: var(--kuusi);
-    color: #f4f7f2;
-    box-shadow: var(--varjo-2);
+    gap: 1.5rem 3rem;
+    align-items: center;
+    margin-top: clamp(3rem, 7vw, 5rem);
+    padding: clamp(1.5rem, 4vw, 2.75rem);
+    border-radius: 24px;
+    background: linear-gradient(160deg, #fdfbf6, #f1ecdf);
+    color: var(--muste);
+    box-shadow: 0 40px 80px -40px rgb(0 0 0 / 60%);
   }
   @media (min-width: 58rem) {
     .kulku__paketti {
       grid-template-columns: 2fr 3fr;
-      align-items: start;
     }
   }
-  .kulku__paketti h3 {
-    color: #fff;
-    font-size: 1.5rem;
+  .kulku__paketti-kuva {
+    max-width: 22rem;
+    justify-self: center;
+    width: 100%;
   }
-  .kulku__paketti p {
-    margin: 0 0 1.25rem;
+  .kulku__paketti-kuva :global(svg) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .kulku__paketti h3 {
+    color: var(--kuusi);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+  }
+  .kulku__paketti p:not(.kulku__nostin) {
+    color: var(--harmaa);
   }
   .kulku__paketti :focus-visible {
-    outline-color: #fff;
+    outline-color: var(--kohdistus);
   }
   .kulku__paketti ul {
     list-style: none;
     display: grid;
-    gap: 0.6rem;
-    margin: 0;
+    grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 1fr));
+    gap: 0.6rem 1.5rem;
+    margin: 0 0 1.5rem;
     padding: 0;
   }
   .kulku__paketti li {
     display: grid;
-    grid-template-columns: 1.4rem 1fr;
+    grid-template-columns: 1.6rem 1fr;
     gap: 0.6rem;
     align-items: start;
+    font-size: 0.95rem;
   }
   .kulku__paketti li :global(.ikoni) {
-    width: 1.3rem;
-    height: 1.3rem;
-    margin-top: 0.1rem;
-    color: var(--kulta);
+    width: 1.6rem;
+    height: 1.6rem;
+    padding: 0.25rem;
+    border-radius: 50%;
+    background: var(--kuusi);
+    color: var(--kulta-vaalea);
   }
 
   @media (prefers-reduced-motion: no-preference) {
+    /* Pienet liikkeet tekevät kuvista eläviä. Ne kytkeytyvät pois, jos käyttäjä on pyytänyt vähemmän liikettä. */
+    .kulku__kuva :global(.kulku__kursori) {
+      animation: vilku 1.1s steps(1) infinite;
+    }
+    .kulku__kuva :global(.kulku__piste) {
+      animation: pomppu 1.4s ease-in-out infinite;
+    }
+    .kulku__kuva :global(.kulku__piste:nth-child(2n)) {
+      animation-delay: 0.2s;
+    }
+    .kulku__kuva :global(.kulku__tahti) {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: tuike 2.6s ease-in-out infinite;
+    }
     @supports (animation-timeline: view()) {
       .kulku__vaihe,
-      .kulku__paketti {
+      .kulku__paketti,
+      .kulku__luvut > div {
         animation: ilmesty linear both;
         animation-timeline: view();
         animation-range: entry 0% entry 35%;
       }
+      .kulku__kuva :global(.kulku__nimi) {
+        stroke-dasharray: 260;
+        animation: kirjoita linear both;
+        animation-timeline: view();
+        animation-range: entry 40% cover 50%;
+      }
+    }
+  }
+  @keyframes vilku {
+    50% {
+      opacity: 0;
+    }
+  }
+  @keyframes pomppu {
+    50% {
+      transform: translateY(-3px);
+    }
+  }
+  @keyframes tuike {
+    50% {
+      transform: scale(0.6) rotate(20deg);
+      opacity: 0.6;
+    }
+  }
+  @keyframes kirjoita {
+    from {
+      stroke-dashoffset: 260;
+    }
+    to {
+      stroke-dashoffset: 0;
     }
   }
 </style>
