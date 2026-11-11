@@ -37,7 +37,7 @@ export const KASITTELYSOPIMUS: Asiakirja = {
           tyyppi: 'taulukko',
           otsikot: ['Kohta', 'Kuvaus'],
           rivit: [
-            ['Kohde ja tarkoitus', 'Tietosuoja-asiakirjojen, kuten selosteiden ja arviointien, laatiminen ja ylläpito'],
+            ['Kohde ja tarkoitus', 'Tietosuoja-asiakirjojen, kuten selosteiden ja arviointien, laatiminen'],
             ['Käsittelyn luonne', 'Tietojen vastaanotto, tallennus, järjestäminen ja käyttö asiakirjojen laatimisessa'],
             ['Rekisteröidyt', 'Rekisterinpitäjän yhteyshenkilöt ja vastuuhenkilöt'],
             ['Henkilötiedot', 'Nimi, rooli, työsähköposti ja työpuhelin'],

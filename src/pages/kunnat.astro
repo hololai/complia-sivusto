@@ -65,8 +65,19 @@ const VUOSI = [
 const PALVELUKUVAUS = '/lataukset/complia-palvelukuvaus-kunnille.pdf';
 const palvelukuvausKt = Math.round(statSync(join(process.cwd(), 'public', PALVELUKUVAUS)).size / 1024);
 
-const artikkeliTekoaly = await getEntry('artikkelit', 'tekoaly-tyopaikalla-tietosuoja');
-const artikkeliTtp = await getEntry('artikkelit', 'tietotilinpaatos-sisalto-ja-aikataulu');
+// Kunnille tärkeimmät ohjeet. Puuttuva artikkeli kaataa buildin, jotta rikkinäinen kortti ei pääse sivulle.
+const OHJEET = await Promise.all(
+  [
+    'tietotilinpaatos-sisalto-ja-aikataulu',
+    'tekoaly-tyopaikalla-tietosuoja',
+    'mika-on-fria-tekoalyasetus',
+    'microsoft-365-copilot-tietosuoja',
+  ].map(async (id) => {
+    const a = await getEntry('artikkelit', id);
+    if (!a) throw new Error(`Kuntasivun artikkelia ei löydy: ${id}`);
+    return a;
+  }),
+);
 ---
 
 <Perus
@@ -152,32 +163,33 @@ const artikkeliTtp = await getEntry('artikkelit', 'tietotilinpaatos-sisalto-ja-a
   </section>
 
   <section class="osio osio--valkoinen">
-    <div class="kehys proosa">
-      <h2>Ajankohtaista: seuraamusmaksu julkiselle sektorille</h2>
-      <p>
-        Hallitus on esittänyt, että tietosuojarikkomuksista voisi määrätä seuraamusmaksun myös viranomaisille
-        (<a href="https://www.edilex.fi/he/20260046">HE 46/2026</a>). Lakien on tarkoitus tulla voimaan vuoden 2027
-        alussa, ja enimmäismäärät olisivat yksityistä sektoria pienempiä. Perustuslakivaliokunta ei pitänyt
-        lausunnossaan (PeVL 40/2026) maksun ulottamista viranomaistoimintaan ongelmattomana.
-      </p>
-      <p>
-        Esitys oli marraskuun 2026 alussa yhä vireillä, joten lopullinen sisältö ei ole selvillä. Päivitämme tämän
-        kohdan, kun lainsäädäntö etenee. Kunnan velvollisuudet noudattaa tietosuoja-asetusta ovat voimassa joka
-        tapauksessa.
-      </p>
-      {
-        artikkeliTtp && artikkeliTekoaly && (
-          <>
-            <h2>Ohjeita kunnille</h2>
-            <ul>
-              <li><a href={`/artikkelit/${artikkeliTtp.id}`}>{artikkeliTtp.data.h1}</a></li>
-              <li><a href={`/artikkelit/${artikkeliTekoaly.id}`}>{artikkeliTekoaly.data.h1}</a></li>
-              <li><a href="/artikkelit/mika-on-fria-tekoalyasetus">Mikä on FRIA? Tekoälyasetuksen perusoikeusvaikutusten arviointi</a></li>
-              <li><a href="/artikkelit/microsoft-365-copilot-tietosuoja">Microsoft 365 Copilot ja tietosuoja</a></li>
-            </ul>
-          </>
-        )
-      }
+    <div class="kehys">
+      <div class="osio__otsikko">
+        <h2>Ohjeita kunnille</h2>
+      </div>
+      <aside class="ajankohtaista" aria-labelledby="ajankohtaista-otsikko">
+        <p class="ajankohtaista__nostin">Lakihanke, tilanne 11/2026</p>
+        <h3 id="ajankohtaista-otsikko">Seuraamusmaksu myös viranomaisille</h3>
+        <p>
+          Hallitus on esittänyt, että tietosuojarikkomuksista voisi määrätä seuraamusmaksun myös viranomaisille
+          (<a href="https://www.edilex.fi/he/20260046">HE 46/2026</a>). Lakien on tarkoitus tulla voimaan vuoden 2027
+          alussa, ja enimmäismäärät olisivat yksityistä sektoria pienempiä. Perustuslakivaliokunta ei pitänyt
+          lausunnossaan (PeVL 40/2026) maksun ulottamista viranomaistoimintaan ongelmattomana. Esitys oli marraskuun
+          2026 alussa yhä vireillä. Kunnan velvollisuudet noudattaa tietosuoja-asetusta ovat voimassa joka tapauksessa.
+        </p>
+      </aside>
+      <ul class="ohjekortit">
+        {
+          OHJEET.map((o) => (
+            <li>
+              <a class="ohjekortti" href={`/artikkelit/${o.id}`}>
+                <span class="ohjekortti__otsikko">{o.data.h1}</span>
+                <span class="ohjekortti__teksti">{o.data.tiivistelma}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
     </div>
   </section>
 

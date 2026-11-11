@@ -1,17 +1,68 @@
 ---
 // Vastaanottopalvelu ohjaa tänne onnistuneen lähetyksen jälkeen. Ei hakukoneisiin eikä sivukarttaan.
+// Sivu kertoo, mitä seuraavaksi tapahtuu, jotta lähettäjä ei jää arvailemaan. Vastausaikaa ei luvata,
+// koska siitä ei ole vielä päätetty.
 import Perus from '../layouts/Perus.astro';
+import Prosessi from '../components/Prosessi.astro';
+import type { ComponentProps } from 'astro/types';
 import { SIVUSTO } from '../../site.config.mjs';
+
+const SEURAAVAKSI: ComponentProps<typeof Prosessi>['vaiheet'] = [
+  {
+    kuka: 'Complia',
+    otsikko: 'Luemme viestin',
+    teksti: 'Selvitämme, mitä tarvitsette, ja vastaamme sähköpostilla. Jos jokin jää epäselväksi, kysymme.',
+  },
+  {
+    kuka: 'Complia',
+    otsikko: 'Vahvistamme hinnan',
+    teksti: 'Saatte kiinteän hinnan ja toimitusajan kirjallisena. Työ alkaa vasta, kun hyväksytte ne.',
+  },
+  {
+    kuka: 'Te',
+    otsikko: 'Alkukartoitus',
+    teksti: 'Vastaatte valmiisiin kysymyksiin siitä, miten toimitte. Sen jälkeen sovimme haastattelun.',
+  },
+];
 ---
 
 <Perus otsikko={`Kiitos yhteydenotosta | ${SIVUSTO.nimi}`} kuvaus="Viestinne on vastaanotettu. Vastaamme sähköpostilla ja vahvistamme kiinteän hinnan ja toimitusajan kirjallisena." noindex>
   <section class="osio">
-    <div class="kehys proosa">
-      <h1>Kiitos, viestinne on lähetetty</h1>
-      <p class="johdatus">
-        Vastaamme sähköpostilla ja vahvistamme kiinteän hinnan ja toimitusajan kirjallisena ennen kuin työ alkaa.
-      </p>
-      <p>Sillä välin voitte tutustua <a href="/hinnasto">hinnastoon</a> tai <a href="/artikkelit">tietosuojaohjeisiin</a>.</p>
+    <div class="kehys">
+      <div class="osio__otsikko">
+        <h1>Kiitos, viestisi on lähetetty</h1>
+        <h2 class="kiitos__alaotsikko">Näin asia etenee tästä</h2>
+      </div>
+      <Prosessi vaiheet={SEURAAVAKSI} />
+      <div class="kiitos__valmistelu">
+        <h2>Voit valmistella jo nyt</h2>
+        <ul>
+          <li>Listan järjestelmistä, joissa käsittelette henkilötietoja, kuten asiakasrekisteri, palkanlaskenta ja verkkosivut.</li>
+          <li>Nykyiset tietosuoja-asiakirjat, jos sellaisia on, myös vanhat rekisteriselosteet.</li>
+        </ul>
+        <p class="pieni">
+          Sillä välin voit tutustua <a href="/hinnasto">hinnastoon</a> tai <a href="/artikkelit">tietosuojaohjeisiin</a>.
+        </p>
+      </div>
     </div>
   </section>
 </Perus>
+
+<style>
+  .kiitos__valmistelu {
+    max-width: var(--teksti);
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  }
+  .kiitos__alaotsikko {
+    color: var(--harmaa);
+    font-family: var(--sans);
+    font-size: clamp(1.15rem, 1.05rem + 0.4vw, 1.3rem);
+    font-weight: 400;
+  }
+  .kiitos__valmistelu h2 {
+    font-size: clamp(1.4rem, 1.2rem + 0.8vw, 1.75rem);
+  }
+  .kiitos__valmistelu ul {
+    padding-left: 1.3rem;
+  }
+</style>

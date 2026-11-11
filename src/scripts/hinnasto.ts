@@ -12,3 +12,12 @@ if (juuret.length && valitsin) {
   valitsin.addEventListener('change', paivita);
   paivita();
 }
+
+// Esimerkkilaskelmat ovat avattavassa osiossa, ja niihin linkitetään muilta sivuilta (#kokonaisuudet).
+// Avataan osio, jotta linkki ei vie suljetun otsikon kohdalle.
+const avaaKohde = () => {
+  const kohde = location.hash ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null;
+  if (kohde instanceof HTMLDetailsElement) kohde.open = true;
+};
+avaaKohde();
+window.addEventListener('hashchange', avaaKohde);

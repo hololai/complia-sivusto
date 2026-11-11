@@ -1031,50 +1031,6 @@ a:hover {
 }
 
 /* Hinnasto */
-.kokovalitsin {
-  border: 0;
-  padding: 0;
-  margin: 0 0 1.25rem;
-}
-.kokovalitsin legend {
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  padding: 0;
-}
-.kokovalitsin__valinnat {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-.kokovalitsin label {
-  display: block;
-  cursor: pointer;
-  padding: 0.55rem 0.95rem;
-  background: var(--valkoinen);
-  border: 1.5px solid var(--viiva);
-  border-radius: 8px;
-  line-height: 1.3;
-}
-.kokovalitsin small {
-  display: block;
-  font-size: 0.82rem;
-  color: var(--harmaa);
-}
-.kokovalitsin input {
-  position: absolute;
-  opacity: 0;
-  width: 1px;
-  height: 1px;
-}
-.kokovalitsin input:checked + label {
-  border-color: var(--kuusi);
-  background: var(--sammal);
-  font-weight: 600;
-}
-.kokovalitsin input:focus-visible + label {
-  outline: 3px solid var(--kohdistus);
-  outline-offset: 2px;
-}
 .taulukko caption {
   text-align: left;
   font-size: 0.92rem;
@@ -1161,67 +1117,6 @@ a:hover {
     grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   }
 }
-.opas {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.opas__kortti {
-  position: relative;
-  display: grid;
-  gap: 0.3rem;
-  height: 100%;
-  padding: 1.4rem 1.4rem 1.25rem;
-  border: 1px solid var(--viiva);
-  border-radius: 16px;
-  background: var(--valkoinen);
-  color: var(--muste);
-  text-decoration: none;
-  box-shadow: var(--varjo-1);
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    border-color 0.2s ease;
-}
-.opas__kortti:hover {
-  color: var(--muste);
-  transform: translateY(-3px);
-  border-color: var(--kuusi);
-  box-shadow: var(--varjo-2);
-}
-.opas__nro {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.25rem;
-  height: 2.25rem;
-  margin-bottom: 0.4rem;
-  border-radius: 50%;
-  background: var(--kuusi);
-  color: #fff;
-  font-family: var(--serif);
-  font-weight: 650;
-}
-.opas__otsikko {
-  font-family: var(--serif);
-  font-size: 1.25rem;
-  font-weight: 600;
-  line-height: 1.25;
-}
-.opas__teksti {
-  color: var(--harmaa);
-  font-size: 0.95rem;
-}
-.opas__hinta {
-  margin-top: 0.5rem;
-  font-family: var(--serif);
-  font-size: 1.35rem;
-  font-weight: 650;
-  color: var(--kuusi);
-}
 .jarjestelmat {
   display: grid;
   gap: 1.5rem 2rem;
@@ -1271,15 +1166,16 @@ a:hover {
 .ruudukko--4 {
   grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 1fr));
 }
+/* Pitkät yhdyssanat, kuten perusoikeusvaikutusten, eivät mahdu kapeaan korttiin isolla fontilla. */
+.kortti--hinta h3 {
+  font-size: 1.1rem;
+}
 .kortti--hinta .kortti__ala {
   display: grid;
   gap: 0.35rem;
 }
 .kortti--hinta .rivit {
   width: 100%;
-}
-.koot-otsikko {
-  margin-top: 0.5rem;
 }
 @media (min-width: 50rem) {
   .tiedot--koot {
@@ -1512,7 +1408,7 @@ a:hover {
 }
 @media (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: view()) {
-    :is(.ruudukko, .opas, .tilanteet, .prosessi) > *,
+    :is(.ruudukko, .tilanteet, .prosessi) > *,
     .paketti,
     .jarjestelmat {
       animation: ilmesty linear both;
@@ -1547,13 +1443,6 @@ a:hover {
   .pohja {
     grid-template-columns: 16rem minmax(0, 1fr);
   }
-  .pohja__opas {
-    position: sticky;
-    top: 1.5rem;
-  }
-}
-.pohja__opas h2 {
-  font-size: 1.25rem;
 }
 .pohja__selite {
   display: grid;
@@ -1958,78 +1847,97 @@ html.lukittu body > :not(.portti) {
   }
 }
 
-/* Palvelut-sivun tilannevalitsin: lukija löytää palvelun tilanteensa perusteella eikä palvelun nimellä. */
-.valitsin__otsikko {
-  font-size: clamp(1.3rem, 1.1rem + 0.8vw, 1.6rem);
-  margin-bottom: 1rem;
+/* Palvelut-sivu: kortti kertoo tilanteen, hinnan ja toimitusajan, ja koko kortti on linkki. */
+.palveluryhma + .palveluryhma {
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
 }
-.valitsin {
+.palveluryhma h2 {
+  margin-bottom: 0.25rem;
+  font-size: clamp(1.5rem, 1.3rem + 0.8vw, 1.9rem);
+}
+.palveluryhma__teksti {
+  max-width: var(--teksti);
+  margin-bottom: 1.25rem;
+  color: var(--harmaa);
+}
+.palvelukortit {
   list-style: none;
   display: grid;
-  gap: 0.6rem;
-  grid-template-columns: repeat(auto-fill, minmax(min(22rem, 100%), 1fr));
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
   margin: 0 0 1rem;
   padding: 0;
 }
-.valinta {
+.palvelukortti {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 0.6rem;
   height: 100%;
-  padding: 1rem 1.15rem;
+  padding: 1.35rem 1.4rem;
   border: 1px solid var(--viiva);
-  border-radius: 12px;
+  border-radius: 16px;
   background: var(--valkoinen);
   color: var(--muste);
   text-decoration: none;
   transition:
     border-color 0.15s ease,
-    box-shadow 0.15s ease,
-    transform 0.15s ease;
+    box-shadow 0.15s ease;
 }
-.valinta:hover {
+.palvelukortti:hover {
   border-color: var(--kuusi);
   box-shadow: var(--varjo-1);
-  transform: translateY(-1px);
+  color: var(--muste);
 }
-.valinta__tilanne {
-  font-weight: 600;
-  line-height: 1.4;
-}
-.valinta__ratkaisu {
-  display: inline-flex;
+.palvelukortti__yla {
+  display: flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.75rem;
+  margin-bottom: 0.6rem;
+}
+.palvelukortti__ikoni {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 10px;
+  background: var(--sammal);
   color: var(--kuusi);
-  font-size: 0.92rem;
-  font-weight: 600;
 }
-.valinta__ratkaisu .ikoni {
-  width: 1rem;
-  height: 1rem;
-  transition: transform 0.15s ease;
+.palvelukortti__ikoni .ikoni {
+  width: 1.25rem;
+  height: 1.25rem;
 }
-.valinta:hover .valinta__ratkaisu .ikoni {
-  transform: translateX(3px);
-}
-.lisaarvioinnit__otsikko {
-  margin: clamp(2rem, 4vw, 3rem) 0 0.35rem;
-}
-.lisaarvioinnit__teksti {
-  max-width: 44rem;
-  margin: 0 0 1rem;
-}
-.kortti--palvelu h4 {
+.palvelukortti__nimi {
   font-family: var(--serif);
   font-size: 1.15rem;
-  line-height: 1.3;
+  font-weight: 600;
+  line-height: 1.25;
 }
-.kortti--palvelu h4 a::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
+.palvelukortti__kun {
+  margin-bottom: 1.1rem;
+  color: var(--harmaa);
+  font-size: 0.97rem;
+}
+.palvelukortti__ala {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.25rem 1rem;
+  margin-top: auto;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--viiva);
+}
+.palvelukortti__hinta {
+  color: var(--kuusi);
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-weight: 650;
+}
+.palvelukortti__lisa {
+  color: var(--harmaa);
+  font-size: 0.875rem;
 }
 
 /* Kuntasivu: lupausrivi ja tietosuojavuosi aikajanana. */
@@ -2131,4 +2039,96 @@ html.lukittu body > :not(.portti) {
   .pikapalkki {
     display: none;
   }
+}
+
+/* Hinnaston avattavat lisätiedot */
+.ukk--laaja .tiedot--koot {
+  padding-bottom: 1.5rem;
+}
+.esimerkit {
+  margin: 1rem 0 0;
+  padding-bottom: 1.5rem;
+}
+.esimerkit h4 {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  line-height: 1.3;
+}
+
+/* Kuntasivun ohjeet: lakihanke päivättynä huomiona ja artikkelit kortteina. */
+.ajankohtaista {
+  max-width: 52rem;
+  margin-bottom: 1.5rem;
+  padding: 1.25rem 1.5rem;
+  border-left: 3px solid var(--kulta);
+  border-radius: 0 12px 12px 0;
+  background: var(--paperi);
+}
+.ajankohtaista__nostin {
+  margin: 0 0 0.35rem;
+  color: var(--messinki);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.ajankohtaista h3 {
+  margin-bottom: 0.4rem;
+  font-size: 1.2rem;
+}
+.ajankohtaista p:last-child {
+  margin: 0;
+  color: var(--harmaa);
+  font-size: 0.97rem;
+}
+.ohjekortit {
+  list-style: none;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 1fr));
+  margin: 0;
+  padding: 0;
+}
+.ohjekortti {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  height: 100%;
+  padding: 1.25rem 1.35rem;
+  border: 1px solid var(--viiva);
+  border-radius: 14px;
+  background: var(--paperi);
+  color: var(--muste);
+  text-decoration: none;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+.ohjekortti:hover {
+  border-color: var(--kuusi);
+  box-shadow: var(--varjo-1);
+  color: var(--muste);
+}
+.ohjekortti__otsikko {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+.ohjekortti__otsikko::after {
+  content: ' →';
+  color: var(--kuusi);
+}
+.ohjekortti__teksti {
+  color: var(--harmaa);
+  font-size: 0.93rem;
+}
+
+/* Artikkelin kysymykset jatkavat tekstiä samankokoisella otsikolla kuin artikkelin muut osiot. */
+.artikkeli__usein {
+  max-width: var(--teksti);
+  margin-top: 2.5rem;
+}
+.artikkeli__usein h2 {
+  font-size: clamp(1.45rem, 1.25rem + 0.9vw, 1.9rem);
 }

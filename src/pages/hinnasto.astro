@@ -56,23 +56,6 @@ const KYSYMYKSET = [
   },
 ];
 
-const alin = (rivit: { pieni: number | null; keski: number }[]) => Math.min(...rivit.map((r) => r.pieni ?? r.keski));
-const OPAS = [
-  {
-    nro: '1',
-    otsikko: 'Perusasiakirjat kuntoon',
-    teksti: 'GAP-analyysi, tietosuojaselosteet ja seloste käsittelytoimista.',
-    hinta: `alkaen ${eur(alin(PERUS.map((a) => HINNAT[a])))}`,
-    ankkuri: '#perusasiakirjat',
-  },
-  {
-    nro: '2',
-    otsikko: 'Uusi järjestelmä tai tekoäly',
-    teksti: 'Vaikutustenarviointi, jossa kaikki tarvittava on mukana.',
-    hinta: `alkaen ${eur(JARJESTELMAT.rajattu.pieni)}`,
-    ankkuri: '#jarjestelmat',
-  },
-];
 ---
 
 <Perus
@@ -96,20 +79,6 @@ const OPAS = [
         <a href={HINNAT.tarkastus.polku}>GAP-analyysista</a> (alkaen {eur(HINNAT.tarkastus.pieni)}). Sen hinta vähennetään,
         jos jatkatte {PAKETTI.nimi} -pakettiin.
       </p>
-      <ol class="opas">
-        {
-          OPAS.map((o) => (
-            <li>
-              <a class="opas__kortti" href={o.ankkuri}>
-                <span class="opas__nro" aria-hidden="true">{o.nro}</span>
-                <span class="opas__otsikko">{o.otsikko}</span>
-                <span class="opas__teksti">{o.teksti}</span>
-                <span class="opas__hinta">{o.hinta}</span>
-              </a>
-            </li>
-          ))
-        }
-      </ol>
     </div>
   </section>
 
@@ -211,17 +180,6 @@ const OPAS = [
         </div>
       </div>
 
-      <h3 class="koot-otsikko">Mitä koot tarkoittavat?</h3>
-      <dl class="tiedot tiedot--koot">
-        {
-          KOOT.map((k) => (
-            <div>
-              <dt>{k.nimi}</dt>
-              <dd>{k.kuvaus}</dd>
-            </div>
-          ))
-        }
-      </dl>
     </div>
   </section>
 
@@ -334,39 +292,54 @@ const OPAS = [
     </div>
   </section>
 
-  <section class="osio osio--valkoinen" id="kokonaisuudet">
-    <div class="kehys">
-      <div class="osio__otsikko">
-        <h2>Esimerkkejä: mitä kokonaisuus maksaa?</h2>
-        <p class="johdatus">Lopullinen sisältö riippuu käsittelyistänne ja toimittajien siirtoperusteista.</p>
+  <section class="osio">
+    <div class="kehys kehys--kapea">
+      <h2>Lisätietoa hinnoista</h2>
+      <div class="kysymykset">
+        <details class="ukk ukk--laaja">
+          <summary><h3>Mitä koot tarkoittavat?</h3></summary>
+          <dl class="tiedot tiedot--koot">
+            {
+              KOOT.map((k) => (
+                <div>
+                  <dt>{k.nimi}</dt>
+                  <dd>{k.kuvaus}</dd>
+                </div>
+              ))
+            }
+          </dl>
+        </details>
+        <details class="ukk ukk--laaja" id="kokonaisuudet">
+          <summary><h3>Esimerkkejä: mitä kokonaisuus maksaa?</h3></summary>
+          <p>Lopullinen sisältö riippuu käsittelyistänne ja toimittajien siirtoperusteista.</p>
+          <div class="ruudukko esimerkit">
+            {
+              KOKONAISUUDET.map((k) => (
+                <article class="kortti">
+                  <h4>{k.otsikko}</h4>
+                  <p class="pieni">{k.kuvaus}</p>
+                  <ul class="rivit">
+                    {k.rivit.map((r) => (
+                      <li>
+                        <span>{r.nimi}</span>
+                        <span>{eur(r.hinta)}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <p class="asiakirja__summa">
+                    <span>Yhteensä, alv 0 %</span>
+                    <strong>{eur(k.yhteensa)}</strong>
+                  </p>
+                </article>
+              ))
+            }
+          </div>
+        </details>
       </div>
-      <div class="ruudukko">
-        {
-          KOKONAISUUDET.map((k) => (
-            <article class="kortti">
-              <h3>{k.otsikko}</h3>
-              <p class="pieni">{k.kuvaus}</p>
-              <ul class="rivit">
-                {k.rivit.map((r) => (
-                  <li>
-                    <span>{r.nimi}</span>
-                    <span>{eur(r.hinta)}</span>
-                  </li>
-                ))}
-              </ul>
-              <p class="asiakirja__summa">
-                <span>Yhteensä, alv 0 %</span>
-                <strong>{eur(k.yhteensa)}</strong>
-              </p>
-            </article>
-          ))
-        }
+      <div class="palvelu__ukk">
+        <Kysymykset kysymykset={KYSYMYKSET} />
       </div>
     </div>
-  </section>
-
-  <section class="osio">
-    <div class="kehys"><Kysymykset kysymykset={KYSYMYKSET} /></div>
   </section>
 
   <Loppukehotus />

@@ -1,61 +1,65 @@
 ---
+// Jokainen palvelu näkyy kerran: kortti kertoo, missä tilanteessa palvelu sopii, mitä se maksaa ja
+// kauanko se kestää. Kortit on ryhmitelty tarpeen mukaan, jotta lukijan ei tarvitse osata palvelujen nimiä.
 import Perus from '../layouts/Perus.astro';
-import PalveluKortti from '../components/PalveluKortti.astro';
 import Kysymykset from '../components/Kysymykset.astro';
 import Loppukehotus from '../components/Loppukehotus.astro';
+import Ikoni, { type IkoninNimi } from '../components/Ikoni.astro';
 import { SIVUSTO } from '../../site.config.mjs';
-import { ARVIOINNIT, ARVIOINTIEN_JARJESTYS, HINNAT, PAKETTI, PALVELUJEN_JARJESTYS, eur, kiintea } from '../data/hinnat';
+import { ARVIOINNIT, HINNAT, PAKETTI, eur, kiintea } from '../data/hinnat';
 import { usein } from '../data/schema';
-import Ikoni from '../components/Ikoni.astro';
 
-// Tietotilinpäätös on kuntien palvelu, joten se näkyy kuntasivulla eikä yrityksille.
-const YRITYSPALVELUT = PALVELUJEN_JARJESTYS.filter((a) => a !== 'tietotilinpaatos');
+interface Kortti {
+  ikoni: IkoninNimi;
+  nimi: string;
+  polku: string;
+  kun: string;
+  hinta: string;
+  lisa: string;
+}
 
-const TILANTEET = [
+type Hinnoiteltu = { pieni: number | null; keski: number; laaja: number };
+const hinta = (p: Hinnoiteltu) => `${kiintea(p) ? '' : 'alkaen '}${eur(p.pieni ?? p.keski)}`;
+const kortti = (
+  p: Hinnoiteltu & { nimi: string; polku: string; toimitus: string },
+  ikoni: IkoninNimi,
+  kun: string,
+): Kortti => ({ ikoni, nimi: p.nimi, polku: p.polku, kun, hinta: hinta(p), lisa: p.toimitus });
+
+const RYHMAT: { otsikko: string; teksti: string; kortit: Kortti[] }[] = [
   {
-    tilanne: 'Asiakas pyytää tietosuojaselostetta tai tarjouspyyntö edellyttää sitä',
-    ratkaisu: 'Tietosuojaselosteet',
-    polku: HINNAT.tietosuojaseloste.polku,
+    otsikko: 'Perusasiakirjat kuntoon',
+    teksti: 'Nämä tarvitsee jokainen yritys, joka käsittelee asiakkaiden, työntekijöiden tai työnhakijoiden tietoja.',
+    kortit: [
+      kortti(HINNAT.tarkastus, 'suurennus', 'Kun ette tiedä, mitä tietosuojasta puuttuu. Saatte korjauslistan hintoineen.'),
+      kortti(HINNAT.tietosuojaseloste, 'seloste', 'Kun asiakas pyytää tietosuojaselostetta tai tarjouspyyntö edellyttää sitä.'),
+      kortti(HINNAT.seloste, 'lista', 'Kun teillä on vain vanha rekisteriseloste tai käsittelyjä ei ole kuvattu.'),
+      {
+        ikoni: 'tarkistus',
+        nimi: `${PAKETTI.nimi} -paketti`,
+        polku: '/hinnasto#paketti',
+        kun: `Kun haluatte kaiken kerralla: ${PAKETTI.sisalto}.`,
+        hinta: `alkaen ${eur(PAKETTI.pieni)}`,
+        lisa: 'edullisempi kuin erikseen',
+      },
+    ],
   },
   {
-    tilanne: 'Meillä on vain vanha rekisteriseloste',
-    ratkaisu: 'Tietosuojaselosteet ja seloste käsittelytoimista',
-    polku: '/artikkelit/rekisteriseloste-vai-tietosuojaseloste',
+    otsikko: 'Uusi järjestelmä tai tekoäly',
+    teksti: 'Ennen kuin otatte käyttöön järjestelmän, joka käsittelee henkilötietoja.',
+    kortit: [
+      kortti(HINNAT.ennakkoarvio, 'kysymys', 'Kun otatte käyttöön Copilotin, ChatGPT:n tai muun järjestelmän ettekä tiedä, tarvitaanko arviointia.'),
+      kortti(HINNAT.vaikutustenarviointi, 'kilpi', 'Kun käsittelette esimerkiksi terveystietoja tai lasten tietoja laajasti. Kaikki tarvittava sisältyy, myös alla olevat arvioinnit, kun niitä tarvitaan.'),
+    ],
   },
   {
-    tilanne: 'Otamme käyttöön Copilotin, ChatGPT:n tai uuden järjestelmän',
-    ratkaisu: 'Ennakkoarvio',
-    polku: HINNAT.ennakkoarvio.polku,
-  },
-  {
-    tilanne: 'Käsittelemme terveystietoja tai lasten tietoja laajasti',
-    ratkaisu: 'Vaikutustenarviointi',
-    polku: HINNAT.vaikutustenarviointi.polku,
-  },
-  {
-    tilanne: 'Käsittely perustuu oikeutettuun etuun, mutta perustelua ei ole kirjattu',
-    ratkaisu: ARVIOINNIT.lia.nimi,
-    polku: ARVIOINNIT.lia.polku,
-  },
-  {
-    tilanne: 'Tiedot siirtyvät EU:n ulkopuolelle vakiosopimuslausekkeilla',
-    ratkaisu: ARVIOINNIT.tia.nimi,
-    polku: ARVIOINNIT.tia.polku,
-  },
-  {
-    tilanne: 'Otamme julkisena toimijana käyttöön suuririskisen tekoälyjärjestelmän',
-    ratkaisu: ARVIOINNIT.fria.nimi,
-    polku: ARVIOINNIT.fria.polku,
-  },
-  {
-    tilanne: 'Emme tiedä, mitä tietosuojasta puuttuu',
-    ratkaisu: HINNAT.tarkastus.nimi,
-    polku: HINNAT.tarkastus.polku,
-  },
-  {
-    tilanne: 'Haluamme kaiken kerralla kuntoon',
-    ratkaisu: `${PAKETTI.nimi} -paketti`,
-    polku: '/hinnasto#paketti',
+    otsikko: 'Yksittäinen arviointi',
+    teksti: 'Kun ette tarvitse koko vaikutustenarviointia, voitte tilata yksittäisen arvioinnin kiinteään hintaan.',
+    kortit: [
+      kortti(ARVIOINNIT.lia, 'kaavio', 'Kun käsittely perustuu oikeutettuun etuun, mutta perustelua ei ole kirjattu.'),
+      kortti(ARVIOINNIT.tia, 'lista', 'Kun tiedot siirtyvät EU:n ulkopuolelle vakiosopimuslausekkeilla.'),
+      kortti(ARVIOINNIT.fria, 'asiantuntija', 'Kun otatte julkisena toimijana käyttöön suuririskisen tekoälyjärjestelmän.'),
+    ],
   },
 ];
 
@@ -90,75 +94,37 @@ const KYSYMYKSET = [
           te hyväksytte lopputuloksen, ja hinta on tiedossa etukäteen.
         </p>
       </div>
-      <h2 class="valitsin__otsikko">Mikä tilanteenne on?</h2>
-      <ul class="valitsin">
-        {
-          TILANTEET.map((t) => (
-            <li>
-              <a class="valinta" href={t.polku}>
-                <span class="valinta__tilanne">{t.tilanne}</span>
-                <span class="valinta__ratkaisu">
-                  {t.ratkaisu}
-                  <Ikoni nimi="nuoli" class="ikoni" />
-                </span>
-              </a>
-            </li>
-          ))
-        }
-      </ul>
+      {
+        RYHMAT.map((r) => (
+          <div class="palveluryhma">
+            <h2>{r.otsikko}</h2>
+            <p class="palveluryhma__teksti">{r.teksti}</p>
+            <ul class="palvelukortit">
+              {r.kortit.map((k) => (
+                <li>
+                  <a class="palvelukortti" href={k.polku}>
+                    <span class="palvelukortti__yla">
+                      <span class="palvelukortti__ikoni">
+                        <Ikoni nimi={k.ikoni} />
+                      </span>
+                      <span class="palvelukortti__nimi">{k.nimi}</span>
+                    </span>
+                    <span class="palvelukortti__kun">{k.kun}</span>
+                    <span class="palvelukortti__ala">
+                      <span class="palvelukortti__hinta">{k.hinta}</span>
+                      <span class="palvelukortti__lisa">{k.lisa}</span>
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
       <p class="pieni">
-        Etkö löydä tilannettanne? <a href="/pikatesti">Pikatesti</a> kertoo kahdessa minuutissa, mistä kannattaa
-        aloittaa, tai <a href="/yhteystiedot">ota yhteyttä</a>.
+        Hinnat alv 0 %. Kaikki koot näet <a href="/hinnasto">hinnastosta</a>. Etkö tiedä, mistä aloittaa?
+        <a href="/pikatesti">Pikatesti</a> kertoo sen kahdessa minuutissa, tai <a href="/yhteystiedot">ota yhteyttä</a>.
       </p>
-    </div>
-  </section>
-
-  <section class="osio osio--valkoinen">
-    <div class="kehys">
-      <div class="osio__otsikko">
-        <h2>Kaikki palvelut kiinteällä hinnalla</h2>
-        <p class="johdatus">Jokaisella palvelulla on julkinen hinta ja luvattu toimitusaika. Hinnat alv 0 %.</p>
-      </div>
-      <div class="ruudukko">
-        {YRITYSPALVELUT.map((a) => <PalveluKortti avain={a} />)}
-      </div>
-      <h3 class="lisaarvioinnit__otsikko">Lisäarvioinnit tarpeen mukaan</h3>
-      <p class="pieni lisaarvioinnit__teksti">
-        Tasapainotesti ja siirtovaikutusten arviointi sisältyvät vaikutustenarviointiin, kun niitä tarvitaan. Erikseen
-        ostettuna niillä on kiinteä hinta.
-      </p>
-      <div class="ruudukko">
-        {
-          ARVIOINTIEN_JARJESTYS.map((a) => (
-            <article class="kortti kortti--palvelu">
-              <h4>
-                <a href={ARVIOINNIT[a].polku}>{ARVIOINNIT[a].nimi}</a>
-              </h4>
-              <p>{ARVIOINNIT[a].lyhyt}</p>
-              <div class="kortti__ala">
-                <span class="kortti__hinta">
-                  {kiintea(ARVIOINNIT[a]) ? '' : 'alkaen '}
-                  {eur(ARVIOINNIT[a].pieni)}
-                </span>
-                <span class="pieni">{ARVIOINNIT[a].toimitus}</span>
-              </div>
-            </article>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  <section class="osio">
-    <div class="kehys kehys--kapea">
-      <div class="kortti polku">
-        <h2>{PAKETTI.nimi} -paketti</h2>
-        <p>
-          GAP-analyysi, tietosuojaselosteet ja seloste käsittelytoimista yhdessä edullisemmin kuin erikseen. Pienelle
-          yritykselle {eur(PAKETTI.pieni)}.
-        </p>
-        <p class="lisalinkki"><a href="/hinnasto#paketti">Katso paketin hinnat</a></p>
-      </div>
     </div>
   </section>
 

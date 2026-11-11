@@ -32,7 +32,7 @@ const muut = d.liittyvat.map((id) => {
   otsikko={d.otsikko}
   kuvaus={d.kuvaus}
   ogTyyppi="article"
-  murut={[{ nimi: 'Artikkelit', polku: '/artikkelit' }, { nimi: d.h1, polku }]}
+  murut={[{ nimi: 'Ohjeet', polku: '/artikkelit' }, { nimi: d.h1, polku }]}
   schema={[
     artikkeliSchema({ otsikko: d.h1, kuvaus: d.kuvaus, polku, julkaistu: d.julkaistu, paivitetty: d.paivitetty }),
     ...(kysymykset.length ? [usein(kysymykset)] : []),

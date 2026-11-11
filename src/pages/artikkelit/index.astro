@@ -29,7 +29,7 @@ const RYHMAT = [
           merkitty jokaiseen ohjeeseen.
         </p>
       </div>
-      <div class="ruudukko ruudukko--2 tyokalut">
+      <div class="ruudukko ruudukko--2">
         <article class="kortti kortti--palvelu">
           <span class="kortti__ikoni"><Ikoni nimi="kysymys" /></span>
           <h2><a href="/pikatesti">Tietosuojan pikatesti</a></h2>
@@ -45,7 +45,7 @@ const RYHMAT = [
         RYHMAT.map((r) => (
           <section class="artikkeliryhma" id={r.id}>
             <h2>{r.nimi}</h2>
-            <p class="pieni">{r.kuvaus}</p>
+            <p class="artikkeliryhma__kuvaus">{r.kuvaus}</p>
             <div class="ruudukko ruudukko--2">
               {artikkelit
                 .filter((a) => a.data.ryhma === r.id)
@@ -68,8 +68,15 @@ const RYHMAT = [
 </Perus>
 
 <style>
-  .tyokalut,
-  .artikkeliryhma + .artikkeliryhma {
-    margin-top: clamp(2.5rem, 5vw, 4rem);
+  .artikkeliryhma {
+    margin-top: clamp(3rem, 6vw, 4.5rem);
+  }
+  .artikkeliryhma h2 {
+    margin-bottom: 0.25rem;
+    font-size: clamp(1.5rem, 1.3rem + 0.8vw, 1.9rem);
+  }
+  .artikkeliryhma__kuvaus {
+    margin-bottom: 1.25rem;
+    color: var(--harmaa);
   }
 </style>
