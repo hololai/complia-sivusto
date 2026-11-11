@@ -214,7 +214,11 @@ a:hover {
     transform 0.15s ease,
     box-shadow 0.15s ease;
 }
+/* Perustyyli ennen muunnelmia, jotta muunnelman oma hover voittaa. */
 .painike:hover {
+  background: var(--kuusi-tumma);
+  border-color: var(--kuusi-tumma);
+  color: #fff;
   transform: translateY(-1px);
   box-shadow: 0 8px 18px -10px rgb(14 47 39 / 55%);
 }
@@ -249,11 +253,6 @@ a:hover {
   border-color: rgb(255 255 255 / 60%);
   color: #fff;
 }
-.painike:hover {
-  background: var(--kuusi-tumma);
-  border-color: var(--kuusi-tumma);
-  color: #fff;
-}
 .painike--toinen {
   background: transparent;
   color: var(--kuusi);
@@ -261,16 +260,6 @@ a:hover {
 .painike--toinen:hover {
   background: var(--sammal);
   border-color: var(--kuusi);
-  color: var(--kuusi-tumma);
-}
-.painike--vaalea {
-  background: #fff;
-  border-color: #fff;
-  color: var(--kuusi-tumma);
-}
-.painike--vaalea:hover {
-  background: var(--sammal);
-  border-color: var(--sammal);
   color: var(--kuusi-tumma);
 }
 .painike--pieni {
@@ -1039,10 +1028,6 @@ a:hover {
   gap: 0.4rem 1.5rem;
   margin: 1.25rem 0 0;
   font-weight: 600;
-}
-.loppukehotus .painike--vaalea {
-  background: linear-gradient(180deg, var(--kulta-vaalea), var(--kulta));
-  border-color: var(--kulta);
 }
 
 /* Hinnasto */

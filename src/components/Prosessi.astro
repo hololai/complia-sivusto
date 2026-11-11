@@ -6,19 +6,18 @@ interface Props {
   vaiheet: { kuka: 'Te' | 'Complia' | 'Yhdessä'; otsikko: string; teksti: string }[];
 }
 const { vaiheet } = Astro.props;
+const LUOKAT = { Te: 'te', Complia: 'me', Yhdessä: 'yhdessa' } as const;
 const NIMET = { Te: 'Teidän osuutenne', Complia: 'Complia hoitaa', Yhdessä: 'Yhdessä' } as const;
 ---
 
 <ol class="prosessi">
   {
     vaiheet.map((v, i) => (
-      <li class:list={['prosessi__vaihe', `prosessi__vaihe--${v.kuka === 'Complia' ? 'me' : 'te'}`]}>
-        <div class="prosessi__yla">
-          <span class="prosessi__nro" aria-hidden="true">
-            {String(i + 1).padStart(2, '0')}
-          </span>
-          <span class="prosessi__kuka">{NIMET[v.kuka]}</span>
-        </div>
+      <li class:list={['prosessi__vaihe', `prosessi__vaihe--${LUOKAT[v.kuka]}`]}>
+        <p class="prosessi__kuka">{NIMET[v.kuka]}</p>
+        <span class="prosessi__nro" aria-hidden="true">
+          {String(i + 1).padStart(2, '0')}
+        </span>
         <h3>{v.otsikko}</h3>
         <p>{v.teksti}</p>
       </li>
@@ -27,57 +26,70 @@ const NIMET = { Te: 'Teidän osuutenne', Complia: 'Complia hoitaa', Yhdessä: 'Y
 </ol>
 
 <style>
+  /* Jokainen vaihe on oma laatikkonsa, ja laatikon väri kertoo tekijän: vaalea on asiakkaan osuus,
+     tumma Complian ja vihertävä yhteinen. Näin vaiheet eivät sekoitu toisiinsa. */
   .prosessi {
     list-style: none;
     display: grid;
-    gap: 2rem 1.75rem;
+    gap: 1rem;
     grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr));
     margin: 0;
     padding: 0;
-    counter-reset: vaihe;
   }
   .prosessi__vaihe {
-    padding-top: 1.25rem;
-    border-top: 2px solid var(--viiva);
-  }
-  /* Complian vaiheet erottuvat värillä: lukija näkee, että raskas osuus on meillä. */
-  .prosessi__vaihe--me {
-    border-top-color: var(--kuusi);
-  }
-  .prosessi__yla {
     display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-bottom: 0.75rem;
-  }
-  .prosessi__nro {
-    color: var(--messinki);
-    font-family: var(--serif);
-    font-size: 2.25rem;
-    font-weight: 600;
-    line-height: 1;
-  }
-  .prosessi__kuka {
-    padding: 0.15rem 0.6rem;
-    border-radius: 99px;
+    flex-direction: column;
+    padding: clamp(1.25rem, 2.5vw, 1.75rem);
+    border: 1px solid var(--viiva);
+    border-radius: 16px;
     background: var(--paperi);
-    color: var(--harmaa);
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
   }
-  .prosessi__vaihe--me .prosessi__kuka {
+  .prosessi__vaihe--me {
+    border-color: var(--kuusi);
     background: var(--kuusi);
     color: #fff;
   }
+  .prosessi__vaihe--yhdessa {
+    border-color: #c9dccf;
+    background: var(--sammal);
+  }
+  .prosessi__kuka {
+    margin: 0 0 1rem;
+    color: var(--harmaa);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .prosessi__vaihe--me .prosessi__kuka {
+    color: var(--kulta-vaalea);
+  }
+  .prosessi__vaihe--yhdessa .prosessi__kuka {
+    color: var(--kuusi);
+  }
+  .prosessi__nro {
+    margin-bottom: 0.5rem;
+    color: var(--messinki);
+    font-family: var(--serif);
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 1;
+  }
+  .prosessi__vaihe--me .prosessi__nro {
+    color: var(--kulta);
+  }
   h3 {
     margin-bottom: 0.4rem;
-    font-size: 1.3rem;
+    font-size: 1.25rem;
+  }
+  .prosessi__vaihe--me h3 {
+    color: #fff;
   }
   p {
     margin: 0;
     color: var(--harmaa);
+  }
+  .prosessi__vaihe--me p {
+    color: rgb(255 255 255 / 82%);
   }
 </style>
