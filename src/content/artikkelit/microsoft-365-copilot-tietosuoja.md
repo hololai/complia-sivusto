@@ -18,7 +18,7 @@ kehotus:
   otsikko: "Otatteko Copilotin käyttöön?"
   teksti: "Ennakkoarvio valmistuu kahdessa arkipäivässä. Esimerkki: 25 hengen yritys, ennakkoarvio ja tarvittaessa vaikutustenarviointi, enintään {{esim.copilot}} (alv 0 %)."
   nappi: "Tilaa ennakkoarvio"
-  linkki: "/tarvitaanko-vaikutustenarviointi"
+  linkki: "/yhteystiedot?palvelu=tarvitaanko-vaikutustenarviointi"
 usein:
   - k: "Koulutetaanko Copilotin malleja meidän tiedoillamme?"
     v: "Microsoftin mukaan kehotteita, vastauksia ja Microsoft Graphin kautta haettuja tietoja ei käytetä perusmallien kouluttamiseen."
@@ -82,4 +82,4 @@ Tasapainotesti ja siirtojen arviointi sisältyvät vaikutustenarviointimme hinta
 
 ## Mitä arviointi maksaa?
 
-Microsoft 365:n ja Copilotin vaikutustenarviointi maksaa koon mukaan {{copilot.pieni}}, {{copilot.keski}} tai {{copilot.laaja}} (alv 0 %). Hintaan sisältyvät ennakkoarvio ja kirjaukset selosteisiin. Katso [kaikki ohjelmistot](/hinnasto#jarjestelmat) ja [esimerkkikokonaisuudet](/hinnasto#kokonaisuudet).
+Microsoft 365:n ja Copilotin vaikutustenarviointi maksaa koon mukaan {{copilot.pieni}}, {{copilot.keski}} tai {{copilot.laaja}} (alv 0 %). Hintaan sisältyvät ennakkoarvio ja kirjaukset selosteisiin. Katso, miten [vaikutustenarviointi](/vaikutustenarviointi) etenee. Jos ette ole varmoja, tarvitaanko arviointia, aloittakaa pelkällä [ennakkoarviolla](/tarvitaanko-vaikutustenarviointi). Katso [kaikki ohjelmistot](/hinnasto#jarjestelmat) ja [esimerkkikokonaisuudet](/hinnasto#kokonaisuudet).

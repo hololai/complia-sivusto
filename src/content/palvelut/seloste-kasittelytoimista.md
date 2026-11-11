@@ -17,7 +17,7 @@ usein:
   - k: "Tarvitseeko pieni yritys selosteen?"
     v: "Yleensä kyllä. Alle 250 hengen poikkeus koskee vain satunnaista käsittelyä, ja esimerkiksi palkanmaksu ja asiakasrekisteri ovat jatkuvaa käsittelyä."
   - k: "Missä muodossa seloste toimitetaan?"
-    v: "Muokattavana taulukkona, jota voitte itse pitää ajan tasalla. Tietosuoja kunnossa -jatkopalvelussa päivitämme sen puolestanne."
+    v: "Muokattavana taulukkona, jota voitte itse pitää ajan tasalla."
 ---
 
 ## Mikä seloste käsittelytoimista on?

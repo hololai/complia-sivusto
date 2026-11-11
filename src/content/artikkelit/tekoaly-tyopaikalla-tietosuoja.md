@@ -18,7 +18,7 @@ kehotus:
   otsikko: "Haluatko arvion valmiina?"
   teksti: "Teemme ennakkoarvion kahdessa arkipäivässä, hintaan {{ennakkoarvio.pieni}}, ja tarvittaessa vaikutustenarvioinnin. Esimerkki: 25 hengen yritys, Copilotin käyttöönotto, enintään {{esim.copilot}} (alv 0 %)."
   nappi: "Tilaa ennakkoarvio"
-  linkki: "/tarvitaanko-vaikutustenarviointi"
+  linkki: "/yhteystiedot?palvelu=tarvitaanko-vaikutustenarviointi"
 usein:
   - k: "Saako ChatGPT:hen kirjoittaa asiakkaan tietoja?"
     v: "Ei ilman arviota ja sopimusta. Kuluttajaversioon ei pidä syöttää henkilötietoja lainkaan. Yritysversiossa käyttö pitää perustua käsittelysopimukseen ja selkeään ohjeeseen."

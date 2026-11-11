@@ -25,7 +25,7 @@ Alkuperäinen suunnitelma lupasi hostingin EU:ssa. GitHub Pages toimii Yhdysvall
 |---|---|---|---|
 | Oma tietosuojaseloste | ei osoitetta | `/tietosuoja` | `/tietosuojaseloste` on palvelusivun osoite, ja sen pitää kilpailla hakusanasta. |
 | Palvelut-sivu | "Yrityksen palvelut →" ilman kohdetta | `/palvelut` | Etusivun yrityspolulle tarvitaan kohde, ja se kattaa hakusanat tietosuojapalvelut ja GDPR yritykselle. |
-| Tietosuojavastaava | osa `/kunnat`-sivua | oma sivu `/tietosuojavastaava` | Hakusana "tietosuojavastaava ostopalveluna" kuuluu myös yrityksille, eikä kuntasivu vastaa siihen hyvin. |
+| Jatkuvat palvelut | Tietosuoja kunnossa ja tietosuojavastaava palveluna | poistettu 11.11.2026 | Käyttäjän päätös: jatkuvia palveluja ei myydä. Kaikki palvelut ovat kertaostoksia. |
 | Tietosuojaselosteen pohja | sähköpostia vastaan | avoimesti sivulla, Word ilman sähköpostia | Google ei näe lomakkeen taakse. "Tietosuojaseloste pohja" on selvä hakusana, ja lisäksi sarjapostitus vaatisi palvelun ja suostumukset. Sähköpostin voi lisätä myöhemmin vapaaehtoisena. |
 | Pikatesti | markkinointisuunnitelmassa sähköpostia vastaan, nettisivusuunnitelmassa tulos heti | tulos heti, ei tallennusta | Noudattaa nettisivusuunnitelmaa ja vahvistaa viestiä. |
 | H1 etusivulla | Tietosuoja kuntoon – … | Tietosuoja ja GDPR kuntoon – … | Lisää hakusanan GDPR. |
@@ -53,7 +53,6 @@ Perustelut (markkinakatsaus 6.11.2026):
 
 - Yksittäinen tietosuojaseloste maksaa markkinalla noin 200–230 € + alv (esim. Tietosuojatalo 229 €, Lakihelppi 199 €), lakitoimistoissa selvästi enemmän. Vanha 390 € näytti kalliilta, vaikka se sisälsi neljä selostetta. Uusi 290 € kaikista selosteista on kilpailukykyinen ja kertoo sisällön suoraan.
 - Käyttäjän havainto: vaikutustenarvioinnissa syntyy aina tietosuojaseloste ja ropa-kirjaus samasta käsittelystä. Siksi ne kuuluvat arvioinnin hintaan eivätkä tule erillisinä laskuina.
-- Ulkoistettu tietosuojavastaava maksaa markkinalla noin 300–2 500 €/kk ja tietosuojaohjelmistot noin 80–350 €/kk, joten jatkuvien palvelujen hinnat (89–1 500 €/kk) pysyvät ennallaan.
 - Tarkistin (`scripts/tarkista.mjs`) vaatii, että hinta ei laske koon kasvaessa, järjestelmärivit kasvavat alaspäin ja paketin säästö on noin 20 %.
 
 Muut periaatteet:
@@ -75,7 +74,6 @@ Muut periaatteet:
 | Vaikutustenarviointi | `/vaikutustenarviointi` | vaikutustenarviointi, DPIA | osto |
 | Tietosuojatarkastus | `/tietosuojatarkastus` | tietosuojatarkastus, tietosuoja-auditointi | osto |
 | Tietotilinpäätös | `/tietotilinpaatos` | tietotilinpäätös kunnalle | osto |
-| Tietosuojavastaava | `/tietosuojavastaava` | tietosuojavastaava palveluna | osto |
 | Tasapainotesti eli oikeutetun edun arviointi | `/oikeutetun-edun-arviointi` | oikeutetun edun arviointi, LIA, tasapainotesti | osto |
 | Siirtovaikutusten arviointi | `/siirtovaikutusten-arviointi` | siirtovaikutusten arviointi, TIA | osto |
 | Perusoikeusvaikutusten arviointi | `/perusoikeusvaikutusten-arviointi` | perusoikeusvaikutusten arviointi, FRIA | osto |

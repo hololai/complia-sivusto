@@ -9,7 +9,6 @@ import {
   HINNAT,
   JARJESTELMAT,
   JARJESTELMIEN_JARJESTYS,
-  JATKUVAT,
   KOKONAISUUDET,
   KOOT,
   PAKETTI,
@@ -72,13 +71,6 @@ const OPAS = [
     teksti: 'Vaikutustenarviointi, jossa kaikki tarvittava on mukana.',
     hinta: `alkaen ${eur(JARJESTELMAT.rajattu.pieni)}`,
     ankkuri: '#jarjestelmat',
-  },
-  {
-    nro: '3',
-    otsikko: 'Pysyy kunnossa',
-    teksti: 'Vuosipäivitys tai tietosuojavastaava palveluna.',
-    hinta: `alkaen ${eur(JATKUVAT.kunnossa.pieni)}/kk`,
-    ankkuri: '#jatkuvat',
   },
 ];
 ---
@@ -334,36 +326,6 @@ const OPAS = [
             </article>
           ))
         }
-      </div>
-    </div>
-  </section>
-
-  <section class="osio hinnasto" id="jatkuvat">
-    <div class="kehys">
-      <div class="osio__otsikko">
-        <h2>3. Jatkuvat palvelut</h2>
-        <p class="johdatus">Vapaaehtoisia. Kertaostos riittää, jos haluat vain asiakirjat kuntoon.</p>
-      </div>
-      <div class="taulu">
-        <table class="taulukko">
-          <caption>Kuukausihinnat, alv 0 %</caption>
-          <thead>
-            <tr>
-              <th scope="col">Palvelu</th>
-              {KOOT.map((k) => <th scope="col" class={`h k-${k.id}`}>{k.nimi}</th>)}
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">{JATKUVAT.kunnossa.nimi}<span>{JATKUVAT.kunnossa.lyhyt}</span></th>
-              {KOOT.map((k) => <td class={`h k-${k.id}`}>{eur(JATKUVAT.kunnossa[k.id])}/kk</td>)}
-            </tr>
-            <tr>
-              <th scope="row"><a href={JATKUVAT.vastaava.polku}>{JATKUVAT.vastaava.nimi}</a><span>{JATKUVAT.vastaava.lyhyt}</span></th>
-              {KOOT.map((k) => <td class={`h k-${k.id}`}>{eur(JATKUVAT.vastaava[k.id])}/kk</td>)}
-            </tr>
-          </tbody>
-        </table>
       </div>
       <p class="pieni">
         Hinnat alv 0 % (alv 25,5 % lisätään). Tilauksiin sovelletaan <a href="/toimitusehdot">toimitusehtoja</a> ja

@@ -1,4 +1,4 @@
-// Toimitusehdot, voimassa 6.11.2026 alkaen. Palvelut myydään vain yrityksille ja julkisyhteisöille.
+// Toimitusehdot, voimassa 11.11.2026 alkaen. Palvelut myydään vain yrityksille ja julkisyhteisöille.
 import { SIVUSTO } from '../../site.config.mjs';
 import type { Asiakirja } from './asiakirja';
 
@@ -7,7 +7,7 @@ const ytunnus = SIVUSTO.yritys.ytunnus ?? '<<Y-tunnus>>';
 
 export const TOIMITUSEHDOT: Asiakirja = {
   otsikko: 'Toimitusehdot',
-  alaotsikko: 'Voimassa 6.11.2026 alkaen',
+  alaotsikko: 'Voimassa 11.11.2026 alkaen',
   osiot: [
     {
       otsikko: 'Soveltaminen',
@@ -35,7 +35,6 @@ export const TOIMITUSEHDOT: Asiakirja = {
           kohdat: [
             'Hinnat ovat hinnaston tai tilausvahvistuksen mukaiset, ja niihin lisätään arvonlisävero.',
             'Kertapalvelut laskutetaan, kun asiakas on hyväksynyt asiakirjat tai tarkistusaika on päättynyt.',
-            'Jatkuvat palvelut laskutetaan kuukausittain etukäteen.',
             'Maksuaika on 14 päivää netto. Viivästyneestä maksusta peritään korkolain mukainen viivästyskorko.',
           ],
         },
@@ -107,22 +106,12 @@ export const TOIMITUSEHDOT: Asiakirja = {
         {
           tyyppi: 'lista',
           kohdat: [
-            'Vastuumme rajoittuu kertapalvelussa sen hintaan ja jatkuvassa palvelussa 12 kuukauden laskutukseen.',
+            'Vastuumme rajoittuu palvelun hintaan.',
             'Emme vastaa välillisistä vahingoista, kuten saamatta jääneestä voitosta tai toiminnan keskeytyksestä.',
             'Emme vastaa viranomaisen asiakkaalle määräämistä seuraamusmaksuista.',
             'Vastuunrajoitus ei koske tahallisesti tai törkeällä huolimattomuudella aiheutettua vahinkoa.',
             'Vahingosta on ilmoitettava kirjallisesti kolmen kuukauden kuluessa siitä, kun asiakas havaitsi sen.',
           ],
-        },
-      ],
-    },
-    {
-      otsikko: 'Jatkuvat palvelut',
-      osat: [
-        {
-          tyyppi: 'kappale',
-          teksti:
-            'Jatkuva palvelu on voimassa toistaiseksi, ja kumpikin osapuoli voi irtisanoa sen yhden kuukauden irtisanomisajalla. Sopimuksen päättyessä toimimme käsittelysopimuksen mukaisesti.',
         },
       ],
     },

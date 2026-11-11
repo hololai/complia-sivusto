@@ -14,7 +14,6 @@ import {
   JARJESTELMAT,
   JARJESTELMIEN_JARJESTYS,
   JATKO,
-  JATKUVAT,
   PAKETTI,
   eur,
   sijoitaHinnat,
@@ -44,15 +43,14 @@ const SARAKKEET = [
   { id: 'laaja', nimi: 'Koko toimiala tai laaja järjestelmä' },
 ];
 
-function hintataulu(rivit, { kk = false, otsikot = SARAKKEET } = {}) {
-  const paate = kk ? '/kk' : '';
+function hintataulu(rivit, { otsikot = SARAKKEET } = {}) {
   return `<table class="hinnat">
   <thead><tr><th scope="col">Palvelu</th>${otsikot.map((o) => `<th scope="col" class="h">${html(o.nimi)}</th>`).join('')}</tr></thead>
   <tbody>${rivit
     .map(
       (r) =>
         `<tr><th scope="row">${html(r.nimi)}${r.lisa ? `<span>${html(r.lisa)}</span>` : ''}</th>${otsikot
-          .map((o) => `<td class="h">${r[o.id] == null ? '–' : `${eur(r[o.id])}${paate}`}</td>`)
+          .map((o) => `<td class="h">${r[o.id] == null ? '–' : `${eur(r[o.id])}`}</td>`)
           .join('')}</tr>`,
     )
     .join('')}</tbody>
@@ -88,7 +86,6 @@ export function palvelukuvaus() {
   const gap = palvelu('tietosuojatarkastus');
   const ts = palvelu('tietosuojaseloste');
   const ropa = palvelu('seloste-kasittelytoimista');
-  const vastaava = palvelu('tietosuojavastaava');
 
   const sisalto = `
 <header class="kansi">
@@ -131,7 +128,6 @@ export function palvelukuvaus() {
       <tr><th scope="row">5. ${html(HINNAT.tietosuojaseloste.nimi)}</th><td>${html(HINNAT.tietosuojaseloste.toimitus)}</td><td class="h">${vali(HINNAT.tietosuojaseloste.keski, HINNAT.tietosuojaseloste.laaja)}</td></tr>
       <tr><th scope="row">5. ${html(HINNAT.seloste.nimi)}</th><td>${html(HINNAT.seloste.toimitus)}</td><td class="h">${vali(HINNAT.seloste.keski, HINNAT.seloste.laaja)}</td></tr>
       <tr><th scope="row">6. Erilliset arvioinnit<span>ennakkoarvio, tasapainotesti, siirtovaikutusten arviointi</span></th><td>2–3 arkipäivää</td><td class="h">${vali(HINNAT.ennakkoarvio.keski, ARVIOINNIT.tia.keski)}</td></tr>
-      <tr><th scope="row">7. ${html(JATKUVAT.vastaava.nimi)}</th><td>jatkuva</td><td class="h">${vali(JATKUVAT.vastaava.keski, JATKUVAT.vastaava.laaja)}/kk</td></tr>
     </tbody>
   </table>
 </section>
@@ -195,20 +191,6 @@ export function palvelukuvaus() {
       <tr><th scope="row">${html(ARVIOINNIT.tia.nimi)}<span>${html(iso(ARVIOINNIT.tia.yksikko))}</span></th><td>${html(ARVIOINNIT.tia.toimitus)}</td><td class="h">${eur(ARVIOINNIT.tia.keski)}</td></tr>
     </tbody>
   </table>
-</section>
-
-<section class="palvelu">
-  <h2>7. Jatkuvat palvelut</h2>
-  <h3>${html(JATKUVAT.vastaava.nimi)}</h3>
-  ${kuvaus(vastaava, null)}
-  ${hintataulu(
-    [
-      { ...JATKUVAT.vastaava, lisa: JATKUVAT.vastaava.lyhyt },
-      { ...JATKUVAT.kunnossa, lisa: JATKUVAT.kunnossa.lyhyt },
-    ],
-    { kk: true },
-  )}
-  <p class="pieni">Jatkuvan palvelun hankinnan arvo lasketaan koko sopimuskaudelta.</p>
 </section>
 
 <section class="palvelu">

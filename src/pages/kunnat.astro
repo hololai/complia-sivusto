@@ -6,7 +6,7 @@ import Loppukehotus from '../components/Loppukehotus.astro';
 import { statSync } from 'node:fs';
 import { join } from 'node:path';
 import { SIVUSTO } from '../../site.config.mjs';
-import { ARVIOINNIT, HINNAT, JARJESTELMAT, JATKUVAT, eur } from '../data/hinnat';
+import { ARVIOINNIT, HINNAT, JARJESTELMAT, eur } from '../data/hinnat';
 import { usein } from '../data/schema';
 import Ikoni from '../components/Ikoni.astro';
 import Prosessi from '../components/Prosessi.astro';
@@ -39,11 +39,11 @@ const OSTO: ComponentProps<typeof Prosessi>['vaiheet'] = [
 const KYSYMYKSET = [
   {
     k: 'Voiko kunta ostaa palvelut ilman kilpailutusta?',
-    v: 'Kertapalvelut ovat pienhankintojen kokoluokkaa, joten raskasta kilpailutusta ei yleensä tarvita. Noudata kuntasi hankintaohjetta. Jatkuvassa tietosuojavastaavapalvelussa hankinnan arvo lasketaan koko sopimuskaudelta, joten tarkista se erikseen.',
+    v: 'Kertapalvelut ovat pienhankintojen kokoluokkaa, joten raskasta kilpailutusta ei yleensä tarvita. Noudata kuntasi hankintaohjetta.',
   },
   {
     k: 'Korvaako palvelu kunnan oman tietosuojavastaavan?',
-    v: 'Ei tarvitse korvata. Useimmiten autamme omaa tietosuojavastaavaa silloin, kun aika ei riitä. Tietosuojavastaavan tehtävän voi myös ostaa kokonaan palveluna.',
+    v: 'Ei. Autamme kunnan omaa tietosuojavastaavaa silloin, kun aika ei riitä, ja hän hyväksyy lopputuloksen.',
   },
   {
     k: 'Milloin tietotilinpäätös pitää tilata?',
@@ -59,7 +59,6 @@ const VUOSI = [
   { aika: 'Tammi–maaliskuu', tyo: 'Tietotilinpäätös edelliseltä vuodelta tilinpäätöksen rinnalla', palvelu: 'Tietotilinpäätös', polku: HINNAT.tietotilinpaatos.polku },
   { aika: 'Ympäri vuoden', tyo: 'Järjestelmähankintojen vaikutustenarvioinnit ennen käyttöönottoa', palvelu: 'Vaikutustenarviointi', polku: HINNAT.vaikutustenarviointi.polku },
   { aika: 'Hankinnan valmistelussa', tyo: `Suuririskisen tekoälyn perusoikeusvaikutukset, alkaen ${eur(ARVIOINNIT.fria.keski)}`, palvelu: ARVIOINNIT.fria.nimi, polku: ARVIOINNIT.fria.polku },
-  { aika: 'Elo–lokakuu', tyo: 'Jatkuvien palvelujen budjetointi ennen talousarvion lukitsemista', palvelu: 'Tietosuojavastaava palveluna', polku: JATKUVAT.vastaava.polku },
 ];
 
 // PDF tehdään komennolla npm run asiakirjat (scripts/tee-palvelukuvaus.mjs) samasta datasta kuin sivut.
@@ -72,7 +71,7 @@ const artikkeliTtp = await getEntry('artikkelit', 'tietotilinpaatos-sisalto-ja-a
 
 <Perus
   otsikko={`Tietosuojapalvelut kunnille pienhankintana | ${SIVUSTO.nimi}`}
-  kuvaus="Hankinnan vaikutustenarviointi, tietotilinpäätös ja tietosuojavastaava ostopalveluna kunnille. Kiinteät hinnat, jotka voi ostaa pienhankintana."
+  kuvaus="Hankinnan vaikutustenarviointi, tietotilinpäätös ja selosteet käsittelytoimista kunnille. Kiinteät hinnat, jotka voi ostaa pienhankintana."
   murut={[{ nimi: 'Kunnille', polku: '/kunnat' }]}
   schema={[usein(KYSYMYKSET)]}
 >
@@ -112,10 +111,10 @@ const artikkeliTtp = await getEntry('artikkelit', 'tietotilinpaatos-sisalto-ja-a
           <div class="kortti__ala"><span class="kortti__hinta">{eur(HINNAT.tietotilinpaatos.keski)}–{eur(HINNAT.tietotilinpaatos.laaja)}</span></div>
         </article>
         <article class="kortti kortti--palvelu">
-          <span class="kortti__ikoni"><Ikoni nimi="asiantuntija" /></span>
-          <h2><a href={JATKUVAT.vastaava.polku}>Tietosuojavastaava ostopalveluna</a></h2>
-          <p>Kun omaa tietosuojavastaavaa ei ole tai työ ei mahdu hänen aikaansa.</p>
-          <div class="kortti__ala"><span class="kortti__hinta">alkaen {eur(JATKUVAT.vastaava.keski)}/kk</span></div>
+          <span class="kortti__ikoni"><Ikoni nimi="lista" /></span>
+          <h2><a href={HINNAT.seloste.polku}>Seloste käsittelytoimista</a></h2>
+          <p>Selosteet toimialoittain muokattavina taulukkoina. Toimitus {HINNAT.seloste.toimitus}.</p>
+          <div class="kortti__ala"><span class="kortti__hinta">{eur(HINNAT.seloste.keski)}–{eur(HINNAT.seloste.laaja)}</span></div>
         </article>
       </div>
       <p class="pieni">Hinnat alv 0 %. Kaikki koot ja palvelut näette <a href="/hinnasto">hinnastosta</a>.</p>

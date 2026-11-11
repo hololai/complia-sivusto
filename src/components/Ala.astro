@@ -1,6 +1,6 @@
 ---
 import { SIVUSTO } from '../../site.config.mjs';
-import { ARVIOINNIT, ARVIOINTIEN_JARJESTYS, HINNAT, PALVELUJEN_JARJESTYS, JATKUVAT } from '../data/hinnat';
+import { ARVIOINNIT, ARVIOINTIEN_JARJESTYS, HINNAT, PALVELUJEN_JARJESTYS } from '../data/hinnat';
 import Tayta from './Tayta.astro';
 
 const { yritys } = SIVUSTO;
@@ -20,7 +20,6 @@ const vuosi = new Date().getFullYear();
         <ul>
           {PALVELUJEN_JARJESTYS.map((a) => <li><a href={HINNAT[a].polku}>{HINNAT[a].nimi}</a></li>)}
           {ARVIOINTIEN_JARJESTYS.map((a) => <li><a href={ARVIOINNIT[a].polku}>{ARVIOINNIT[a].nimi}</a></li>)}
-          <li><a href={JATKUVAT.vastaava.polku}>{JATKUVAT.vastaava.nimi}</a></li>
           <li><a href="/hinnasto">Hinnasto</a></li>
         </ul>
       </nav>

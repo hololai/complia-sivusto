@@ -163,24 +163,6 @@ export const JATKO = {
   laaja: PAKETTI.laaja - HINNAT.tarkastus.laaja,
 } as const;
 
-export const JATKUVAT = {
-  kunnossa: {
-    nimi: 'Tietosuoja kunnossa',
-    lyhyt: 'Vuosipäivitys, muutokset ja kysymykset.',
-    pieni: 89,
-    keski: 189,
-    laaja: 290,
-  },
-  vastaava: {
-    nimi: 'Tietosuojavastaava palveluna',
-    polku: '/tietosuojavastaava',
-    lyhyt: 'Ulkoistettu tietosuojavastaava, kun nimittäminen on pakollista tai perusteltua.',
-    pieni: 590,
-    keski: 990,
-    laaja: 1500,
-  },
-} as const;
-
 // Erilliset arvioinnit. Tasapainotesti ja siirtovaikutusten arviointi sisältyvät
 // vaikutustenarviointiin; erikseen ostettuna niillä on yksi hinta koosta riippumatta.
 export const ARVIOINNIT = {
@@ -289,7 +271,6 @@ const TUNNUKSET: Record<string, Record<string, unknown>> = {
   ...HINNAT,
   paketti: PAKETTI,
   jatko: JATKO,
-  ...JATKUVAT,
   ...JARJESTELMAT,
   claude: JARJESTELMAT.rajattu,
   m365: JARJESTELMAT.toimisto,

@@ -8,17 +8,17 @@ kohde: yritykset
 ryhma: perusasiat
 jarjestys: 3
 julkaistu: 2026-11-05
-paivitetty: 2026-11-05
-palvelu: vastaava
+paivitetty: 2026-11-11
+palvelu: tarkastus
 liittyvat:
   - mita-tietosuojaselosteessa-pitaa-olla
   - mika-on-seloste-kasittelytoimista
   - tietomurto-mita-tehda
 kehotus:
-  otsikko: "Haluatko, että joku muu pitää huolen tästä?"
-  teksti: "Tietosuoja kunnossa -jatkopalvelu päivittää asiakirjat ja vastaa kysymyksiin, alkaen {{kunnossa.pieni}}/kk. Jos tietosuojavastaava on pakollinen, hoidamme senkin, alkaen {{vastaava.pieni}}/kk (alv 0 %)."
-  nappi: "Katso tietosuojavastaava palveluna"
-  linkki: "/tietosuojavastaava"
+  otsikko: "Haluatko tietää, mitä muuta asetus teiltä vaatii?"
+  teksti: "GAP-analyysi näyttää, mikä tietosuojassanne on kunnossa ja mikä puuttuu. Saatte korjauslistan hintoineen, alkaen {{tarkastus.pieni}} (alv 0 %)."
+  nappi: "Katso GAP-analyysi"
+  linkki: "/tietosuojatarkastus"
 usein:
   - k: "Voiko tietosuojavastaava olla ulkopuolinen?"
     v: "Kyllä. Asetuksen mukaan tehtävää voi hoitaa oma työntekijä tai ulkopuolinen palvelusopimuksen perusteella."

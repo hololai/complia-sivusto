@@ -18,7 +18,7 @@ kehotus:
   otsikko: "Otatteko Geminin käyttöön?"
   teksti: "Ennakkoarvio valmistuu kahdessa arkipäivässä ja maksaa {{ennakkoarvio.pieni}}. Google Workspacen ja Geminin vaikutustenarviointi alkaen {{gemini.pieni}} (alv 0 %)."
   nappi: "Tilaa ennakkoarvio"
-  linkki: "/tarvitaanko-vaikutustenarviointi"
+  linkki: "/yhteystiedot?palvelu=tarvitaanko-vaikutustenarviointi"
 usein:
   - k: "Käyttääkö Google tietojamme Geminin kouluttamiseen?"
     v: "Googlen mukaan Workspace ei käytä asiakastietoja mallien kouluttamiseen ilman asiakkaan lupaa tai ohjetta. Sitoumus on Workspacen palvelukohtaisissa ehdoissa."

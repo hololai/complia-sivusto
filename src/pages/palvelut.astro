@@ -4,7 +4,7 @@ import PalveluKortti from '../components/PalveluKortti.astro';
 import Kysymykset from '../components/Kysymykset.astro';
 import Loppukehotus from '../components/Loppukehotus.astro';
 import { SIVUSTO } from '../../site.config.mjs';
-import { ARVIOINNIT, ARVIOINTIEN_JARJESTYS, HINNAT, PAKETTI, JATKUVAT, PALVELUJEN_JARJESTYS, eur, kiintea } from '../data/hinnat';
+import { ARVIOINNIT, ARVIOINTIEN_JARJESTYS, HINNAT, PAKETTI, PALVELUJEN_JARJESTYS, eur, kiintea } from '../data/hinnat';
 import { usein } from '../data/schema';
 import Ikoni from '../components/Ikoni.astro';
 
@@ -66,7 +66,7 @@ const KYSYMYKSET = [
   },
   {
     k: 'Pitääkö palvelut ostaa kerralla?',
-    v: 'Ei. Jokainen palvelu on kertaostos, ja jatkopalvelu on vapaaehtoinen. Paketti on edullisin, jos tarvitsette useampaa asiakirjaa.',
+    v: 'Ei. Jokainen palvelu on kertaostos. Paketti on edullisin, jos tarvitsette useampaa asiakirjaa.',
   },
   {
     k: 'Miten hinta määräytyy?',
@@ -150,7 +150,7 @@ const KYSYMYKSET = [
   </section>
 
   <section class="osio">
-    <div class="kehys ruudukko ruudukko--2">
+    <div class="kehys kehys--kapea">
       <div class="kortti polku">
         <h2>{PAKETTI.nimi} -paketti</h2>
         <p>
@@ -158,14 +158,6 @@ const KYSYMYKSET = [
           yritykselle {eur(PAKETTI.pieni)}.
         </p>
         <p class="lisalinkki"><a href="/hinnasto#paketti">Katso paketin hinnat</a></p>
-      </div>
-      <div class="kortti polku">
-        <h2>Jatkuvat palvelut</h2>
-        <p>
-          {JATKUVAT.kunnossa.nimi} pitää asiakirjat ajan tasalla, alkaen {eur(JATKUVAT.kunnossa.pieni)}/kk.
-          <a href={JATKUVAT.vastaava.polku}>{JATKUVAT.vastaava.nimi}</a> alkaen {eur(JATKUVAT.vastaava.pieni)}/kk.
-        </p>
-        <p class="lisalinkki"><a href="/hinnasto#jatkuvat">Katso jatkuvat palvelut</a></p>
       </div>
     </div>
   </section>

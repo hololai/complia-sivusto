@@ -34,7 +34,7 @@ Tietosuojatarkastus eli GAP-analyysi vertaa nykytilaanne tietosuoja-asetuksen va
 - Tietosuoja-asiakirjat on tehty vuosia sitten, eikä kukaan vastaa niiden ylläpidosta.
 - Järjestelmät ovat vaihtuneet, tai käyttöön on tullut tekoälytyökaluja.
 - Johto haluaa ulkopuolisen näkemyksen ennen päätöksiä ja budjettia.
-- Yritys on kasvanut, jolloin aiemmin riittäneet käytännöt eivät enää kata kaikkea.
+- Yritys on kasvanut, jolloin aiemmin riittäneet käytännöt eivät enää kata kaikkea. Silloin kannattaa tarkistaa myös, [tarvitaanko tietosuojavastaava](/artikkelit/tarvitseeko-yritys-tietosuojavastaavan).
 
 ## Mitä tarkastamme?
 

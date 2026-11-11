@@ -4,7 +4,7 @@
 // Tekstit perustuvat palvelusivujen tietoihin (saat, tarvitsemme, toimitus). Aikoja näytetään vain, kun ne
 // on kerrottu palvelun kuvauksessa. Vaikutustenarvioinnin ajat ovat arvioita ennen ensimmäisiä toimituksia
 // (10.11.2026), joten tarkista ne todellisista toimituksista.
-import { ARVIOINNIN_SISALTO, ARVIOINNIT, HINNAT, JATKUVAT, eur } from './hinnat';
+import { ARVIOINNIN_SISALTO, ARVIOINNIT, HINNAT } from './hinnat';
 import type { KuvanNimi } from './kuvat';
 import type { IkoninNimi } from '../components/Ikoni.astro';
 
@@ -453,51 +453,6 @@ export const KULUT: Record<string, Kulku> = {
       otsikko: 'Tämän saatte',
       teksti: KIINTEA,
       rivit: ['Julkaisuvalmis tietotilinpäätös', 'Aineisto tarkastuslautakunnalle', 'Muokattava tiedosto seuraavaa vuotta varten'],
-    },
-  },
-
-  tietosuojavastaava: {
-    otsikko: 'Näin aloitus etenee',
-    johdanto: 'Kaikki alkaa maksuttomalla kartoituksella. Sen jälkeen tietosuojavastaava hoitaa jatkuvan työn, ja te kysytte, kun tarvitsette.',
-    luvut: [
-      { ikoni: 'kello', nimi: 'Teiltä tarvitaan', arvo: 'yhteyshenkilö' },
-      { ikoni: 'seloste', nimi: 'Kartoitus', arvo: 'maksuton' },
-      OSAAMINEN,
-    ],
-    vaiheet: [
-      {
-        kuva: 'haastattelu',
-        otsikko: 'Maksuton kartoitus',
-        kuvaus: 'Selvitämme, onko nimittäminen teille pakollista tai perusteltua, ja käymme läpi nykyiset asiakirjat.',
-        te: { teksti: 'Kerrotte toiminnastanne ja lähetätte nykyiset asiakirjat.' },
-        complia: 'Kerromme suoraan, tarvitsetteko palvelua.',
-      },
-      {
-        kuva: 'allekirjoitus',
-        otsikko: 'Sopimus ja nimitys',
-        kuvaus: 'Sovimme palvelun sisällön ja koon kirjallisesti.',
-        te: { teksti: 'Nimitätte tietosuojavastaavan.' },
-        complia: 'Laadimme sopimuksen valmiiksi.',
-      },
-      {
-        kuva: 'lomake',
-        otsikko: 'Ilmoitus ja yhteystiedot',
-        kuvaus: 'Asetus edellyttää, että yhteystiedot julkaistaan ja ilmoitetaan tietosuojavaltuutetun toimistolle.',
-        te: { teksti: 'Hyväksytte ilmoituksen.' },
-        complia: 'Kerromme, mitä ilmoitukseen tarvitaan.',
-      },
-      {
-        kuva: 'asiakirjat',
-        otsikko: 'Jatkuva työ',
-        kuvaus: 'Tietosuojavastaava neuvoo, seuraa asetuksen noudattamista ja raportoi suoraan ylimmälle johdolle.',
-        te: { teksti: 'Kysytte, kun tarvitsette.' },
-        complia: 'Seuraamme noudattamista ja raportoimme johdolle.',
-      },
-    ],
-    paketti: {
-      otsikko: 'Tämän saatte',
-      teksti: `Kuukausihinta sovitaan kirjallisesti, alkaen ${eur(JATKUVAT.vastaava.pieni)}/kk.`,
-      rivit: ['Nimetty tietosuojavastaava', 'Neuvonta', 'Noudattamisen seuranta', 'Yhteyspiste tietosuojavaltuutettuun ja rekisteröityihin'],
     },
   },
 };

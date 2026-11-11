@@ -41,7 +41,7 @@ export const KASITTELYSOPIMUS: Asiakirja = {
             ['Käsittelyn luonne', 'Tietojen vastaanotto, tallennus, järjestäminen ja käyttö asiakirjojen laatimisessa'],
             ['Rekisteröidyt', 'Rekisterinpitäjän yhteyshenkilöt ja vastuuhenkilöt'],
             ['Henkilötiedot', 'Nimi, rooli, työsähköposti ja työpuhelin'],
-            ['Kesto', 'Toimeksiannon ja mahdollisen jatkopalvelun ajan'],
+            ['Kesto', 'Toimeksiannon ajan'],
           ],
         },
         {

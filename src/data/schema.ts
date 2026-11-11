@@ -67,7 +67,6 @@ export function palvelu(p: {
   kuvaus: string;
   polku: string;
   hinnat: { koko: string; hinta: number }[];
-  kuukausi?: boolean;
 }) {
   return {
     '@context': 'https://schema.org',
@@ -87,7 +86,6 @@ export function palvelu(p: {
         price: h.hinta,
         priceCurrency: 'EUR',
         valueAddedTaxIncluded: false,
-        ...(p.kuukausi ? { unitCode: 'MON' } : {}),
       },
     })),
   };

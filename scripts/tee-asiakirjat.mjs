@@ -1,7 +1,7 @@
 // Rakentaa ladattavat Word-tiedostot samasta datasta kuin sivujen asiakirjat
 // (src/data/pohja.ts ja src/data/kasittelysopimus.ts). Asiakirjat kootaan suoraan
 // Office Open XML -muotoon, jotta taulukot, luettelot ja korostetut kentät säilyvät.
-// Pakkaamiseen käytetään macOS:n zip-komentoa. Aja: npm run asiakirjat
+// Pakkaamiseen käytetään zip-komentoa, Windowsissa sen puuttuessa järjestelmän tar-komentoa. Aja: npm run asiakirjat
 import { execFileSync } from 'node:child_process';
 import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -142,8 +142,14 @@ function tallenna(kohde, otsikko, document) {
   const polku = join(JUURI, 'public/lataukset', kohde);
   mkdirSync(dirname(polku), { recursive: true });
   rmSync(polku, { force: true });
-  // -X jättää pois macOS:n lisämääritteet, jotka eivät kuulu asiakirjaan.
-  execFileSync('zip', ['-X', '-r', '-q', polku, '[Content_Types].xml', '_rels', 'word', 'docProps'], { cwd: valiaikainen });
+  const osat = ['[Content_Types].xml', '_rels', 'word', 'docProps'];
+  if (process.platform === 'win32') {
+    // Windowsissa ei ole zip-komentoa, mutta mukana tuleva bsdtar tekee saman zip-paketin.
+    execFileSync('tar', ['--format', 'zip', '-cf', polku, ...osat], { cwd: valiaikainen });
+  } else {
+    // -X jättää pois macOS:n lisämääritteet, jotka eivät kuulu asiakirjaan.
+    execFileSync('zip', ['-X', '-r', '-q', polku, ...osat], { cwd: valiaikainen });
+  }
   rmSync(valiaikainen, { recursive: true });
   console.log(`Valmis: public/lataukset/${kohde}`);
 }

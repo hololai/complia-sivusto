@@ -51,6 +51,11 @@ const sivut = tiedostot(DIST)
     };
   });
 const sivuPolulla = new Map(sivut.map((s) => [s.polku, s]));
+const lomakkeenPalvelut = new Set(
+  [...(sivuPolulla.get('/yhteystiedot')?.html.match(/<select[^>]*name="palvelu"[\s\S]*?<\/select>/)?.[0] ?? '').matchAll(
+    /<option value="([^"]*)"/g,
+  )].map((m) => m[1]).filter(Boolean),
+);
 
 const nahdyt = { otsikko: new Map(), kuvaus: new Map() };
 const puuttuvat = new Map();
@@ -142,6 +147,15 @@ for (const s of sivut) {
     }
     const kohdeSivu = sivuPolulla.get(kohde);
     if (ankkuri && kohdeSivu && !kohdeSivu.idt.has(ankkuri)) virhe(polku, `ankkuria ei löydy: ${url}`);
+  }
+
+  // Tilaa-painike vie aina lomakkeelle, jossa palvelu on valmiiksi valittuna (src/scripts/tarjous.ts).
+  for (const m of html.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/g)) {
+    const href = purku(m[1].match(/href="([^"]*)"/)?.[1] ?? '');
+    const teksti = purku(m[2].replace(/<[^>]+>/g, '')).trim();
+    const palvelu = href.match(/^\/yhteystiedot\?palvelu=([^&#]*)/)?.[1];
+    if (/^Tilaa/i.test(teksti) && palvelu === undefined) virhe(polku, `"${teksti}" ei vie esitäytettyyn lomakkeeseen: ${href}`);
+    else if (palvelu !== undefined && !lomakkeenPalvelut.has(palvelu)) virhe(polku, `lomakkeella ei ole palvelua "${palvelu}": ${href}`);
   }
 
   // Kootaan puuttuvat tiedot yhdeksi listaksi: alatunnisteen kohdat näkyvät muuten joka sivulla.

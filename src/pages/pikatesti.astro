@@ -1,7 +1,7 @@
 ---
 import Perus from '../layouts/Perus.astro';
 import { SIVUSTO } from '../../site.config.mjs';
-import { HINNAT, PAKETTI, JATKUVAT, eur } from '../data/hinnat';
+import { HINNAT, PAKETTI, eur } from '../data/hinnat';
 
 const KYSYMYKSET = [
   'Onko teillä ajantasainen tietosuojaseloste asiakkaille?',
@@ -21,10 +21,10 @@ const TULOKSET = [
     id: 'hyva',
     pisteet: '8–10',
     otsikko: 'Hyvällä tolalla',
-    teksti: 'Perusasiat ovat kunnossa. Nyt riittää, että ne pysyvät kunnossa, kun järjestelmät ja lait muuttuvat.',
-    suositus: `${JATKUVAT.kunnossa.nimi} -jatkopalvelu, alkaen ${eur(JATKUVAT.kunnossa.pieni)}/kk`,
-    linkki: '/hinnasto#jatkuvat',
-    nappi: 'Katso jatkopalvelu',
+    teksti: 'Perusasiat ovat kunnossa. Pidä ne kunnossa tarkistamalla jokainen uusi järjestelmä ja tekoälytyökalu ennen käyttöönottoa.',
+    suositus: `${HINNAT.ennakkoarvio.nimi} ennen uuden järjestelmän käyttöönottoa, ${eur(HINNAT.ennakkoarvio.pieni)}`,
+    linkki: HINNAT.ennakkoarvio.polku,
+    nappi: 'Katso ennakkoarvio',
   },
   {
     id: 'puutteita',

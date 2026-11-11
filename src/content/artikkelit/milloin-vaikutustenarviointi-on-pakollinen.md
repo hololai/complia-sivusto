@@ -18,7 +18,7 @@ kehotus:
   otsikko: "Ei varmuutta?"
   teksti: "Ennakkoarvio kertoo kahdessa arkipäivässä, tarvitaanko vaikutustenarviointi, hintaan {{ennakkoarvio.pieni}}. Jos tarvitaan, teemme sen 5–10 arkipäivässä, alkaen {{vaikutustenarviointi.pieni}} (alv 0 %)."
   nappi: "Tilaa ennakkoarvio"
-  linkki: "/tarvitaanko-vaikutustenarviointi"
+  linkki: "/yhteystiedot?palvelu=tarvitaanko-vaikutustenarviointi"
 usein:
   - k: "Kuka vaikutustenarvioinnin tekee?"
     v: "Vastuu on rekisterinpitäjällä, eli organisaatiolla, joka päättää käsittelystä. Työn voi teettää ulkopuolisella. Jos tietosuojavastaava on nimetty, häneltä on pyydettävä neuvoa."
@@ -83,6 +83,6 @@ Jos riski jää toimista huolimatta korkeaksi, tietosuojavaltuutettua on kuultav
 
 - **Arviointi tehdään käyttöönoton jälkeen.** Sen pitää valmistua ennen käsittelyn alkua, jotta tulokset ehtivät vaikuttaa ratkaisuihin.
 - **Arvioidaan yrityksen riskejä.** Arvioinnin kohde on ihminen, jonka tietoja käsitellään: mitä hänelle voi tapahtua?
-- **Mitään ei kirjata, kun arviointia ei tehdä.** Myös päätös olla tekemättä arviointia kannattaa perustella kirjallisesti.
+- **Mitään ei kirjata, kun arviointia ei tehdä.** Myös päätös olla tekemättä arviointia kannattaa perustella kirjallisesti. Kirjallinen [ennakkoarvio](/tarvitaanko-vaikutustenarviointi) on juuri tämä perustelu.
 
 Tekoälytyökalun käyttöönotossa hyvä lähtökohta on [tekoälytyökalujen tarkistuslista](/artikkelit/tekoaly-tyopaikalla-tietosuoja). Arvioinnin hinta riippuu koosta ja ohjelmistosta: katso [esimerkkihinnat ohjelmistoittain](/hinnasto#jarjestelmat). Suuririskisessä tekoälyssä tietyt käyttöönottajat tarvitsevat lisäksi [perusoikeusvaikutusten arvioinnin](/perusoikeusvaikutusten-arviointi).
