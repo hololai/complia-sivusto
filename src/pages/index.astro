@@ -4,9 +4,10 @@
 import Perus from '../layouts/Perus.astro';
 import Ikoni, { type IkoninNimi } from '../components/Ikoni.astro';
 import Loppukehotus from '../components/Loppukehotus.astro';
+import Prosessi from '../components/Prosessi.astro';
+import type { ComponentProps } from 'astro/types';
 import { SIVUSTO } from '../../site.config.mjs';
 import { HINNAT, PAKETTI, eur } from '../data/hinnat';
-import { svg, type KuvanNimi } from '../data/kuvat';
 import { organisaatio, verkkosivusto } from '../data/schema';
 
 // Kolme yleisintä syytä ottaa yhteyttä. Jokainen johtaa yhteen palveluun, joten lukijan ei tarvitse
@@ -38,21 +39,29 @@ const TILANTEET: { ikoni: IkoninNimi; tilanne: string; ratkaisu: string; palvelu
   },
 ];
 
-const VAIHEET: { kuva: KuvanNimi; otsikko: string; teksti: string }[] = [
+// Ensimmäinen vaihe ei vaadi, että asiakas tietää tarpeensa: sen selvittäminen on meidän työtämme.
+const VAIHEET: ComponentProps<typeof Prosessi>['vaiheet'] = [
   {
-    kuva: 'lomake',
-    otsikko: 'Kerrotte tilanteen',
-    teksti: 'Lyhyt viesti riittää. Vahvistamme hinnan kirjallisena.',
+    kuka: 'Te',
+    otsikko: 'Ottakaa yhteyttä',
+    teksti:
+      'Teidän ei tarvitse tietää, mitä tarvitsette. Kertokaa, mitä teette, niin selvitämme sen ja vahvistamme kiinteän hinnan kirjallisena.',
   },
   {
-    kuva: 'asiakirjat',
-    otsikko: 'Me teemme asiakirjat',
-    teksti: 'Haastattelemme etänä ja teemme asiakirjat 3–10 arkipäivässä.',
+    kuka: 'Te',
+    otsikko: 'Vastaatte alkukartoitukseen',
+    teksti: 'Valmiit kysymykset arkikielellä siitä, miten toimitte. Tietosuojaosaamista ei tarvita, ja neuvomme tarvittaessa.',
   },
   {
-    kuva: 'allekirjoitus',
-    otsikko: 'Te hyväksytte',
-    teksti: 'Käymme luonnoksen läpi yhdessä. Lasku vasta hyväksynnän jälkeen.',
+    kuka: 'Complia',
+    otsikko: 'Teemme asiakirjat',
+    teksti:
+      'Haastattelemme tarvittaessa oikeat ihmiset etänä, tunnistamme lain vaatimukset ja kirjoitamme asiakirjat 3–10 arkipäivässä.',
+  },
+  {
+    kuka: 'Yhdessä',
+    otsikko: 'Käymme läpi ja hyväksytte',
+    teksti: 'Korjaamme luonnokset kanssanne. Saatte valmiit asiakirjat ja listan tarvittavista toimista. Lasku vasta, kun hyväksytte.',
   },
 ];
 
@@ -152,23 +161,12 @@ const KANSIO: { ikoni: IkoninNimi; nimi: string }[] = [
     <div class="kehys">
       <div class="osio__otsikko osio__otsikko--keski">
         <h2>Näin se toimii</h2>
-        <p class="johdatus">Tietosuojaosaamista ei tarvita. Kaiken muun hoidamme me.</p>
+        <p class="johdatus">
+          Teidän osuutenne on vastata kysymyksiin. Selvittäminen, lain tulkinta ja kirjoittaminen on meidän työtämme.
+        </p>
       </div>
-      <ol class="toimii">
-        {
-          VAIHEET.map((v, i) => (
-            <li>
-              <div class="toimii__kuva" set:html={svg(v.kuva)} />
-              <span class="toimii__nro" aria-hidden="true">
-                {i + 1}
-              </span>
-              <h3>{v.otsikko}</h3>
-              <p>{v.teksti}</p>
-            </li>
-          ))
-        }
-      </ol>
-      <p class="toimii__luottamus">
+      <Prosessi vaiheet={VAIHEET} />
+      <p class="luottamus">
         Jokainen asiakirja tarkistetaan ennen luovutusta. <a href="/meista">Asiantuntijamme</a> ovat suorittaneet FCG:n
         tietosuojavastaavan koulutusohjelman.
       </p>

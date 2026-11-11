@@ -9,13 +9,31 @@ import { SIVUSTO } from '../../site.config.mjs';
 import { ARVIOINNIT, HINNAT, JARJESTELMAT, JATKUVAT, eur } from '../data/hinnat';
 import { usein } from '../data/schema';
 import Ikoni from '../components/Ikoni.astro';
-import { svg, type KuvanNimi } from '../data/kuvat';
+import Prosessi from '../components/Prosessi.astro';
+import type { ComponentProps } from 'astro/types';
 
 // Kunnan ostopolku: hankinta on kunnalle usein vaikein vaihe, joten se näytetään yhtä selvästi kuin palvelut.
-const OSTO: { kuva: KuvanNimi; otsikko: string; teksti: string }[] = [
-  { kuva: 'lomake', otsikko: 'Kertokaa tarve', teksti: 'Mikä hankinta, järjestelmä tai määräaika on edessä. Vahvistamme hinnan ja toimitusajan kirjallisena.' },
-  { kuva: 'allekirjoitus', otsikko: 'Hankintapäätös', teksti: 'Palvelukuvauksessa on sisältö, hinnat ja toimitusajat valmiina päätöksen liitteeksi.' },
-  { kuva: 'asiakirjat', otsikko: 'Me toimitamme', teksti: 'Teemme työn kiinteällä hinnalla, ja tietosuojavastaavanne hyväksyy lopputuloksen.' },
+const OSTO: ComponentProps<typeof Prosessi>['vaiheet'] = [
+  {
+    kuka: 'Te',
+    otsikko: 'Ottakaa yhteyttä',
+    teksti: 'Kertokaa, mikä hankinta, järjestelmä tai määräaika on edessä. Selvitämme, mitä tarvitaan, ja vahvistamme hinnan ja toimitusajan kirjallisena.',
+  },
+  {
+    kuka: 'Te',
+    otsikko: 'Hankintapäätös',
+    teksti: 'Palvelukuvauksessa on sisältö, hinnat ja toimitusajat valmiina päätöksen liitteeksi.',
+  },
+  {
+    kuka: 'Complia',
+    otsikko: 'Teemme työn',
+    teksti: 'Kunnan väki vastaa alkukartoitukseen ja tarvittaessa etähaastatteluun. Kaiken muun teemme me.',
+  },
+  {
+    kuka: 'Yhdessä',
+    otsikko: 'Tietosuojavastaava hyväksyy',
+    teksti: 'Käymme luonnokset läpi tietosuojavastaavanne kanssa ja korjaamme ne ennen luovutusta.',
+  },
 ];
 
 const KYSYMYKSET = [
@@ -110,20 +128,7 @@ const artikkeliTtp = await getEntry('artikkelit', 'tietotilinpaatos-sisalto-ja-a
         <h2>Näin kunta ostaa palvelun</h2>
         <p class="johdatus">Ei raskasta kilpailutusta kertapalveluissa. Noudattakaa kuntanne hankintaohjetta.</p>
       </div>
-      <ol class="toimii">
-        {
-          OSTO.map((v, i) => (
-            <li>
-              <div class="toimii__kuva" set:html={svg(v.kuva)} />
-              <span class="toimii__nro" aria-hidden="true">
-                {i + 1}
-              </span>
-              <h3>{v.otsikko}</h3>
-              <p>{v.teksti}</p>
-            </li>
-          ))
-        }
-      </ol>
+      <Prosessi vaiheet={OSTO} />
     </div>
   </section>
 

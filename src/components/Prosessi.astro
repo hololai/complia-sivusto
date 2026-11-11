@@ -1,0 +1,82 @@
+---
+// Yleiskuva työn kulusta ilman kuvituksia: numero, kuka tekee ja mitä. Kuvitus jätettiin pois, koska
+// luottamus syntyy selkeydestä. Jokaisessa vaiheessa näkyy, kuka työn tekee, jotta asiakas näkee
+// oman osuutensa olevan pieni.
+interface Props {
+  vaiheet: { kuka: 'Te' | 'Complia' | 'Yhdessä'; otsikko: string; teksti: string }[];
+}
+const { vaiheet } = Astro.props;
+---
+
+<ol class="prosessi">
+  {
+    vaiheet.map((v, i) => (
+      <li class:list={['prosessi__vaihe', `prosessi__vaihe--${v.kuka === 'Complia' ? 'me' : 'te'}`]}>
+        <div class="prosessi__yla">
+          <span class="prosessi__nro" aria-hidden="true">
+            {String(i + 1).padStart(2, '0')}
+          </span>
+          <span class="prosessi__kuka">{v.kuka}</span>
+        </div>
+        <h3>{v.otsikko}</h3>
+        <p>{v.teksti}</p>
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  .prosessi {
+    list-style: none;
+    display: grid;
+    gap: 2rem 1.75rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr));
+    margin: 0;
+    padding: 0;
+    counter-reset: vaihe;
+  }
+  .prosessi__vaihe {
+    padding-top: 1.25rem;
+    border-top: 2px solid var(--viiva);
+  }
+  /* Complian vaiheet erottuvat värillä: lukija näkee, että raskas osuus on meillä. */
+  .prosessi__vaihe--me {
+    border-top-color: var(--kuusi);
+  }
+  .prosessi__yla {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+  }
+  .prosessi__nro {
+    color: var(--messinki);
+    font-family: var(--serif);
+    font-size: 2.25rem;
+    font-weight: 600;
+    line-height: 1;
+  }
+  .prosessi__kuka {
+    padding: 0.15rem 0.6rem;
+    border-radius: 99px;
+    background: var(--paperi);
+    color: var(--harmaa);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .prosessi__vaihe--me .prosessi__kuka {
+    background: var(--kuusi);
+    color: #fff;
+  }
+  h3 {
+    margin-bottom: 0.4rem;
+    font-size: 1.3rem;
+  }
+  p {
+    margin: 0;
+    color: var(--harmaa);
+  }
+</style>
