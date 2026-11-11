@@ -9,7 +9,7 @@ import { KULUT } from '../data/kulut';
 import { SIVUSTO } from '../../site.config.mjs';
 import { ARVIOINNIT, HINNAT, JARJESTELMAT, JATKUVAT, KOOT, eur, kiintea, sijoitaHinnat } from '../data/hinnat';
 import { palvelu as palveluSchema, usein } from '../data/schema';
-import { kaariTaulukot } from '../data/html';
+import { jaaOsiin, kaariTaulukot } from '../data/html';
 
 export async function getStaticPaths() {
   const palvelut = await getCollection('palvelut');
@@ -18,7 +18,11 @@ export async function getStaticPaths() {
 
 const { p } = Astro.props;
 // Hinnat sijoitetaan valmiiseen HTML:ään vasta tässä, jotta välimuistiin ei jää vanhoja hintoja.
-const sisalto = kaariTaulukot(sijoitaHinnat(p.rendered?.html ?? ''));
+// Teksti on osion "Lisätietoa palvelusta" alla, joten sen otsikot lasketaan yhdellä tasolla.
+const alemmas = (html: string) => html.replace(/<(\/?)h([2-5])([\s>])/g, (_, v, n, l) => `<${v}h${Number(n) + 1}${l}`);
+const osat = jaaOsiin(kaariTaulukot(sijoitaHinnat(p.rendered?.html ?? '')));
+const alkuteksti = alemmas(osat.alku);
+const osiot = osat.osiot.map((o) => ({ otsikko: alemmas(o.otsikko), sisalto: alemmas(o.sisalto) }));
 const d = p.data;
 
 const onJatkuva = d.avain === 'vastaava';
@@ -69,82 +73,23 @@ if (d.artikkeli && !artikkeli) throw new Error(`Palvelun ${p.id} artikkelia ei l
     usein(usein_),
   ]}
 >
-  <section class="osio">
+  <section class="osio palvelu__paa">
     <div class="kehys palvelu__ruudukko">
-      <div>
+      <div class="palvelu__teksti">
         <h1>{d.h1}</h1>
         <p class="johdatus">{d.johdanto}</p>
-        <dl class="tiedot">
-          <div>
-            <dt>Sopii, jos</dt>
-            <dd>{d.sopii}</dd>
-          </div>
-          <div>
-            <dt>Saat</dt>
-            <dd>{d.saat}</dd>
-          </div>
-          <div>
-            <dt>Mitä tarvitsemme teiltä</dt>
-            <dd>{d.tarvitsemme} <a href="#nain-se-etenee">Katso, miten työ etenee</a></dd>
-          </div>
-        </dl>
-      </div>
-      <aside class="hintakortti" aria-labelledby="hinta-otsikko">
-        <h2 id="hinta-otsikko">Hinta ja toimitus</h2>
-        <ul class="rivit">
-          {
-            koot.map((k) => (
-              <li>
-                <span>
-                  {k.nimi}
-                  {k.lisa && <span class="pieni">{k.lisa}</span>}
-                </span>
-                <span>
-                  {k.ylin ? `${eur(k.hinta).slice(0, -2)}–${eur(k.ylin)}` : eur(k.hinta)}
-                  {paate}
-                </span>
-              </li>
-            ))
-          }
-        </ul>
-        <p class="hintakortti__toimitus">
-          <strong>Toimitus:</strong> {toimitus}
-          {yksikko && <><br />Hinta {yksikko}.</>}
+        <p class="palvelu__sopii"><strong>Sopii, jos</strong> {d.sopii}</p>
+        <p class="palvelu__kulkulinkki">
+          <a href="#nain-se-etenee">Katso, miten työ etenee</a>
         </p>
-        <a class="painike painike--kulta hintakortti__painike" href={`/yhteystiedot?palvelu=${p.id}`}>{nappi}</a>
-        <p class="pieni hintakortti__kysy">Haluatteko kysyä ensin? Samalla lomakkeella voi myös vain kysyä.</p>
-        {
-          d.avain === 'vaikutustenarviointi' && (
-            <p class="pieni">
-              Hinta riippuu järjestelmästä, ja siihen sisältyvät ennakkoarvio ja kirjaukset selosteisiin. Katso
-              <a href="/hinnasto#jarjestelmat">hinnat järjestelmittäin</a>.
-            </p>
-          )
-        }
-        <p class="pieni">Hinnat alv 0 % (alv 25,5 % lisätään). Katso koot <a href="/hinnasto">hinnastosta</a>.</p>
-      </aside>
-    </div>
-  </section>
-
-  <PalvelunKulku kulku={kulku} palvelu={p.id} nappi={nappi} />
-
-  <section class="osio osio--valkoinen">
-    <div class="kehys palvelu__lisa">
-      <div>
-        <p class="palvelu__lisa-nostin">Lisätietoa</p>
-        <div class="proosa" set:html={sisalto} />
       </div>
-      <aside class="tilauskortti" aria-label={`Tilaa: ${d.nimi}`}>
-        <p class="tilauskortti__nimi">{d.nimi}</p>
-        <p class="tilauskortti__hinta">
+      <aside class="hintakortti" aria-label={`Hinta: ${d.nimi}`}>
+        <p class="hintakortti__hinta">
           {koot.length > 1 && <span>alkaen</span>}
           {eur(alin.hinta)}{paate}
         </p>
-        <p class="pieni">Toimitus: {toimitus}. Hinnat alv 0 %.</p>
-        <a class="painike tilauskortti__painike" href={`/yhteystiedot?palvelu=${p.id}`}>
-          {nappi} <Ikoni nimi="nuoli" class="ikoni ikoni--nuoli" />
-        </a>
-        <ul class="tilauskortti__lupaukset">
+        <p class="hintakortti__toimitus">Toimitus {toimitus}{yksikko && <>, hinta {yksikko}</>}</p>
+        <ul class="hintakortti__lupaukset">
           {
             (onJatkuva
               ? ['Kiinteä kuukausihinta kirjallisena', 'Maksuton kartoitus ennen sopimusta']
@@ -157,13 +102,73 @@ if (d.artikkeli && !artikkeli) throw new Error(`Palvelun ${p.id} artikkelia ei l
             ))
           }
         </ul>
+        <a class="painike painike--kulta painike--iso hintakortti__painike" href={`/yhteystiedot?palvelu=${p.id}`}>
+          {nappi} <Ikoni nimi="nuoli" class="ikoni ikoni--nuoli" />
+        </a>
+        <p class="pieni hintakortti__kysy">
+          Alv 0 %. {koot.length > 1 && <><a href="#hinnat">Hinnat kokoluokittain</a>.</>}
+        </p>
       </aside>
     </div>
   </section>
 
-  <section class="osio">
-    <div class="kehys">
-      <Kysymykset kysymykset={usein_} />
+  <PalvelunKulku kulku={kulku} palvelu={p.id} nappi={nappi} />
+
+  <section class="osio osio--valkoinen">
+    <div class="kehys kehys--kapea">
+      <h2>Lisätietoa palvelusta</h2>
+      <div class="kysymykset">
+        <details class="ukk ukk--laaja" id="hinnat">
+          <summary><h3>Hinnat kokoluokittain</h3></summary>
+          <div class="proosa">
+            <ul class="rivit">
+              {
+                koot.map((k) => (
+                  <li>
+                    <span>
+                      {k.nimi}
+                      {k.lisa && <span class="pieni"> {k.lisa}</span>}
+                    </span>
+                    <span>
+                      {k.ylin ? `${eur(k.hinta).slice(0, -2)}–${eur(k.ylin)}` : eur(k.hinta)}
+                      {paate}
+                    </span>
+                  </li>
+                ))
+              }
+            </ul>
+            {
+              d.avain === 'vaikutustenarviointi' && (
+                <p>
+                  Hinta riippuu järjestelmästä, ja siihen sisältyvät ennakkoarvio ja kirjaukset selosteisiin. Katso
+                  <a href="/hinnasto#jarjestelmat">hinnat järjestelmittäin</a>.
+                </p>
+              )
+            }
+            <p class="pieni">Hinnat alv 0 % (alv 25,5 % lisätään). Kaikki palvelut näette <a href="/hinnasto">hinnastosta</a>.</p>
+          </div>
+        </details>
+        <details class="ukk ukk--laaja">
+          <summary><h3>Mitä hintaan sisältyy</h3></summary>
+          <div class="proosa">
+            <p class="isokirjain">{d.saat}</p>
+            <p><strong>Teiltä tarvitsemme</strong> {d.tarvitsemme}</p>
+          </div>
+        </details>
+        {
+          osiot.map((o) => (
+            <details class="ukk ukk--laaja">
+              <summary set:html={o.otsikko} />
+              <div class="proosa" set:html={o.sisalto} />
+            </details>
+          ))
+        }
+      </div>
+      {alkuteksti && <div class="proosa palvelu__alku" set:html={alkuteksti} />}
+
+      <div class="palvelu__ukk">
+        <Kysymykset kysymykset={usein_} />
+      </div>
       {
         artikkeli && (
           <p class="lahteet">

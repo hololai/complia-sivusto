@@ -1,36 +1,13 @@
 ---
-// Etusivun tehtävä on ohjata lukija yhteen toimintoon: Ota yhteyttä. Siksi kultainen painike on vain
-// pääosiossa, ja muut polut ovat kortteja tai tekstilinkkejä. Lukija tunnistaa ensin oman tilanteensa,
-// ja tilannekortti kertoo, mikä palvelu siihen sopii.
+// Etusivulla on vain neljä osiota, koska sen ainoa tehtävä on ohjata lukija yhteydenottoon tai oman
+// tilanteensa palveluun. Palvelulista, kysymykset ja perustelut ovat omilla sivuillaan.
 import Perus from '../layouts/Perus.astro';
-import PalveluKortti from '../components/PalveluKortti.astro';
 import Ikoni, { type IkoninNimi } from '../components/Ikoni.astro';
-import Kysymykset from '../components/Kysymykset.astro';
 import Loppukehotus from '../components/Loppukehotus.astro';
 import { SIVUSTO } from '../../site.config.mjs';
-import { ARVIOINNIT, HINNAT, PAKETTI, JATKUVAT, PALVELUJEN_JARJESTYS, eur } from '../data/hinnat';
+import { HINNAT, PAKETTI, eur } from '../data/hinnat';
 import { svg, type KuvanNimi } from '../data/kuvat';
-import { organisaatio, verkkosivusto, usein } from '../data/schema';
-
-const KYSYMYKSET = [
-  {
-    k: 'Tarvitseeko pienikin yritys tietosuojaselosteen?',
-    v: 'Kyllä, jos käsittelette asiakkaiden, työntekijöiden tai työnhakijoiden henkilötietoja.',
-  },
-  {
-    k: 'Pitääkö meidän osata tietosuojaa?',
-    v: 'Ei. Vastaatte arkikielisiin kysymyksiin siitä, miten toimitte. Me tunnistamme, mitä laki vaatii, ja teemme asiakirjat.',
-  },
-  { k: 'Kuka asiakirjat omistaa?', v: 'Te. Saatte ne muokattavina tiedostoina.' },
-  {
-    k: 'Voiko kunta ostaa ilman kilpailutusta?',
-    v: 'Kertapalvelut ovat pienhankintojen kokoluokkaa; noudattakaa kuntanne hankintaohjetta.',
-  },
-  {
-    k: 'Mitä tapahtuu lain muuttuessa?',
-    v: `Tietosuoja kunnossa -jatkopalvelu päivittää asiakirjat, alkaen ${eur(JATKUVAT.kunnossa.pieni)}/kk.`,
-  },
-];
+import { organisaatio, verkkosivusto } from '../data/schema';
 
 // Kolme yleisintä syytä ottaa yhteyttä. Jokainen johtaa yhteen palveluun, joten lukijan ei tarvitse
 // osata palvelujen nimiä.
@@ -38,7 +15,7 @@ const TILANTEET: { ikoni: IkoninNimi; tilanne: string; ratkaisu: string; palvelu
   {
     ikoni: 'seloste',
     tilanne: 'Asiakas tai tarjouspyyntö kysyy tietosuojaselostetta',
-    ratkaisu: 'Teemme perusasiakirjat kerralla: GAP-analyysin, tietosuojaselosteet ja selosteen käsittelytoimista.',
+    ratkaisu: 'GAP-analyysi, tietosuojaselosteet ja seloste käsittelytoimista kerralla.',
     palvelu: `${PAKETTI.nimi} -paketti`,
     hinta: PAKETTI.pieni,
     polku: '/hinnasto#paketti',
@@ -46,7 +23,7 @@ const TILANTEET: { ikoni: IkoninNimi; tilanne: string; ratkaisu: string; palvelu
   {
     ikoni: 'kilpi',
     tilanne: 'Otamme käyttöön uuden järjestelmän tai tekoälyn',
-    ratkaisu: 'Arvioimme riskit ennen käyttöönottoa ja kerromme, mitä pitää tehdä. Kirjaukset selosteisiin sisältyvät.',
+    ratkaisu: 'Arvioimme riskit ennen käyttöönottoa ja kerromme, mitä pitää tehdä.',
     palvelu: HINNAT.vaikutustenarviointi.nimi,
     hinta: HINNAT.vaikutustenarviointi.pieni,
     polku: HINNAT.vaikutustenarviointi.polku,
@@ -54,7 +31,7 @@ const TILANTEET: { ikoni: IkoninNimi; tilanne: string; ratkaisu: string; palvelu
   {
     ikoni: 'suurennus',
     tilanne: 'Emme tiedä, missä tietosuojan kanssa mennään',
-    ratkaisu: 'Selvitämme nykytilan ja puutteet riskiluokittain. Saatte korjauslistan hintoineen.',
+    ratkaisu: 'Selvitämme puutteet ja annamme korjauslistan hintoineen.',
     palvelu: 'GAP-analyysi',
     hinta: HINNAT.tarkastus.pieni,
     polku: HINNAT.tarkastus.polku,
@@ -65,17 +42,17 @@ const VAIHEET: { kuva: KuvanNimi; otsikko: string; teksti: string }[] = [
   {
     kuva: 'lomake',
     otsikko: 'Kerrotte tilanteen',
-    teksti: 'Lyhyt viesti tai lomake riittää. Tietosuojaosaamista ei tarvita.',
+    teksti: 'Lyhyt viesti riittää. Vahvistamme hinnan kirjallisena.',
   },
   {
     kuva: 'asiakirjat',
     otsikko: 'Me teemme asiakirjat',
-    teksti: 'Haastattelemme tarvittaessa etänä ja teemme asiakirjat valmiiksi 3–10 arkipäivässä.',
+    teksti: 'Haastattelemme etänä ja teemme asiakirjat 3–10 arkipäivässä.',
   },
   {
     kuva: 'allekirjoitus',
     otsikko: 'Te hyväksytte',
-    teksti: 'Käymme luonnoksen läpi yhdessä. Lasku lähtee vasta, kun olette hyväksyneet asiakirjat.',
+    teksti: 'Käymme luonnoksen läpi yhdessä. Lasku vasta hyväksynnän jälkeen.',
   },
 ];
 
@@ -90,18 +67,15 @@ const KANSIO: { ikoni: IkoninNimi; nimi: string }[] = [
 <Perus
   otsikko={`${SIVUSTO.slogan} | ${SIVUSTO.nimi}`}
   kuvaus="GDPR kuntoon valmiilla asiakirjoilla: tietosuojaselosteet, selosteet käsittelytoimista ja vaikutustenarvioinnit yrityksille ja kunnille. Julkiset hinnat."
-  schema={[organisaatio(), verkkosivusto(), usein(KYSYMYKSET)]}
+  schema={[organisaatio(), verkkosivusto()]}
 >
   <section class="paa">
     <div class="paa__paneeli">
       <div class="kehys paa__ruudukko">
         <div class="paa__teksti">
-          <p class="paa__nostin"><span class="paa__piste" aria-hidden="true"></span>Yrityksille ja kunnille</p>
+          <p class="paa__nostin">Yrityksille ja kunnille</p>
           <h1>Tietosuoja ja GDPR kuntoon – <span class="korostus">valmiina ja kiinteällä hinnalla</span></h1>
-          <p class="paa__alaotsikko">
-            Teemme tietosuojaselosteet, selosteet käsittelytoimista ja vaikutustenarvioinnit valmiiksi. Teidän ei
-            tarvitse osata tietosuojaa: vastaatte kysymyksiin, me hoidamme vaikeat asiat.
-          </p>
+          <p class="paa__alaotsikko">Te vastaatte kysymyksiin. Me teemme asiakirjat valmiiksi.</p>
           <div class="painikkeet paa__toiminnot">
             <a class="painike painike--kulta painike--iso" href="/yhteystiedot">
               Ota yhteyttä <Ikoni nimi="nuoli" class="ikoni ikoni--nuoli" />
@@ -134,65 +108,51 @@ const KANSIO: { ikoni: IkoninNimi; nimi: string }[] = [
                 ))
               }
             </ul>
-            <p class="asiakirja__hyvaksynta">
-              <Ikoni nimi="tarkistus" />
-              {SIVUSTO.iskulause}
-            </p>
           </div>
         </div>
       </div>
-    </div>
-    <div class="kehys">
-      <dl class="luvut">
-        <div><dt>arkipäivää toimitukseen</dt><dd>3–10</dd></div>
-        <div><dt>alkaen, kaikki tietosuojaselosteet</dt><dd>{eur(HINNAT.tietosuojaseloste.pieni)}</dd></div>
-        <div><dt>hinta, ei tuntilaskutusta</dt><dd>Kiinteä</dd></div>
-      </dl>
     </div>
   </section>
 
   <section class="osio">
     <div class="kehys">
-      <div class="osio__otsikko">
-        <h2>Mikä näistä kuulostaa tutulta?</h2>
-        <p class="johdatus">Valitkaa tilanne, niin näette, mitä teemme ja mitä se maksaa.</p>
+      <div class="osio__otsikko osio__otsikko--keski">
+        <h2>Mikä tilanteenne on?</h2>
+        <p class="johdatus">Valitkaa lähin. Näette, mitä teemme ja mitä se maksaa.</p>
       </div>
-      <div class="tilanteet">
+      <ul class="tilanteet">
         {
           TILANTEET.map((t) => (
-            <article class="kortti kortti--palvelu tilanne">
-              <span class="kortti__ikoni">
-                <Ikoni nimi={t.ikoni} />
-              </span>
-              <h3>
-                <a href={t.polku}>{t.tilanne}</a>
-              </h3>
-              <p>{t.ratkaisu}</p>
-              <div class="tilanne__ala">
-                <span class="tilanne__palvelu">{t.palvelu}</span>
-                <span class="kortti__hinta">alkaen {eur(t.hinta)}</span>
-                <Ikoni nimi="nuoli" class="ikoni tilanne__nuoli" />
-              </div>
-            </article>
+            <li>
+              <a class="tilanne" href={t.polku}>
+                <span class="tilanne__ikoni">
+                  <Ikoni nimi={t.ikoni} />
+                </span>
+                <span class="tilanne__otsikko">{t.tilanne}</span>
+                <span class="tilanne__ratkaisu">{t.ratkaisu}</span>
+                <span class="tilanne__ala">
+                  <span>
+                    <span class="tilanne__palvelu">{t.palvelu}</span>
+                    <span class="tilanne__hinta">alkaen {eur(t.hinta)}</span>
+                  </span>
+                  <Ikoni nimi="nuoli" class="ikoni tilanne__nuoli" />
+                </span>
+              </a>
+            </li>
           ))
         }
-      </div>
-      <div class="kuntanosto">
-        <span class="kortti__ikoni"><Ikoni nimi="kunta" /></span>
-        <p>
-          <strong>Edustatteko kuntaa?</strong> Hankinnan vaikutustenarviointi, tietotilinpäätös ja tietosuojavastaava
-          ostopalveluna – kaikki ostettavissa pienhankintana.
-        </p>
-        <a class="painike painike--toinen" href="/kunnat">Kuntien palvelut <Ikoni nimi="nuoli" class="ikoni ikoni--nuoli" /></a>
-      </div>
+      </ul>
+      <p class="kuntalinkki">
+        <Ikoni nimi="kunta" /> Edustatteko kuntaa? <a href="/kunnat">Katso kuntien palvelut pienhankintana</a>
+      </p>
     </div>
   </section>
 
   <section class="osio osio--valkoinen">
     <div class="kehys">
-      <div class="osio__otsikko">
+      <div class="osio__otsikko osio__otsikko--keski">
         <h2>Näin se toimii</h2>
-        <p class="johdatus">Teiltä tarvitaan tieto siitä, miten toimitte. Kaiken muun hoidamme me.</p>
+        <p class="johdatus">Tietosuojaosaamista ei tarvita. Kaiken muun hoidamme me.</p>
       </div>
       <ol class="toimii">
         {
@@ -208,65 +168,10 @@ const KANSIO: { ikoni: IkoninNimi; nimi: string }[] = [
           ))
         }
       </ol>
-      <p class="lisalinkki">
-        <a href="/vaikutustenarviointi#nain-se-etenee">Katso esimerkki: näin vaikutustenarviointi etenee vaihe vaiheelta</a>
+      <p class="toimii__luottamus">
+        Jokainen asiakirja tarkistetaan ennen luovutusta. <a href="/meista">Asiantuntijamme</a> ovat suorittaneet FCG:n
+        tietosuojavastaavan koulutusohjelman.
       </p>
-    </div>
-  </section>
-
-  <section class="osio">
-    <div class="kehys">
-      <div class="osio__otsikko">
-        <h2>Palvelut ja hinnat</h2>
-        <p class="johdatus">Jokaisella palvelulla on julkinen hinta ja luvattu toimitusaika. Hinnat alv 0 %.</p>
-      </div>
-      <div class="ruudukko">
-        {PALVELUJEN_JARJESTYS.map((a) => <PalveluKortti avain={a} />)}
-      </div>
-      <p class="pieni">
-        Vaikutustenarviointiin sisältyvät tarvittaessa <a href={ARVIOINNIT.lia.polku}>tasapainotesti (LIA)</a> ja
-        <a href={ARVIOINNIT.tia.polku}>siirtovaikutusten arviointi (TIA)</a>. Suuririskisen tekoälyn käyttöönottaja voi
-        tarvita lisäksi <a href={ARVIOINNIT.fria.polku}>perusoikeusvaikutusten arvioinnin (FRIA)</a>.
-      </p>
-      <p class="lisalinkki"><a href="/hinnasto">Katso kaikki hinnat ja esimerkkilaskelmat</a></p>
-    </div>
-  </section>
-
-  <section class="osio osio--valkoinen">
-    <div class="kehys">
-      <div class="osio__otsikko"><h2>Miksi {SIVUSTO.nimi}</h2></div>
-      <div class="syyt">
-        <div>
-          <span class="kortti__ikoni"><Ikoni nimi="hinta" /></span>
-          <h3>Hinta näkyy etukäteen</h3>
-          <p>Ei tuntilaskutusta eikä yllätyksiä. Kiinteä hinta vahvistetaan kirjallisena.</p>
-        </div>
-        <div>
-          <span class="kortti__ikoni"><Ikoni nimi="kello" /></span>
-          <h3>Valmista päivissä</h3>
-          <p>Oma Complia-työkalumme tekee dokumentoinnista nopeaa.</p>
-        </div>
-        <div>
-          <span class="kortti__ikoni"><Ikoni nimi="asiantuntija" /></span>
-          <h3>Asiantuntija vastaa</h3>
-          <p>
-            Jokainen asiakirja tarkistetaan ennen luovutusta. <a href="/meista">Asiantuntijamme</a> ovat suorittaneet
-            FCG:n tietosuojavastaavan koulutusohjelman.
-          </p>
-        </div>
-        <div>
-          <span class="kortti__ikoni"><Ikoni nimi="puhe" /></span>
-          <h3>Selkeää suomea</h3>
-          <p>Asiakirjat, jotka henkilöstökin ymmärtää.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="osio">
-    <div class="kehys kehys--kapea">
-      <Kysymykset kysymykset={KYSYMYKSET} />
-      <p class="lisalinkki"><a href="/artikkelit">Lisää vastauksia tietosuojaohjeista</a></p>
     </div>
   </section>
 
