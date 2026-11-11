@@ -2,8 +2,11 @@
 // Yleiskuva työn kulusta ilman kuvituksia: numero, kuka tekee ja mitä. Kuvitus jätettiin pois, koska
 // luottamus syntyy selkeydestä. Jokaisessa vaiheessa näkyy, kuka työn tekee, jotta asiakas näkee
 // oman osuutensa olevan pieni.
+import Ikoni from './Ikoni.astro';
+
 interface Props {
-  vaiheet: { kuka: 'Te' | 'Complia' | 'Yhdessä'; otsikko: string; teksti: string }[];
+  // aika on asiakkaan oma ajankäyttö vaiheessa, ei toimitusaika.
+  vaiheet: { kuka: 'Te' | 'Complia' | 'Yhdessä'; otsikko: string; teksti: string; aika?: string }[];
 }
 const { vaiheet } = Astro.props;
 const LUOKAT = { Te: 'te', Complia: 'me', Yhdessä: 'yhdessa' } as const;
@@ -20,6 +23,16 @@ const NIMET = { Te: 'Teidän osuutenne', Complia: 'Complia hoitaa', Yhdessä: 'Y
         </span>
         <h3>{v.otsikko}</h3>
         <p>{v.teksti}</p>
+        {
+          v.aika && (
+            <p class="prosessi__aika">
+              <Ikoni nimi="kello" />
+              <span>
+                Teiltä                 {v.aika}
+              </span>
+            </p>
+          )
+        }
       </li>
     ))
   }
@@ -91,5 +104,24 @@ const NIMET = { Te: 'Teidän osuutenne', Complia: 'Complia hoitaa', Yhdessä: 'Y
   }
   .prosessi__vaihe--me p {
     color: rgb(255 255 255 / 82%);
+  }
+  /* Asiakkaan aika on kortin alareunassa samalla korkeudella kaikissa korteissa. */
+  .prosessi__aika {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    align-self: flex-start;
+    margin-top: auto;
+    padding-top: 1.25rem;
+    color: var(--kuusi);
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+  .prosessi__aika :global(.ikoni) {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+  .prosessi__vaihe--me .prosessi__aika {
+    color: var(--kulta-vaalea);
   }
 </style>
