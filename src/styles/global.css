@@ -2206,3 +2206,81 @@ html.lukittu body > :not(.portti) {
     display: none;
   }
 }
+
+/* Palvelusivu: lisätieto on myyntipolun jälkeen, ja tilauskortti pysyy näkyvissä lukiessa. */
+.hintakortti__painike {
+  display: block;
+  width: 100%;
+}
+.palvelu__lisa {
+  display: grid;
+  gap: 2rem 4rem;
+  align-items: start;
+}
+@media (min-width: 62rem) {
+  .palvelu__lisa {
+    grid-template-columns: minmax(0, 1fr) 19rem;
+  }
+  .tilauskortti {
+    position: sticky;
+    top: 6rem;
+  }
+}
+.palvelu__lisa-nostin {
+  margin: 0 0 0.5rem;
+  color: var(--messinki);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.tilauskortti {
+  padding: 1.5rem;
+  border: 1px solid var(--viiva);
+  border-radius: 16px;
+  background: var(--paperi);
+  box-shadow: var(--varjo-1);
+}
+.tilauskortti__nimi {
+  margin: 0 0 0.35rem;
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+.tilauskortti__hinta {
+  margin: 0;
+  color: var(--kuusi);
+  font-family: var(--serif);
+  font-size: 1.8rem;
+  font-weight: 650;
+}
+.tilauskortti__hinta span {
+  margin-right: 0.35rem;
+  color: var(--harmaa);
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+.tilauskortti__painike {
+  display: block;
+  width: 100%;
+  margin-top: 1rem;
+}
+.tilauskortti__lupaukset {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  font-size: 0.9rem;
+}
+.tilauskortti__lupaukset li {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.35rem;
+}
+.tilauskortti__lupaukset .ikoni {
+  width: 1rem;
+  height: 1rem;
+  color: var(--kuusi);
+}

@@ -39,12 +39,6 @@ Teemme neljä selostetta, koska niiden lukijat ja käsittelyt ovat erilaiset:
 
 Jokaisessa selosteessa on tietosuoja-asetuksen vaatimat kohdat: rekisterinpitäjä, käsittelyn tarkoitus ja oikeusperuste, tietoryhmät, vastaanottajat, siirrot EU:n ulkopuolelle, säilytysajat ja ihmisen oikeudet. Kirjoitamme ne teidän järjestelmienne ja toimittajienne mukaan, emme yleisellä mallilauseella.
 
-## Näin työ etenee
-
-1. **Haastattelu.** Käymme puolessa tunnissa läpi, mitä tietoja käsittelette ja missä järjestelmissä.
-2. **Luonnokset.** Teemme selosteet valmiiksi kolmessa arkipäivässä.
-3. **Hyväksyntä.** Tarkistamme muutokset kanssasi, ja saat selosteet julkaisuvalmiina ja muokattavina tiedostoina.
-
 ## Pohja vai valmis seloste?
 
 Jos teillä on yksi järjestelmä ja aikaa perehtyä, pääset alkuun [ilmaisella tietosuojaselosteen pohjalla](/tietosuojaselostepohja). Pohja ei kuitenkaan tiedä, mitä järjestelmiä käytätte, kenelle tietoja luovutatte tai kuinka kauan niitä säilytätte, ja juuri näissä kohdissa virheet yleensä ovat.

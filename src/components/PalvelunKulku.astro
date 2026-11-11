@@ -1,111 +1,45 @@
 ---
-// Vaikutustenarvioinnin kulku asiakkaan näkökulmasta. Jokaisessa vaiheessa näytetään erikseen asiakkaan
-// osuus ja Complian osuus, jotta ostaja näkee, kuinka vähän työtä arviointi teettää hänellä itsellään.
+// Palvelun kulku asiakkaan näkökulmasta. Sisältö tulee tiedostosta src/data/kulut.ts, jotta kaikki
+// palvelusivut näyttävät saman rakenteen: vaiheet, asiakkaan ja Complian osuus sekä lopputulos.
 import Ikoni from './Ikoni.astro';
 import Tayta from './Tayta.astro';
-import { ARVIOINNIN_SISALTO, HINNAT } from '../data/hinnat';
-import { svg, type KuvanNimi } from '../data/kuvat';
+import { svg } from '../data/kuvat';
+import type { Kulku } from '../data/kulut';
 
-// Asiakkaan ajankäyttö. Arviot on asetettu ennen ensimmäisiä toimituksia (10.11.2026), joten tarkista
-// ne todellisista toimituksista. null näkyy Täydennä-merkintänä.
-const AJAT: Record<'lomake' | 'haastattelu' | 'lapikaynti' | 'yhteensa', string | null> = {
-  lomake: 'noin 30 min',
-  haastattelu: 'noin 1 h',
-  lapikaynti: 'noin 45 min',
-  yhteensa: 'noin 2–3 h',
-};
-
-interface Vaihe {
-  kuva: KuvanNimi;
-  otsikko: string;
-  kuvaus: string;
-  // aika: merkkijono näytetään, null on Täydennä, puuttuva tarkoittaa, ettei vaiheessa ole kellotettavaa.
-  te: { teksti: string; aika?: string | null; merkki?: string };
-  complia: string;
+interface Props {
+  kulku: Kulku;
+  // Palvelun tunnus tilauslomakkeelle, esimerkiksi tietosuojaseloste.
+  palvelu: string;
+  nappi: string;
 }
-
-const VAIHEET: Vaihe[] = [
-  {
-    kuva: 'lomake',
-    otsikko: 'Vastaatte valmiisiin kysymyksiin',
-    kuvaus:
-      'Lähetämme lomakkeen, jossa kysytään arkikielellä, mihin järjestelmää käytetään, ketkä sitä käyttävät ja mitä tietoja siihen tallennetaan.',
-    te: { teksti: 'Vastaatte lomakkeeseen. Neuvomme, jos jokin kysymys mietityttää.', aika: AJAT.lomake },
-    complia: 'Pyydämme järjestelmän toimittajalta tietoturvakuvauksen ja luemme sen puolestanne.',
-  },
-  {
-    kuva: 'haastattelu',
-    otsikko: 'Haastattelemme oikeat ihmiset etänä',
-    kuvaus: 'Kysymme sen, mitä lomakkeesta ei selviä. Haastatteluja on yleensä 1–2.',
-    te: { teksti: 'Vastuuhenkilö ja tarvittaessa pääkäyttäjä osallistuvat.', aika: AJAT.haastattelu },
-    complia: 'Valmistelemme kysymykset ja kirjaamme vastaukset.',
-  },
-  {
-    kuva: 'asiakirjat',
-    otsikko: 'Me teemme asiakirjat',
-    kuvaus: 'Kuvaamme käsittelyn, arvioimme riskit ihmisille ja laadimme toimenpidesuunnitelman.',
-    te: { teksti: 'Voitte keskittyä omaan työhönne.', merkki: 'Ei tehtävää' },
-    complia: 'Teemme samalla tarvittavat lisäarvioinnit ja kirjaukset selosteisiin.',
-  },
-  {
-    kuva: 'lapikaynti',
-    otsikko: 'Käymme luonnoksen läpi yhdessä',
-    kuvaus: 'Tarkistamme kanssanne, että kuvaus vastaa todellisuutta, ja korjaamme virheet.',
-    te: { teksti: 'Kommentoitte luonnosta.', aika: AJAT.lapikaynti },
-    complia: 'Korjaamme ja täydennämme. Jos teillä on tietosuojavastaava, hänen neuvonsa kirjataan arviointiin.',
-  },
-  {
-    kuva: 'allekirjoitus',
-    otsikko: 'Allekirjoitatte ja arkistoitte',
-    kuvaus:
-      'Saatte valmiit asiakirjat. Arviointi tehdään teidän nimissänne, koska vastuu käsittelystä on rekisterinpitäjällä.',
-    te: { teksti: 'Hyväksytte, allekirjoitatte ja arkistoitte organisaationne käytännön mukaan.' },
-    complia: 'Toimenpidelista kertoo, mitä organisaation pitää tehdä ennen käyttöönottoa.',
-  },
-];
-
-const isolla = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
-const PAKETTI = [
-  ...ARVIOINNIN_SISALTO.map(isolla),
-  'Toimenpidelista: mitä tehdään ennen käyttöönottoa, kuka sen tekee ja mihin mennessä',
-  'Allekirjoitusvalmiit asiakirjat arkistoitavaksi',
-];
-
-const toimitus = HINNAT.vaikutustenarviointi.toimitus;
+const { kulku, palvelu, nappi } = Astro.props;
 ---
 
 <section class="osio osio--tumma kulku" id="nain-se-etenee" aria-labelledby="kulku-otsikko">
   <div class="kehys">
     <div class="kulku__alku">
       <p class="kulku__nostin">Avaimet käteen</p>
-      <h2 id="kulku-otsikko">Näin vaikutustenarviointi etenee</h2>
-      <p class="kulku__johdatus">
-        Teidän ei tarvitse osata tietosuojaa. Vastaatte kysymyksiin ja kerrotte, miten järjestelmää käytetään.
-        <strong>Vaikeat asiat, kuten riskit, lakiperusteet ja asiakirjat, hoidamme me.</strong>
-      </p>
+      <h2 id="kulku-otsikko">{kulku.otsikko}</h2>
+      <p class="kulku__johdatus">{kulku.johdanto}</p>
     </div>
 
     <dl class="kulku__luvut">
-      <div>
-        <span class="kulku__luku-ikoni"><Ikoni nimi="kello" /></span>
-        <dt>Teidän työaikanne yhteensä</dt>
-        <dd>{AJAT.yhteensa ?? <Tayta>aika</Tayta>}</dd>
-      </div>
-      <div>
-        <span class="kulku__luku-ikoni"><Ikoni nimi="seloste" /></span>
-        <dt>Valmiina</dt>
-        <dd>{toimitus}</dd>
-      </div>
-      <div>
-        <span class="kulku__luku-ikoni"><Ikoni nimi="kilpi" /></span>
-        <dt>Tietosuojaosaamista</dt>
-        <dd>ei tarvita</dd>
-      </div>
+      {
+        kulku.luvut.map((l) => (
+          <div>
+            <span class="kulku__luku-ikoni">
+              <Ikoni nimi={l.ikoni} />
+            </span>
+            <dt>{l.nimi}</dt>
+            <dd>{l.arvo ?? <Tayta>arvo</Tayta>}</dd>
+          </div>
+        ))
+      }
     </dl>
 
     <ol class="kulku__vaiheet">
       {
-        VAIHEET.map((v, i) => (
+        kulku.vaiheet.map((v, i) => (
           <li class="kulku__vaihe">
             <div class="kulku__kuva" set:html={svg(v.kuva)} />
             <div class="kulku__teksti">
@@ -145,14 +79,11 @@ const toimitus = HINNAT.vaikutustenarviointi.toimitus;
       <div class="kulku__paketti-kuva" set:html={svg('paketti', '0 0 220 180')} />
       <div>
         <p class="kulku__nostin kulku__nostin--tumma">Lopputulos</p>
-        <h3>Valmis paketti, jonka saatte</h3>
-        <p>
-          Yksi kiinteä hinta kattaa kaiken, mitä järjestelmän käyttöönotto tietosuojan kannalta vaatii. Lasku lähtee
-          vasta, kun olette hyväksyneet valmiit asiakirjat.
-        </p>
+        <h3>{kulku.paketti.otsikko}</h3>
+        <p>{kulku.paketti.teksti}</p>
         <ul>
           {
-            PAKETTI.map((rivi) => (
+            kulku.paketti.rivit.map((rivi) => (
               <li>
                 <Ikoni nimi="tarkistus" />
                 {rivi}
@@ -160,8 +91,8 @@ const toimitus = HINNAT.vaikutustenarviointi.toimitus;
             ))
           }
         </ul>
-        <a class="painike painike--kulta" href="/yhteystiedot?palvelu=vaikutustenarviointi">
-          Pyydä vaikutustenarviointi <Ikoni nimi="nuoli" class="ikoni ikoni--nuoli" />
+        <a class="painike painike--kulta" href={`/yhteystiedot?palvelu=${palvelu}`}>
+          {nappi} <Ikoni nimi="nuoli" class="ikoni ikoni--nuoli" />
         </a>
       </div>
     </div>

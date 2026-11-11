@@ -3,7 +3,9 @@ import { getCollection, getEntry } from 'astro:content';
 import Perus from '../layouts/Perus.astro';
 import Kysymykset from '../components/Kysymykset.astro';
 import Loppukehotus from '../components/Loppukehotus.astro';
-import ArvioinninKulku from '../components/ArvioinninKulku.astro';
+import PalvelunKulku from '../components/PalvelunKulku.astro';
+import Ikoni from '../components/Ikoni.astro';
+import { KULUT } from '../data/kulut';
 import { SIVUSTO } from '../../site.config.mjs';
 import { ARVIOINNIT, HINNAT, JARJESTELMAT, JATKUVAT, KOOT, eur, kiintea, sijoitaHinnat } from '../data/hinnat';
 import { palvelu as palveluSchema, usein } from '../data/schema';
@@ -38,6 +40,12 @@ const koot = kiintea(hintatieto)
       // Vaikutustenarvioinnin hinta riippuu myös järjestelmästä, joten näytetään koko vaihteluväli.
       ylin: d.avain === 'vaikutustenarviointi' ? JARJESTELMAT.arkaluonteinen[k.id] : null,
     })).filter((k): k is { nimi: string; lisa: string; hinta: number; ylin: number | null } => k.hinta !== null);
+
+// Jokaisella palvelulla on kuvallinen kulku. Puuttuva kulku on virhe, jotta uusi palvelu ei jää ilman sitä.
+const kulku = KULUT[p.id];
+if (!kulku) throw new Error(`Palvelulta ${p.id} puuttuu kulku tiedostosta src/data/kulut.ts`);
+const nappi = onJatkuva ? 'Ota yhteyttä' : 'Tilaa palvelu';
+const alin = koot[0];
 
 const usein_ = d.usein.map((q) => ({ k: q.k, v: sijoitaHinnat(q.v) }));
 const kuvaus = sijoitaHinnat(d.kuvaus);
@@ -77,7 +85,7 @@ if (d.artikkeli && !artikkeli) throw new Error(`Palvelun ${p.id} artikkelia ei l
           </div>
           <div>
             <dt>Mitä tarvitsemme teiltä</dt>
-            <dd>{d.tarvitsemme}</dd>
+            <dd>{d.tarvitsemme} <a href="#nain-se-etenee">Katso, miten työ etenee</a></dd>
           </div>
         </dl>
       </div>
@@ -103,7 +111,7 @@ if (d.artikkeli && !artikkeli) throw new Error(`Palvelun ${p.id} artikkelia ei l
           <strong>Toimitus:</strong> {toimitus}
           {yksikko && <><br />Hinta {yksikko}.</>}
         </p>
-        <a class="painike" href={`/yhteystiedot?palvelu=${p.id}`}>{onJatkuva ? 'Ota yhteyttä' : 'Tilaa palvelu'}</a>
+        <a class="painike painike--kulta hintakortti__painike" href={`/yhteystiedot?palvelu=${p.id}`}>{nappi}</a>
         <p class="pieni hintakortti__kysy">Haluatteko kysyä ensin? Samalla lomakkeella voi myös vain kysyä.</p>
         {
           d.avain === 'vaikutustenarviointi' && (
@@ -118,11 +126,38 @@ if (d.artikkeli && !artikkeli) throw new Error(`Palvelun ${p.id} artikkelia ei l
     </div>
   </section>
 
-  {d.avain === 'vaikutustenarviointi' && <ArvioinninKulku />}
+  <PalvelunKulku kulku={kulku} palvelu={p.id} nappi={nappi} />
 
   <section class="osio osio--valkoinen">
-    <div class="kehys">
-      <div class="proosa" set:html={sisalto} />
+    <div class="kehys palvelu__lisa">
+      <div>
+        <p class="palvelu__lisa-nostin">Lisätietoa</p>
+        <div class="proosa" set:html={sisalto} />
+      </div>
+      <aside class="tilauskortti" aria-label={`Tilaa: ${d.nimi}`}>
+        <p class="tilauskortti__nimi">{d.nimi}</p>
+        <p class="tilauskortti__hinta">
+          {koot.length > 1 && <span>alkaen</span>}
+          {eur(alin.hinta)}{paate}
+        </p>
+        <p class="pieni">Toimitus: {toimitus}. Hinnat alv 0 %.</p>
+        <a class="painike tilauskortti__painike" href={`/yhteystiedot?palvelu=${p.id}`}>
+          {nappi} <Ikoni nimi="nuoli" class="ikoni ikoni--nuoli" />
+        </a>
+        <ul class="tilauskortti__lupaukset">
+          {
+            (onJatkuva
+              ? ['Kiinteä kuukausihinta kirjallisena', 'Maksuton kartoitus ennen sopimusta']
+              : ['Kiinteä hinta kirjallisena', 'Lasku vasta, kun hyväksytte']
+            ).map((l) => (
+              <li>
+                <Ikoni nimi="tarkistus" />
+                {l}
+              </li>
+            ))
+          }
+        </ul>
+      </aside>
     </div>
   </section>
 
@@ -141,7 +176,8 @@ if (d.artikkeli && !artikkeli) throw new Error(`Palvelun ${p.id} artikkelia ei l
 
   <Loppukehotus
     otsikko={`${d.nimi}: tilaa tai kysy lisää`}
-    teksti="Kerro lyhyesti tilanteesi, niin vahvistamme kiinteän hinnan ja toimitusajan."
+    teksti="Kertokaa lyhyesti tilanteenne, niin vahvistamme kiinteän hinnan ja toimitusajan kirjallisena."
+    nappi={nappi}
     linkki={`/yhteystiedot?palvelu=${p.id}`}
   />
 </Perus>

@@ -58,12 +58,6 @@ Tietosuojatarkastus eli GAP-analyysi vertaa nykytilaanne tietosuoja-asetuksen va
 
 Raportti on kirjoitettu johdolle luettavaksi. Pääset siitä suoraan päätökseen: mitä tehdään, kuka tekee ja mitä se maksaa.
 
-## Näin työ etenee
-
-1. **Aineisto.** Lähetät nykyiset asiakirjat, ja haastattelemme vastuuhenkilöitä 1–3 kertaa.
-2. **Tarkastus.** Teemme raportin kymmenessä arkipäivässä.
-3. **Purku.** Käymme havainnot läpi tunnin palaverissa, ja päätät jatkosta.
-
 ## Analyysistä korjauksiin
 
 Kun analyysi on valmis, voitte korjata puutteet itse tai tilata korjaukset meiltä. Jos tilaatte [Tietosuoja kuntoon -paketin](/hinnasto#paketti), analyysin hinta vähennetään, koska paketti sisältää sen. Maksatte silloin vain [tietosuojaselosteista](/tietosuojaseloste) ja [selosteesta käsittelytoimista](/seloste-kasittelytoimista) jäävän osan.

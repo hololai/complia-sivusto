@@ -42,13 +42,6 @@ Tehtävät tulevat suoraan asetuksen 39 artiklasta:
 
 Tietosuojavastaava ei ole vastuussa siitä, että organisaatio noudattaa lakia. Vastuu säilyy rekisterinpitäjällä, ja vastaava neuvoo ja valvoo riippumattomasti.
 
-## Näin aloitus etenee
-
-1. **Kartoitus.** Selvitämme maksuttomasti, onko nimittäminen teille pakollista tai perusteltua, ja käymme läpi nykyiset asiakirjat.
-2. **Sopimus ja nimitys.** Sovimme palvelun sisällön ja koon kirjallisesti, ja nimitätte tietosuojavastaavan.
-3. **Ilmoitus ja yhteystiedot.** Asetus edellyttää, että yhteystiedot julkaistaan ja ilmoitetaan tietosuojavaltuutetun toimistolle.
-4. **Jatkuva työ.** Tietosuojavastaava neuvoo, seuraa asetuksen noudattamista ja raportoi suoraan ylimmälle johdolle.
-
 ## Yritykset ja kunnat
 
 Hinta määräytyy koon ja käsittelyn laajuuden mukaan. Kunnissa palvelu sopii myös oman tietosuojavastaavan sijaiseksi ja tueksi. Yksittäiset työt, kuten hankinnan [vaikutustenarviointi](/vaikutustenarviointi) tai [tietotilinpäätös](/tietotilinpaatos), voi ostaa myös erikseen kertapalveluna. Katso [tietosuojapalvelut kunnille](/kunnat).

@@ -40,12 +40,6 @@ Asetus edellyttää vähintään käsittelyn tarkoitukset, tietoryhmät, vastaan
 
 Täydellisen esimerkkirivin näet [selosteen käsittelytoimista ohjeesta](/artikkelit/mika-on-seloste-kasittelytoimista).
 
-## Näin työ etenee
-
-1. **Haastattelu.** Käymme tunnissa läpi toiminnot, järjestelmät ja toimittajat.
-2. **Seloste.** Kuvaamme käsittelyt taulukkoon viidessä arkipäivässä.
-3. **Hyväksyntä.** Käymme selosteen läpi kanssasi ja kerromme, jos jokin vaatii korjausta, esimerkiksi puuttuva käsittelysopimus tai määrittelemätön säilytysaika.
-
 ## Kuka selostetta tarvitsee?
 
 Velvollisuus koskee lähes kaikkia organisaatioita, ja kunnat tarvitsevat selosteen aina. Alle 250 hengen organisaation poikkeus ei päde, jos käsittely on jatkuvaa, aiheuttaa todennäköisesti riskin ihmisille tai koskee arkaluonteisia tietoja.
