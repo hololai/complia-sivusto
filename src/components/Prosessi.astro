@@ -6,6 +6,7 @@ interface Props {
   vaiheet: { kuka: 'Te' | 'Complia' | 'Yhdessä'; otsikko: string; teksti: string }[];
 }
 const { vaiheet } = Astro.props;
+const NIMET = { Te: 'Teidän osuutenne', Complia: 'Complia hoitaa', Yhdessä: 'Yhdessä' } as const;
 ---
 
 <ol class="prosessi">
@@ -16,7 +17,7 @@ const { vaiheet } = Astro.props;
           <span class="prosessi__nro" aria-hidden="true">
             {String(i + 1).padStart(2, '0')}
           </span>
-          <span class="prosessi__kuka">{v.kuka}</span>
+          <span class="prosessi__kuka">{NIMET[v.kuka]}</span>
         </div>
         <h3>{v.otsikko}</h3>
         <p>{v.teksti}</p>
