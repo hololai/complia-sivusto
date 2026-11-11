@@ -20,8 +20,7 @@ const IKONIT: Record<PalveluAvain, IkoninNimi> = {
 };
 ---
 
-<article class={`kortti kortti--palvelu${avain === 'tarkastus' ? ' kortti--suositus' : ''}`}>
-  {avain === 'tarkastus' && <span class="merkinta kortti__merkinta">Aloita tästä</span>}
+<article class="kortti kortti--palvelu">
   <span class="kortti__ikoni"><Ikoni nimi={IKONIT[avain]} /></span>
   <Otsikko><a href={p.polku}>{p.nimi}</a></Otsikko>
   <p>{p.lyhyt}</p>

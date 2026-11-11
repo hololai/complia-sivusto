@@ -20,17 +20,17 @@ const PALVELUT = [
 ---
 
 <Perus
-  otsikko={`Pyydä tarjous tietosuojapalvelusta | ${SIVUSTO.nimi}`}
-  kuvaus="Pyydä tarjous tietosuojaselosteesta, GAP-analyysista tai vaikutustenarvioinnista. Vahvistamme kiinteän hinnan ja toimitusajan kirjallisena."
-  murut={[{ nimi: 'Pyydä tarjous', polku: '/yhteystiedot' }]}
+  otsikko={`Ota yhteyttä: tietosuojapalvelut | ${SIVUSTO.nimi}`}
+  kuvaus="Ota yhteyttä tai tilaa tietosuojaseloste, GAP-analyysi tai vaikutustenarviointi. Vahvistamme kiinteän hinnan ja toimitusajan kirjallisena."
+  murut={[{ nimi: 'Ota yhteyttä', polku: '/yhteystiedot' }]}
 >
   <section class="osio">
     <div class="kehys palvelu__ruudukko">
       <div>
-        <h1>Pyydä tarjous</h1>
+        <h1>Ota yhteyttä</h1>
         <p class="johdatus">
-          Kerro lyhyesti, mitä tarvitsette. Vahvistamme kiinteän hinnan ja toimitusajan kirjallisena ennen kuin työ
-          alkaa.
+          Kertokaa lyhyesti tilanteenne tai tilatkaa palvelu suoraan. Vahvistamme kiinteän hinnan ja
+          toimitusajan kirjallisena ennen kuin työ alkaa.
         </p>
 
         <p class="tarjous__virhe" data-tarjous-virhe role="alert" hidden></p>
@@ -80,7 +80,7 @@ const PALVELUT = [
             </span>
           </p>
           <div class="painikkeet">
-            <button class="painike" type="submit">Lähetä tarjouspyyntö</button>
+            <button class="painike painike--kulta" type="submit">Lähetä</button>
           </div>
           <p class="pieni">
             Tiedot lähetetään meille sähköpostina, eikä lomake tallenna niitä mihinkään. Vastaamme pyyntöösi
@@ -96,7 +96,7 @@ const PALVELUT = [
           <a href={`mailto:${SIVUSTO.sahkoposti}`}>{SIVUSTO.sahkoposti}</a>
         </p>
         <ol class="yhteys__vaiheet">
-          <li><strong>Tarjouspyyntö.</strong> Mitä tarvitsette ja aikataulu.</li>
+          <li><strong>Yhteydenotto.</strong> Mitä tarvitsette ja aikataulu.</li>
           <li><strong>Tilausvahvistus.</strong> Kiinteä hinta ja toimitusaika kirjallisena.</li>
           <li><strong>Hyväksyntä.</strong> Lasku lähtee vasta, kun olette hyväksyneet valmiit asiakirjat.</li>
         </ol>

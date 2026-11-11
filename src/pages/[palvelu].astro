@@ -103,7 +103,8 @@ if (d.artikkeli && !artikkeli) throw new Error(`Palvelun ${p.id} artikkelia ei l
           <strong>Toimitus:</strong> {toimitus}
           {yksikko && <><br />Hinta {yksikko}.</>}
         </p>
-        <a class="painike" href={`/yhteystiedot?palvelu=${p.id}`}>{onJatkuva ? 'Pyydä tarjous' : 'Tilaa tai kysy lisää'}</a>
+        <a class="painike" href={`/yhteystiedot?palvelu=${p.id}`}>{onJatkuva ? 'Ota yhteyttä' : 'Tilaa palvelu'}</a>
+        <p class="pieni hintakortti__kysy">Haluatteko kysyä ensin? Samalla lomakkeella voi myös vain kysyä.</p>
         {
           d.avain === 'vaikutustenarviointi' && (
             <p class="pieni">

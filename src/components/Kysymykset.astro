@@ -1,4 +1,6 @@
 ---
+// Kysymykset ovat avattavia, jotta lukija näkee kaikki kysymykset kerralla eikä joudu lukemaan vastauksia,
+// joita ei tarvitse. <details> toimii ilman JavaScriptiä, ja hakukone näkee myös suljetun sisällön.
 interface Props {
   kysymykset: { k: string; v: string }[];
   otsikko?: string;
@@ -10,10 +12,12 @@ const { kysymykset, otsikko = 'Usein kysytyt' } = Astro.props;
 <div class="kysymykset">
   {
     kysymykset.map((q) => (
-      <div>
-        <h3>{q.k}</h3>
+      <details class="ukk">
+        <summary>
+          <h3>{q.k}</h3>
+        </summary>
         <p>{q.v}</p>
-      </div>
+      </details>
     ))
   }
 </div>

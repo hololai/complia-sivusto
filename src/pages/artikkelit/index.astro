@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import Perus from '../../layouts/Perus.astro';
 import Loppukehotus from '../../components/Loppukehotus.astro';
+import Ikoni from '../../components/Ikoni.astro';
 import { SIVUSTO } from '../../../site.config.mjs';
 
 const artikkelit = (await getCollection('artikkelit')).sort((a, b) => a.data.jarjestys - b.data.jarjestys);
@@ -17,7 +18,7 @@ const RYHMAT = [
 <Perus
   otsikko={`Tietosuojaohjeet yrityksille ja kunnille | ${SIVUSTO.nimi}`}
   kuvaus="Selkeät ohjeet tietosuojaselosteesta, vaikutustenarvioinnista, LIA:sta, TIA:sta, FRIA:sta, Copilotista, Geministä ja Claude Teamista."
-  murut={[{ nimi: 'Artikkelit', polku: '/artikkelit' }]}
+  murut={[{ nimi: 'Ohjeet', polku: '/artikkelit' }]}
 >
   <section class="osio">
     <div class="kehys">
@@ -27,6 +28,18 @@ const RYHMAT = [
           Mitä laki vaatii, mitä se tarkoittaa käytännössä ja milloin työ kannattaa ostaa valmiina. Lähteet on
           merkitty jokaiseen ohjeeseen.
         </p>
+      </div>
+      <div class="ruudukko ruudukko--2 tyokalut">
+        <article class="kortti kortti--palvelu">
+          <span class="kortti__ikoni"><Ikoni nimi="kysymys" /></span>
+          <h2><a href="/pikatesti">Tietosuojan pikatesti</a></h2>
+          <p>Kahden minuutin testi kertoo, mistä kannattaa aloittaa. Vastauksia ei tallenneta.</p>
+        </article>
+        <article class="kortti kortti--palvelu">
+          <span class="kortti__ikoni"><Ikoni nimi="seloste" /></span>
+          <h2><a href="/tietosuojaselostepohja">Tietosuojaselosteen pohja</a></h2>
+          <p>Ilmainen pohja täyttöohjeineen, myös Word-tiedostona.</p>
+        </article>
       </div>
       {
         RYHMAT.map((r) => (
@@ -55,6 +68,7 @@ const RYHMAT = [
 </Perus>
 
 <style>
+  .tyokalut,
   .artikkeliryhma + .artikkeliryhma {
     margin-top: clamp(2.5rem, 5vw, 4rem);
   }

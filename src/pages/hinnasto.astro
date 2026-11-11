@@ -54,7 +54,7 @@ const KYSYMYKSET = [
   },
   {
     k: 'Entä jos tarvitsemme laajemman kokonaisuuden?',
-    v: 'Useampi järjestelmä samassa arvioinnissa ja laajemmat kokonaisuudet hinnoitellaan kiinteällä tarjouksella. Kerro tilanteesi tarjouspyynnöllä.',
+    v: 'Useampi järjestelmä samassa arvioinnissa ja laajemmat kokonaisuudet hinnoitellaan kiinteällä tarjouksella. Ottakaa yhteyttä, niin teemme kiinteän tarjouksen.',
   },
 ];
 
@@ -184,15 +184,13 @@ const OPAS = [
 
       <div class="paketti" id="paketti">
         <div>
-          <span class="merkinta">Säästät noin 20 %</span>
           <h3>{PAKETTI.nimi} -paketti</h3>
           <p>
-            GAP-analyysi, tietosuojaselosteet ja seloste käsittelytoimista yhdessä. Suosituin valinta. Jos olette jo
-            teettäneet GAP-analyysin, sen hinta vähennetään paketista.
+            GAP-analyysi, tietosuojaselosteet ja seloste käsittelytoimista yhdessä edullisemmin kuin erikseen. Jos
+            olette jo teettäneet GAP-analyysin, sen hinta vähennetään paketista.
           </p>
           <div class="painikkeet">
             <a class="painike" href="/yhteystiedot?palvelu=paketti">Tilaa paketti</a>
-            <a class="painike painike--toinen" href="/yhteystiedot">Kysy lisää</a>
           </div>
         </div>
         <div class="taulu">
@@ -206,7 +204,7 @@ const OPAS = [
             </thead>
             <tbody>
               <tr class="rivi--erikseen">
-                <th scope="row">Erikseen</th>
+                <th scope="row">Erikseen ostettuna</th>
                 {KOOT.map((k) => <td class={`h k-${k.id}`}>{eur(pakettiErikseen(k.id))}</td>)}
               </tr>
               <tr>
