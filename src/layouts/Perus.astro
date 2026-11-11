@@ -89,6 +89,14 @@ const csp =
     <main id="sisalto">
       <slot />
     </main>
+    {
+      // Mobiilissa päätoiminto pysyy aina peukalon ulottuvilla. Lomakesivulla palkki olisi turha.
+      !['/yhteystiedot', '/kiitos'].includes(polku) && (
+        <div class="pikapalkki">
+          <a class="painike painike--kulta" href="/yhteystiedot">Ota yhteyttä</a>
+        </div>
+      )
+    }
     <Ala />
   </body>
 </html>

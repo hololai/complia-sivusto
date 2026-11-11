@@ -27,6 +27,8 @@ Node 24 (`.nvmrc`). Aja ensin `nvm use`.
 - `src/content/palvelut/`: palvelusivut. `src/content/artikkelit/`: ohjeet.
 - `src/pages/`: muut sivut. `src/layouts/Perus.astro`: otsikot, canonical, CSP ja rakenteiset tiedot.
 - `scripts/tarkista.mjs`: säännöt, jotka valmiin sivuston pitää täyttää.
+- `src/data/kulut.ts`: jokaisen palvelun kuvallinen kulku (vaiheet, asiakkaan ja Complian osuus, lopputulos). Uusi palvelu tarvitsee kulun, muuten build kaatuu.
+- `src/data/kuvat.ts`: sivuston piirrokset upotettuna SVG:nä, kaikki samaa tyyliä.
 - `src/data/asiakirja.ts`: yhteinen rakenne asiakirjoille. Sivu (`Asiakirja.astro`) ja Word (`scripts/tee-asiakirjat.mjs`) syntyvät samasta datasta. `[kenttä]` täyttää asiakas, `<<kohta>>` täydennetään ennen julkaisua.
 - Käsittelysopimuksen ja Meistä-sivun tiedot Complia-työkalusta tulevat sen omasta dokumentaatiosta (sen PRD). Päivitä ne, kun työkalun sijainti, pääsy tai alihankkijat muuttuvat.
 
@@ -35,6 +37,7 @@ Node 24 (`.nvmrc`). Aja ensin `nvm use`.
 - Käyttöliittymä, tekstit, kommentit ja commit-viestit suomeksi. Kommentit kertovat miksi, eivät mitä.
 - Sivuston oma tietosuoja on näyte osaamisesta: ei seurantaa, evästeitä, selaintallennusta, ulkoisia fontteja, upotuksia tai CDN-skriptejä.
 - Ainoa tietoja lähettävä lomake on tarjouspyyntö (`/yhteystiedot`). Se lähettää vain omaan vastaanottoon (`lomake/`, Google Cloud Run, europe-north1), joka lähettää sähköpostin eikä tallenna mitään. CSP:n `form-action` rajaa lähetyksen sinne, ja tarkistin valvoo sitä. Julkaisu: `bash lomake/julkaise.sh`. SMTP-salasana on vain Secret Managerissa (`bash lomake/tallenna-salasana.sh`), ja lähettäjätilin osoitetta ei kirjoiteta repoon eikä sivustolle.
+- Ilme on ammattimainen, ei tarjouslehti (päätös 11.11.2026): yksi kultainen päätoimintopainike per osio, päätoiminto on "Ota yhteyttä" ja palvelusivulla "Tilaa palvelu". Ei yliviivattuja hintoja, säästöprosentteja, leimoja tai tarroja. Tarkistin valvoo painikkeet ja yliviivaukset.
 - CSP on tiukka: ei sisäisiä skriptejä, tyylejä tai `style`-attribuutteja. Interaktiivisuus on lisä, ja sisällön ja hintojen pitää näkyä ilman JavaScriptiä.
 - Uudella artikkelilla pitää olla hakusana, alle 155 merkin metakuvaus, kehotus palveluun, ensisijaiset lähteet ja päivityspäivä. Linkitä se palvelusivulta ja palvelusivulle.
 - Palvelusivu ja artikkeli eivät kilpaile samasta hausta: palvelusivu vastaa ostoaikeeseen, artikkeli tiedonhakuun.

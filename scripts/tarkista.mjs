@@ -62,6 +62,13 @@ for (const s of sivut) {
   if (!html.includes('<html lang="fi"')) virhe(polku, 'lang="fi" puuttuu');
   if (s.h1.length !== 1) virhe(polku, `H1-otsikoita on ${s.h1.length}, pitää olla yksi`);
 
+  // Ilme: yksi päätoiminto per osio, eikä tarjouslehden yliviivattuja hintoja (päätös 11.11.2026).
+  for (const osio of html.matchAll(/<section[\s\S]*?<\/section>/g)) {
+    const kultaiset = (osio[0].match(/painike--kulta/g) ?? []).length;
+    if (kultaiset > 1) virhe(polku, `osiossa on ${kultaiset} kultaista painiketta, pitää olla enintään yksi`);
+  }
+  if (/<(s|del|strike)[\s>]/.test(html)) virhe(polku, 'sivulla on yliviivattua tekstiä: ei yliviivattuja hintoja');
+
   if (!s.otsikko) virhe(polku, 'title puuttuu');
   else if (s.otsikko.length > 65) varoitus(polku, `title on pitkä (${s.otsikko.length} merkkiä): ${s.otsikko}`);
 
