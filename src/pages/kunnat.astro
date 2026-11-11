@@ -16,8 +16,8 @@ import type { ComponentProps } from 'astro/types';
 const OSTO: ComponentProps<typeof Prosessi>['vaiheet'] = [
   {
     kuka: 'Te',
-    otsikko: 'Ottakaa yhteyttä',
-    teksti: 'Kertokaa, mikä hankinta, järjestelmä tai määräaika on edessä. Selvitämme, mitä tarvitaan, ja vahvistamme hinnan ja toimitusajan kirjallisena.',
+    otsikko: 'Ota yhteyttä',
+    teksti: 'Kerro, mikä hankinta, järjestelmä tai määräaika on edessä. Selvitämme, mitä tarvitaan, ja vahvistamme hinnan ja toimitusajan kirjallisena.',
   },
   {
     kuka: 'Te',
@@ -39,7 +39,7 @@ const OSTO: ComponentProps<typeof Prosessi>['vaiheet'] = [
 const KYSYMYKSET = [
   {
     k: 'Voiko kunta ostaa palvelut ilman kilpailutusta?',
-    v: 'Kertapalvelut ovat pienhankintojen kokoluokkaa, joten raskasta kilpailutusta ei yleensä tarvita. Noudattakaa kuntanne hankintaohjetta. Jatkuvassa tietosuojavastaavapalvelussa hankinnan arvo lasketaan koko sopimuskaudelta, joten tarkistakaa se erikseen.',
+    v: 'Kertapalvelut ovat pienhankintojen kokoluokkaa, joten raskasta kilpailutusta ei yleensä tarvita. Noudata kuntasi hankintaohjetta. Jatkuvassa tietosuojavastaavapalvelussa hankinnan arvo lasketaan koko sopimuskaudelta, joten tarkista se erikseen.',
   },
   {
     k: 'Korvaako palvelu kunnan oman tietosuojavastaavan?',
@@ -126,7 +126,7 @@ const artikkeliTtp = await getEntry('artikkelit', 'tietotilinpaatos-sisalto-ja-a
     <div class="kehys">
       <div class="osio__otsikko">
         <h2>Näin kunta ostaa palvelun</h2>
-        <p class="johdatus">Ei raskasta kilpailutusta kertapalveluissa. Noudattakaa kuntanne hankintaohjetta.</p>
+        <p class="johdatus">Ei raskasta kilpailutusta kertapalveluissa. Noudata kuntasi hankintaohjetta.</p>
       </div>
       <Prosessi vaiheet={OSTO} />
     </div>
@@ -136,7 +136,7 @@ const artikkeliTtp = await getEntry('artikkelit', 'tietotilinpaatos-sisalto-ja-a
     <div class="kehys">
       <div class="osio__otsikko">
         <h2>Kunnan tietosuojavuosi</h2>
-        <p class="johdatus">Tietosuojatyö kasautuu kunnissa samoihin ajankohtiin. Sopikaa apu valmiiksi, ennen kuin aikataulu kiristyy.</p>
+        <p class="johdatus">Tietosuojatyö kasautuu kunnissa samoihin ajankohtiin. Sovi apu valmiiksi, ennen kuin aikataulu kiristyy.</p>
       </div>
       <ol class="vuosi">
         {
@@ -186,5 +186,5 @@ const artikkeliTtp = await getEntry('artikkelit', 'tietotilinpaatos-sisalto-ja-a
     <div class="kehys kehys--kapea"><Kysymykset kysymykset={KYSYMYKSET} /></div>
   </section>
 
-  <Loppukehotus otsikko="Sovitaan, mistä kunnan kannattaa aloittaa" teksti="Kertokaa, mitä hankinta tai tietotilinpäätös vaatii, niin vahvistamme kiinteän hinnan ja toimitusajan." />
+  <Loppukehotus otsikko="Sovitaan, mistä kunnan kannattaa aloittaa" teksti="Kerro, mitä hankinta tai tietotilinpäätös vaatii, niin vahvistamme kiinteän hinnan ja toimitusajan." />
 </Perus>

@@ -43,9 +43,9 @@ const TILANTEET: { ikoni: IkoninNimi; tilanne: string; ratkaisu: string; palvelu
 const VAIHEET: ComponentProps<typeof Prosessi>['vaiheet'] = [
   {
     kuka: 'Te',
-    otsikko: 'Ottakaa yhteyttä',
+    otsikko: 'Ota yhteyttä',
     teksti:
-      'Teidän ei tarvitse tietää, mitä tarvitsette. Kertokaa, mitä teette, niin selvitämme sen ja vahvistamme kiinteän hinnan kirjallisena.',
+      'Sinun ei tarvitse tietää, mitä organisaationne tarvitsee. Kerro, mitä teette, niin selvitämme sen ja vahvistamme kiinteän hinnan kirjallisena.',
   },
   {
     kuka: 'Te',
@@ -127,7 +127,7 @@ const KANSIO: { ikoni: IkoninNimi; nimi: string }[] = [
     <div class="kehys">
       <div class="osio__otsikko osio__otsikko--keski">
         <h2>Mikä tilanteenne on?</h2>
-        <p class="johdatus">Valitkaa lähin. Näette, mitä teemme ja mitä se maksaa.</p>
+        <p class="johdatus">Valitse lähin. Näet, mitä teemme ja mitä se maksaa.</p>
       </div>
       <ul class="tilanteet">
         {
@@ -152,7 +152,7 @@ const KANSIO: { ikoni: IkoninNimi; nimi: string }[] = [
         }
       </ul>
       <p class="kuntalinkki">
-        <Ikoni nimi="kunta" /> Edustatteko kuntaa? <a href="/kunnat">Katso kuntien palvelut pienhankintana</a>
+        <Ikoni nimi="kunta" /> Edustatko kuntaa? <a href="/kunnat">Katso kuntien palvelut pienhankintana</a>
       </p>
     </div>
   </section>
