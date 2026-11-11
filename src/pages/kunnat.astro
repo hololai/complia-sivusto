@@ -8,6 +8,15 @@ import { join } from 'node:path';
 import { SIVUSTO } from '../../site.config.mjs';
 import { ARVIOINNIT, HINNAT, JARJESTELMAT, JATKUVAT, eur } from '../data/hinnat';
 import { usein } from '../data/schema';
+import Ikoni from '../components/Ikoni.astro';
+import { svg, type KuvanNimi } from '../data/kuvat';
+
+// Kunnan ostopolku: hankinta on kunnalle usein vaikein vaihe, joten se näytetään yhtä selvästi kuin palvelut.
+const OSTO: { kuva: KuvanNimi; otsikko: string; teksti: string }[] = [
+  { kuva: 'lomake', otsikko: 'Kertokaa tarve', teksti: 'Mikä hankinta, järjestelmä tai määräaika on edessä. Vahvistamme hinnan ja toimitusajan kirjallisena.' },
+  { kuva: 'allekirjoitus', otsikko: 'Hankintapäätös', teksti: 'Palvelukuvauksessa on sisältö, hinnat ja toimitusajat valmiina päätöksen liitteeksi.' },
+  { kuva: 'asiakirjat', otsikko: 'Me toimitamme', teksti: 'Teemme työn kiinteällä hinnalla, ja tietosuojavastaavanne hyväksyy lopputuloksen.' },
+];
 
 const KYSYMYKSET = [
   {
@@ -26,6 +35,13 @@ const KYSYMYKSET = [
     k: 'Saako hankintapäätöksen liitteeksi palvelukuvauksen?',
     v: 'Kyllä. Palvelukuvauksessa on sisältö, hinnat ja toimitusajat valmiina liitettäväksi hankintapäätökseen.',
   },
+];
+
+const VUOSI = [
+  { aika: 'Tammi–maaliskuu', tyo: 'Tietotilinpäätös edelliseltä vuodelta tilinpäätöksen rinnalla', palvelu: 'Tietotilinpäätös', polku: HINNAT.tietotilinpaatos.polku },
+  { aika: 'Ympäri vuoden', tyo: 'Järjestelmähankintojen vaikutustenarvioinnit ennen käyttöönottoa', palvelu: 'Vaikutustenarviointi', polku: HINNAT.vaikutustenarviointi.polku },
+  { aika: 'Hankinnan valmistelussa', tyo: `Suuririskisen tekoälyn perusoikeusvaikutukset, alkaen ${eur(ARVIOINNIT.fria.keski)}`, palvelu: ARVIOINNIT.fria.nimi, polku: ARVIOINNIT.fria.polku },
+  { aika: 'Elo–lokakuu', tyo: 'Jatkuvien palvelujen budjetointi ennen talousarvion lukitsemista', palvelu: 'Tietosuojavastaava palveluna', polku: JATKUVAT.vastaava.polku },
 ];
 
 // PDF tehdään komennolla npm run asiakirjat (scripts/tee-palvelukuvaus.mjs) samasta datasta kuin sivut.
@@ -50,72 +66,88 @@ const artikkeliTtp = await getEntry('artikkelit', 'tietotilinpaatos-sisalto-ja-a
           Autamme tietosuojavastaavaa silloin, kun aika ei riitä: hankintojen vaikutustenarvioinnit, selosteet
           toimialoittain ja tietotilinpäätös.
         </p>
+        <div class="painikkeet">
+          <a class="painike painike--kulta painike--iso" href="/yhteystiedot">
+            Ota yhteyttä <Ikoni nimi="nuoli" class="ikoni ikoni--nuoli" />
+          </a>
+          <a class="painike painike--toinen painike--iso" href={PALVELUKUVAUS}>
+            Lataa palvelukuvaus (PDF, {palvelukuvausKt} kt)
+          </a>
+        </div>
+        <ul class="lupausrivi">
+          <li><Ikoni nimi="tarkistus" />Kertapalvelut pienhankintojen kokoluokkaa</li>
+          <li><Ikoni nimi="tarkistus" />Palvelukuvaus hankintapäätöksen liitteeksi</li>
+          <li><Ikoni nimi="tarkistus" />Kiinteä hinta ja toimitusaika kirjallisena</li>
+        </ul>
       </div>
       <div class="ruudukko">
-        <article class="kortti">
+        <article class="kortti kortti--palvelu">
+          <span class="kortti__ikoni"><Ikoni nimi="kilpi" /></span>
           <h2><a href={HINNAT.vaikutustenarviointi.polku}>Hankinnan vaikutustenarviointi</a></h2>
           <p>Järjestelmähankinta ei jää odottamaan arviointia. Toimitus {HINNAT.vaikutustenarviointi.toimitus}.</p>
           <div class="kortti__ala"><span class="kortti__hinta">{eur(JARJESTELMAT.arkaluonteinen.keski)}–{eur(JARJESTELMAT.arkaluonteinen.laaja)}</span></div>
         </article>
-        <article class="kortti">
+        <article class="kortti kortti--palvelu">
+          <span class="kortti__ikoni"><Ikoni nimi="kaavio" /></span>
           <h2><a href={HINNAT.tietotilinpaatos.polku}>Tietotilinpäätös</a></h2>
           <p>Julkaisuvalmis kooste johdolle, kuntalaisille ja tarkastuslautakunnalle. Toimitus {HINNAT.tietotilinpaatos.toimitus}.</p>
           <div class="kortti__ala"><span class="kortti__hinta">{eur(HINNAT.tietotilinpaatos.keski)}–{eur(HINNAT.tietotilinpaatos.laaja)}</span></div>
         </article>
-        <article class="kortti">
+        <article class="kortti kortti--palvelu">
+          <span class="kortti__ikoni"><Ikoni nimi="asiantuntija" /></span>
           <h2><a href={JATKUVAT.vastaava.polku}>Tietosuojavastaava ostopalveluna</a></h2>
           <p>Kun omaa tietosuojavastaavaa ei ole tai työ ei mahdu hänen aikaansa.</p>
           <div class="kortti__ala"><span class="kortti__hinta">alkaen {eur(JATKUVAT.vastaava.keski)}/kk</span></div>
         </article>
       </div>
-      <p class="pieni">Hinnat alv 0 %. Kaikki koot ja palvelut näet <a href="/hinnasto">hinnastosta</a>.</p>
-      <div class="lataus">
-        <a class="painike" href={PALVELUKUVAUS}>Lataa palvelukuvaus (PDF, {palvelukuvausKt} kt)</a>
-        <p class="pieni">Sisältö, hinnat ja toimitusajat valmiina hankintapäätöksen liitteeksi.</p>
-      </div>
+      <p class="pieni">Hinnat alv 0 %. Kaikki koot ja palvelut näette <a href="/hinnasto">hinnastosta</a>.</p>
     </div>
   </section>
 
   <section class="osio osio--valkoinen">
     <div class="kehys">
       <div class="osio__otsikko">
-        <h2>Kunnan tietosuojavuosi</h2>
-        <p class="johdatus">Tietosuojatyö kasautuu kunnissa samoihin ajankohtiin. Sovi apu valmiiksi, ennen kuin aikataulu kiristyy.</p>
+        <h2>Näin kunta ostaa palvelun</h2>
+        <p class="johdatus">Ei raskasta kilpailutusta kertapalveluissa. Noudattakaa kuntanne hankintaohjetta.</p>
       </div>
-      <div class="taulu">
-        <table class="taulukko">
-          <caption>Tyypilliset tietosuojatyön ajankohdat kunnassa</caption>
-          <thead>
-            <tr><th scope="col">Ajankohta</th><th scope="col">Työ</th><th scope="col">Palvelu</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Tammi–maaliskuu</td>
-              <td>Tietotilinpäätös edelliseltä vuodelta tilinpäätöksen rinnalla</td>
-              <td><a href={HINNAT.tietotilinpaatos.polku}>Tietotilinpäätös</a></td>
-            </tr>
-            <tr>
-              <td>Ympäri vuoden</td>
-              <td>Järjestelmähankintojen vaikutustenarvioinnit ennen käyttöönottoa</td>
-              <td><a href={HINNAT.vaikutustenarviointi.polku}>Vaikutustenarviointi</a></td>
-            </tr>
-            <tr>
-              <td>Hankinnan valmistelussa</td>
-              <td>Suuririskisen tekoälyn perusoikeusvaikutukset, alkaen {eur(ARVIOINNIT.fria.keski)}</td>
-              <td><a href={ARVIOINNIT.fria.polku}>{ARVIOINNIT.fria.nimi}</a></td>
-            </tr>
-            <tr>
-              <td>Elo–lokakuu</td>
-              <td>Jatkuvien palvelujen budjetointi ennen talousarvion lukitsemista</td>
-              <td><a href={JATKUVAT.vastaava.polku}>Tietosuojavastaava palveluna</a></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <ol class="toimii">
+        {
+          OSTO.map((v, i) => (
+            <li>
+              <div class="toimii__kuva" set:html={svg(v.kuva)} />
+              <span class="toimii__nro" aria-hidden="true">
+                {i + 1}
+              </span>
+              <h3>{v.otsikko}</h3>
+              <p>{v.teksti}</p>
+            </li>
+          ))
+        }
+      </ol>
     </div>
   </section>
 
   <section class="osio">
+    <div class="kehys">
+      <div class="osio__otsikko">
+        <h2>Kunnan tietosuojavuosi</h2>
+        <p class="johdatus">Tietosuojatyö kasautuu kunnissa samoihin ajankohtiin. Sopikaa apu valmiiksi, ennen kuin aikataulu kiristyy.</p>
+      </div>
+      <ol class="vuosi">
+        {
+          VUOSI.map((v) => (
+            <li>
+              <span class="vuosi__aika">{v.aika}</span>
+              <p>{v.tyo}</p>
+              <a href={v.polku}>{v.palvelu}</a>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="osio osio--valkoinen">
     <div class="kehys proosa">
       <h2>Ajankohtaista: seuraamusmaksu julkiselle sektorille</h2>
       <p>
@@ -145,9 +177,9 @@ const artikkeliTtp = await getEntry('artikkelit', 'tietotilinpaatos-sisalto-ja-a
     </div>
   </section>
 
-  <section class="osio osio--valkoinen">
-    <div class="kehys"><Kysymykset kysymykset={KYSYMYKSET} /></div>
+  <section class="osio">
+    <div class="kehys kehys--kapea"><Kysymykset kysymykset={KYSYMYKSET} /></div>
   </section>
 
-  <Loppukehotus otsikko="Sovitaan, mistä kunnan kannattaa aloittaa" teksti="Kerro, mitä hankinta tai tietotilinpäätös vaatii, niin vahvistamme kiinteän hinnan ja toimitusajan." />
+  <Loppukehotus otsikko="Sovitaan, mistä kunnan kannattaa aloittaa" teksti="Kertokaa, mitä hankinta tai tietotilinpäätös vaatii, niin vahvistamme kiinteän hinnan ja toimitusajan." />
 </Perus>

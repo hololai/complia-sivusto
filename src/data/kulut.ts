@@ -458,7 +458,7 @@ export const KULUT: Record<string, Kulku> = {
 
   tietosuojavastaava: {
     otsikko: 'Näin aloitus etenee',
-    johdanto: 'Aloitus alkaa maksuttomalla kartoituksella. Sen jälkeen tietosuojavastaava hoitaa jatkuvan työn, ja te kysytte, kun tarvitsette.',
+    johdanto: 'Kaikki alkaa maksuttomalla kartoituksella. Sen jälkeen tietosuojavastaava hoitaa jatkuvan työn, ja te kysytte, kun tarvitsette.',
     luvut: [
       { ikoni: 'kello', nimi: 'Teiltä tarvitaan', arvo: 'yhteyshenkilö' },
       { ikoni: 'seloste', nimi: 'Kartoitus', arvo: 'maksuton' },

@@ -6,6 +6,10 @@ import Loppukehotus from '../components/Loppukehotus.astro';
 import { SIVUSTO } from '../../site.config.mjs';
 import { ARVIOINNIT, ARVIOINTIEN_JARJESTYS, HINNAT, PAKETTI, JATKUVAT, PALVELUJEN_JARJESTYS, eur, kiintea } from '../data/hinnat';
 import { usein } from '../data/schema';
+import Ikoni from '../components/Ikoni.astro';
+
+// Tietotilinpäätös on kuntien palvelu, joten se näkyy kuntasivulla eikä yrityksille.
+const YRITYSPALVELUT = PALVELUJEN_JARJESTYS.filter((a) => a !== 'tietotilinpaatos');
 
 const TILANTEET = [
   {
@@ -62,7 +66,7 @@ const KYSYMYKSET = [
   },
   {
     k: 'Pitääkö palvelut ostaa kerralla?',
-    v: 'Ei. Jokainen palvelu on kertaostos, ja jatkopalvelu on vapaaehtoinen. Paketti on edullisin, jos tarvitset useampaa asiakirjaa.',
+    v: 'Ei. Jokainen palvelu on kertaostos, ja jatkopalvelu on vapaaehtoinen. Paketti on edullisin, jos tarvitsette useampaa asiakirjaa.',
   },
   {
     k: 'Miten hinta määräytyy?',
@@ -82,15 +86,29 @@ const KYSYMYKSET = [
       <div class="osio__otsikko">
         <h1>Tietosuojapalvelut yrityksille</h1>
         <p class="johdatus">
-          Saat GDPR:n vaatimat asiakirjat valmiina etkä työkalua, jolla ne pitäisi tehdä itse. Me teemme työn, sinä
-          hyväksyt lopputuloksen, ja hinta on tiedossa etukäteen.
+          Saatte GDPR:n vaatimat asiakirjat valmiina ettekä työkalua, jolla ne pitäisi tehdä itse. Me teemme työn,
+          te hyväksytte lopputuloksen, ja hinta on tiedossa etukäteen.
         </p>
       </div>
-      <div class="ruudukko">
-        {PALVELUJEN_JARJESTYS.map((a) => <PalveluKortti avain={a} otsikkotaso="h2" />)}
-      </div>
+      <h2 class="valitsin__otsikko">Mikä tilanteenne on?</h2>
+      <ul class="valitsin">
+        {
+          TILANTEET.map((t) => (
+            <li>
+              <a class="valinta" href={t.polku}>
+                <span class="valinta__tilanne">{t.tilanne}</span>
+                <span class="valinta__ratkaisu">
+                  {t.ratkaisu}
+                  <Ikoni nimi="nuoli" class="ikoni" />
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
       <p class="pieni">
-        Hinnat alv 0 %. Tietotilinpäätös on kuntien palvelu: katso <a href="/kunnat">tietosuojapalvelut kunnille</a>.
+        Ettekö löydä tilannettanne? <a href="/pikatesti">Pikatesti</a> kertoo kahdessa minuutissa, mistä kannattaa
+        aloittaa, tai <a href="/yhteystiedot">ottakaa yhteyttä</a>.
       </p>
     </div>
   </section>
@@ -98,17 +116,30 @@ const KYSYMYKSET = [
   <section class="osio osio--valkoinen">
     <div class="kehys">
       <div class="osio__otsikko">
-        <h2>Lisäarvioinnit tarpeen mukaan</h2>
-        <p class="johdatus">Tasapainotesti ja siirtovaikutusten arviointi sisältyvät vaikutustenarviointiin, kun niitä tarvitaan. Erikseen ostettuna niillä on kiinteä hinta. Katso <a href="/hinnasto#kokonaisuudet">esimerkkikokonaisuudet</a>.</p>
+        <h2>Kaikki palvelut kiinteällä hinnalla</h2>
+        <p class="johdatus">Jokaisella palvelulla on julkinen hinta ja luvattu toimitusaika. Hinnat alv 0 %.</p>
       </div>
+      <div class="ruudukko">
+        {YRITYSPALVELUT.map((a) => <PalveluKortti avain={a} />)}
+      </div>
+      <h3 class="lisaarvioinnit__otsikko">Lisäarvioinnit tarpeen mukaan</h3>
+      <p class="pieni lisaarvioinnit__teksti">
+        Tasapainotesti ja siirtovaikutusten arviointi sisältyvät vaikutustenarviointiin, kun niitä tarvitaan. Erikseen
+        ostettuna niillä on kiinteä hinta.
+      </p>
       <div class="ruudukko">
         {
           ARVIOINTIEN_JARJESTYS.map((a) => (
-            <article class="kortti">
-              <h3><a href={ARVIOINNIT[a].polku}>{ARVIOINNIT[a].nimi}</a></h3>
+            <article class="kortti kortti--palvelu">
+              <h4>
+                <a href={ARVIOINNIT[a].polku}>{ARVIOINNIT[a].nimi}</a>
+              </h4>
               <p>{ARVIOINNIT[a].lyhyt}</p>
               <div class="kortti__ala">
-                <span class="kortti__hinta">{kiintea(ARVIOINNIT[a]) ? '' : 'alkaen '}{eur(ARVIOINNIT[a].pieni)}</span>
+                <span class="kortti__hinta">
+                  {kiintea(ARVIOINNIT[a]) ? '' : 'alkaen '}
+                  {eur(ARVIOINNIT[a].pieni)}
+                </span>
                 <span class="pieni">{ARVIOINNIT[a].toimitus}</span>
               </div>
             </article>
@@ -119,41 +150,14 @@ const KYSYMYKSET = [
   </section>
 
   <section class="osio">
-    <div class="kehys">
-      <div class="osio__otsikko">
-        <h2>Mitä tarvitsen?</h2>
-        <p class="johdatus">Etsi tilanteesi. Jos et löydä sitä, <a href="/pikatesti">pikatesti</a> kertoo kahdessa minuutissa, mistä kannattaa aloittaa.</p>
-      </div>
-      <div class="taulu">
-        <table class="taulukko">
-          <caption>Yleisimmät tilanteet ja niihin sopivat palvelut</caption>
-          <thead>
-            <tr><th scope="col">Tilanne</th><th scope="col">Sopiva palvelu</th></tr>
-          </thead>
-          <tbody>
-            {
-              TILANTEET.map((t) => (
-                <tr>
-                  <td>{t.tilanne}</td>
-                  <td><a href={t.polku}>{t.ratkaisu}</a></td>
-                </tr>
-              ))
-            }
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <section class="osio osio--valkoinen">
     <div class="kehys ruudukko ruudukko--2">
       <div class="kortti polku">
         <h2>{PAKETTI.nimi} -paketti</h2>
         <p>
-          GAP-analyysi, tietosuojaselosteet ja seloste käsittelytoimista yhdessä, noin 20 % edullisemmin kuin
-          erikseen. Pienelle yritykselle {eur(PAKETTI.pieni)}.
+          GAP-analyysi, tietosuojaselosteet ja seloste käsittelytoimista yhdessä edullisemmin kuin erikseen. Pienelle
+          yritykselle {eur(PAKETTI.pieni)}.
         </p>
-        <div class="kortti__ala"><a class="painike" href="/hinnasto#paketti">Katso paketti</a></div>
+        <p class="lisalinkki"><a href="/hinnasto#paketti">Katso paketin hinnat</a></p>
       </div>
       <div class="kortti polku">
         <h2>Jatkuvat palvelut</h2>
@@ -161,13 +165,13 @@ const KYSYMYKSET = [
           {JATKUVAT.kunnossa.nimi} pitää asiakirjat ajan tasalla, alkaen {eur(JATKUVAT.kunnossa.pieni)}/kk.
           <a href={JATKUVAT.vastaava.polku}>{JATKUVAT.vastaava.nimi}</a> alkaen {eur(JATKUVAT.vastaava.pieni)}/kk.
         </p>
-        <div class="kortti__ala"><a class="painike painike--toinen" href="/hinnasto#jatkuvat">Katso jatkuvat palvelut</a></div>
+        <p class="lisalinkki"><a href="/hinnasto#jatkuvat">Katso jatkuvat palvelut</a></p>
       </div>
     </div>
   </section>
 
-  <section class="osio">
-    <div class="kehys"><Kysymykset kysymykset={KYSYMYKSET} /></div>
+  <section class="osio osio--valkoinen">
+    <div class="kehys kehys--kapea"><Kysymykset kysymykset={KYSYMYKSET} /></div>
   </section>
 
   <Loppukehotus />

@@ -2,7 +2,6 @@
 import Perus from '../layouts/Perus.astro';
 import Kysymykset from '../components/Kysymykset.astro';
 import Loppukehotus from '../components/Loppukehotus.astro';
-import Aloitus from '../components/Aloitus.astro';
 import { SIVUSTO } from '../../site.config.mjs';
 import {
   ARVIOINNIN_SISALTO,
@@ -100,7 +99,11 @@ const OPAS = [
           kiinteä hinta ja luvattu toimitusaika.
         </p>
       </div>
-      <Aloitus />
+      <p class="vihje">
+        <strong>Ettekö tiedä, mitä tarvitsette?</strong> Aloittakaa
+        <a href={HINNAT.tarkastus.polku}>GAP-analyysista</a> (alkaen {eur(HINNAT.tarkastus.pieni)}). Sen hinta vähennetään,
+        jos jatkatte {PAKETTI.nimi} -pakettiin.
+      </p>
       <ol class="opas">
         {
           OPAS.map((o) => (

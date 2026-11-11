@@ -778,17 +778,14 @@ a:hover {
   font-size: 1.3rem;
   line-height: 1.3;
 }
-.kortti h2,
-.kortti h3 {
+.kortti :is(h2, h3, h4) {
   margin-bottom: 0.4rem;
 }
-.kortti h2 a,
-.kortti h3 a {
+.kortti :is(h2, h3, h4) a {
   color: inherit;
   text-decoration: none;
 }
-.kortti h2 a:hover,
-.kortti h3 a:hover {
+.kortti :is(h2, h3, h4) a:hover {
   text-decoration: underline;
 }
 .kortti p {
@@ -2283,4 +2280,145 @@ html.lukittu body > :not(.portti) {
   width: 1rem;
   height: 1rem;
   color: var(--kuusi);
+}
+
+/* Palvelut-sivun tilannevalitsin: lukija löytää palvelun tilanteensa perusteella eikä palvelun nimellä. */
+.valitsin__otsikko {
+  font-size: clamp(1.3rem, 1.1rem + 0.8vw, 1.6rem);
+  margin-bottom: 1rem;
+}
+.valitsin {
+  list-style: none;
+  display: grid;
+  gap: 0.6rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(22rem, 100%), 1fr));
+  margin: 0 0 1rem;
+  padding: 0;
+}
+.valinta {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.6rem;
+  height: 100%;
+  padding: 1rem 1.15rem;
+  border: 1px solid var(--viiva);
+  border-radius: 12px;
+  background: var(--valkoinen);
+  color: var(--muste);
+  text-decoration: none;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.15s ease;
+}
+.valinta:hover {
+  border-color: var(--kuusi);
+  box-shadow: var(--varjo-1);
+  transform: translateY(-1px);
+}
+.valinta__tilanne {
+  font-weight: 600;
+  line-height: 1.4;
+}
+.valinta__ratkaisu {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--kuusi);
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+.valinta__ratkaisu .ikoni {
+  width: 1rem;
+  height: 1rem;
+  transition: transform 0.15s ease;
+}
+.valinta:hover .valinta__ratkaisu .ikoni {
+  transform: translateX(3px);
+}
+.lisaarvioinnit__otsikko {
+  margin: clamp(2rem, 4vw, 3rem) 0 0.35rem;
+}
+.lisaarvioinnit__teksti {
+  max-width: 44rem;
+  margin: 0 0 1rem;
+}
+.kortti--palvelu h4 {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  line-height: 1.3;
+}
+.kortti--palvelu h4 a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+/* Kuntasivu: lupausrivi ja tietosuojavuosi aikajanana. */
+.lupausrivi {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  list-style: none;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  color: var(--harmaa);
+  font-size: 0.95rem;
+}
+.lupausrivi li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.lupausrivi .ikoni {
+  width: 1.1rem;
+  height: 1.1rem;
+  color: var(--kuusi);
+}
+.vuosi {
+  position: relative;
+  list-style: none;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 1fr));
+  margin: 0;
+  padding: 0;
+}
+.vuosi li {
+  position: relative;
+  padding: 1.5rem 1.25rem 1.25rem;
+  border: 1px solid var(--viiva);
+  border-top: 4px solid var(--kuusi);
+  border-radius: 12px;
+  background: var(--valkoinen);
+}
+.vuosi li:nth-child(even) {
+  border-top-color: var(--kulta);
+}
+.vuosi__aika {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--kuusi);
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-weight: 650;
+}
+.vuosi p {
+  margin: 0 0 0.75rem;
+  color: var(--harmaa);
+}
+.vuosi a {
+  font-weight: 600;
+}
+
+/* Hinnaston vinkki: rauhallinen suositus aloituksesta ilman omaa painiketta. */
+.vihje {
+  max-width: 52rem;
+  margin: 0 0 1.5rem;
+  padding: 1rem 1.25rem;
+  border-left: 4px solid var(--kulta);
+  border-radius: 0 10px 10px 0;
+  background: var(--valkoinen);
 }
