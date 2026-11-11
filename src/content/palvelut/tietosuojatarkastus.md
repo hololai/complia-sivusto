@@ -26,11 +26,11 @@ usein:
 
 ## Mitä tietosuojatarkastus kertoo?
 
-Tietosuojatarkastus eli GAP-analyysi vertaa nykytilaanne tietosuoja-asetuksen vaatimuksiin. Nimi tulee englannin sanasta gap, aukko: analyysi näyttää aukot nykytilan ja vaatimusten välillä. Samasta työstä puhutaan myös tietosuoja-auditointina. Tuloksena on kuva siitä, mikä on kunnossa, mikä puuttuu ja mistä kannattaa aloittaa. Tarkastus sopii erityisesti silloin, kun asiakas, tarjouspyyntö tai johto kysyy, onko tietosuoja kunnossa, eikä kukaan osaa vastata varmasti.
+Tietosuojatarkastus eli GAP-analyysi vertaa nykytilaanne tietosuoja-asetuksen vaatimuksiin. Nimi tulee englannin sanasta gap, aukko: analyysi näyttää aukot nykytilan ja vaatimusten välillä. Samasta työstä puhutaan myös tietosuoja-auditointina. Tuloksena on kuva siitä, mikä on kunnossa, mikä puuttuu ja mistä kannattaa aloittaa. Tarkastus sopii erityisesti silloin, kun asiakas tai johto kysyy tai tarjouspyyntö edellyttää näyttöä siitä, onko tietosuoja kunnossa, eikä kukaan osaa vastata varmasti.
 
 ## Milloin tarkastus kannattaa tehdä?
 
-- Isompi asiakas tai tarjouspyyntö kysyy näyttöä tietosuojan tilasta.
+- Isompi asiakas pyytää tai tarjouspyyntö edellyttää näyttöä tietosuojan tilasta.
 - Tietosuoja-asiakirjat on tehty vuosia sitten, eikä kukaan vastaa niiden ylläpidosta.
 - Järjestelmät ovat vaihtuneet, tai käyttöön on tullut tekoälytyökaluja.
 - Johto haluaa ulkopuolisen näkemyksen ennen päätöksiä ja budjettia.
